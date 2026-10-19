@@ -8,6 +8,7 @@ import 'package:farmacias_guardia/location.dart';
 import 'package:farmacias_guardia/ui/acerca_de.dart';
 import 'package:farmacias_guardia/ui/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -38,6 +39,21 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.textContaining('REAL VICENS'), findsWidgets);
     expect(find.text('Cómo llegar'), findsWidgets);
+  });
+
+  testWidgets('copiar los datos de una guardia', (tester) async {
+    String? copiado;
+    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(SystemChannels.platform, (call) async {
+      if (call.method == 'Clipboard.setData') copiado = (call.arguments as Map)['text'] as String?;
+      return null;
+    });
+    await tester.pumpWidget(_app(repo, lugaresConDatos.first, DateTime.utc(2026, 1, 1, 22).toLocal()));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Copiar datos').first);
+    await tester.pumpAndSettle();
+    expect(copiado, startsWith('Farmacia de guardia: '));
+    expect(copiado, contains('google.com/maps'));
+    expect(find.text('Datos de la farmacia copiados'), findsOneWidget);
   });
 
   testWidgets('Burgos avisa de que no hay datos oficiales', (tester) async {

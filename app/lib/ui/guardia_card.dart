@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -26,6 +27,19 @@ Uri uriComoLlegar(Farmacia f) {
   }
   final q = Uri.encodeComponent('${f.direccion} ${f.localidad ?? ''}');
   return Uri.parse('https://www.google.com/maps/search/?api=1&query=$q');
+}
+
+/// Texto para copiar y pegar (WhatsApp, SMS...) con los datos de la guardia.
+String textoGuardia(Guardia g) {
+  final f = g.farmacia;
+  final t = g.turno;
+  return [
+    'Farmacia de guardia: ${f.titular}',
+    [f.direccion, if (f.localidad != null) f.localidad!].join(', '),
+    if (f.telefonoParaLlamar != null) 'Tel. ${f.telefonoParaLlamar}',
+    '${etiquetaTipo(t.tipo)}: ${formatoHorario(t)}${t.horarioConfirmado ? '' : ' (horario orientativo)'}',
+    uriComoLlegar(f).toString(),
+  ].join('\n');
 }
 
 class GuardiaCard extends StatelessWidget {
@@ -81,6 +95,17 @@ class GuardiaCard extends StatelessWidget {
                     label: Text(tel),
                   ),
                 const Spacer(),
+                IconButton(
+                  tooltip: 'Copiar datos',
+                  icon: const Icon(Icons.copy_outlined),
+                  onPressed: () async {
+                    await Clipboard.setData(ClipboardData(text: textoGuardia(guardia)));
+                    if (context.mounted) {
+                      ScaffoldMessenger.maybeOf(context)
+                          ?.showSnackBar(const SnackBar(content: Text('Datos de la farmacia copiados')));
+                    }
+                  },
+                ),
                 TextButton.icon(
                   onPressed: () => launchUrl(uriComoLlegar(f), mode: LaunchMode.externalApplication),
                   icon: const Icon(Icons.directions),
