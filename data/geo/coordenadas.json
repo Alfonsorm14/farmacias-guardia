@@ -2669,6 +2669,16 @@
 "lon": -3.6162174,
 "precision": "portal"
 },
+"MAD:109": {
+"consulta": "CALLE GENERAL PARDIÑAS, 20 | Madrid",
+"cp": null,
+"direccion": "CL GENERAL PARDIÑAS, 20",
+"fuente": "cartociudad",
+"lat": 40.425322,
+"localidad": "Madrid",
+"lon": -3.678485,
+"precision": "portal"
+},
 "MAD:1102": {
 "consulta": "PASEO HABANA, 7 | Madrid",
 "cp": null,
@@ -2919,6 +2929,16 @@
 "lon": -3.6071163,
 "precision": "portal"
 },
+"MAD:1678": {
+"consulta": "PLAZA REYES MAGOS, 6 | Madrid",
+"cp": null,
+"direccion": "PZ REYES MAGOS, 6 ESQ CL JULIO REY PASTOR",
+"fuente": "cartociudad",
+"lat": 40.4080808,
+"localidad": "Madrid",
+"lon": -3.6764821,
+"precision": "portal"
+},
 "MAD:1764": {
 "consulta": "AVENIDA PABLO NERUDA, 91 | Madrid",
 "cp": null,
@@ -3047,6 +3067,16 @@
 "lat": 40.3858589,
 "localidad": "Madrid",
 "lon": -3.7629852,
+"precision": "portal"
+},
+"MAD:2293": {
+"consulta": "CALLE SANGENJO, 29 | Madrid",
+"cp": null,
+"direccion": "CL SANGENJO, 29",
+"fuente": "cartociudad",
+"lat": 40.4854709,
+"localidad": "Madrid",
+"lon": -3.7001037,
 "precision": "portal"
 },
 "MAD:2314": {

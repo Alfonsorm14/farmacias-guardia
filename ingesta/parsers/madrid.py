@@ -8,12 +8,18 @@ solo el número de oficina de farmacia.
 
 Los PDF se guardan en data/raw/madrid/ como madrid_AAAA-MM.pdf (uno por mes).
 
+El mismo conjunto publica un CSV anual ("Farmacias de guardia AAAA", UTF-8 con BOM, separador ";")
+con las mismas filas (Municipio;Barrio;Fecha;Farmacia;Dirección;Duración;Teléfono). Se guarda como
+data/raw/madrid/madrid_AAAA.csv y se usan sus dos últimos meses. Si un mismo día está en el PDF y
+en el CSV y no coinciden, se avisa (PDF_CSV_DIFIEREN); los duplicados exactos se cuentan una vez.
+
 Uso:
     from ingesta.parsers.madrid import parse_dir
     result = parse_dir("data/raw/madrid")
 """
 from __future__ import annotations
 
+import csv
 import glob
 import os
 import re
@@ -38,6 +44,8 @@ _ROW_RE = re.compile(
 )
 _HOURS_RE = re.compile(r"\((\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})\s*H(\s+D[IÍ]A SIGUIENTE)?\)", re.I)
 _FILE_RE = re.compile(r"madrid_(\d{4})-(\d{2})\.pdf$")
+_CSV_RE = re.compile(r"madrid_(\d{4})\.csv$")
+CSV_COLUMNS = ["Municipio", "Barrio", "Fecha", "Farmacia", "Dirección", "Duración", "Teléfono"]
 
 
 def parse_line(line: str) -> dict[str, str] | None:
@@ -63,6 +71,75 @@ def _shift_times(day: date, horario: str) -> tuple[datetime, datetime, str, bool
     return start, end, kind, True
 
 
+def _row_to_records(
+    row: dict[str, str], where: str, warnings: list[str]
+) -> tuple[Pharmacy, DutyShift] | None:
+    """Fila normalizada (localidad, distrito, fecha, numero, direccion, horario, telefono)."""
+    day = datetime.strptime(row["fecha"], "%d/%m/%Y").date()
+    times = _shift_times(day, row["horario"])
+    if times is None:
+        warnings.append(f"{where}: HORARIO_NO_RECONOCIDO: {row['horario']}")
+        return None
+    start, end, kind, exact = times
+    pharmacy_id = f"MAD:{int(row['numero'])}"
+    phone = re.sub(r"\D", "", row["telefono"])
+    pharmacy = Pharmacy(
+        id=pharmacy_id,
+        region=REGION,
+        holder=f"nº {int(row['numero'])}",
+        address=re.sub(r"\s+", " ", row["direccion"]).strip(),
+        locality=row["localidad"].strip().title() or None,
+        postal_code=None,
+        phone=phone if len(phone) == 9 else None,
+        duty_phone=None,
+    )
+    shift = DutyShift(
+        pharmacy_id=pharmacy_id,
+        zone=f"MADRID - {row['distrito'].strip()}",
+        start=start,
+        end=end,
+        kind=kind,
+        raw_label=re.sub(r"\s+", " ", row["horario"]).strip(),
+        times_exact=exact,
+    )
+    return pharmacy, shift
+
+
+def _parse_csv(path: str, warnings: list[str]) -> tuple[dict[str, Pharmacy], list[DutyShift]]:
+    """CSV anual del portal; solo sus dos últimos meses (los anteriores ya no sirven)."""
+    filename = os.path.basename(path)
+    with open(path, encoding="utf-8-sig", newline="") as fh:
+        reader = csv.DictReader(fh, delimiter=";")
+        if reader.fieldnames != CSV_COLUMNS:
+            warnings.append(f"{filename}: COLUMNAS_INESPERADAS: {reader.fieldnames}")
+            return {}, []
+        rows = list(reader)
+    months = sorted({r["Fecha"][3:] for r in rows if re.fullmatch(r"\d{2}/\d{2}/\d{4}", r["Fecha"] or "")},
+                    key=lambda m: (m[3:], m[:2]))
+    keep = set(months[-2:])
+    pharmacies: dict[str, Pharmacy] = {}
+    shifts: list[DutyShift] = []
+    for n, r in enumerate(rows, start=2):
+        if (r["Fecha"] or "")[3:] not in keep:
+            continue
+        if not (r["Farmacia"] or "").strip().isdigit():
+            warnings.append(f"{filename} l{n}: LINEA_NO_RECONOCIDA: {r}")
+            continue
+        rec = _row_to_records(
+            {
+                "localidad": r["Municipio"], "distrito": r["Barrio"], "fecha": r["Fecha"],
+                "numero": r["Farmacia"], "direccion": r["Dirección"], "horario": r["Duración"],
+                "telefono": r["Teléfono"] or "",
+            },
+            f"{filename} l{n}",
+            warnings,
+        )
+        if rec:
+            pharmacies[rec[0].id] = rec[0]
+            shifts.append(rec[1])
+    return pharmacies, shifts
+
+
 def _parse_file(path: str, warnings: list[str]) -> tuple[dict[str, Pharmacy], list[DutyShift]]:
     filename = os.path.basename(path)
     text = pdf_to_text(path)
@@ -80,52 +157,48 @@ def _parse_file(path: str, warnings: list[str]) -> tuple[dict[str, Pharmacy], li
             if row is None:
                 warnings.append(f"{filename} p{page}: LINEA_NO_RECONOCIDA: {stripped}")
                 continue
-            day = datetime.strptime(row["fecha"], "%d/%m/%Y").date()
-            times = _shift_times(day, row["horario"])
-            if times is None:
-                warnings.append(f"{filename} p{page}: HORARIO_NO_RECONOCIDO: {row['horario']}")
-                continue
-            start, end, kind, exact = times
-            pharmacy_id = f"MAD:{int(row['numero'])}"
-            phone = re.sub(r"\D", "", row["telefono"])
-            pharmacies[pharmacy_id] = Pharmacy(
-                id=pharmacy_id,
-                region=REGION,
-                holder=f"nº {int(row['numero'])}",
-                address=re.sub(r"\s+", " ", row["direccion"]).strip(),
-                locality=row["localidad"].strip().title() or None,
-                postal_code=None,
-                phone=phone if len(phone) == 9 else None,
-                duty_phone=None,
-            )
-            shifts.append(
-                DutyShift(
-                    pharmacy_id=pharmacy_id,
-                    zone=f"MADRID - {row['distrito'].strip()}",
-                    start=start,
-                    end=end,
-                    kind=kind,
-                    raw_label=row["horario"].strip(),
-                    times_exact=exact,
-                )
-            )
+            rec = _row_to_records(row, f"{filename} p{page}", warnings)
+            if rec:
+                pharmacies[rec[0].id] = rec[0]
+                shifts.append(rec[1])
     return pharmacies, shifts
 
 
 def parse_dir(path: str, retrieved_at: datetime | None = None) -> ParseResult:
-    """Procesa todos los PDF mensuales madrid_AAAA-MM.pdf del directorio."""
+    """Procesa los PDF mensuales madrid_AAAA-MM.pdf y los CSV anuales madrid_AAAA.csv del directorio."""
     pharmacies: dict[str, Pharmacy] = {}
     shifts: list[DutyShift] = []
     warnings: list[str] = []
+    by_origin: dict[str, list[DutyShift]] = {"pdf": [], "csv": []}
     for file in sorted(glob.glob(os.path.join(path, "madrid_*.pdf"))):
         if not _FILE_RE.search(file):
             continue
         p, s = _parse_file(file, warnings)
         pharmacies.update(p)
-        shifts.extend(s)
-    # Un mismo turno repetido (p. ej. dos descargas del mismo mes) se cuenta una vez.
+        by_origin["pdf"].extend(s)
+    for file in sorted(glob.glob(os.path.join(path, "madrid_*.csv"))):
+        if not _CSV_RE.search(file):
+            continue
+        p, s = _parse_csv(file, warnings)
+        for pid, ph in p.items():
+            pharmacies.setdefault(pid, ph)
+        by_origin["csv"].extend(s)
+    # Contraste: los días que están en los dos deben coincidir.
+    def by_day(items: list[DutyShift]) -> dict[date, set]:
+        out: dict[date, set] = {}
+        for s in items:
+            out.setdefault(s.start.date(), set()).add((s.pharmacy_id, s.start, s.end, s.kind))
+        return out
+    pdf_days, csv_days = by_day(by_origin["pdf"]), by_day(by_origin["csv"])
+    for day in sorted(set(pdf_days) & set(csv_days)):
+        if pdf_days[day] != csv_days[day]:
+            diff = sorted(pid for pid, *_ in pdf_days[day] ^ csv_days[day])
+            warnings.append(f"PDF_CSV_DIFIEREN {day:%d/%m/%Y}: {', '.join(diff)}")
+    shifts = by_origin["pdf"] + by_origin["csv"]
+    # Un mismo turno repetido (dos descargas del mismo mes, PDF y CSV, filas duplicadas del CSV)
+    # se cuenta una vez.
     unique = {(s.pharmacy_id, s.start, s.kind): s for s in shifts}
-    files = [f for f in glob.glob(os.path.join(path, "madrid_*.pdf")) if _FILE_RE.search(f)]
+    files = [f for f in glob.glob(os.path.join(path, "madrid_*.*")) if _FILE_RE.search(f) or _CSV_RE.search(f)]
     if retrieved_at is None and files:
         # Fecha de descarga = última modificación del PDF más reciente (determinista).
         retrieved_at = datetime.fromtimestamp(max(os.path.getmtime(f) for f in files), TZ)

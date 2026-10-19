@@ -1,8 +1,9 @@
-"""Genera data/out/madrid_2026.json a partir de los PDF mensuales de data/raw/madrid/.
+"""Genera data/out/madrid_2026.json a partir de los PDF mensuales y del CSV anual de data/raw/madrid/.
 
 Para añadir un mes nuevo: descargar el PDF vigente de
 https://datos.madrid.es/dataset/214440-0-farmacias-guardia (recurso "Farmacias de
-guardia", se sustituye cada mes) y guardarlo como data/raw/madrid/madrid_AAAA-MM.pdf.
+guardia", se sustituye cada mes) y guardarlo como data/raw/madrid/madrid_AAAA-MM.pdf; el CSV
+"Farmacias de guardia AAAA" como data/raw/madrid/madrid_AAAA.csv (scripts/actualizar_todo.py lo hace).
 """
 from __future__ import annotations
 
@@ -30,6 +31,8 @@ def main() -> int:
     if days:
         print(f"Días:      {days[0]} a {days[-1]}")
     print(f"Warnings:  {len(result.warnings)}")
+    for w in result.warnings[:20]:
+        print(f"  {w}")
     return 0
 
 

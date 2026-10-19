@@ -2,7 +2,7 @@
 
 Pasos:
 1. Descarga lo que cambia a menudo: Navarra (ventana diaria), Zaragoza (solo el día en curso)
-   y Madrid (PDF del mes vigente).
+   y Madrid (PDF del mes vigente y CSV del año, que se contrastan entre sí).
 2. Regenera data/out/*.json con los parsers.
 3. Importa en data/guardias.db (las coordenadas se conservan si la dirección no cambia).
 4. Geocodifica solo lo nuevo o pendiente (--recheck; la caché evita repetir consultas).
@@ -65,6 +65,41 @@ def _descargar_madrid() -> None:
     print(f"Madrid: {destino}")
 
 
+CKAN_MADRID = "https://datos.madrid.es/api/3/action/package_show?id=214440-0-farmacias-guardia"
+
+
+def _descargar_madrid_csv() -> None:
+    """CSV anual "Farmacias de guardia AAAA" del portal (se localiza por la API CKAN)."""
+    import json
+
+    from ingesta.parsers.madrid import CSV_COLUMNS
+
+    req = urllib.request.Request(CKAN_MADRID, headers={"User-Agent": USER_AGENT})
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        recursos = json.load(resp)["result"]["resources"]
+    hoy = date.today()
+    for anio in (hoy.year, hoy.year - 1) if hoy.month == 1 else (hoy.year,):
+        candidatos = [
+            r for r in recursos
+            if (r.get("format") or "").upper() == "CSV" and str(anio) in (r.get("description") or "")
+        ]
+        if not candidatos:
+            continue
+        req = urllib.request.Request(candidatos[0]["url"], headers={"User-Agent": USER_AGENT})
+        with urllib.request.urlopen(req, timeout=120) as resp:
+            data = resp.read()
+        cabecera = data.decode("utf-8-sig", errors="replace").splitlines()[0].split(";")
+        if cabecera != CSV_COLUMNS:
+            print(f"Madrid CSV {anio}: columnas inesperadas {cabecera}; no se guarda.")
+            continue
+        destino = os.path.join(BASE_DIR, "data", "raw", "madrid", f"madrid_{anio}.csv")
+        tmp = destino + ".tmp"
+        with open(tmp, "wb") as fh:
+            fh.write(data)
+        os.replace(tmp, destino)
+        print(f"Madrid CSV: {destino}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--sin-descargas", action="store_true")
@@ -76,6 +111,10 @@ def main() -> int:
             _descargar_madrid()
         except OSError as exc:
             print(f"Madrid: descarga fallida ({exc}); se usa lo ya guardado.")
+        try:
+            _descargar_madrid_csv()
+        except (OSError, ValueError, KeyError) as exc:
+            print(f"Madrid CSV: descarga fallida ({exc}); se usa lo ya guardado.")
     _run("scripts/run_navarra.py")
     _run("scripts/run_madrid.py")
     _run("scripts/run_zaragoza.py")
