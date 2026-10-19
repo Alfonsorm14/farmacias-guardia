@@ -1303,11 +1303,11 @@
 "consulta": "AVENIDA GABRIEL ALOMAR I VILLALONGA, 27 | Palma",
 "cp": null,
 "direccion": "AV GABRIEL ALOMAR I VILLALONGA, 27",
-"fuente": null,
-"lat": null,
+"fuente": "osm_farmacia",
+"lat": 39.568466,
 "localidad": null,
-"lon": null,
-"precision": null
+"lon": 2.6572675,
+"precision": "portal"
 },
 "IB:8566fb411b7c": {
 "consulta": "CARRER AMPLE, 12 | Sant Antoni de Portmany",

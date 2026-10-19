@@ -1381,8 +1381,18 @@ def osm_street_match(core: ParsedAddress, road: str) -> bool:
     return len(a) >= 5 and a == b
 
 
+def _nucleus_box(n: "Nucleus", margin: float = 0.01) -> tuple[float, float, float, float]:
+    """(lon_min, lat_max, lon_max, lat_min) del polígono del núcleo, para el viewbox de Nominatim."""
+    pts = [p for ring in n.rings for p in ring] or [(n.lon, n.lat)]
+    xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+    return min(xs) - margin, max(ys) + margin, max(xs) + margin, min(ys) - margin
+
+
 def _osm_pharmacy(
-    geo: GeoClient, pharmacy: Pharmacy, center: tuple[float, float]
+    geo: GeoClient,
+    pharmacy: Pharmacy,
+    center: tuple[float, float] | None = None,
+    box: tuple[float, float, float, float] | None = None,
 ) -> tuple[float, float, str, str] | None:
     """Farmacia cartografiada en OpenStreetMap en la misma vía, cerca del núcleo.
 
@@ -1393,13 +1403,21 @@ def _osm_pharmacy(
     core = street_core(pharmacy.address)
     if not core.name or len(normalize_text(core.name)) < 3:
         return None
-    lat, lon = center
-    d = 0.03  # ~3 km
+    if box is None:
+        if center is None:
+            return None
+        lat, lon = center
+        d = 0.03  # ~3 km
+        box = (lon - d, lat + d, lon + d, lat - d)
+        q = "farmacia"
+    else:
+        # Término extenso (Palma, Murcia...): más de 50 farmacias en la caja, se busca con la vía.
+        q = f"farmacia {core.name}"
     found = geo.nominatim(
-        q="farmacia",
+        q=q,
         limit="50",
         bounded="1",
-        viewbox=f"{lon - d:.4f},{lat + d:.4f},{lon + d:.4f},{lat - d:.4f}",
+        viewbox=f"{box[0]:.4f},{box[1]:.4f},{box[2]:.4f},{box[3]:.4f}",
     )
     same_street = [
         it for it in found
@@ -1495,15 +1513,25 @@ def geocode_pharmacy(geo: GeoClient, pharmacy: Pharmacy) -> GeoResult:
             rejected.append(why)
 
     detail = "; ".join(dict.fromkeys(rejected)) or "dirección no encontrada"
-    # Último recurso antes del centro del núcleo: la farmacia cartografiada en OpenStreetMap.
+    # Último recurso antes del centro del núcleo: la farmacia cartografiada en OpenStreetMap,
+    # cerca del núcleo o, en términos extensos o sin localidad, en todo el casco con la vía.
+    osm = None
     center = nucleus or casco_nucleus
     if center is not None:
-        osm = _osm_pharmacy(geo, pharmacy, (center.lat, center.lon))
-        if osm is not None:
-            why = _validate_point(geo, ctx, nucleus, casco_nucleus, region, osm[0], osm[1])
-            if why is None:
-                return GeoResult(osm[0], osm[1], osm[2], "osm_farmacia", query, f"{detail}; {osm[3]}")
-            detail += f"; farmacia OSM descartada ({why})"
+        osm = _osm_pharmacy(geo, pharmacy, center=(center.lat, center.lon))
+    if osm is None:
+        wide = [casco_nucleus] if casco_nucleus is not None and casco_nucleus.rings else []
+        if not wide and nucleus is None and not ctx.nucleus_name:
+            wide = [n for n in (find_nucleus(geo, m, [m], region) for m in ctx.munis[:2]) if n is not None and n.rings]
+        for n in wide:
+            osm = _osm_pharmacy(geo, pharmacy, box=_nucleus_box(n))
+            if osm is not None:
+                break
+    if osm is not None:
+        why = _validate_point(geo, ctx, nucleus, casco_nucleus, region, osm[0], osm[1])
+        if why is None:
+            return GeoResult(osm[0], osm[1], osm[2], "osm_farmacia", query, f"{detail}; {osm[3]}")
+        detail += f"; farmacia OSM descartada ({why})"
     if nucleus is not None:
         why = _validate_point(geo, ctx, None, None, region, nucleus.lat, nucleus.lon)
         if why is None:
