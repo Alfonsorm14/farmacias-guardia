@@ -79,6 +79,8 @@ def _resumen(r: dict) -> dict:
         "mensaje": r["mensaje"],
         "aviso": r.get("aviso") is not None,
         "farmacias": sorted({g["farmacia"]["id"] for g in r["guardias"]}),
+        # Turno elegido para cada farmacia (una farmacia en varios cuadrantes se muestra una vez).
+        "turnos": sorted(f'{g["farmacia"]["id"]}|{g["turno"]["inicio"]}|{g["turno"]["fin"]}' for g in r["guardias"]),
     }
 
 

@@ -160,6 +160,20 @@ class GuardiasEngine {
     return out;
   }
 
+  /// Preferencia del cuadrante de un turno para su farmacia (menor es mejor): el de su localidad,
+  /// luego el que la contiene y, a igualdad, el de nombre más corto. Igual que
+  /// select_best_shift_for_pharmacy en backend/api.py.
+  int _puntuacion(int farmacia, TurnoIndexado t) {
+    final loc = (farmacias[farmacia].localidad ?? '').trim().toUpperCase();
+    final zona = zonas[t.zona].trim().toUpperCase();
+    final coincide = loc.isNotEmpty && zona == loc
+        ? 0
+        : loc.isNotEmpty && zona.contains(loc)
+            ? 1
+            : 3;
+    return coincide * 100000 + zonas[t.zona].length;
+  }
+
   Turno _turno(TurnoIndexado t) => Turno(
         tipo: t.tipo,
         inicio: DateTime.fromMillisecondsSinceEpoch(t.inicioMin * 60000, isUtc: true),
@@ -193,16 +207,21 @@ class GuardiasEngine {
     bool solapa(TurnoIndexado t) => fin == ini ? (t.inicioMin <= ini && ini < t.finMin) : (t.inicioMin < fin && t.finMin > ini);
 
     final guardias = <Guardia>[];
-    final vistos = <String>{};
     final zonasCercanas = <int>{};
+    final instante = fin == ini;
     cercanas.forEach((idx, d) {
       zonasCercanas.addAll(_zonasPorFarmacia[idx] ?? const {});
+      // Una farmacia citada en varios cuadrantes se muestra una vez (como la API): en "Ahora", un
+      // turno por farmacia; en un día, uno por (tipo, inicio). Se elige el cuadrante de su localidad.
+      final grupos = <String, TurnoIndexado>{};
       for (final ti in _turnosPorFarmacia[idx]!) {
         final t = turnos[ti];
         if (!solapa(t)) continue;
-        // Una farmacia citada en varios cuadrantes a la misma hora se muestra una vez.
-        final clave = '$idx|${t.inicioMin}|${t.finMin}';
-        if (!vistos.add(clave)) continue;
+        final clave = instante ? '' : '${t.tipo.index}|${t.inicioMin}';
+        final previo = grupos[clave];
+        if (previo == null || _puntuacion(idx, t) < _puntuacion(idx, previo)) grupos[clave] = t;
+      }
+      for (final t in grupos.values) {
         guardias.add(Guardia(farmacia: farmacias[idx], turno: _turno(t), distanciaKm: d));
       }
     });

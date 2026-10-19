@@ -139,7 +139,9 @@ class SnapshotRepository implements GuardiasRepository {
   String get descripcionDatos {
     final e = _engine;
     if (e == null) return 'Datos oficiales incluidos en la app';
-    final hasta = e.ultimoTurno?.toLocal();
+    // Último día con turno (el fin es exclusivo: un turno hasta el 1/1 00:00 acaba el 31/12).
+    final ultimo = e.ultimoTurno;
+    final hasta = ultimo == null ? null : enMadrid(ultimo.subtract(const Duration(minutes: 1)));
     final fmt = hasta == null ? '' : ' (turnos publicados hasta ${hasta.day}/${hasta.month}/${hasta.year})';
     return 'Datos oficiales de ${e.generado.day}/${e.generado.month}/${e.generado.year}$fmt';
   }
