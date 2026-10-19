@@ -31,6 +31,17 @@ python -m backend.importer data/out
 
 ---
 
+## 2 bis. Actualización diaria (todas las fuentes)
+
+```powershell
+.venv\Scripts\python scripts\actualizar_todo.py
+```
+Descarga Navarra (ventana diaria de datos abiertos) y el PDF vigente de Madrid ciudad, regenera
+`data/out/*.json`, importa, geocodifica solo lo nuevo y exporta la instantánea de la app. Conviene
+programarlo a diario (Programador de tareas de Windows). Baleares y Murcia son anuales.
+
+---
+
 ## 3. Geocodificación (v4, 19/10/2026)
 
 `backend/geocode.py` sitúa cada farmacia con CartoCiudad (IGN) y Nominatim (OSM). Sustituye a la versión de las Tareas 03b/03c, cuya revisión detectó pedanías en el centroide de su municipio, una comparación de municipios por subcadena ("Murcia" aceptaba resultados de "Alhama de Murcia") y resultados de Nominatim de cualquier tipo contados como "calle".
