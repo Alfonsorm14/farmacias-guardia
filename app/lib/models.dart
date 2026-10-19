@@ -43,7 +43,16 @@ class Fuente {
   final String url;
   final String licencia;
 
-  const Fuente({required this.id, required this.editor, required this.url, required this.licencia});
+  /// La fuente solo cubre un término municipal (Madrid, Zaragoza).
+  final bool municipal;
+
+  const Fuente({
+    required this.id,
+    required this.editor,
+    required this.url,
+    required this.licencia,
+    this.municipal = false,
+  });
 }
 
 class Farmacia {
@@ -118,10 +127,14 @@ class ResultadoGuardias {
   /// Farmacias de guardia en la zona que no se han podido situar en el mapa.
   final List<Farmacia> sinCoordenadas;
 
+  /// Último instante con turnos publicados por las fuentes de la zona.
+  final DateTime? datosHasta;
+
   const ResultadoGuardias({
     required this.cobertura,
     required this.guardias,
     this.mensaje,
     this.sinCoordenadas = const [],
+    this.datosHasta,
   });
 }

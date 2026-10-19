@@ -182,10 +182,12 @@ def main() -> int:
             day = date(YEAR, 1, 1) + timedelta(days=index // 2)
             page_no = index // 2 + 1
             lines: list[str] = []
+            previous_kind = None
             for top, bottom in text_bands(w1, h1, g1):
                 key = band_hash(w1, g1, top, bottom)
                 if key in TRANSCRIPCION:
                     kind, text = TRANSCRIPCION[key]
+                    previous_kind = kind
                     if kind == "cabecera":
                         lines.append(text)
                     elif kind == "zona":
@@ -204,9 +206,13 @@ def main() -> int:
                     lines += ["", "", f"01/01/{YEAR} - 31/12/{YEAR}" + " " * 48 + f"Página {page_no} de 365"]
                     continue
                 match = re.search(r"(\d{1,2})\s+de\s+([a-zé]+)", ocr.lower())
-                if not re.search(r"\bde\b", ocr.lower()):
+                # La única banda variable fuera del pie es la fecha, justo debajo de la
+                # línea azul de cabecera. Cualquier otra banda desconocida (p. ej. una
+                # farmacia nueva) detiene el proceso: no se rellena por aproximación.
+                if previous_kind != "regla":
                     print(f"Banda desconocida en la página {page_no}: {ocr!r}", file=sys.stderr)
                     return 1
+                previous_kind = "fecha"
                 if match is None:
                     unverified.append(page_no)
                     lines += ["", date_line(day)]

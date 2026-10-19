@@ -108,7 +108,7 @@ CASCO_CENTROID_MAX_EXTENT_KM = 8.0
 STREET_MIN_SCORE = 0.6
 
 _last_call: dict[str, float] = {"cartociudad": 0.0, "nominatim": 0.0}
-_MIN_INTERVAL = {"cartociudad": 0.12, "nominatim": 1.05}
+_MIN_INTERVAL = {"cartociudad": 0.34, "nominatim": 1.05}
 
 
 def haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
@@ -1098,15 +1098,8 @@ def parse_address(clean: str) -> ParsedAddress:
     return ParsedAddress("", text, number)
 
 
-def street_similarity(query_name: str, result_street: str) -> float:
-    """Proporción de palabras significativas de la vía buscada presentes en la hallada."""
-    qt = [_canon_token(t) for t in _tokens(query_name)]
-    rt = [_canon_token(t) for t in _tokens(result_street)]
-    q = [t for t in qt if t not in _STREET_STOP and not t.isdigit()]
-    r = [t for t in rt if t not in _STREET_STOP and not t.isdigit()]
-    if not q:
-        q = [t for t in qt if not t.isdigit()]
-        r = [t for t in rt if not t.isdigit()]
+def _coverage(q: list[str], r: list[str]) -> float:
+    """Proporción de palabras de `q` presentes (aproximadamente) en `r`."""
     if not q or not r:
         return 0.0
     hits = 0.0
@@ -1117,6 +1110,26 @@ def street_similarity(query_name: str, result_street: str) -> float:
         elif any(cand.startswith(tok) or tok.startswith(cand) for cand in r if len(cand) >= 3):
             hits += 0.8
     return hits / len(q)
+
+
+def street_similarity(query_name: str, result_street: str) -> float:
+    """Parecido entre la vía buscada y la hallada, en los dos sentidos.
+
+    Se combina la cobertura de la consulta en el resultado con la del resultado en
+    la consulta: "DOCTOR ORFILA" no casa con "DOCTOR CAMPS" y una vía con dos o más
+    palabras distintivas ausentes en la fuente se descarta.
+    """
+    qt = [_canon_token(t) for t in _tokens(query_name)]
+    rt = [_canon_token(t) for t in _tokens(result_street)]
+    q = [t for t in qt if t not in _STREET_STOP and not t.isdigit()]
+    r = [t for t in rt if t not in _STREET_STOP and not t.isdigit()]
+    if not q:
+        q = [t for t in qt if not t.isdigit()]
+        r = [t for t in rt if not t.isdigit()]
+    # La inversa se exige con más holgura (≥ 0,5): las fuentes abrevian a menudo el
+    # nombre oficial ("CANOVAS" por "Cánovas del Castillo"); sí descarta vías con
+    # varias palabras distintivas que la fuente no menciona.
+    return min(_coverage(q, r), min(1.0, _coverage(r, q) + 0.1))
 
 
 def _result_street(address: str | None) -> str:
@@ -1159,7 +1172,8 @@ def _validate_point(
     if rev is None:
         return "sin geocodificación inversa"
     if ctx.munis and muni_key(rev.get("muni")) not in ctx.muni_keys:
-        shared = nucleus is not None and nucleus.distance_km(lat, lon) <= NUCLEUS_SHARED_KM
+        # Solo el núcleo principal (de un municipio esperado), no sus homónimos.
+        shared = nucleus is not None and nucleus._own_distance_km(lat, lon) <= NUCLEUS_SHARED_KM
         if not shared:
             return f"municipio inverso {rev.get('muni')!r} no esperado"
     if nucleus is not None and nucleus.distance_km(lat, lon) > NUCLEUS_MAX_KM:
@@ -1238,7 +1252,7 @@ def _cartociudad_street(
             if not lat or not lon:
                 continue
             if other_muni and nucleus is not None and (
-                nucleus.distance_km(float(lat), float(lon)) > NUCLEUS_SHARED_KM
+                nucleus._own_distance_km(float(lat), float(lon)) > NUCLEUS_SHARED_KM
             ):
                 continue
             if not cp_near and it.get("type") in ("portal", "expendeduria") and addr.number and (
@@ -1252,7 +1266,10 @@ def _cartociudad_street(
             break
         if accepted and not addr.number:
             break
-    accepted.sort(key=lambda a: 0 if a[2] == "portal" else 1)
+    # Primero el nombre de vía que mejor casa; a igualdad, el portal exacto.
+    accepted.sort(
+        key=lambda a: (-round(street_similarity(addr.name, _result_street(a[4].get("address"))), 2), 0 if a[2] == "portal" else 1)
+    )
     return accepted
 
 

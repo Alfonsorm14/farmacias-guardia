@@ -55,6 +55,28 @@ class NavarraTests(unittest.TestCase):
         self.assertEqual(len(result.shifts), 1)
         self.assertEqual(result.shifts[0].end.hour, 22)
 
+    def test_correccion_de_farmacia_en_descarga_posterior(self) -> None:
+        """Si la fuente cambia la farmacia de un día, la antigua desaparece de ese día."""
+        with tempfile.TemporaryDirectory() as tmp:
+            for name, cod in (("20261012", "F00001"), ("20261013", "F00002")):
+                with open(os.path.join(tmp, f"farmacias_guardia_{name}.json"), "w", encoding="utf-8") as fh:
+                    json.dump({"records": [_record(1, "14/10/2026", "9", "21", cod=cod)]}, fh)
+            # Un día que solo está en la descarga antigua se conserva.
+            with open(os.path.join(tmp, "farmacias_guardia_20261011.json"), "w", encoding="utf-8") as fh:
+                json.dump({"records": [_record(1, "11/10/2026", "9", "21", cod="F00009")]}, fh)
+            result = parse_dir(tmp)
+        por_dia = {(s.start.day, s.pharmacy_id) for s in result.shifts}
+        self.assertEqual(por_dia, {(14, "NA:F00002"), (11, "NA:F00009")})
+        self.assertNotIn("NA:F00001", result.pharmacies)
+
+    def test_fichero_ilegible_no_tumba_el_proceso(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            with open(os.path.join(tmp, "farmacias_guardia_20261012.json"), "w", encoding="utf-8") as fh:
+                fh.write("<html>error</html>")
+            result = parse_dir(tmp)
+        self.assertEqual(result.shifts, [])
+        self.assertTrue(any("FICHERO_ILEGIBLE" in w for w in result.warnings))
+
     def test_datos_reales(self) -> None:
         result = parse_dir(RAW_DIR)
         self.assertGreater(len(result.pharmacies), 80)

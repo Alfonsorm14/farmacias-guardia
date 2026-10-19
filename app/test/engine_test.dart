@@ -47,6 +47,22 @@ void main() {
     expect(r.guardias.every((g) => g.farmacia.id.startsWith('NA:') && !g.farmacia.ubicacionAproximada), isTrue);
   });
 
+  test('Madrid ciudad sí; Alcalá de Henares no hereda las guardias de la capital', () {
+    final madrid = motor.consultar(lat: 40.4168, lon: -3.7038, desde: DateTime.utc(2026, 10, 20, 10));
+    expect(madrid.cobertura, isTrue);
+    expect(madrid.guardias, isNotEmpty);
+    expect(madrid.datosHasta!.isAfter(DateTime.utc(2026, 10, 31)), isTrue);
+    final alcala = motor.consultar(lat: 40.4818, lon: -3.3643, desde: DateTime.utc(2026, 10, 20, 10));
+    expect(alcala.cobertura, isFalse);
+  });
+
+  test('Madrid en noviembre: aún no publicado, no "sin guardia"', () {
+    final r = motor.consultar(lat: 40.4168, lon: -3.7038, desde: DateTime.utc(2026, 11, 5, 10));
+    expect(r.cobertura, isTrue);
+    expect(r.guardias, isEmpty);
+    expect(r.mensaje, 'Aún no hay turnos oficiales publicados para esta fecha');
+  });
+
   test('Burgos no tiene cobertura', () {
     final r = motor.consultar(lat: 42.3439, lon: -3.6969, desde: DateTime.utc(2026, 10, 19, 20));
     expect(r.cobertura, isFalse);
@@ -58,7 +74,7 @@ void main() {
     final r = motor.consultar(lat: 39.5696, lon: 2.6502, desde: DateTime.utc(2030, 6, 1, 12));
     expect(r.cobertura, isTrue);
     expect(r.guardias, isEmpty);
-    expect(r.mensaje, 'Sin datos oficiales para esta fecha');
+    expect(r.mensaje, 'Aún no hay turnos oficiales publicados para esta fecha');
   });
 
   test('una farmacia en varios cuadrantes a la misma hora sale una vez', () {

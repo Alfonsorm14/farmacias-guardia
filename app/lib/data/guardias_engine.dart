@@ -38,14 +38,45 @@ class GuardiasEngine {
   late final Map<int, List<int>> _turnosPorFarmacia;
   late final Map<int, Set<int>> _zonasPorFarmacia;
 
+  /// Periodo publicado por cada fuente: (primer inicio, último fin) en minutos UTC.
+  late final Map<String, (int, int)> _periodoPorFuente;
+
+  /// Caja (latMin, lonMin, latMax, lonMax) de las fuentes de un solo municipio.
+  late final Map<String, (double, double, double, double)> _ambitoMunicipal;
+
+  static const double _margenMunicipalKm = 2.0;
+
   GuardiasEngine({required this.farmacias, required this.zonas, required this.turnos, required this.generado}) {
     _turnosPorFarmacia = {};
     _zonasPorFarmacia = {};
+    _periodoPorFuente = {};
     for (var i = 0; i < turnos.length; i++) {
       final t = turnos[i];
       (_turnosPorFarmacia[t.farmacia] ??= []).add(i);
       (_zonasPorFarmacia[t.farmacia] ??= {}).add(t.zona);
+      final fid = farmacias[t.farmacia].fuente?.id ?? '';
+      final p = _periodoPorFuente[fid];
+      _periodoPorFuente[fid] = p == null ? (t.inicioMin, t.finMin) : (math.min(p.$1, t.inicioMin), math.max(p.$2, t.finMin));
     }
+    _ambitoMunicipal = {};
+    for (final f in farmacias) {
+      final fu = f.fuente;
+      if (fu == null || !fu.municipal || !f.tieneCoordenadas) continue;
+      final a = _ambitoMunicipal[fu.id];
+      _ambitoMunicipal[fu.id] = a == null
+          ? (f.lat!, f.lon!, f.lat!, f.lon!)
+          : (math.min(a.$1, f.lat!), math.min(a.$2, f.lon!), math.max(a.$3, f.lat!), math.max(a.$4, f.lon!));
+    }
+  }
+
+  /// ¿El punto está dentro del ámbito de la fuente? (siempre, si no es municipal)
+  bool _dentroDeAmbito(Fuente? fuente, double lat, double lon) {
+    if (fuente == null || !fuente.municipal) return true;
+    final a = _ambitoMunicipal[fuente.id];
+    if (a == null) return false;
+    final dLat = _margenMunicipalKm / 111.0;
+    final dLon = _margenMunicipalKm / (111.0 * math.cos(lat * math.pi / 180));
+    return lat >= a.$1 - dLat && lat <= a.$3 + dLat && lon >= a.$2 - dLon && lon <= a.$4 + dLon;
   }
 
   /// Fecha del último turno publicado (para avisar de datos caducados).
@@ -58,6 +89,8 @@ class GuardiasEngine {
     for (var i = 0; i < farmacias.length; i++) {
       final f = farmacias[i];
       if (!f.tieneCoordenadas || !_turnosPorFarmacia.containsKey(i)) continue;
+      // Las fuentes de un solo municipio no valen fuera de él (Alcalá no es Madrid).
+      if (!_dentroDeAmbito(f.fuente, lat, lon)) continue;
       // Prefiltro barato por caja antes de la distancia exacta.
       if ((f.lat! - lat).abs() > radioKm / 110.0) continue;
       final d = distanciaKm(lat, lon, f.lat!, f.lon!);
@@ -82,6 +115,7 @@ class GuardiasEngine {
     DateTime? hasta,
     double radioKm = 25,
     String mensajeSinFecha = 'Sin datos oficiales para esta fecha',
+    String mensajeSinPublicar = 'Aún no hay turnos oficiales publicados para esta fecha',
   }) {
     final cercanas = _cercanas(lat, lon, radioKm);
     if (cercanas.isEmpty) {
@@ -120,6 +154,20 @@ class GuardiasEngine {
       }
     }
 
+    // Periodo publicado por las fuentes de la zona: distingue "no hay guardia
+    // asignada" de "aún no tenemos los turnos de esa fecha".
+    final fuentesZona = {for (final idx in cercanas.keys) farmacias[idx].fuente?.id ?? ''};
+    int? publicadoHasta;
+    var fechaCubierta = false;
+    for (final fid in fuentesZona) {
+      final p = _periodoPorFuente[fid];
+      if (p == null) continue;
+      publicadoHasta = publicadoHasta == null ? p.$2 : math.max(publicadoHasta, p.$2);
+      if (p.$1 <= math.max(ini, fin - 1) && ini < p.$2) fechaCubierta = true;
+    }
+    final datosHasta =
+        publicadoHasta == null ? null : DateTime.fromMillisecondsSinceEpoch(publicadoHasta * 60000, isUtc: true);
+
     if (fin == ini) {
       guardias.sort((a, b) => a.distanciaKm.compareTo(b.distanciaKm));
     } else {
@@ -130,16 +178,23 @@ class GuardiasEngine {
     }
     return ResultadoGuardias(
       cobertura: true,
-      mensaje: guardias.isEmpty ? mensajeSinFecha : null,
+      mensaje: guardias.isEmpty ? (fechaCubierta ? mensajeSinFecha : mensajeSinPublicar) : null,
       guardias: guardias,
       sinCoordenadas: sinCoordenadas,
+      datosHasta: datosHasta,
     );
   }
 
   /// Construye el motor desde el JSON de scripts/export_snapshot.py.
   factory GuardiasEngine.desdeJson(Map<String, dynamic> json) {
     final fuentes = (json['sources'] as List)
-        .map((s) => Fuente(id: s[0] as String, editor: s[1] as String, url: s[2] as String, licencia: s[3] as String))
+        .map((s) => Fuente(
+              id: s[0] as String,
+              editor: s[1] as String,
+              url: s[2] as String,
+              licencia: s[3] as String,
+              municipal: s.length > 5 && s[5] == true,
+            ))
         .toList();
     double? n(Object? v) => v == null ? null : (v as num).toDouble();
     final farmacias = (json['pharmacies'] as List)

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../data/repository.dart';
 import '../location.dart';
 import '../models.dart';
+import '../tiempo.dart';
 import 'elegir_lugar.dart';
 import 'guardia_card.dart';
 import 'mapa.dart';
@@ -24,7 +25,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   Ubicacion? _ubicacion;
   String? _errorUbicacion;
   bool _buscandoGps = false;
@@ -37,10 +38,25 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     if (widget.ubicacionInicial != null) {
       _fijarUbicacion(widget.ubicacionInicial!);
     } else {
       _usarGps();
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // Al volver a la app horas después, "Ahora" debe recalcularse.
+    if (state == AppLifecycleState.resumed && _ubicacion != null) {
+      setState(_consultar);
     }
   }
 
@@ -73,7 +89,9 @@ class _HomePageState extends State<HomePage> {
     final u = _ubicacion;
     if (u == null) return;
     final ahora = _ahora();
-    final hoy = DateTime(ahora.year, ahora.month, ahora.day);
+    // "Hoy" es el día natural de España peninsular, aunque el teléfono esté en otra zona.
+    final m = enMadrid(ahora);
+    final hoy = DateTime(m.year, m.month, m.day);
     _consulta = switch (_vista) {
       Vista.ahora => widget.repositorio.ahora(u.lat, u.lon, ahora),
       Vista.hoy => widget.repositorio.dia(u.lat, u.lon, hoy),
@@ -197,6 +215,7 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
           child: Text(
             '${widget.repositorio.descripcionDatos}.'
+            '${r.datosHasta == null ? '' : ' Turnos oficiales de tu zona publicados hasta el ${_fechaCorta(r.datosHasta!)}.'}'
             '${fuentes.isEmpty ? '' : ' Fuente: ${fuentes.join('; ')}.'}'
             ' Antes de desplazarte, confirma la guardia por teléfono.',
             style: Theme.of(context).textTheme.bodySmall,
@@ -205,8 +224,12 @@ class _HomePageState extends State<HomePage> {
         );
         if (r.guardias.isEmpty) {
           return ListView(children: [
-            _aviso(Icons.event_busy, r.mensaje ?? 'Sin datos oficiales para esta fecha',
-                'La fuente oficial no asigna farmacia de guardia en tu zona para este momento.'),
+            _aviso(
+                Icons.event_busy,
+                r.mensaje ?? 'Sin datos oficiales para esta fecha',
+                (r.mensaje ?? '').startsWith('Aún no')
+                    ? 'La fuente oficial todavía no ha publicado los turnos de esa fecha.'
+                    : 'La fuente oficial no asigna farmacia de guardia en tu zona para este momento.'),
             pie,
           ]);
         }
@@ -230,6 +253,11 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+  }
+
+  String _fechaCorta(DateTime d) {
+    final m = enMadrid(d.subtract(const Duration(minutes: 1)));
+    return '${m.day}/${m.month}/${m.year}';
   }
 
   Widget _aviso(IconData icono, String titulo, String detalle) {

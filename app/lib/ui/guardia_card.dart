@@ -3,11 +3,12 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../models.dart';
+import '../tiempo.dart';
 
 String formatoDistancia(double km) => km < 1 ? '${(km * 1000).round()} m' : '${km.toStringAsFixed(km < 10 ? 1 : 0)} km';
 
 String formatoHorario(Turno t) {
-  final ini = t.inicio.toLocal(), fin = t.fin.toLocal();
+  final ini = enMadrid(t.inicio), fin = enMadrid(t.fin);
   final hora = DateFormat('HH:mm', 'es_ES');
   final dia = DateFormat('EEE d', 'es_ES');
   final mismoDia = ini.year == fin.year && ini.month == fin.month && ini.day == fin.day;

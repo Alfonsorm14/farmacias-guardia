@@ -6,7 +6,7 @@ backend configurado (--dart-define=API_BASE=...).
 Formato:
 {
   "version": 1, "generated_at": ISO-8601,
-  "sources": [[source_id, publisher, url, license, retrieved_at], ...],
+  "sources": [[source_id, publisher, url, license, retrieved_at, solo_municipio], ...],
   "zones": [zona, ...],
   "pharmacies": [[id, titular, direccion, localidad, telefono, telefono_guardia,
                   lat, lon, precision, source_index], ...],
@@ -26,6 +26,8 @@ import os
 import sqlite3
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Fuentes que solo cubren un término municipal: la app no las usa fuera de él.
+MUNICIPAL_SOURCES = {"MAD-AYTO-DATOSABIERTOS", "ZGZ-AYTO"}
 KINDS = {"diurna": "d", "nocturna": "n", "24h": "c", "localizada": "l", "refuerzo": "r"}
 
 
@@ -59,7 +61,9 @@ def export(db_path: str, out_path: str) -> dict[str, int]:
         "version": 1,
         "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
         "sources": [
-            [r["source_id"], r["publisher"], r["url"], r["license"], r["retrieved_at"]] for r in sources
+            [r["source_id"], r["publisher"], r["url"], r["license"], r["retrieved_at"],
+             r["source_id"] in MUNICIPAL_SOURCES]
+            for r in sources
         ],
         "zones": zones,
         "pharmacies": [

@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
 import '../models.dart';
+import '../tiempo.dart';
 import 'guardias_engine.dart';
 
 const String apiBase = String.fromEnvironment('API_BASE');
@@ -33,7 +34,6 @@ abstract class GuardiasRepository {
       apiBase.isEmpty ? SnapshotRepository() : ApiRepository(apiBase);
 }
 
-DateTime inicioDelDia(DateTime d) => DateTime(d.year, d.month, d.day);
 
 class SnapshotRepository implements GuardiasRepository {
   GuardiasEngine? _engine;
@@ -66,16 +66,27 @@ class SnapshotRepository implements GuardiasRepository {
   Future<GuardiasEngine> _motor() {
     if (_engine != null) return Future.value(_engine!);
     return _cargando ??= () async {
-      var texto = await rootBundle.loadString('assets/snapshot.json');
+      final incluido = await rootBundle.loadString('assets/snapshot.json');
+      GuardiasEngine? motor;
       final cache = await _ficheroCache();
       if (cache != null && await cache.exists()) {
-        final guardado = await cache.readAsString();
-        if (_fecha(guardado).isAfter(_fecha(texto))) texto = guardado;
+        // Una copia guardada corrupta o de otro formato no debe bloquear la app:
+        // se descarta y se usa la instantánea incluida.
+        try {
+          final guardado = await cache.readAsString();
+          if (_fecha(guardado).isAfter(_fecha(incluido))) {
+            motor = await compute(_decodificar, guardado);
+          }
+        } catch (_) {
+          try {
+            await cache.delete();
+          } catch (_) {}
+        }
       }
-      final motor = await compute(_decodificar, texto);
-      _engine = motor;
-      unawaited(_actualizar(motor.generado));
-      return motor;
+      final GuardiasEngine elegido = motor ?? await compute(_decodificar, incluido);
+      _engine = elegido;
+      unawaited(_actualizar(elegido.generado));
+      return elegido;
     }();
   }
 
@@ -87,17 +98,25 @@ class SnapshotRepository implements GuardiasRepository {
       if (r.statusCode != 200) return;
       final texto = utf8.decode(r.bodyBytes);
       if (!_fecha(texto).isAfter(actual)) return;
-      final motor = await compute(_decodificar, texto);
+      final motor = await compute(_decodificar, texto); // valida antes de usarla
       _engine = motor;
       final cache = await _ficheroCache();
-      await cache?.writeAsString(texto);
+      if (cache != null) {
+        // Escritura atómica: primero a un temporal y después se renombra.
+        final tmp = File('${cache.path}.tmp');
+        await tmp.writeAsString(texto, flush: true);
+        await tmp.rename(cache.path);
+      }
     } catch (_) {
       // Sin conexión: se sigue con los datos que hay.
     }
   }
 
-  static GuardiasEngine _decodificar(String texto) =>
-      GuardiasEngine.desdeJson(jsonDecode(texto) as Map<String, dynamic>);
+  static GuardiasEngine _decodificar(String texto) {
+    final json = jsonDecode(texto) as Map<String, dynamic>;
+    if (json['version'] != 1) throw FormatException('Versión de instantánea no soportada: ${json['version']}');
+    return GuardiasEngine.desdeJson(json);
+  }
 
   @override
   Future<ResultadoGuardias> ahora(double lat, double lon, DateTime instante) async =>
@@ -105,8 +124,8 @@ class SnapshotRepository implements GuardiasRepository {
 
   @override
   Future<ResultadoGuardias> dia(double lat, double lon, DateTime dia) async {
-    final inicio = inicioDelDia(dia);
-    final fin = DateTime(inicio.year, inicio.month, inicio.day + 1);
+    final inicio = inicioDiaMadrid(dia.year, dia.month, dia.day);
+    final fin = inicioDiaMadrid(dia.year, dia.month, dia.day + 1);
     return (await _motor()).consultar(lat: lat, lon: lon, desde: inicio, hasta: fin, radioKm: radioPorDefectoKm);
   }
 

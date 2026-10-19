@@ -61,9 +61,9 @@ def _hour(text: str) -> int | None:
 
 def _parse_records(
     records: list[list], filename: str, warnings: list[str]
-) -> tuple[dict[str, Pharmacy], dict[tuple[str, date, str], DutyShift]]:
+) -> tuple[dict[str, Pharmacy], dict[tuple[str, datetime], DutyShift]]:
     pharmacies: dict[str, Pharmacy] = {}
-    shifts: dict[tuple[str, date, str], DutyShift] = {}
+    shifts: dict[tuple[str, datetime], DutyShift] = {}
     for row in records:
         if len(row) < 10:
             warnings.append(f"{filename}: FILA_INCOMPLETA: {row}")
@@ -95,7 +95,7 @@ def _parse_records(
         end_day = day + timedelta(days=1) if end_h <= start_h else day
         end = datetime.combine(end_day, time(0), TZ) + timedelta(hours=end_h)
         label = f"{grupo} ({start_h}-{end_h} h)"
-        shifts[(pharmacy_id, day, kind)] = DutyShift(
+        shifts[(pharmacy_id, start)] = DutyShift(
             pharmacy_id=pharmacy_id,
             zone=(grupo or "").strip(),
             start=start,
@@ -113,18 +113,31 @@ def parse_dir(path: str, retrieved_at: datetime | None = None) -> ParseResult:
         key=lambda f: _FILE_RE.search(f).group(1),
     )
     pharmacies: dict[str, Pharmacy] = {}
-    shifts: dict[tuple[str, date, str], DutyShift] = {}
+    # Para cada fecha manda la descarga más reciente que la contiene: si la fuente
+    # corrige una guardia (cambia la farmacia o la quita), la versión antigua se
+    # descarta entera para ese día.
+    by_day: dict[date, list[DutyShift]] = {}
     warnings: list[str] = []
     latest = None
     for file in files:
         filename = os.path.basename(file)
-        with open(file, encoding="utf-8") as fh:
-            data = json.load(fh)
+        try:
+            with open(file, encoding="utf-8") as fh:
+                data = json.load(fh)
+        except (OSError, json.JSONDecodeError) as exc:
+            warnings.append(f"{filename}: FICHERO_ILEGIBLE: {exc}")
+            continue
         records = data.get("records", []) if isinstance(data, dict) else []
         p, s = _parse_records(records, filename, warnings)
         pharmacies.update(p)
-        shifts.update(s)  # la descarga más reciente sobrescribe
+        days_in_file: dict[date, list[DutyShift]] = {}
+        for shift in s.values():
+            days_in_file.setdefault(shift.start.date(), []).append(shift)
+        by_day.update(days_in_file)
         latest = _FILE_RE.search(file).group(1)
+    shifts = {(sh.pharmacy_id, sh.start): sh for day_shifts in by_day.values() for sh in day_shifts}
+    used = {sh.pharmacy_id for sh in shifts.values()}
+    pharmacies = {pid: ph for pid, ph in pharmacies.items() if pid in used}
     if retrieved_at is None and latest:
         retrieved_at = datetime.strptime(latest, "%Y%m%d").replace(tzinfo=TZ)
     source = SourceInfo(

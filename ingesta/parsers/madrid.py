@@ -50,7 +50,7 @@ def _shift_times(day: date, horario: str) -> tuple[datetime, datetime, str, bool
     if not match:
         return None
     h1, m1, h2, m2 = (int(match.group(i)) for i in range(1, 5))
-    start = datetime.combine(day, time(h1, m1), TZ)
+    start = datetime.combine(day, time(h1 % 24, m1), TZ)
     next_day = bool(match.group(5)) or (h2, m2) <= (h1, m1)
     end = datetime.combine(day + timedelta(days=1 if next_day else 0), time(h2 % 24, m2), TZ)
     upper = horario.upper()
@@ -125,6 +125,10 @@ def parse_dir(path: str, retrieved_at: datetime | None = None) -> ParseResult:
         shifts.extend(s)
     # Un mismo turno repetido (p. ej. dos descargas del mismo mes) se cuenta una vez.
     unique = {(s.pharmacy_id, s.start, s.kind): s for s in shifts}
+    files = [f for f in glob.glob(os.path.join(path, "madrid_*.pdf")) if _FILE_RE.search(f)]
+    if retrieved_at is None and files:
+        # Fecha de descarga = última modificación del PDF más reciente (determinista).
+        retrieved_at = datetime.fromtimestamp(max(os.path.getmtime(f) for f in files), TZ)
     source = SourceInfo(
         source_id=SOURCE_ID,
         publisher=PUBLISHER,

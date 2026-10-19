@@ -4,6 +4,7 @@ Ejecutar a diario para acumular el histórico en data/raw/zaragoza/.
 """
 from __future__ import annotations
 
+import json
 import os
 import sys
 import urllib.request
@@ -23,6 +24,13 @@ def main() -> int:
     with urllib.request.urlopen(req, timeout=60) as resp:
         data = resp.read()
     out = os.path.join(RAW_DIR, f"farmacias_guardia_{date.today():%Y%m%d}.json")
+    try:
+        parsed = json.loads(data.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        parsed = None
+    if not isinstance(parsed, dict) or "result" not in parsed:
+        print("La respuesta no es el JSON esperado; no se guarda.", file=sys.stderr)
+        return 1
     with open(out, "wb") as fh:
         fh.write(data)
     print(f"Zaragoza: {out} ({len(data)} bytes)")

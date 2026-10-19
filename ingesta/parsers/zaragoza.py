@@ -63,14 +63,20 @@ def _records(path: str) -> list[dict]:
 
 def parse_dir(path: str, retrieved_at: datetime | None = None) -> ParseResult:
     pharmacies: dict[str, Pharmacy] = {}
-    shifts: dict[tuple[str, str], DutyShift] = {}
+    by_day: dict[str, list[DutyShift]] = {}
     warnings: list[str] = []
     latest = None
     for file in sorted(glob.glob(os.path.join(path, "farmacias_guardia_*.json"))):
         if not _FILE_RE.search(file):
             continue
         latest = _FILE_RE.search(file).group(1)
-        for rec in _records(file):
+        try:
+            records = _records(file)
+        except (OSError, json.JSONDecodeError) as exc:
+            warnings.append(f"{os.path.basename(file)}: FICHERO_ILEGIBLE: {exc}")
+            continue
+        file_days: dict[str, list[DutyShift]] = {}
+        for rec in records:
             g = rec["guardia"]
             try:
                 day = datetime.fromisoformat(g["fecha"]).date()
@@ -79,7 +85,10 @@ def parse_dir(path: str, retrieved_at: datetime | None = None) -> ParseResult:
                 continue
             pid = f"ZGZ:{rec['id']}"
             holder = re.sub(r"^Farmacia\s+", "", rec.get("title", "")).strip()
-            phone = digits_only(rec.get("telefonos", ""))[:9]
+            digits = digits_only(rec.get("telefonos", ""))
+            if digits.startswith("34") and len(digits) >= 11:
+                digits = digits[2:]
+            phone = digits[:9] if digits[:1] in "6789" else ""
             pharmacies[pid] = Pharmacy(
                 id=pid,
                 region=REGION,
@@ -91,7 +100,9 @@ def parse_dir(path: str, retrieved_at: datetime | None = None) -> ParseResult:
                 duty_phone=None,
             )
             start, end, kind, exact = _times(day, g.get("horario", ""))
-            shifts[(pid, day.isoformat())] = DutyShift(
+            if not exact:
+                warnings.append(f"{os.path.basename(file)}: HORARIO_NO_RECONOCIDO {pid}: {g.get('horario')}")
+            file_days.setdefault(day.isoformat(), []).append(DutyShift(
                 pharmacy_id=pid,
                 zone=f"ZARAGOZA - {g.get('sector') or g.get('turno') or ''}".strip(" -"),
                 start=start,
@@ -99,7 +110,12 @@ def parse_dir(path: str, retrieved_at: datetime | None = None) -> ParseResult:
                 kind=kind,
                 raw_label=f"{g.get('turno', '')} {g.get('horario', '')}".strip(),
                 times_exact=exact,
-            )
+            ))
+        # Para cada fecha manda la descarga más reciente.
+        by_day.update(file_days)
+    shifts = {(sh.pharmacy_id, sh.start): sh for lst in by_day.values() for sh in lst}
+    used = {sh.pharmacy_id for sh in shifts.values()}
+    pharmacies = {pid: ph for pid, ph in pharmacies.items() if pid in used}
     if retrieved_at is None and latest:
         retrieved_at = datetime.strptime(latest, "%Y%m%d").replace(tzinfo=TZ)
     source = SourceInfo(SOURCE_ID, PUBLISHER, URL, LICENSE, retrieved_at or datetime.now(TZ))

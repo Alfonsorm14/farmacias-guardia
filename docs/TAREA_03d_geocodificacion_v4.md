@@ -27,3 +27,22 @@ centroide municipal y constantes de coordenadas en geocode.py. Al revisar el có
   casco, sin puntos compartidos por más de 2, Cala Millor a portal/calle).
 - `tests/test_murcia.py`: artículo pospuesto, aviso de truncado ambiguo, `_complete_locality`.
 - `tests/test_baleares.py`: 27 zonas; Sant Antoni (365 días, 10 farmacias, 9 de enero sin nocturno).
+
+## Revisión independiente (19/10/2026, noche) y correcciones
+Revisor: agente Sonnet en solo lectura. Corregido:
+- Navarra/Zaragoza: para cada fecha manda la descarga más reciente que la contiene (una corrección de la
+  fuente ya no deja dos farmacias de guardia). Ficheros ilegibles → aviso, no caída. Descargas validadas
+  antes de guardarse.
+- Geocodificador: similitud de vía en los dos sentidos ("SAN JOSE" ya no casa con "JOSE ANTONIO"),
+  candidatos ordenados por calidad del nombre antes que por portal, excepción de núcleo compartido solo
+  con el núcleo principal, ritmo de CartoCiudad a ~3 peticiones/s. Reprocesadas todas las farmacias.
+- App: copia guardada corrupta → se descarta (escritura atómica y validación de versión); fuentes de un
+  solo municipio (Madrid, Zaragoza) no se usan fuera de él; "Aún no hay turnos oficiales publicados para
+  esta fecha" cuando la fecha cae fuera de lo publicado; "publicados hasta" por zona; días y horas en hora
+  de Madrid aunque el teléfono esté en otra zona; "Ahora" se recalcula al volver a la app.
+- Madrid: hora 24:00 tolerada; fecha de descarga determinista. Zaragoza: aviso si el horario no se reconoce.
+- Sant Antoni: una banda desconocida que no esté justo bajo la cabecera detiene la transcripción.
+  Los días 9 y 12 de enero sin turno nocturno están comprobados en el propio PDF (la fuente no lo publica).
+
+Pendiente: la API (backend/api.py) aún no distingue fuentes municipales ni "aún no publicado"; la app no
+la usa (modo instantánea).

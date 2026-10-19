@@ -84,9 +84,9 @@
 "cp": null,
 "direccion": "CL Boulevar de Peguera, 19 Local 1",
 "fuente": "cartociudad",
-"lat": 39.5399799,
+"lat": 39.537278,
 "localidad": "PEGUERA",
-"lon": 2.4445727,
+"lon": 2.4427051,
 "precision": "calle"
 },
 "IB:0994e6d014b3": {
@@ -504,9 +504,9 @@
 "cp": null,
 "direccion": "MAJOR, 41",
 "fuente": "cartociudad",
-"lat": 39.721211,
+"lat": 39.7213238,
 "localidad": "INCA",
-"lon": 2.910478,
+"lon": 2.9109828,
 "precision": "calle"
 },
 "IB:33a938287a27": {
@@ -560,7 +560,7 @@
 "precision": "calle"
 },
 "IB:3755a9245be9": {
-"consulta": "Pere Frances, 23 | Eivissa",
+"consulta": "Pere Frances, 23 | es Pratet, Eivissa",
 "cp": null,
 "direccion": "Pere Frances, 23 (Es Pratet)",
 "fuente": "cartociudad",
@@ -694,10 +694,10 @@
 "cp": null,
 "direccion": "AV JOAN CARLES I, 111",
 "fuente": "cartociudad",
-"lat": 39.7050725,
+"lat": 39.7060898,
 "localidad": "CALA RATJADA",
-"lon": 3.4505624,
-"precision": "portal"
+"lon": 3.4520783,
+"precision": "calle"
 },
 "IB:42883000c384": {
 "consulta": "CARRETERA Andratx, 30 | Portals Nous, Calvià",
@@ -793,11 +793,11 @@
 "consulta": "Major, 2 | Manacor",
 "cp": null,
 "direccion": "Major, 2",
-"fuente": "cartociudad",
-"lat": 39.5139711,
+"fuente": "nominatim",
+"lat": 39.5692515,
 "localidad": "MANACOR",
-"lon": 3.2158129,
-"precision": "portal"
+"lon": 3.2086358,
+"precision": "calle"
 },
 "IB:4c4c136fd9c0": {
 "consulta": "CALLE IMPERIAL, 2 | Maioris Decima, Llucmajor",
@@ -974,9 +974,9 @@
 "cp": null,
 "direccion": "CIUTADELLA, 116",
 "fuente": "cartociudad",
-"lat": 39.8954642,
+"lat": 39.8907461,
 "localidad": "MAO",
-"lon": 4.2228217,
+"lon": 4.2537277,
 "precision": "portal"
 },
 "IB:5f189a6298df": {
@@ -1640,7 +1640,7 @@
 "precision": "calle"
 },
 "IB:b05a3b83e9c8": {
-"consulta": "Formentera, 8 | Eivissa",
+"consulta": "Formentera, 8 | ses Figueretes, Eivissa",
 "cp": null,
 "direccion": "Formentera, 8 (Figueretes)",
 "fuente": "cartociudad",
@@ -1684,9 +1684,9 @@
 "cp": null,
 "direccion": "PASSEIG MARÍTIM, 11 ENFRENTE EMBARCADERO ( CALA MILLOR)",
 "fuente": "cartociudad",
-"lat": 39.6037019,
+"lat": 39.6038709,
 "localidad": null,
-"lon": 3.386599,
+"lon": 3.3864002,
 "precision": "portal"
 },
 "IB:b63b2ceb96e8": {
@@ -1934,10 +1934,10 @@
 "cp": null,
 "direccion": "C/ SON PERETO, 13",
 "fuente": "cartociudad",
-"lat": 39.4901231,
+"lat": 39.5661692,
 "localidad": null,
-"lon": 2.8987752,
-"precision": "portal"
+"lon": 3.2162676,
+"precision": "calle"
 },
 "IB:cbfe3d7e791d": {
 "consulta": "Atzaro, 8 | Eivissa",
@@ -2274,9 +2274,9 @@
 "cp": null,
 "direccion": "Avda. Notario Alemany",
 "fuente": "cartociudad",
-"lat": 39.5021736,
+"lat": 39.5037825,
 "localidad": "MAGALLUF",
-"lon": 2.5329018,
+"lon": 2.531466,
 "precision": "calle"
 },
 "IB:e71734cbff0d": {
@@ -2314,10 +2314,10 @@
 "cp": null,
 "direccion": "GLOSADOR SEBASTIA VIDAL, sostre, 12-C'AS CONCOS",
 "fuente": "cartociudad",
-"lat": 39.4175902,
+"lat": 39.4169712,
 "localidad": null,
-"lon": 3.1360415,
-"precision": "portal"
+"lon": 3.1363245,
+"precision": "calle"
 },
 "IB:e88d2314776a": {
 "consulta": "PLAZA Ramón Llull, 2 | Manacor",
@@ -2890,7 +2890,7 @@
 "precision": "portal"
 },
 "MAD:1473": {
-"consulta": "CALLE SAN CIPRIANO, 39 | Madrid",
+"consulta": "CALLE SAN CIPRIANO, 39 | Vicálvaro, Madrid",
 "cp": null,
 "direccion": "CL SAN CIPRIANO, 39 (VICALVARO)",
 "fuente": "cartociudad",
@@ -2990,7 +2990,7 @@
 "precision": "portal"
 },
 "MAD:19": {
-"consulta": "AVENIDA GENERAL, 1 | Madrid",
+"consulta": "AVENIDA GENERAL, 1 | Barajas, Madrid",
 "cp": null,
 "direccion": "AV GENERAL, 1 (BARAJAS)",
 "fuente": "cartociudad",
@@ -3744,9 +3744,9 @@
 "cp": "30500",
 "direccion": "CALLE MAYOR, Nº 50",
 "fuente": "cartociudad",
-"lat": 38.0526635,
+"lat": 38.0741556,
 "localidad": "MOLINA DE SEGURA",
-"lon": -1.2115336,
+"lon": -1.240328,
 "precision": "calle"
 },
 "MU:124": {
@@ -4213,11 +4213,11 @@
 "consulta": "GRAN VIA, 19 | Murcia",
 "cp": "30005",
 "direccion": "GRAN VIA,19 EDF.CONVER",
-"fuente": "cartociudad",
-"lat": 37.9852519,
+"fuente": "casco_centroid",
+"lat": 37.9886157,
 "localidad": "MURCIA",
-"lon": -1.1320935,
-"precision": "calle"
+"lon": -1.1365372,
+"precision": "localidad"
 },
 "MU:167": {
 "consulta": "CALLE ANTONIO SANCHEZ MAURANDI, 17 | Murcia",
@@ -4280,7 +4280,7 @@
 "precision": "calle"
 },
 "MU:172": {
-"consulta": "ABELARDO VALERO, 4 | La Alberca, Murcia",
+"consulta": "ABELARDO VALERO, 4 | Alberca de las Torres, Murcia",
 "cp": "30150",
 "direccion": "ABELARDO VALERO,4",
 "fuente": "cartociudad",
@@ -4324,9 +4324,9 @@
 "cp": "30540",
 "direccion": "GRAN VIA ESQ.C/EN PROYECTO Nº4",
 "fuente": "cartociudad",
-"lat": 38.1793488,
+"lat": 38.1792087,
 "localidad": "BLANCA",
-"lon": -1.3731188,
+"lon": -1.3728275,
 "precision": "calle"
 },
 "MU:177": {
@@ -4373,10 +4373,10 @@
 "consulta": "AVENIDA DON JUAN DE BORBON | Murcia",
 "cp": "30007",
 "direccion": "AVENIDA DON JUAN DE BORBON, ESQUINA AVENIDA DE SANTIAGO",
-"fuente": "nominatim",
-"lat": 38.009104,
+"fuente": "cartociudad",
+"lat": 38.010078,
 "localidad": "MURCIA",
-"lon": -1.1296536,
+"lon": -1.132862,
 "precision": "calle"
 },
 "MU:181": {
@@ -4593,10 +4593,10 @@
 "consulta": "AUROROS, 3 | Murcia",
 "cp": "30002",
 "direccion": "AUROROS,3",
-"fuente": "nominatim",
-"lat": 37.9796351,
+"fuente": "cartociudad",
+"lat": 37.9887428,
 "localidad": "MURCIA",
-"lon": -1.127942,
+"lon": -1.1310057,
 "precision": "calle"
 },
 "MU:200": {
@@ -4774,40 +4774,40 @@
 "cp": "30800",
 "direccion": "CARRETERA DE GRANADA,8",
 "fuente": "cartociudad",
-"lat": 37.6758339,
+"lat": 37.6598994,
 "localidad": "LORCA",
-"lon": -1.7014097,
-"precision": "portal"
+"lon": -1.707308,
+"precision": "calle"
 },
 "MU:217": {
 "consulta": "AVENIDA GENERAL ORTIN, RONDA SUR | Murcia",
 "cp": "30010",
 "direccion": "AVENIDA GENERAL ORTIN, EDIFICO ELVIS XI, RONDA SUR",
-"fuente": "casco_centroid",
-"lat": 37.9886157,
+"fuente": null,
+"lat": null,
 "localidad": "MURCIA",
-"lon": -1.1365372,
-"precision": "localidad"
+"lon": null,
+"precision": null
 },
 "MU:218": {
 "consulta": "SANDOVAL, 12 | Santiago de la Ribera, San Javier",
 "cp": "30720",
 "direccion": "SANDOVAL,12",
 "fuente": "cartociudad",
-"lat": 37.7974142,
+"lat": 37.797387,
 "localidad": "SANTIAGO DE LA RIBERA",
-"lon": -0.8047099,
+"lon": -0.805506,
 "precision": "calle"
 },
 "MU:219": {
 "consulta": "CALLE LEDESMA RAMOS, 2 | Fuente Álamo",
 "cp": "30320",
 "direccion": "C/LEDESMA RAMOS,2",
-"fuente": null,
-"lat": null,
+"fuente": "casco_centroid",
+"lat": 37.7159365,
 "localidad": "FUENTE ALAMO",
-"lon": null,
-"precision": null
+"lon": -1.1786609,
+"precision": "localidad"
 },
 "MU:22": {
 "consulta": "CALLE SAGASTA, 24 | Murcia",
@@ -5530,7 +5530,7 @@
 "precision": "calle"
 },
 "MU:286": {
-"consulta": "CALLE MAYOR, 80 | La Alberca, Murcia",
+"consulta": "CALLE MAYOR, 80 | Alberca de las Torres, Murcia",
 "cp": "30150",
 "direccion": "CL. MAYOR, 80",
 "fuente": "cartociudad",
@@ -5584,9 +5584,9 @@
 "cp": "30163",
 "direccion": "CTRA.ALICANTE KM.10",
 "fuente": "cartociudad",
-"lat": 38.0389491,
+"lat": 38.0556264,
 "localidad": "COBATILLAS",
-"lon": -1.0840836,
+"lon": -1.0690126,
 "precision": "calle"
 },
 "MU:291": {
@@ -5603,10 +5603,10 @@
 "consulta": "MAYOR, 125 | Puente Tocinos, Murcia",
 "cp": "30006",
 "direccion": "MAYOR,125-PUENTE TOCINOS",
-"fuente": "nominatim",
-"lat": 37.9939912,
+"fuente": "cartociudad",
+"lat": 38.0119289,
 "localidad": "MURCIA",
-"lon": -1.100941,
+"lon": -1.0862379,
 "precision": "calle"
 },
 "MU:293": {
@@ -6134,9 +6134,9 @@
 "cp": "30300",
 "direccion": "RAMON Y CAJAL, Nº162, BAJO, ESQUINA C/ PROVINCIAS, Nº 2",
 "fuente": "cartociudad",
-"lat": 37.6205111,
+"lat": 37.6205195,
 "localidad": "CARTAGENA",
-"lon": -0.9952929,
+"lon": -0.9953321,
 "precision": "calle"
 },
 "MU:342": {
@@ -6193,10 +6193,10 @@
 "consulta": "CALLE MAYOR, 133 | Los Molinos Marfagones, Cartagena",
 "cp": "30393",
 "direccion": "CL.MAYOR, Nº 133-135",
-"fuente": "nominatim",
-"lat": 37.6120039,
+"fuente": "cartociudad",
+"lat": 37.611565,
 "localidad": "MARFAGONE S-CARTAGENA",
-"lon": -1.0416751,
+"lon": -1.0463277,
 "precision": "calle"
 },
 "MU:348": {
@@ -6374,9 +6374,9 @@
 "cp": "30380",
 "direccion": "GRAN VIA, TORRE MIRAMAR, Nº 129",
 "fuente": "cartociudad",
-"lat": 37.641994,
+"lat": 37.7481845,
 "localidad": "LA MANGA DEL MAR MENOR",
-"lon": -0.713967,
+"lon": -0.7357384,
 "precision": "calle"
 },
 "MU:364": {
@@ -6453,10 +6453,10 @@
 "consulta": "BANDO DE LA HUERTA, 8 | Murcia",
 "cp": "30008",
 "direccion": "BANDO DE LA HUERTA, Nº 8,EDIFICIO LUYMA II",
-"fuente": "nominatim",
-"lat": 37.9896907,
+"fuente": "cartociudad",
+"lat": 38.0065039,
 "localidad": "MURCIA",
-"lon": -1.1323959,
+"lon": -1.1154668,
 "precision": "calle"
 },
 "MU:371": {
@@ -6570,7 +6570,7 @@
 "precision": "calle"
 },
 "MU:381": {
-"consulta": "PLAZA DEL TRABAJO, 1 | Lorca",
+"consulta": "PLAZA DEL TRABAJO, 1 | La Viña, Lorca",
 "cp": "30800",
 "direccion": "PLAZA DEL TRABAJO, Nº 1, URBANIZACION LA VIÑA",
 "fuente": "cartociudad",
@@ -6654,10 +6654,10 @@
 "cp": "30500",
 "direccion": "CALLE CARIDAD, Nº 7",
 "fuente": "cartociudad",
-"lat": 38.0579661,
+"lat": 38.0547022,
 "localidad": "MOLINA DE SEGURA",
-"lon": -1.2095085,
-"precision": "portal"
+"lon": -1.2069251,
+"precision": "calle"
 },
 "MU:39": {
 "consulta": "CALLE MAYOR, 29 | La Ñora, Murcia",
@@ -6950,14 +6950,14 @@
 "precision": "localidad"
 },
 "MU:415": {
-"consulta": "ALAMEDA VIRGEN HUERTAS, 16 | Lorca",
+"consulta": "ALAMEDA VIRGEN HUERTAS, 16 | Cazalla, Lorca",
 "cp": "30800",
 "direccion": "ALAMEDA VIRGEN HUERTAS, PUENTE DE LA PIA, Nº 16-CAZALLA",
-"fuente": "cartociudad",
-"lat": 37.6673539,
+"fuente": "nucleus_centroid",
+"lat": 37.6359198,
 "localidad": "LORCA",
-"lon": -1.703103,
-"precision": "portal"
+"lon": -1.650433,
+"precision": "localidad"
 },
 "MU:416": {
 "consulta": "CARRETERA DE AGUILAS, 54 | Campillo, Lorca",
@@ -7113,11 +7113,11 @@
 "consulta": "CARRETERA DE PUNTAS DE CALNEGRE, RAMONETE | Ramonete, Lorca",
 "cp": "30876",
 "direccion": "CTRA. DE PUNTAS DE CALNEGRE,S/N, RAMONETE",
-"fuente": "cartociudad",
-"lat": 37.5104882,
+"fuente": "nucleus_centroid",
+"lat": 37.5339154,
 "localidad": "RAMONETE-LORCA",
-"lon": -1.4022298,
-"precision": "calle"
+"lon": -1.4730211,
+"precision": "localidad"
 },
 "MU:431": {
 "consulta": "AVENIDA SAN JOSE OBRERO, 11 | Alcantarilla",
@@ -7303,11 +7303,11 @@
 "consulta": "CALLE LOS ANTEROS | El Pareton, Totana",
 "cp": "30858",
 "direccion": "CL.LOS ANTEROS, S/N",
-"fuente": "cartociudad",
-"lat": 37.7112949,
+"fuente": null,
+"lat": null,
 "localidad": "EL PARETON- TOTANA",
-"lon": -1.4031579,
-"precision": "calle"
+"lon": null,
+"precision": null
 },
 "MU:452": {
 "consulta": "CARRETERA DE AGUILAS RM-D15 KM, 2 | Calabardina, Aguilas",
@@ -7380,7 +7380,7 @@
 "precision": "calle"
 },
 "MU:459": {
-"consulta": "CARRIL DE LAS PALMERAS, 23 | Murcia",
+"consulta": "CARRIL DE LAS PALMERAS, 23 | La Albatalía, Murcia",
 "cp": "30009",
 "direccion": "CARRIL DE LAS PALMERAS, Nº 23 - LA ALBATALIA",
 "fuente": "cartociudad",
@@ -7444,9 +7444,9 @@
 "cp": "30891",
 "direccion": "AVENIDA ESTACION, Nº 29 EL ESPARRAGAL",
 "fuente": "cartociudad",
-"lat": 37.5748792,
+"lat": 37.5794007,
 "localidad": "PUERTO LUMBRERAS",
-"lon": -1.723584,
+"lon": -1.7337433,
 "precision": "calle"
 },
 "MU:465": {
@@ -7480,7 +7480,7 @@
 "precision": "localidad"
 },
 "MU:468": {
-"consulta": "PLAZA TETUAN, 6 | Murcia",
+"consulta": "PLAZA TETUAN, 6 | Santiago y Zaraiche, Murcia",
 "cp": "30007",
 "direccion": "PLAZA TETUAN, Nº 6,SANTIAGO Y ZARAICHE",
 "fuente": "cartociudad",
@@ -7503,11 +7503,11 @@
 "consulta": "CALLE GRAN VIA, 6 | Alguazas",
 "cp": "30560",
 "direccion": "CALLE GRAN VIA, Nº 6(ANTIGUO Nº 2)",
-"fuente": "cartociudad",
-"lat": 38.0515711,
+"fuente": "casco_centroid",
+"lat": 38.0544518,
 "localidad": "ALGUAZAS",
-"lon": -1.2424216,
-"precision": "portal"
+"lon": -1.2478009,
+"precision": "localidad"
 },
 "MU:470": {
 "consulta": "PLAZA REYES CATOLICOS, 8 | Vista Alegre, Cartagena",
@@ -7554,10 +7554,10 @@
 "cp": "30877",
 "direccion": "CTRA.BOLNUEVO, URBANIZACION MARINA DE BOLNUEVO, 2ª FASE BAJO, BUZON Nº 17",
 "fuente": "cartociudad",
-"lat": 37.5630016,
+"lat": 37.562595,
 "localidad": "BOLNUEVO (MAZARRON)",
-"lon": -1.3064347,
-"precision": "portal"
+"lon": -1.3072187,
+"precision": "calle"
 },
 "MU:475": {
 "consulta": "AVENIDA ROMERIA DE LA VIRGEN DEL CARMEN, 74 | San Pedro Del Pinatar",
@@ -7684,10 +7684,10 @@
 "cp": "30370",
 "direccion": "CARRETERA DE CABO DE PALOS, Nº 2, BAJO6, URBANIZACION CALA FLORES",
 "fuente": "cartociudad",
-"lat": 37.6298797,
+"lat": 37.6334797,
 "localidad": "CABO DE PALOS",
-"lon": -0.7099248,
-"precision": "portal"
+"lon": -0.6949224,
+"precision": "calle"
 },
 "MU:488": {
 "consulta": "MARQUES DE SANTILLANA, 2 | Santa Ana, Cartagena",
@@ -7724,9 +7724,9 @@
 "cp": "30180",
 "direccion": "CAMINO DEL PRADO,S/N.",
 "fuente": "cartociudad",
-"lat": 38.0473601,
+"lat": 38.0493032,
 "localidad": "BULLAS",
-"lon": -1.6409394,
+"lon": -1.6611143,
 "precision": "calle"
 },
 "MU:492": {
@@ -7890,7 +7890,7 @@
 "precision": "portal"
 },
 "MU:507": {
-"consulta": "ALAMEDA DE CERVANTES, 60 | Lorca",
+"consulta": "ALAMEDA DE CERVANTES, 60 | Sutullena, Lorca",
 "cp": "30800",
 "direccion": "ALAMEDA DE CERVANTES, Nº 60,RESIDENCIAL LAS PALMERAS-SUTULLENA",
 "fuente": "cartociudad",
@@ -8020,7 +8020,7 @@
 "precision": null
 },
 "MU:519": {
-"consulta": "CALLE MURCIA, 1 | La Unión",
+"consulta": "CALLE MURCIA, 1 | El Garbanzal, La Unión",
 "cp": "30360",
 "direccion": "CALLE MURCIA, ESQUINA CON CALLE MILLANS DEL BOSCH, Nº 1, EL GARBANZAL",
 "fuente": "cartociudad",
@@ -8284,9 +8284,9 @@
 "cp": "30720",
 "direccion": "CALLE CASTILLA, ESQUINA AVENIDA DEL MAR MENOR",
 "fuente": "cartociudad",
-"lat": 37.8034296,
+"lat": 37.7960957,
 "localidad": "SANTIAGO DE LA RIBERA",
-"lon": -0.8013089,
+"lon": -0.8115048,
 "precision": "calle"
 },
 "MU:547": {
@@ -8334,9 +8334,9 @@
 "cp": "30380",
 "direccion": "CALLE GRAN VIA, S/N, LOCAL 1B, EDIFICIO GENOVA DE LA URBANIZACION LAS GONDOLAS",
 "fuente": "cartociudad",
-"lat": 37.6617588,
+"lat": 37.6566579,
 "localidad": "LA MANGA DEL MAR MENOR",
-"lon": -0.723012,
+"lon": -0.7212855,
 "precision": "calle"
 },
 "MU:552": {
@@ -8350,7 +8350,7 @@
 "precision": "calle"
 },
 "MU:553": {
-"consulta": "CALLE PINTOR RAMON GAYA, 8 | La Alberca, Murcia",
+"consulta": "CALLE PINTOR RAMON GAYA, 8 | Alberca de las Torres, Murcia",
 "cp": "30150",
 "direccion": "CALLE PINTOR RAMON GAYA, Nº 8",
 "fuente": "cartociudad",
@@ -8604,9 +8604,9 @@
 "cp": "30380",
 "direccion": "CALLE GRAN VIA, EDIFICIO SUPER ATICOS PLAYA, EL PEDRUCHILLO, KM.8",
 "fuente": "cartociudad",
-"lat": 37.6617588,
+"lat": 37.6566579,
 "localidad": "LA MANGA DEL MAR MENOR",
-"lon": -0.723012,
+"lon": -0.7212855,
 "precision": "calle"
 },
 "MU:58": {
@@ -8673,11 +8673,11 @@
 "consulta": "PLAZA DE LAS MARAVILLAS, 4 | Los Martínez del Puerto, Murcia",
 "cp": "30156",
 "direccion": "PLAZA DE LAS MARAVILLAS, Nº 4",
-"fuente": "cartociudad",
-"lat": 37.8181712,
+"fuente": "nucleus_centroid",
+"lat": 37.8191515,
 "localidad": "MARTINEZ DEL PUERTO, LOS",
-"lon": -1.0776583,
-"precision": "portal"
+"lon": -1.0781179,
+"precision": "localidad"
 },
 "MU:586": {
 "consulta": "CALLE MAYOR, 17 | Alguazas",
@@ -8924,9 +8924,9 @@
 "cp": "30202",
 "direccion": "PLAZA SERRETA, Nº 2",
 "fuente": "cartociudad",
-"lat": 37.6033576,
+"lat": 37.603468,
 "localidad": "CARTAGENA",
-"lon": -0.9833687,
+"lon": -0.9838603,
 "precision": "calle"
 },
 "MU:68": {
@@ -9024,9 +9024,9 @@
 "cp": "30300",
 "direccion": "CL.SUBMARINO, Nº 23",
 "fuente": "cartociudad",
-"lat": 37.6240443,
+"lat": 37.6239914,
 "localidad": "CARTAGENA",
-"lon": -0.9886049,
+"lon": -0.9886369,
 "precision": "calle"
 },
 "MU:77": {
@@ -9043,11 +9043,11 @@
 "consulta": "ALFONSO XIII, 61 | Dolores Los, Cartagena",
 "cp": "30310",
 "direccion": "ALFONSO XIII,61",
-"fuente": "nominatim",
-"lat": 37.6403559,
+"fuente": "cartociudad",
+"lat": 37.6410874,
 "localidad": "DOLORES LOS (CARTAGENA)",
-"lon": -1.0033301,
-"precision": "calle"
+"lon": -1.0035534,
+"precision": "portal"
 },
 "MU:79": {
 "consulta": "CALLE CARMEN, 34 | Cartagena",
@@ -9064,9 +9064,9 @@
 "cp": "30002",
 "direccion": "FLORIDABLANCA,5",
 "fuente": "cartociudad",
-"lat": 37.9770604,
+"lat": 37.9770649,
 "localidad": "MURCIA",
-"lon": -1.1324833,
+"lon": -1.1322082,
 "precision": "calle"
 },
 "MU:80": {
@@ -9233,10 +9233,10 @@
 "consulta": "CALLE, 30 | Calasparra",
 "cp": "30420",
 "direccion": "CL.BARRIONUEVO POZO, Nº 30, ESQUINA CALLE ESPARTEROS",
-"fuente": "cartociudad",
-"lat": 38.232766,
+"fuente": "nominatim",
+"lat": 38.2272215,
 "localidad": "CALASPARRA",
-"lon": -1.6999978,
+"lon": -1.7140936,
 "precision": "calle"
 },
 "MU:96": {

@@ -58,6 +58,8 @@ def test_street_similarity():
     assert street_similarity("CRISTOBAL COLOM", "AVINGUDA CRISTÒFOL COLOM") >= 0.6
     assert street_similarity("JUAN SERVERA CAMPS", 'AVINGUDA D"EN JOAN SERVERA CAMPS') >= 0.6
     assert street_similarity("DOCTOR ORFILA", "CALLE DEL DOCTOR CAMPS") < 0.6
+    assert street_similarity("CANOVAS", "CALLE CANOVAS DEL CASTILLO") >= 0.6
+    assert street_similarity("SAN JOSE", "CALLE JOSE ANTONIO PRIMO") < 0.6
     assert street_similarity("MAYOR", "CALLE MAYOR") == 1.0
 
 

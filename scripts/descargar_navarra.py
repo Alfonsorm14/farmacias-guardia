@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import io
+import json
 import os
 import sys
 import urllib.request
@@ -39,6 +40,13 @@ def main() -> int:
     os.makedirs(RAW_DIR, exist_ok=True)
     out = os.path.join(RAW_DIR, f"farmacias_guardia_{date.today():%Y%m%d}.json")
     data = _get(DOWNLOAD_URL)
+    try:
+        parsed = json.loads(data.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        parsed = None
+    if not isinstance(parsed, dict) or "records" not in parsed:
+        print("La respuesta no es el JSON esperado; no se guarda.", file=sys.stderr)
+        return 1
     with open(out, "wb") as fh:
         fh.write(data)
     print(f"Guardias: {out} ({len(data)} bytes)")
