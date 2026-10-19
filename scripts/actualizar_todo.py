@@ -1,7 +1,8 @@
 """Actualiza todas las fuentes y la app de una vez (pensado para una tarea programada diaria).
 
 Pasos:
-1. Descarga lo que cambia a menudo: Navarra (ventana diaria) y Madrid (PDF del mes vigente).
+1. Descarga lo que cambia a menudo: Navarra (ventana diaria), Zaragoza (solo el día en curso)
+   y Madrid (PDF del mes vigente).
 2. Regenera data/out/*.json con los parsers.
 3. Importa en data/guardias.db (las coordenadas se conservan si la dirección no cambia).
 4. Geocodifica solo lo nuevo o pendiente (--recheck; la caché evita repetir consultas).
@@ -70,12 +71,14 @@ def main() -> int:
     args = parser.parse_args()
     if not args.sin_descargas:
         _run("scripts/descargar_navarra.py")
+        _run("scripts/descargar_zaragoza.py")
         try:
             _descargar_madrid()
         except OSError as exc:
             print(f"Madrid: descarga fallida ({exc}); se usa lo ya guardado.")
     _run("scripts/run_navarra.py")
     _run("scripts/run_madrid.py")
+    _run("scripts/run_zaragoza.py")
     _run("-m", "backend.importer", "data/out")
     _run("-m", "backend.geocode", "--recheck")
     _run("scripts/export_snapshot.py")

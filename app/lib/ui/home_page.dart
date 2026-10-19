@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
             ),
             const Padding(
               padding: EdgeInsets.fromLTRB(16, 8, 16, 4),
-              child: Text('Zonas con datos oficiales cargados (Baleares, Región de Murcia, Navarra y ciudad de Madrid):'),
+              child: Text('Zonas con datos oficiales cargados (Baleares, Región de Murcia, Navarra, Madrid y Zaragoza capital):'),
             ),
             for (final l in lugaresConDatos)
               ListTile(leading: const Icon(Icons.place_outlined), title: Text(l.etiqueta), onTap: () => Navigator.pop(ctx, l)),
@@ -200,7 +200,7 @@ class _HomePageState extends State<HomePage> {
         final r = snap.data!;
         if (!r.cobertura) {
           return _aviso(Icons.travel_explore, r.mensaje ?? 'Sin datos oficiales para esta zona',
-              'Por ahora la app tiene los turnos oficiales de Baleares, la Región de Murcia, Navarra y la ciudad de Madrid. '
+              'Por ahora la app tiene los turnos oficiales de Baleares, la Región de Murcia, Navarra y las ciudades de Madrid y Zaragoza. '
                   'Iremos añadiendo comunidades a medida que publiquen sus datos.');
         }
         if (_verMapa) {

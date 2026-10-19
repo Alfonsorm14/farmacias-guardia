@@ -60,17 +60,26 @@ BBOXES: dict[str, dict[str, float]] = {
     "14": {"lat_min": 37.3, "lat_max": 38.8, "lon_min": -2.4, "lon_max": -0.6},
     "15": {"lat_min": 41.9, "lat_max": 43.35, "lon_min": -2.55, "lon_max": -0.7},
     "13": {"lat_min": 39.85, "lat_max": 41.2, "lon_min": -4.6, "lon_max": -3.0},
+    "02": {"lat_min": 39.8, "lat_max": 42.95, "lon_min": -2.2, "lon_max": 0.8},
 }
-REGION_PROVINCES: dict[str, set[str]] = {"04": {"07"}, "14": {"30"}, "15": {"31"}, "13": {"28"}}
+REGION_PROVINCES: dict[str, set[str]] = {"04": {"07"}, "14": {"30"}, "15": {"31"}, "13": {"28"}, "02": {"22", "44", "50"}}
 REGION_NAMES: dict[str, str] = {
     "04": "Illes Balears",
     "14": "Región de Murcia",
     "15": "Comunidad Foral de Navarra",
     "13": "Comunidad de Madrid",
+    "02": "Aragón",
 }
 # Capa oficial de farmacias de Navarra (IDENA, CC BY 4.0) con coordenadas por código.
 IDENA_DBF = Path(__file__).resolve().parent.parent / "data" / "raw" / "navarra" / "idena" / "DOTACI_Sym_Farmacias.dbf"
 _idena_cache: dict[str, tuple[float, float]] | None = None
+
+
+def zaragoza_coordinates() -> dict[str, tuple[float, float]]:
+    """Coordenadas publicadas por el Ayuntamiento de Zaragoza junto a cada guardia."""
+    from ingesta.parsers.zaragoza import load_coordinates
+
+    return load_coordinates(str(IDENA_DBF.parent.parent.parent / "zaragoza"))
 
 
 def idena_coordinates() -> dict[str, tuple[float, float]]:
@@ -910,6 +919,8 @@ def _zone_municipalities(zones: list[str]) -> list[str]:
 
 def resolve_context(geo: GeoClient, pharmacy: Pharmacy) -> GeoContext:
     """Municipio(s), núcleo y códigos postales esperados para una farmacia."""
+    if pharmacy.region == "02":
+        return GeoContext([pharmacy.locality or "Zaragoza"], None, True, [], "municipio de la fuente")
     if pharmacy.region == "13":
         # Ciudad de Madrid: la fuente solo cubre el municipio (casco = término municipal).
         loc = (pharmacy.locality or "Madrid").strip()
@@ -1294,6 +1305,10 @@ def geocode_pharmacy(geo: GeoClient, pharmacy: Pharmacy) -> GeoResult:
         coords = idena_coordinates().get(pharmacy.id[3:])
         if coords is not None and is_within_bbox(region, *coords):
             return GeoResult(coords[0], coords[1], "portal", "idena", f"IDENA {pharmacy.id[3:]}", "capa oficial IDENA")
+    if region == "02" and pharmacy.id.startswith("ZGZ:"):
+        coords = zaragoza_coordinates().get(pharmacy.id)
+        if coords is not None and is_within_bbox(region, *coords):
+            return GeoResult(coords[0], coords[1], "portal", "ayto_zaragoza", "Ayuntamiento de Zaragoza", "coordenadas de la fuente")
     ctx = resolve_context(geo, pharmacy)
     clean = clean_address(pharmacy.address)
     addr = parse_address(clean)

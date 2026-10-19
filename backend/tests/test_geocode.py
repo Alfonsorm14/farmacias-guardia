@@ -22,7 +22,7 @@ from backend.geocode import (
 from backend.importer import import_source_data  # noqa: F401  (el módulo debe importar)
 
 DB_PATH = Path("data/guardias.db")
-ALLOWED_SOURCES = {"cartociudad", "nominatim", "nucleus_centroid", "casco_centroid", "idena"}
+ALLOWED_SOURCES = {"cartociudad", "nominatim", "nucleus_centroid", "casco_centroid", "idena", "ayto_zaragoza"}
 
 
 def test_muni_matches_es_exacto_y_no_por_subcadena():
