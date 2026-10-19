@@ -1,6 +1,7 @@
 """Fixtures para los tests de pytest con base de datos real importada y coordenadas inyectadas."""
 from __future__ import annotations
 
+import json
 import os
 from pathlib import Path
 from typing import Generator
@@ -88,6 +89,17 @@ def engine():
                 p.lon = -1.314
                 p.geo_precision = "localidad"
                 p.geo_source = "test_injected"
+
+            # Madrid capital: coordenadas reales ya calculadas (fuente municipal, ámbito acotado).
+            known = json.loads(Path("data/geo/coordenadas.json").read_text(encoding="utf-8"))
+            for pid, k in known.items():
+                if not pid.startswith("MAD:") or k.get("lat") is None:
+                    continue
+                p = session.get(Pharmacy, pid)
+                if p:
+                    p.lat, p.lon = k["lat"], k["lon"]
+                    p.geo_precision = k.get("precision")
+                    p.geo_source = "test_injected"
 
     return eng
 

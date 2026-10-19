@@ -44,5 +44,5 @@ Revisor: agente Sonnet en solo lectura. Corregido:
 - Sant Antoni: una banda desconocida que no esté justo bajo la cabecera detiene la transcripción.
   Los días 9 y 12 de enero sin turno nocturno están comprobados en el propio PDF (la fuente no lo publica).
 
-Pendiente: la API (backend/api.py) aún no distingue fuentes municipales ni "aún no publicado"; la app no
-la usa (modo instantánea).
+API igualada con la app (20/10/2026): `backend/ambito.py` (fuentes municipales), mensaje "aún no publicado"
+y campo `datos_hasta`; los dos endpoints comparten `_query_guardias`. Tests nuevos en backend/tests/test_api.py.

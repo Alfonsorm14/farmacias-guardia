@@ -24,10 +24,13 @@ import datetime
 import json
 import os
 import sqlite3
+import sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, BASE_DIR)
+
 # Fuentes que solo cubren un término municipal: la app no las usa fuera de él.
-MUNICIPAL_SOURCES = {"MAD-AYTO-DATOSABIERTOS", "ZGZ-AYTO"}
+from backend.ambito import MUNICIPAL_SOURCES  # noqa: E402
 KINDS = {"diurna": "d", "nocturna": "n", "24h": "c", "localizada": "l", "refuerzo": "r"}
 
 

@@ -12,6 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
+from backend.ambito import MUNICIPAL_SOURCES, Box, inside_box, is_municipal
 from backend.db import get_db
 from backend.models import Pharmacy, Shift, Source
 
@@ -157,6 +158,246 @@ def get_farmacia(pharmacy_id: str, db: Session = Depends(get_db)) -> dict[str, A
     }
 
 
+
+MSG_SIN_ZONA = "Sin datos oficiales para esta zona"
+MSG_SIN_FECHA = "Sin datos oficiales para esta fecha"
+MSG_SIN_PUBLICAR = "Aún no hay turnos oficiales publicados para esta fecha"
+
+
+def _parse_at(at: str | None) -> datetime.datetime:
+    if at is None:
+        return datetime.datetime.now(datetime.timezone.utc)
+    try:
+        dt = datetime.datetime.fromisoformat(at)
+    except ValueError:
+        raise HTTPException(
+            status_code=400,
+            detail="Formato de 'at' inválido. Use ISO 8601 (ej. 2026-10-18T23:00:00+02:00)",
+        )
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=MADRID_TZ)
+    return dt.astimezone(datetime.timezone.utc)
+
+
+def _municipal_boxes(db: Session) -> dict[str, Box]:
+    """Caja de las farmacias geolocalizadas de cada fuente municipal."""
+    rows = db.execute(
+        select(
+            Pharmacy.source_id,
+            func.min(Pharmacy.lat),
+            func.min(Pharmacy.lon),
+            func.max(Pharmacy.lat),
+            func.max(Pharmacy.lon),
+        )
+        .where(
+            Pharmacy.source_id.in_(list(MUNICIPAL_SOURCES)),
+            Pharmacy.lat.is_not(None),
+            Pharmacy.lon.is_not(None),
+        )
+        .group_by(Pharmacy.source_id)
+    ).all()
+    return {sid: (a, b, c, d) for sid, a, b, c, d in rows}
+
+
+def _nearby_pharmacies(
+    db: Session, lat: float, lon: float, radius_km: float
+) -> dict[str, tuple[Pharmacy, float]]:
+    """Farmacias con coordenadas a menos de radius_km, respetando el ámbito de las fuentes municipales."""
+    dlat = radius_km / 111.0
+    dlon = radius_km / (111.0 * max(0.01, math.cos(math.radians(lat))))
+    candidates = db.scalars(
+        select(Pharmacy).where(
+            Pharmacy.lat.is_not(None),
+            Pharmacy.lon.is_not(None),
+            Pharmacy.lat.between(lat - dlat, lat + dlat),
+            Pharmacy.lon.between(lon - dlon, lon + dlon),
+        )
+    ).all()
+    boxes: dict[str, Box] | None = None
+    out: dict[str, tuple[Pharmacy, float]] = {}
+    for p in candidates:
+        if is_municipal(p.source_id):
+            if boxes is None:
+                boxes = _municipal_boxes(db)
+            # Alcalá no es Madrid: una fuente municipal no vale fuera de su término.
+            if not inside_box(boxes.get(p.source_id), lat, lon):
+                continue
+        dist = haversine_km(lat, lon, p.lat, p.lon)  # type: ignore[arg-type]
+        if dist <= radius_km:
+            out[p.id] = (p, dist)
+    return out
+
+
+def _published_period(
+    db: Session, source_ids: set[str]
+) -> dict[str, tuple[datetime.datetime, datetime.datetime]]:
+    """(primer inicio, último fin) de los turnos publicados por cada fuente."""
+    if not source_ids:
+        return {}
+    rows = db.execute(
+        select(Shift.source_id, func.min(Shift.start_utc), func.max(Shift.end_utc))
+        .where(Shift.source_id.in_(list(source_ids)))
+        .group_by(Shift.source_id)
+    ).all()
+    out = {}
+    for sid, first, last in rows:
+        # func.min/max devuelven el valor crudo de SQLite (naive o texto): normalizar a UTC.
+        out[sid] = (_as_utc(first), _as_utc(last))
+    return out
+
+
+def _as_utc(value: Any) -> datetime.datetime:
+    if isinstance(value, str):
+        value = datetime.datetime.fromisoformat(value)
+    if value.tzinfo is None:
+        value = value.replace(tzinfo=datetime.timezone.utc)
+    return value.astimezone(datetime.timezone.utc)
+
+
+def _pharmacy_zones(pharmacy: Pharmacy) -> set[str]:
+    if not pharmacy.zones:
+        return set()
+    try:
+        zs = json.loads(pharmacy.zones)
+    except (TypeError, ValueError):
+        return set()
+    return set(zs) if isinstance(zs, list) else set()
+
+
+def _count_unlocated(
+    db: Session, nearby: dict[str, tuple[Pharmacy, float]], start: datetime.datetime, end: datetime.datetime
+) -> int:
+    """Farmacias de guardia en [start, end) sin coordenadas cuyas zonas coinciden con las cercanas."""
+    nearby_zones: set[str] = set()
+    for p, _ in nearby.values():
+        nearby_zones |= _pharmacy_zones(p)
+    if not nearby_zones:
+        return 0
+    if start == end:
+        overlap = (Shift.start_utc <= start, Shift.end_utc > start)
+    else:
+        overlap = (Shift.start_utc < end, Shift.end_utc > start)
+    unlocated = db.scalars(
+        select(Pharmacy)
+        .join(Shift, Shift.pharmacy_id == Pharmacy.id)
+        .where((Pharmacy.lat.is_(None) | Pharmacy.lon.is_(None)), *overlap)
+        .distinct()
+    ).all()
+    return sum(1 for up in unlocated if _pharmacy_zones(up) & nearby_zones)
+
+
+def _item(pharmacy: Pharmacy, shift: Shift, source: Source, dist: float) -> dict[str, Any]:
+    return {
+        "farmacia": {
+            "id": pharmacy.id,
+            "titular": pharmacy.holder,
+            "direccion": pharmacy.address,
+            "localidad": pharmacy.locality,
+            "cp": pharmacy.postal_code,
+            "telefono": pharmacy.phone,
+            "telefono_guardia": pharmacy.duty_phone,
+            "lat": pharmacy.lat,
+            "lon": pharmacy.lon,
+            "geo_precision": pharmacy.geo_precision,
+            "ubicacion_aproximada": bool(pharmacy.geo_precision == "localidad"),
+        },
+        "turno": {
+            "tipo": shift.kind,
+            "inicio": to_madrid_iso(shift.start_utc),
+            "fin": to_madrid_iso(shift.end_utc),
+            "zona": shift.zone,
+            "etiqueta_original": shift.raw_label,
+            "horario_confirmado": bool(shift.times_exact),
+        },
+        "distancia_km": round(dist, 2),
+        "fuente": {
+            "publisher": source.publisher,
+            "url": source.url,
+            "license": source.license,
+        },
+    }
+
+
+def _query_guardias(
+    db: Session,
+    lat: float,
+    lon: float,
+    start: datetime.datetime,
+    end: datetime.datetime,
+    radius_km: float,
+    limit: int,
+) -> dict[str, Any]:
+    """Guardias que se solapan con [start, end). Si start == end, las activas en ese instante.
+
+    Reglas compartidas con la app (GuardiasEngine):
+    - "Sin datos oficiales para esta zona": ninguna farmacia con turnos en el radio.
+    - "Aún no hay turnos oficiales publicados para esta fecha": la fecha cae fuera del periodo
+      publicado por las fuentes de la zona (no es que no haya guardia: es que aún no la conocemos).
+    - "Sin datos oficiales para esta fecha": la fecha está publicada pero no hay turno asignado.
+    """
+    instant = start == end
+    nearby = _nearby_pharmacies(db, lat, lon, radius_km)
+    has_any_shift = bool(nearby) and (
+        db.scalar(select(Shift.id).where(Shift.pharmacy_id.in_(list(nearby))).limit(1)) is not None
+    )
+    if not has_any_shift:
+        return {
+            "cobertura": False,
+            "mensaje": MSG_SIN_ZONA,
+            "farmacias_sin_coordenadas": 0,
+            "datos_hasta": None,
+            "guardias": [],
+        }
+
+    periods = _published_period(db, {p.source_id for p, _ in nearby.values()})
+    published_until = max((last for _, last in periods.values()), default=None)
+    covered = any(
+        first <= (start if instant else end - datetime.timedelta(microseconds=1)) and start < last
+        for first, last in periods.values()
+    )
+
+    unlocated = _count_unlocated(db, nearby, start, end)
+
+    if instant:
+        overlap = (Shift.start_utc <= start, Shift.end_utc > start)
+    else:
+        overlap = (Shift.start_utc < end, Shift.end_utc > start)
+    rows = db.execute(
+        select(Shift, Source)
+        .join(Source, Shift.source_id == Source.source_id)
+        .where(Shift.pharmacy_id.in_(list(nearby)), *overlap)
+    ).all()
+
+    # Una farmacia citada en varios cuadrantes a la misma hora se muestra una vez: en el modo
+    # instante se agrupa por farmacia; en el modo día, por (farmacia, tipo, inicio).
+    groups: dict[tuple, list[tuple[Shift, Source]]] = {}
+    for shift, source in rows:
+        key = (shift.pharmacy_id,) if instant else (shift.pharmacy_id, shift.kind, shift.start_utc)
+        groups.setdefault(key, []).append((shift, source))
+
+    items = []
+    for key, shift_tuples in groups.items():
+        pharmacy, dist = nearby[key[0]]
+        best_shift, source = select_best_shift_for_pharmacy(pharmacy, shift_tuples)
+        items.append(_item(pharmacy, best_shift, source, dist))
+
+    if instant:
+        items.sort(key=lambda x: (x["distancia_km"], x["turno"]["inicio"]))
+    else:
+        items.sort(key=lambda x: (x["turno"]["inicio"], x["distancia_km"]))
+
+    mensaje = None
+    if not items:
+        mensaje = MSG_SIN_FECHA if covered else MSG_SIN_PUBLICAR
+    return {
+        "cobertura": True,
+        "mensaje": mensaje,
+        "farmacias_sin_coordenadas": unlocated,
+        "datos_hasta": to_madrid_iso(published_until) if published_until else None,
+        "guardias": items[:limit],
+    }
+
+
 @app.get("/v1/guardias")
 def get_guardias(
     lat: float = Query(..., description="Latitud de consulta (WGS84)"),
@@ -167,168 +408,8 @@ def get_guardias(
     db: Session = Depends(get_db),
 ) -> dict[str, Any]:
     """Farmacias de guardia en el instante 'at' ordenadas por distancia."""
-    if at is None:
-        at_utc = datetime.datetime.now(datetime.timezone.utc)
-    else:
-        try:
-            dt = datetime.datetime.fromisoformat(at)
-        except ValueError:
-            raise HTTPException(
-                status_code=400,
-                detail="Formato de 'at' inválido. Use ISO 8601 (ej. 2026-10-18T23:00:00+02:00)",
-            )
-        if dt.tzinfo is None:
-            dt = dt.replace(tzinfo=MADRID_TZ)
-        at_utc = dt.astimezone(datetime.timezone.utc)
-
-    # 1. Prefiltro SQL por bounding box
-    dlat = radius_km / 111.0
-    cos_lat = max(0.01, math.cos(math.radians(lat)))
-    dlon = radius_km / (111.0 * cos_lat)
-    lat_min, lat_max = lat - dlat, lat + dlat
-    lon_min, lon_max = lon - dlon, lon + dlon
-
-    candidate_pharmacies = db.scalars(
-        select(Pharmacy).where(
-            Pharmacy.lat.is_not(None),
-            Pharmacy.lon.is_not(None),
-            Pharmacy.lat.between(lat_min, lat_max),
-            Pharmacy.lon.between(lon_min, lon_max),
-        )
-    ).all()
-
-    nearby_pharmacies: dict[str, tuple[Pharmacy, float]] = {}
-    for p in candidate_pharmacies:
-        dist = haversine_km(lat, lon, p.lat, p.lon)  # type: ignore[arg-type]
-        if dist <= radius_km:
-            nearby_pharmacies[p.id] = (p, dist)
-
-    # 2. Comprobar cobertura (si existe ALGÚN turno de cualquier fecha a menos de radius_km)
-    if not nearby_pharmacies:
-        has_any_shift = False
-    else:
-        has_any_shift = (
-            db.scalar(
-                select(Shift.id)
-                .where(Shift.pharmacy_id.in_(list(nearby_pharmacies.keys())))
-                .limit(1)
-            )
-            is not None
-        )
-
-    if not has_any_shift:
-        return {
-            "cobertura": False,
-            "mensaje": "Sin datos oficiales para esta zona",
-            "farmacias_sin_coordenadas": 0,
-            "guardias": [],
-        }
-
-    # 3. Contar farmacias activas en 'at' sin coordenadas cuyas zones coincidan con las cercanas
-    nearby_zones: set[str] = set()
-    for p, _ in nearby_pharmacies.values():
-        if p.zones:
-            try:
-                zs = json.loads(p.zones)
-                if isinstance(zs, list):
-                    nearby_zones.update(zs)
-            except Exception:
-                pass
-
-    farmacias_sin_coordenadas = 0
-    if nearby_zones:
-        unlocated_pharmacies = db.scalars(
-            select(Pharmacy)
-            .join(Shift, Shift.pharmacy_id == Pharmacy.id)
-            .where(
-                (Pharmacy.lat.is_(None) | Pharmacy.lon.is_(None)),
-                Shift.start_utc <= at_utc,
-                Shift.end_utc > at_utc,
-            )
-            .distinct()
-        ).all()
-        for up in unlocated_pharmacies:
-            if up.zones:
-                try:
-                    up_zs = set(json.loads(up.zones))
-                    if up_zs & nearby_zones:
-                        farmacias_sin_coordenadas += 1
-                except Exception:
-                    pass
-
-    # 4. Turnos activos en 'at' para farmacias cercanas
-    shifts_stmt = (
-        select(Shift, Source)
-        .join(Source, Shift.source_id == Source.source_id)
-        .where(
-            Shift.pharmacy_id.in_(list(nearby_pharmacies.keys())),
-            Shift.start_utc <= at_utc,
-            Shift.end_utc > at_utc,
-        )
-    )
-    active_shifts = db.execute(shifts_stmt).all()
-
-    if not active_shifts:
-        return {
-            "cobertura": True,
-            "mensaje": "Sin datos oficiales para esta fecha",
-            "farmacias_sin_coordenadas": farmacias_sin_coordenadas,
-            "guardias": [],
-        }
-
-    # Agrupar por farmacia para no duplicar una misma farmacia activa en varios cuadrantes
-    shifts_by_pharmacy: dict[str, list[tuple[Shift, Source]]] = {}
-    for shift, source in active_shifts:
-        shifts_by_pharmacy.setdefault(shift.pharmacy_id, []).append((shift, source))
-
-    items = []
-    for pid, shift_tuples in shifts_by_pharmacy.items():
-        pharmacy, dist = nearby_pharmacies[pid]
-        best_shift, source = select_best_shift_for_pharmacy(
-            pharmacy, shift_tuples
-        )
-        items.append(
-            {
-                "farmacia": {
-                    "id": pharmacy.id,
-                    "titular": pharmacy.holder,
-                    "direccion": pharmacy.address,
-                    "localidad": pharmacy.locality,
-                    "cp": pharmacy.postal_code,
-                    "telefono": pharmacy.phone,
-                    "telefono_guardia": pharmacy.duty_phone,
-                    "lat": pharmacy.lat,
-                    "lon": pharmacy.lon,
-                    "geo_precision": pharmacy.geo_precision,
-                    "ubicacion_aproximada": bool(pharmacy.geo_precision == "localidad"),
-                },
-                "turno": {
-                    "tipo": best_shift.kind,
-                    "inicio": to_madrid_iso(best_shift.start_utc),
-                    "fin": to_madrid_iso(best_shift.end_utc),
-                    "zona": best_shift.zone,
-                    "etiqueta_original": best_shift.raw_label,
-                    "horario_confirmado": bool(best_shift.times_exact),
-                },
-                "distancia_km": round(dist, 2),
-                "fuente": {
-                    "publisher": source.publisher,
-                    "url": source.url,
-                    "license": source.license,
-                },
-            }
-        )
-
-    # Ordenar por distancia
-    items.sort(key=lambda x: (x["distancia_km"], x["turno"]["inicio"]))
-    items = items[:limit]
-
-    return {
-        "cobertura": True,
-        "mensaje": None,
-        "farmacias_sin_coordenadas": farmacias_sin_coordenadas,
-        "guardias": items,
-    }
+    at_utc = _parse_at(at)
+    return _query_guardias(db, lat, lon, at_utc, at_utc, radius_km, limit)
 
 
 @app.get("/v1/guardias/dia")
@@ -348,162 +429,16 @@ def get_guardias_dia(
             status_code=400,
             detail="Formato de 'fecha' inválido. Use YYYY-MM-DD (ej. 2026-10-18)",
         )
-
-    day_start_local = datetime.datetime(
-        d.year, d.month, d.day, 0, 0, 0, tzinfo=MADRID_TZ
+    day_start = datetime.datetime(d.year, d.month, d.day, tzinfo=MADRID_TZ)
+    # El día siguiente a medianoche en hora de Madrid (23 o 25 h en los cambios de hora).
+    nxt = d + datetime.timedelta(days=1)
+    day_end = datetime.datetime(nxt.year, nxt.month, nxt.day, tzinfo=MADRID_TZ)
+    return _query_guardias(
+        db,
+        lat,
+        lon,
+        day_start.astimezone(datetime.timezone.utc),
+        day_end.astimezone(datetime.timezone.utc),
+        radius_km,
+        limit,
     )
-    day_end_local = day_start_local + datetime.timedelta(days=1)
-    day_start_utc = day_start_local.astimezone(datetime.timezone.utc)
-    day_end_utc = day_end_local.astimezone(datetime.timezone.utc)
-
-    # 1. Prefiltro SQL por bounding box
-    dlat = radius_km / 111.0
-    cos_lat = max(0.01, math.cos(math.radians(lat)))
-    dlon = radius_km / (111.0 * cos_lat)
-    lat_min, lat_max = lat - dlat, lat + dlat
-    lon_min, lon_max = lon - dlon, lon + dlon
-
-    candidate_pharmacies = db.scalars(
-        select(Pharmacy).where(
-            Pharmacy.lat.is_not(None),
-            Pharmacy.lon.is_not(None),
-            Pharmacy.lat.between(lat_min, lat_max),
-            Pharmacy.lon.between(lon_min, lon_max),
-        )
-    ).all()
-
-    nearby_pharmacies: dict[str, tuple[Pharmacy, float]] = {}
-    for p in candidate_pharmacies:
-        dist = haversine_km(lat, lon, p.lat, p.lon)  # type: ignore[arg-type]
-        if dist <= radius_km:
-            nearby_pharmacies[p.id] = (p, dist)
-
-    # 2. Comprobar cobertura
-    if not nearby_pharmacies:
-        has_any_shift = False
-    else:
-        has_any_shift = (
-            db.scalar(
-                select(Shift.id)
-                .where(Shift.pharmacy_id.in_(list(nearby_pharmacies.keys())))
-                .limit(1)
-            )
-            is not None
-        )
-
-    if not has_any_shift:
-        return {
-            "cobertura": False,
-            "mensaje": "Sin datos oficiales para esta zona",
-            "farmacias_sin_coordenadas": 0,
-            "guardias": [],
-        }
-
-    # 3. Contar farmacias sin coordenadas con turnos que solapan el día cuyas zones coincidan con las cercanas
-    nearby_zones: set[str] = set()
-    for p, _ in nearby_pharmacies.values():
-        if p.zones:
-            try:
-                zs = json.loads(p.zones)
-                if isinstance(zs, list):
-                    nearby_zones.update(zs)
-            except Exception:
-                pass
-
-    farmacias_sin_coordenadas = 0
-    if nearby_zones:
-        unlocated_pharmacies = db.scalars(
-            select(Pharmacy)
-            .join(Shift, Shift.pharmacy_id == Pharmacy.id)
-            .where(
-                (Pharmacy.lat.is_(None) | Pharmacy.lon.is_(None)),
-                Shift.start_utc < day_end_utc,
-                Shift.end_utc > day_start_utc,
-            )
-            .distinct()
-        ).all()
-        for up in unlocated_pharmacies:
-            if up.zones:
-                try:
-                    up_zs = set(json.loads(up.zones))
-                    if up_zs & nearby_zones:
-                        farmacias_sin_coordenadas += 1
-                except Exception:
-                    pass
-
-    # 4. Turnos solapados para farmacias cercanas
-    shifts_stmt = (
-        select(Shift, Source)
-        .join(Source, Shift.source_id == Source.source_id)
-        .where(
-            Shift.pharmacy_id.in_(list(nearby_pharmacies.keys())),
-            Shift.start_utc < day_end_utc,
-            Shift.end_utc > day_start_utc,
-        )
-    )
-    day_shifts = db.execute(shifts_stmt).all()
-
-    if not day_shifts:
-        return {
-            "cobertura": True,
-            "mensaje": "Sin datos oficiales para esta fecha",
-            "farmacias_sin_coordenadas": farmacias_sin_coordenadas,
-            "guardias": [],
-        }
-
-    # Agrupar por (pharmacy_id, kind, start_utc) para evitar duplicados del mismo turno en varias zonas
-    day_shifts_by_key: dict[
-        tuple[str, str, datetime.datetime], list[tuple[Shift, Source]]
-    ] = {}
-    for shift, source in day_shifts:
-        key = (shift.pharmacy_id, shift.kind, shift.start_utc)
-        day_shifts_by_key.setdefault(key, []).append((shift, source))
-
-    items = []
-    for (pid, kind, _), shift_tuples in day_shifts_by_key.items():
-        pharmacy, dist = nearby_pharmacies[pid]
-        best_shift, source = select_best_shift_for_pharmacy(
-            pharmacy, shift_tuples
-        )
-        items.append(
-            {
-                "farmacia": {
-                    "id": pharmacy.id,
-                    "titular": pharmacy.holder,
-                    "direccion": pharmacy.address,
-                    "localidad": pharmacy.locality,
-                    "cp": pharmacy.postal_code,
-                    "telefono": pharmacy.phone,
-                    "telefono_guardia": pharmacy.duty_phone,
-                    "lat": pharmacy.lat,
-                    "lon": pharmacy.lon,
-                    "geo_precision": pharmacy.geo_precision,
-                    "ubicacion_aproximada": bool(pharmacy.geo_precision == "localidad"),
-                },
-                "turno": {
-                    "tipo": best_shift.kind,
-                    "inicio": to_madrid_iso(best_shift.start_utc),
-                    "fin": to_madrid_iso(best_shift.end_utc),
-                    "zona": best_shift.zone,
-                    "etiqueta_original": best_shift.raw_label,
-                    "horario_confirmado": bool(best_shift.times_exact),
-                },
-                "distancia_km": round(dist, 2),
-                "fuente": {
-                    "publisher": source.publisher,
-                    "url": source.url,
-                    "license": source.license,
-                },
-            }
-        )
-
-    # Ordenar por inicio y distancia
-    items.sort(key=lambda x: (x["turno"]["inicio"], x["distancia_km"]))
-    items = items[:limit]
-
-    return {
-        "cobertura": True,
-        "mensaje": None,
-        "farmacias_sin_coordenadas": farmacias_sin_coordenadas,
-        "guardias": items,
-    }

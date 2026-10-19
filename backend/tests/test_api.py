@@ -344,3 +344,55 @@ def test_api_ubicacion_aproximada_flag(client: TestClient):
         assert isinstance(first_farm["ubicacion_aproximada"], bool)
 
 
+
+
+def test_madrid_capital_tiene_guardias(client: TestClient):
+    """Puerta del Sol, 1/10/2026 a las 12:00: guardias diurnas de la fuente municipal de Madrid."""
+    response = client.get(
+        "/v1/guardias",
+        params={"lat": 40.4169, "lon": -3.7035, "at": "2026-10-01T12:00:00+02:00", "radius_km": 5},
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["cobertura"] is True
+    assert data["guardias"], data
+    assert all(g["farmacia"]["id"].startswith("MAD:") for g in data["guardias"])
+    assert data["datos_hasta"] is not None
+
+
+def test_fuente_municipal_no_vale_fuera_del_termino(client: TestClient):
+    """Alcalá de Henares (a ~30 km) y Getafe (a ~13 km del centro): las farmacias de Madrid capital
+    no son su guardia. Getafe queda dentro de 25 km de muchas farmacias de Madrid, pero fuera de
+    la caja de la fuente municipal ampliada en 2 km -> sin cobertura."""
+    for lat, lon in ((40.4818, -3.3643), (40.3083, -3.7327)):
+        response = client.get(
+            "/v1/guardias",
+            params={"lat": lat, "lon": lon, "at": "2026-10-01T12:00:00+02:00", "radius_km": 25},
+        )
+        data = response.json()
+        assert not any(g["farmacia"]["id"].startswith("MAD:") for g in data["guardias"]), (lat, lon)
+        assert data["cobertura"] is False
+        assert data["mensaje"] == "Sin datos oficiales para esta zona"
+
+
+def test_fecha_aun_no_publicada(client: TestClient):
+    """Palma en 2030: hay cobertura, pero la fuente aún no ha publicado turnos para esa fecha."""
+    response = client.get(
+        "/v1/guardias/dia",
+        params={"lat": 39.5696, "lon": 2.6502, "fecha": "2030-06-01", "radius_km": 25},
+    )
+    data = response.json()
+    assert data["cobertura"] is True
+    assert data["guardias"] == []
+    assert data["mensaje"] == "Aún no hay turnos oficiales publicados para esta fecha"
+    assert data["datos_hasta"].startswith("2026-") or data["datos_hasta"].startswith("2027-")
+
+
+def test_inside_box_margen():
+    from backend.ambito import inside_box
+
+    box = (40.0, -4.0, 40.5, -3.5)
+    assert inside_box(box, 40.25, -3.75)
+    assert inside_box(box, 40.51, -3.75)  # ~1,1 km fuera: dentro del margen de 2 km
+    assert not inside_box(box, 40.55, -3.75)  # ~5,5 km fuera
+    assert not inside_box(None, 40.25, -3.75)
