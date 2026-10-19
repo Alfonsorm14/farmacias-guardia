@@ -84,7 +84,7 @@ el formulario y la política cambian.
 > • Si la fuente oficial no ha publicado los turnos de tu zona o de esa fecha, la app lo dice: no
 >   inventa ni deduce turnos.
 > • Funciona sin conexión con los últimos datos descargados.
-> • Sin registro, sin anuncios y sin seguimiento. Tu ubicación no sale del teléfono.
+> • Sin registro, sin anuncios y sin seguimiento. La app no envía tu ubicación a ningún servidor propio.
 >
 > Por ahora cubre Baleares, la Región de Murcia, Navarra y las ciudades de Madrid y Zaragoza; se irán
 > añadiendo zonas a medida que las administraciones publiquen sus datos.
