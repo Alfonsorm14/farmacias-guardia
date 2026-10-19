@@ -58,9 +58,26 @@ logger = logging.getLogger(__name__)
 BBOXES: dict[str, dict[str, float]] = {
     "04": {"lat_min": 38.6, "lat_max": 40.1, "lon_min": 1.1, "lon_max": 4.4},
     "14": {"lat_min": 37.3, "lat_max": 38.8, "lon_min": -2.4, "lon_max": -0.6},
+    "15": {"lat_min": 41.9, "lat_max": 43.35, "lon_min": -2.55, "lon_max": -0.7},
 }
-REGION_PROVINCES: dict[str, set[str]] = {"04": {"07"}, "14": {"30"}}
-REGION_NAMES: dict[str, str] = {"04": "Illes Balears", "14": "Región de Murcia"}
+REGION_PROVINCES: dict[str, set[str]] = {"04": {"07"}, "14": {"30"}, "15": {"31"}}
+REGION_NAMES: dict[str, str] = {
+    "04": "Illes Balears",
+    "14": "Región de Murcia",
+    "15": "Comunidad Foral de Navarra",
+}
+# Capa oficial de farmacias de Navarra (IDENA, CC BY 4.0) con coordenadas por código.
+IDENA_DBF = Path(__file__).resolve().parent.parent / "data" / "raw" / "navarra" / "idena" / "DOTACI_Sym_Farmacias.dbf"
+_idena_cache: dict[str, tuple[float, float]] | None = None
+
+
+def idena_coordinates() -> dict[str, tuple[float, float]]:
+    global _idena_cache
+    if _idena_cache is None:
+        from ingesta.parsers.navarra import load_idena
+
+        _idena_cache = load_idena(str(IDENA_DBF)) if IDENA_DBF.exists() else {}
+    return _idena_cache
 
 CARTOCIUDAD_BASE = "https://www.cartociudad.es/geocoder/api/geocoder"
 NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
@@ -213,7 +230,7 @@ def clean_address(address: str) -> str:
 
 # Mapeo de pedanías y nombres invertidos en Murcia -> (municipio, nucleo)
 MURCIA_KNOWN_MAP: dict[str, tuple[str, str | None]] = {
-    "ALBERCA,LAS": ("Murcia", "La Alberca"),
+    "ALBERCA,LAS": ("Murcia", "Alberca de las Torres"),
     "ALCAZARES, LOS": ("Los Alcázares", None),
     "ALGAR,EL": ("Cartagena", "El Algar"),
     "ALJORRA,LAS": ("Cartagena", "La Aljorra"),
@@ -256,7 +273,7 @@ MURCIA_KNOWN_MAP: dict[str, tuple[str, str | None]] = {
     "TORRES DE COTILLAS,LAS": ("Las Torres de Cotillas", None),
     "UNION,LAS": ("La Unión", None),
     "ÑORA,LAS": ("Murcia", "La Ñora"),
-    "ALBERCA,LA": ("Murcia", "La Alberca"),
+    "ALBERCA,LA": ("Murcia", "Alberca de las Torres"),
     "ALJORRA,LA": ("Cartagena", "La Aljorra"),
     "ALMUDEMA,LA": ("Caravaca de la Cruz", "La Almudema"),
     "UNION,LA": ("La Unión", None),
@@ -677,11 +694,16 @@ def _parse_wkt_rings(wkt: str | None) -> list[list[tuple[float, float]]]:
 
 
 def _names_match(a: str, b: str) -> bool:
-    ka = "".join(t for t in _tokens(a) if t not in _ARTICLES)
-    kb = "".join(t for t in _tokens(b) if t not in _ARTICLES)
-    if not ka or not kb:
-        return False
-    return ka == kb or difflib.SequenceMatcher(None, ka, kb).ratio() >= 0.9
+    """Nombres de población equivalentes (también bilingües "Pamplona/Iruña")."""
+    def keys(x: str) -> set[str]:
+        parts = [x] + ([p for p in re.split(r"\s*/\s*", x) if p] if "/" in x else [])
+        return {"".join(t for t in _tokens(p) if t not in _ARTICLES) for p in parts} - {""}
+
+    for ka in keys(a):
+        for kb in keys(b):
+            if ka == kb or difflib.SequenceMatcher(None, ka, kb).ratio() >= 0.9:
+                return True
+    return False
 
 
 def find_nucleus(
@@ -714,7 +736,7 @@ def find_nucleus(
         seen_ids.add(str(it.get("id")))
         matches.append(it)
     if not matches:
-        return None
+        return _nucleus_from_nominatim(geo, name, munis, region)
     # Puede haber varias entidades homónimas en el municipio (p. ej. dos "Los
     # Nietos" en Cartagena): se toma como principal la de polígono más extenso y
     # las demás se usan como alternativas al validar distancias.
@@ -753,6 +775,34 @@ def find_nucleus(
         postal_codes=postal,
         alternates=alternates,
     )
+
+
+_PLACE_TYPES = {"city", "town", "village", "hamlet", "suburb", "neighbourhood", "quarter", "isolated_dwelling", "locality"}
+
+
+def _nucleus_from_nominatim(
+    geo: GeoClient, name: str, munis: list[str], region: str
+) -> Nucleus | None:
+    """Núcleo como lugar habitado de OSM cuando CartoCiudad no tiene la entidad.
+
+    Se valida con la geocodificación inversa de CartoCiudad (municipio esperado).
+    Sin polígono: las distancias se miden al punto del lugar.
+    """
+    keys = {muni_key(m) for m in munis}
+    for muni in (munis[:3] or [REGION_NAMES.get(region, "")]):
+        for it in geo.nominatim(q=f"{name}, {muni}, {REGION_NAMES.get(region, '')}"):
+            if it.get("class") != "place" or it.get("type") not in _PLACE_TYPES:
+                continue
+            if not _names_match(name, (it.get("name") or it.get("display_name", "").split(",")[0])):
+                continue
+            lat, lon = float(it["lat"]), float(it["lon"])
+            if not is_within_bbox(region, lat, lon):
+                continue
+            rev = geo.reverse(lat, lon)
+            if rev is None or (keys and muni_key(rev.get("muni")) not in keys):
+                continue
+            return Nucleus(name=it.get("name") or name, muni=rev.get("muni") or muni, lat=lat, lon=lon)
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -847,6 +897,17 @@ def _zone_municipalities(zones: list[str]) -> list[str]:
 
 def resolve_context(geo: GeoClient, pharmacy: Pharmacy) -> GeoContext:
     """Municipio(s), núcleo y códigos postales esperados para una farmacia."""
+    if pharmacy.region == "15":
+        # La fuente da el núcleo (concejo o localidad), no siempre el municipio.
+        loc = (pharmacy.locality or "").strip()
+        nuc = None
+        for name in ([loc] + [p.strip() for p in loc.split("/")]) if loc else []:
+            nuc = find_nucleus(geo, name, [], "15")
+            if nuc is not None:
+                break
+        if nuc is not None:
+            return GeoContext([nuc.muni], nuc.name, False, [], "núcleo de la fuente")
+        return GeoContext([], None, False, [], "localidad no localizada")
     if pharmacy.region == "14":
         pairs = get_candidate_municipalities(pharmacy)
         munis = []
@@ -1212,6 +1273,10 @@ def _nominatim_street(
 def geocode_pharmacy(geo: GeoClient, pharmacy: Pharmacy) -> GeoResult:
     """Geocodifica una farmacia según las reglas del módulo."""
     region = pharmacy.region
+    if region == "15" and pharmacy.id.startswith("NA:"):
+        coords = idena_coordinates().get(pharmacy.id[3:])
+        if coords is not None and is_within_bbox(region, *coords):
+            return GeoResult(coords[0], coords[1], "portal", "idena", f"IDENA {pharmacy.id[3:]}", "capa oficial IDENA")
     ctx = resolve_context(geo, pharmacy)
     clean = clean_address(pharmacy.address)
     addr = parse_address(clean)

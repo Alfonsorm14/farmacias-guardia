@@ -1,0 +1,586 @@
+Código Centro,Nombre Centro,Domicilio,Localidad,Código Postal,Estado del Centro,Zona Sanitaria
+F00001,"Castellot Arechederra, Nerea",calle Chapitela 4,Pamplona/Iruña,31001,Centro Autorizado,Casco viejo
+F00002,"Gongora Garcia, Natalia",plaza Conde Oliveto 1,Pamplona/Iruña,31002,Centro Autorizado,Casco viejo
+F00003,"Palma/Sagues Carazo/Erro, Mercedes/Blanca",avenida Pamplona 15,Pamplona/Iruña,31009,Centro Autorizado,Echavacoiz
+F00006,"Iturria Sarasibar, Pedro",calle Estafeta 87,Pamplona/Iruña,31001,Centro Autorizado,Casco viejo
+F00007,"Vergara Ruiz, Maria Eva",calle Chapitela 22,Pamplona/Iruña,31001,Centro Autorizado,Casco viejo
+F00008,"Miramon Royo, Cecilia",calle San Saturnino 12,Pamplona/Iruña,31001,Centro Autorizado,Casco viejo
+F00009,"Izarzugaza Beitia, Cristina",calle Tafalla 21,Pamplona/Iruña,31003,Centro Autorizado,II Ensanche
+F00010,"Guerendiain Irujo, Joana",avenida Carlos III 6,Pamplona/Iruña,31002,Centro Autorizado,II Ensanche
+F00011,"Valdemoros Erro, Laura",carretera San Sebastián Km.1. Hipermercado Eroski.,Pamplona/Iruña,31013,Centro Autorizado,San Jorge
+F00012,"Lampreave Azanza, Luis Mariano",avenida Marcelo Celayeta 4,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00013,"Iragui Iraola, Maria Jose",plaza San Nicolás 74,Pamplona/Iruña,31001,Centro Autorizado,Casco viejo
+F00014,"Obispo Rebole, Alfonso",calle Cantón del Boticario 6,Lumbier,31440,Centro Autorizado,Sangüesa
+F00017,"Martinez Gurrea, David",avenida Diputación Foral 8,Lodosa,31580,Centro Autorizado,Lodosa
+F00018,"Maldonado Hualde, Ruth",calle Toluca 19,Caparroso,31380,Centro Autorizado,Olite
+F00019,"Mugica Sanchez, Ainara",plaza de San Cosme y San Damián 5,Andosilla,31261,Centro Autorizado,San Adrian
+F00020,"Argüelles Santesteban, Eva",calle García Ximénez 8,Altsasu/Alsasua,31800,Centro Autorizado,Altsasu/Alsasua
+F00021,"Bueno Farrer, Maria Peña",avenida de la Paz 42,Peralta/Azkoien,31350,Centro Autorizado,Peralta
+F00022,"Garro Ichaso, Olga",calle Mayor 7,Fitero,31593,Centro Autorizado,Cintruénigo
+F00023,"Hernandez Ramiro, Carlos","calle Arrabal 25,bajo",Milagro,31320,Centro Autorizado,Valtierra-Cadreita
+F00024,"Perez Fau, Lara Maria",avenida de Barillas 3,Ablitas,31523,Centro Autorizado,Cascante
+F00025,Nikol Dimitrova Martinova,calle Mayor 9,Villava/Atarrabia,31610,Centro Autorizado,Villava/Atarrabia
+F00026,"Goyache Sainz de Vicuña, Maria del Mar",calle Baja Navarra 7 accesorio,Estella/Lizarra,31200,Centro Autorizado,Estella
+F00027,"Lopez Santamaria, Tomas Ignacio",calle Mayor 77,Sangüesa/Zangoza,31400,Centro Autorizado,Sangüesa
+F00028,"Landa Naveros, Maria Rosario",plaza Santiago 55,Estella/Lizarra,31200,Centro Autorizado,Estella
+F00029,"Manso Gorostola, Maria Milagros",calle Mayor 70,Estella/Lizarra,31200,Centro Autorizado,Estella
+F00030,"Buesa De Caceres, Francisco Javier",calle Mayor 30,Olazti/Olazagutía,31809,Centro Autorizado,Altsasu/Alsasua
+F00031,"Zapata Cilveti, Maria",calle Juan Lascarro s/n,Artajona,31140,Centro Autorizado,Artajona
+F00033,"Remon Huarte, Monica Lidia",avenida Zaragoza 29-31,Tudela,31500,Centro Autorizado,Tudela este
+F00034,"Azurmendi Lopez, Garbiñe",calle Felipe Gorriti 9,Uharte-Arakil,31840,Centro Autorizado,Irurtzun
+F00035,"Melero Iriarte, Cristina",avenida de los Fueros 23-25,Monteagudo,31522,Centro Autorizado,Cascante
+F00037,"Argerich/Argerich Lapuerta/Lapuerta, Ana/Marta",plaza Fueros 8,Cascante,31520,Centro Autorizado,Cascante
+F00039,"Uriarte Lopez de Vicuña, Ivan",calle Larrañeta 17,Etxarri-Aranatz,31820,Centro Autorizado,Etxarri-Aranatz
+F00041,"Remon Zoroza, Eva",calle Padre Sales Muruzabal 1,San Martín de Unx,31495,Centro Autorizado,Olite
+F00042,"Prats Saldaña, Maria",plaza Donantes de Sangre 1,Villafranca,31330,Centro Autorizado,Valtierra-Cadreita
+F00043,"Rubio Frade, Mercedes",calle San Miguel 4 A,Cortes,31530,Centro Autorizado,Buñuel
+F00048,"Margallo Lana, Rosario",calle Amigos del País 2,Tudela,31500,Centro Autorizado,Tudela oeste
+F00050,"Velasco Bezunartea, Maria Luisa",calle Cerco de Fuera 18,Olite/Erriberri,31390,Centro Autorizado,Olite
+F00054,"Ormazabal Oyarbide, Maria Jose",calle El Ferial 7,Huarte/Uharte,31620,Centro Autorizado,Huarte
+F00059,"Masa Lopez, Alvaro",calle Mayor 24,Burlada/Burlata,31600,Centro Autorizado,Burlada
+F00060,"Fernandez Alvarez, Soliña",calle Mayor 20,Estella/Lizarra,31200,Centro Autorizado,Estella
+F00062,"Sagardoy Aguado, Isabel",plaza España 13,Castejón,31590,Centro Autorizado,Corella
+F00063,"Urtasun Sanz, Rosario",plaza Chantrea 6,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00065,"Amiano Giraldo, Maria",calle San Miguel 7,Cadreita,31515,Centro Autorizado,Valtierra-Cadreita
+F00066,"Goena Iglesias, Rosario",calle Pósito s/n,Carcastillo,31310,Centro Autorizado,Carcastillo
+F00068,"Arrupea Plaza, Eduardo",calle Jaime Urrutia 17,Elizondo,31700,Centro Autorizado,Elizondo
+F00071,Gaston/Lopez de Dicastillo Ortigosa/Perez de Albeniz Sandra/Iranzu,plaza de los Fueros 8,Estella/Lizarra,31200,Centro Autorizado,Estella
+F00072,"Mendivil Gil, Maria Jose",calle Bardenas 12,Fustiñana,31510,Centro Autorizado,Buñuel
+F00073,"Mutiloa Martirena, Ana Mª",calle San Martín 5,Irurtzun,31860,Centro Autorizado,Irurtzun
+F00074,"Jaurrieta Osaba, Ignacio",carretera de Estella 6,Larraga,31251,Centro Autorizado,Artajona
+F00076,"Azcona Beguiristain, María Jose",plaza Coso s/n,Los Arcos,31210,Centro Autorizado,Los Arcos
+F00078,"Martinez Torres, Juan Lucas",calle Mayor 84,Murchante,31521,Centro Autorizado,Cascante
+F00079,"Gonzalez Valencia, Javier",paseo Fray Vicente Bernedo 24,Puente la Reina/Gares,31100,Centro Autorizado,Puente la reina
+F00082,"Mendia Ibarra, Elvira Ainara",calle Mercaderes 1,Doneztebe/Santesteban,31740,Centro Autorizado,Doneztebe/Santesteban
+F00083,"Arellano Diaz, Javier",calle Gaztambide 4,Tudela,31500,Centro Autorizado,Tudela oeste
+F00084,"Arnedillo Astrain, Esther",calle Curia 2,Pamplona/Iruña,31001,Centro Autorizado,Casco viejo
+F00085,"Planas Lasa, Leire",calle Mayor 62,Pamplona/Iruña,31001,Centro Autorizado,Casco viejo
+F00086,"Remirez De Ganuza Fernandez, Elena",calle García Castañón 10,Pamplona/Iruña,31002,Centro Autorizado,II Ensanche
+F00087,"Maeztu Goicoechea, Laura",calle Nueva 1,Pamplona/Iruña,31001,Centro Autorizado,Casco viejo
+F00088,"Cabiro Echeverria, Isabel",calle Benjamín de Tudela 21,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00089,"Loitegui Urzaiz,  Victorina",calle Doctor Navarro 16,Barásoain,31395,Centro Autorizado,Tafalla
+F00091,"Chueca/Chueca Perez/Perez, Ana Maria/Estefania",calle Yanguas y Miranda 11,Tudela,31500,Centro Autorizado,Tudela oeste
+F00092,"de Gregorio Nogueras, Mercedes Paloma",calle Mayor 58,Buñuel,31540,Centro Autorizado,Buñuel
+F00093,"Martinez Garcia, Francisco Javier",calle Rua de Santa María 10,Viana,31230,Centro Autorizado,Viana
+F00094,"Poyales Morales, Elena",plaza Fueros 2,Corella,31591,Centro Autorizado,Corella
+F00095,"Samanes Sastre, Ignacio",plaza San Miguel 4,Arguedas,31513,Centro Autorizado,Valtierra-Cadreita
+F00096,"Lera Toston, Maria Yolanda",calle Domingo Elizondo 4,Aoiz/Agoitz,31430,Centro Autorizado,Aoiz
+F00097,"Irigoyen Sanchez, Maria Pilar","plaza del Ayuntamiento 1,Bajo",Murillo el Fruto,31313,Centro Autorizado,Carcastillo
+F00098,"Bañon/Bañon/Bañon Pinar/Pinar/Pinar, Miguel A/Ana/Mª Luz",calle San Martín de Unx 9,Tafalla,31300,Centro Autorizado,Tafalla
+F00099,"Nieto Uriz, Itziar",calle Zapatería 25,Pamplona/Iruña,31001,Centro Autorizado,Casco viejo
+F00100,"Sagasti Lacalle, Maria Dolores",calle Nueva 5,Dicastillo,31263,Centro Autorizado,Allo
+F00101,"Moliner Ros, Jose",calle Mayor 22,Sangüesa/Zangoza,31400,Centro Autorizado,Sangüesa
+F00102,"Nuñez Gonzalez, Manuel",calle La Iglesia 10,Santacara,31314,Centro Autorizado,Carcastillo
+F00103,"Coronas Orzanco, Amparo",calle Mayor 31,Tafalla,31300,Centro Autorizado,Tafalla
+F00104,"Apecechea Lizaso, Luis Miguel",calle Mayor 64,Goizueta,31880,Centro Autorizado,Leitza
+F00105,"Irigoyen Roitegui, Oihane",calle Ciudadela 1,Pamplona/Iruña,31001,Centro Autorizado,Casco viejo
+F00106,"Ruiz Pinilla, Amaya",travesia Sangüesa 12,Aibar/Oibar,31460,Centro Autorizado,Sangüesa
+F00108,"Ursua Aisa, Laura",calle Ramon y Cajal 20,Funes,31360,Centro Autorizado,Peralta
+F00110,"Arrupea Plaza, Esther",calle Elbarren 36,Leitza,31880,Centro Autorizado,Leitza
+F00113,"Urchegui, Ihintza",calle Andutzeta 17,Etxalar,31760,Centro Autorizado,Lesaka
+F00117,"Novoa Marotta, Nicolas",avenida del Salvador 5,Falces,31370,Centro Autorizado,Peralta
+F00120,"Pardo Echauri, Francisco Javier",calle Augusto Echeverría 36-38,Mendavia,31587,Centro Autorizado,Lodosa
+F00127,"Zubiria Azpiroz, Maialen",calle Aralar 43,Lekunberri,31870,Centro Autorizado,Irurtzun
+F00131,"Carril Estebanez, Estrella",calle Aralar 39,Pamplona/Iruña,31004,Centro Autorizado,II Ensanche
+F00133,"Indurain Eraso, Ignacio",calle Aralar 18,Pamplona/Iruña,31004,Centro Autorizado,II Ensanche
+F00135,"Poyales Morales, Maria Carmen",calle Santa Bárbara 44,Corella,31591,Centro Autorizado,Corella
+F00136,"Sainz de Medrano Sainz, Jorge",calle Ramón y Cajal 34,Azagra,31560,Centro Autorizado,San Adrian
+F00137,"Ilundain Lizarza, Maria Itziar",calle Benjamín de Tudela 38,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00139,"Holgado Vicente, Regina",calle San Fermín 59,Pamplona/Iruña,31003,Centro Autorizado,Milagrosa
+F00140,"Sanjuan/Rovira Borda/Sanjuan, Maria Carmen/Primitivo",calle Amaya 22,Pamplona/Iruña,31004,Centro Autorizado,II Ensanche
+F00141,"Zapata Fernandez, Ana Maria",avenida Pio XII 9,Pamplona/Iruña,31008,Centro Autorizado,Iturrama
+F00142,"Basarte/Basarte Galbete/Galbete, Concepcion/Fernando",avenida Carlos III 63,Pamplona/Iruña,31004,Centro Autorizado,II Ensanche
+F00143,"Aquerreta Ferraz, Jose Antonio",calle San Pedro 36,Larrainzar,31797,Centro Autorizado,Ultzama
+F00144,"Martin de la Nava, Maria de la Soledad",calle de Francisco Bergamín 43,Pamplona/Iruña,31003,Centro Autorizado,II Ensanche
+F00145,"Garcia/Garcia Arrieta/Arrieta, Ana/Paula",avenida Villava 51 - A,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00146,"Amilivia Alvarez, Miguel",calle Bergamín 13,Pamplona/Iruña,31003,Centro Autorizado,II Ensanche
+F00147,"Redin Goñi, Javier",plaza Iturriotzeaga 4 (trasera),Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00148,"Jauregui Nazabal, Clara",plaza de La Libertad 13,Pamplona/Iruña,31003,Centro Autorizado,II Ensanche
+F00149,"Sarasibar Sagües, Ana Jose",calle Leyre 18-20,Pamplona/Iruña,31002,Centro Autorizado,II Ensanche
+F00150,"Taberna Villanueva, Alejandra",calle Javier 16,Pamplona/Iruña,31001,Centro Autorizado,Casco viejo
+F00151,"Lopez Garcia, Ylenia Carolina",avenida Zaragoza 19,Pamplona/Iruña,31003,Centro Autorizado,Milagrosa
+F00152,"Sanjuan/Sanjuan Duran/Duran, David/Sergio",avenida Zaragoza 44,Pamplona/Iruña,31005,Centro Autorizado,Azpilagaña
+F00153,Sada/Perez/Sada Lacalle/Saenz/Perez Jose Luis/Mercedes/Maria,calle Olite 39,Pamplona/Iruña,31004,Centro Autorizado,II Ensanche
+F00154,"Ruiz Bacaicoa, Francisco Javier",plaza Castillo 25,Pamplona/Iruña,31001,Centro Autorizado,Casco viejo
+F00155,"Madoz Labaca, Marta",calle Tajonar 2,Pamplona/Iruña,31003,Centro Autorizado,Milagrosa
+F00156,"Pascual Ramirez, Mercedes",avenida Santa Ana 22,Tudela,31500,Centro Autorizado,Tudela este
+F00157,"Oficialdegui Bravo, Patricia",avenida Marcelo Celayeta 47,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00158,"Sola Casas, Maria Jesus",calle Martín Azpilicueta 7,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00159,"Luis de Redin Subira, Maria Rosa",calle Alzania 1,Altsasu/Alsasua,31800,Centro Autorizado,Altsasu/Alsasua
+F00160,"Lorca Mico, Soledad",calle Tudela 1,Pamplona/Iruña,31002,Centro Autorizado,Casco viejo
+F00161,"Lorca Diaz, Ines",calle Irunlarrea 5,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00162,"Remirez De Ganuza Fernandez, Carlos",avenida Carlos III 41,Pamplona/Iruña,31004,Centro Autorizado,II Ensanche
+F00163,"Bengoechea Marco, Pedro Miguel",calle Buenaventura Iñiguez 16,Pamplona/Iruña,31005,Centro Autorizado,Azpilagaña
+F00164,"Martinez Subiza, Laura",plaza Puente la Reina 12,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00165,"Goyena Ruiz De Alda, Amelia",calle Abejeras 2,Pamplona/Iruña,31007,Centro Autorizado,Azpilagaña
+F00166,"San Miguel Goñi, Sagrario","calle Sangüesa 39,bajo",Pamplona/Iruña,31005,Centro Autorizado,Milagrosa
+F00167,"Sola Casas, Maria Cristina",calle Monasterio de la Oliva 48,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00169,"Villanueva/Villanueva Heras/Heras, Cristina/Esther",calle Pico de Ori 8,Pamplona/Iruña,31006,Centro Autorizado,Milagrosa
+F00170,"Morales Ridruejo, Isabel",calle Irunlarrea 26,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00171,"Garcia Gil, Maria Carmen",calle Izalzu 8,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00172,"Vilariño Ariz, Martina Dolores",calle Rinaldi 25,Pamplona/Iruña,31007,Centro Autorizado,Azpilagaña
+F00173,"Montero Macarro, Manuel",plaza Larre 6,Beriáin,31191,Centro Autorizado,Noain
+F00174,"Lujan Ipiens, Jacobo",calle Manuel de Falla 14,Pamplona/Iruña,31005,Centro Autorizado,Milagrosa
+F00175,"Liberal Romero, Esperanza",calle Dr. Juaristi 1,Pamplona/Iruña,31012,Centro Autorizado,San Jorge
+F00176,"Cando Guañuna, Jonatan Patricio",avenida Barañáin 6,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00177,"Legarra Oroquieta, Maria",avenida Sancho el Fuerte 10,Pamplona/Iruña,31007,Centro Autorizado,Iturrama
+F00178,"Garcia Calvo, Alfredo",avenida Marcelo Celayeta 99,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00179,"Colom/Perez Lemaitre/Pardo de Vera, Mateo/Ana",calle Merindad de Sangüesa 3,Burlada/Burlata,31600,Centro Autorizado,Burlada
+F00180,Val/Zoco Lampreabe/Lampreabe Elena/Ricardo,calle Virgen de Ujué 5,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00181,"Aguirre Esparz, Genoveva",calle Artica 14,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00182,"Urdaniz Baztan, Ana Olalla",avenida Bayona 46,Pamplona/Iruña,31011,Centro Autorizado,Ermitagaña
+F00183,"Cubillas Barricart, Beatriz",avenida Comercial 4,Barañain,31010,Centro Autorizado,Barañain
+F00184,"Irurzun Tihista, Marta","avenida Bayona, s/n. Esquina Pl. Obispo Irurita, 1",Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00185,"Puertas Arbizu, Francisco Javier",calle Abejeras 15,Pamplona/Iruña,31007,Centro Autorizado,Azpilagaña
+F00186,"Ruiz Puertas, Nuria",calle San Cristóbal 16,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00187,"Diaz Garcia, Juan Miguel",calle Kaleberri 16,Berriozar,31013,Centro Autorizado,Berriozar
+F00188,"Garisoain Otero, Ana","calle Real 27,A",Noáin,31110,Centro Autorizado,Noain
+F00189,"Fernandez Mencia, Carmen",plaza Ezcaba 13,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00190,"Cabiro Echeverria, Cristina",avenida Bayona 24,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00191,"Gomez Aldea, Maria Isabel",avenida Pío XII 35,Pamplona/Iruña,31008,Centro Autorizado,Iturrama
+F00192,"Flores Mendinueta, Ana Inmaculada",avenida Sancho el Fuerte 67,Pamplona/Iruña,31007,Centro Autorizado,Iturrama
+F00193,"Liberal Romero, Alicia",calle Dr. Gortari 1,Pamplona/Iruña,31012,Centro Autorizado,San Jorge
+F00194,"Martinez Ezquieta, Jasone",calle Monasterio de Urdax 51,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00196,"Garcia Diaz, Ana",calle Iturrama 13,Pamplona/Iruña,31007,Centro Autorizado,Azpilagaña
+F00197,"Zozaya Alvarez, Marta",calle Dr. Repáraz 6,Pamplona/Iruña,31012,Centro Autorizado,San Jorge
+F00198,"Ruiz De Irizar, Maria Pilar",calle Valtierra 20,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00199,"Iribertegui Villar, Manuel Fermin",calle Las Maestras s/n,Burlada/Burlata,31600,Centro Autorizado,Burlada
+F00200,"Noain Yoldi, Marianela",calle Monasterio de Urdax 3,Pamplona/Iruña,31007,Centro Autorizado,Iturrama
+F00201,"Aragon Marin, Alba",paseo Enamorados 31,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00203,"Amilivia Alvarez, Ines",calle Monasterio de la Oliva 1,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00204,"Yarnoz Izquierdo, Ana",calle Divina Pastora 11,Ansoáin/Antsoain,31013,Centro Autorizado,Ansoain
+F00205,"Marfil Garcia, Alberto",calle Yanguas y Miranda 17,Pamplona/Iruña,31001,Centro Autorizado,Casco viejo
+F00206,"Vega Ezquieta, Iranzu",calle Azoz 5,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00207,"Igoa Goñi, Raquel",calle Villafranca 1,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00209,"Girones Navarlaz, Maria",calle Pintor Basiano 1,Pamplona/Iruña,31008,Centro Autorizado,Iturrama
+F00210,Val/Val Lampreabe/Lampreabe Julia/Mª Teresa,calle La Asunción 6,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00211,"Lazaro Pina, Virginia",calle Hilarión Eslava 22,Burlada/Burlata,31600,Centro Autorizado,Burlada
+F00212,"Aguirre Redondo, Maria",calle San Juan Bosco 11,Pamplona/Iruña,31007,Centro Autorizado,Azpilagaña
+F00213,"Ruiz-Capillas Martinez, Elisa Maria",avenida Villava 47,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00214,Uriel/Uriel Rubio/Rubio MªJose/Belen,calle Iñigo Arista 19,Pamplona/Iruña,31007,Centro Autorizado,Iturrama
+F00215,"San Julian Arrupe, Adriana",calle Río Irati 13,Pamplona/Iruña,31005,Centro Autorizado,Milagrosa
+F00216,"Aliaga Perez, Ana Maria",calle Navas de Tolosa 27,Pamplona/Iruña,31002,Centro Autorizado,Casco viejo
+F00217,"Barbarin Maimon, Daniel",calle Sadar 6,Pamplona/Iruña,31006,Centro Autorizado,Milagrosa
+F00218,"Iribas Latour, Ignacio",calle Pedro Bidagor s/n,Barañain,31010,Centro Autorizado,Barañain
+F00219,"Bañuelos Valderrama, Zuriñe",calle Dr. Galán 2,Pamplona/Iruña,31012,Centro Autorizado,San Jorge
+F00220,"Arnedo Dronda, Isabel",avenida Barañáin 20,Pamplona/Iruña,31008,Centro Autorizado,San Juan
+F00221,"Barbarin Olleta, Rosa Elena",avenida Sancho el Fuerte 73,Pamplona/Iruña,31008,Centro Autorizado,San Juan
+F00222,"Martinez Torrecilla, Beatriz",calle Mendigorria 16,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00223,"Ruiz Sagaseta De Ilurdoz, Blanca",calle Nicanor Beistegui 10,Pamplona/Iruña,31009,Centro Autorizado,Echavacoiz
+F00224,"Ros/Ros /Rodriguez Rodriguez, Idoia/Marta",calle Virgen del Puy 11,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00225,"Lalastra/Jauregui De La Fuente/Olaiz, Maria Asuncion/Ana",calle Jerónimo de Arbolanche 5,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00226,"Medrano Senosiain, Elena",calle Malón de Echaide 9,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00227,"Roncal Garraza, Maria Teresa",carretera de Lerin 28,Allo,31262,Centro Autorizado,Allo
+F00228,"Menendez/Menendez Perez/Perez, Alberto/Miguel",plaza Miguel Induráin 6,Villava/Atarrabia,31610,Centro Autorizado,Villava/Atarrabia
+F00229,"Almagro Fernandez-Blanco, Inmaculada",calle Sancho Ramírez 3,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00230,"Chasco Ugarte, Julia",calle Lapurbide 9,Ansoáin/Antsoain,31013,Centro Autorizado,Ansoain
+F00231,"Aldana/Aldana Moraza/Estremera, Ignacio/Iñaki",calle Pedro I 12,Pamplona/Iruña,31007,Centro Autorizado,Iturrama
+F00232,"De la Merced San Martín, Celia",calle Serafín Olave 25,Pamplona/Iruña,31007,Centro Autorizado,Iturrama
+F00233,"Albeniz Gale, Iker Eduardo",calle Erreniega 22,Zizur Mayor/Zizur Nagusia,31180,Centro Autorizado,Cizur
+F00234,"Bidegain Aizpun, Julen",calle Infanzones 15,Obanos,31151,Centro Autorizado,Puente la reina
+F00235,"Olloqui Larumbe, Olga",calle Pedro Aranaz 8,Pamplona/Iruña,31006,Centro Autorizado,Azpilagaña
+F00236,"Muro Baglietto, Mª Arrate",calle Serafín Olave 33,Pamplona/Iruña,31007,Centro Autorizado,Iturrama
+F00237,"Casadamon Andres, Laura",calle Del Olmo 3,Sesma,31293,Centro Autorizado,Lodosa
+F00238,"Garcia Zuñiga, Ana",plaza de los Fueros 15,Arróniz,31243,Centro Autorizado,Allo
+F00239,"Capilla Frias, Inmaculada",plaza Hermilio de Oloriz 3,Auritz/Burguete,31640,Centro Autorizado,Auritz/Burguete
+F00240,"Rodriguez Calvo, Javier",avenida Pamplona 7,Mutilva <> Mutiloa,31192,Centro Autorizado,Aranguren
+F00241,"Aznarez Clemente, Esteban Jose",calle San Miguel 17,Oteiza,31250,Centro Autorizado,Villatuerta
+F00242,"Sainz Fernandez, Elisabeth",carretera de Arizala 1,Abárzuza,31178,Centro Autorizado,Villatuerta
+F00244,"Aboitiz Izurieta, Lierni",calle Miguel Arregui 17,Lakuntza,31830,Centro Autorizado,Etxarri-Aranatz
+F00245,"Aznarez Araiz , Javier Esteban",calle Mayor s/n,Villatuerta,31132,Centro Autorizado,Villatuerta
+F00246,"Alen Fernandez, Ruben",carretera Vitoria 20,Ancín,31281,Centro Autorizado,Ancin-Améscoa
+F00247,"Urionabarrenetxea Zarrabe, Johann Urtzi",calle Bentalde 2,Urdiain,31810,Centro Autorizado,Etxarri-Aranatz
+F00248,"Inchaurraga Casadamon, Laura",calle Bernardino Ayala 8,Mendigorría,31150,Centro Autorizado,Puente la reina
+F00249,"Altamirano Veron, Hilda Valle",calle Barrio Dancharinea 14,Urdazubi/Urdax,31711,Centro Autorizado,Elizondo
+F00250,"Moreno Vargas, Amparo",calle Trinidad 17,Arre,31194,Centro Autorizado,Villava/Atarrabia
+F00251,"Barrena Sotes, Myriam",calle Las Eras 4,Monreal/Elo,31471,Centro Autorizado,Noain
+F00252,"Diaz Romeo, Raul",calle Julián Retegui 30,Sartaguda,31589,Centro Autorizado,Lodosa
+F00253,"Jimenez Obis, Pilar",calle El Sol 53,Pitillas,31392,Centro Autorizado,Olite
+F00254,"Sanchez Garcia, Rafael",calle Nueva 1,Cáseda,31490,Centro Autorizado,Sangüesa
+F00255,"Liso Aldaz, Maria Jose",calle Río Arga 33-35,Zubiri,31630,Centro Autorizado,Huarte
+F00256,"Astiz Erro, Jaione",calle Fernando Urkia 7,Arbizu,31839,Centro Autorizado,Etxarri-Aranatz
+F00258,"Pascual Esteban, Maria Luisa",calle Zumalacárregui 30,Mélida,31382,Centro Autorizado,Carcastillo
+F00261,"Arnedillo Urricelqui, Monica",plaza Francisca Salinas 3,Etxauri,31174,Centro Autorizado,Orcoyen
+F00262,"Clavero  Tames, Ignacio",calle Portal 13,Cirauqui/Zirauki,31131,Centro Autorizado,Puente la reina
+F00263,"Iglesias Diago, Olivia",calle Mayor 8,Sunbilla,31791,Centro Autorizado,Doneztebe/Santesteban
+F00266,"Alegre Navarro, Jaione",plaza de los Fueros 1,Mañeru,31130,Centro Autorizado,Puente la reina
+F00267,"Esnaola Huici, Nagore",calle Barrio de Orella 1,Arribe,31891,Centro Autorizado,Irurtzun
+F00268,"Blazquez Gonzalez, Maria Asuncion",calle Cuesta de la Estación 12,Tudela,31500,Centro Autorizado,Tudela este
+F00270,"Echeverria Eciolaza, Maria Luisa",calle Salbatore 6,Arantza,31790,Centro Autorizado,Lesaka
+F00272,"Ruiz-Lopetedi Rodriguez, Jose Joaquin",calle Consejo 12,Ituren,31745,Centro Autorizado,Doneztebe/Santesteban
+F00273,"De Carlos Iriarte, Maria Carmen",calle Santa María 24,Aribe,31671,Centro Autorizado,Auritz/Burguete
+F00274,"Atozqui Arrondo, Leyre",calle San Isidro 34,Tafalla,31300,Centro Autorizado,Tafalla
+F00275,"Chasco Urabayen, Jose Maria",calle Carretera 8,Ayegui/Aiegi,31240,Centro Autorizado,Estella
+F00276,"Ongay Cordon, Javier",calle Etxaburua 10,Berriozar,31013,Centro Autorizado,Berriozar
+F00277,"Sanjuan Elizondo, Javier",calle Iriartea s/n,Roncal/Erronkari,31415,Centro Autorizado,Isaba
+F00281,"Iribarren/Chocarro, Samper/Gorraiz, Beatriz/Ana",calle Concejo de Sarriguren 16,Pamplona/Iruña,31016,Centro Autorizado,Mendillorri
+F00283,"Casado Moreno, Sandra",calle La Vicera 6,Cabanillas,31511,Centro Autorizado,Buñuel
+F00284,"Aguirre Remirez, Florinda",calle Medio Barrio 19,Eulate,31271,Centro Autorizado,Ancin-Améscoa
+F00287,"Vicente Collado, Maria Jose",calle Rochapea 2,Ezcároz/Ezkaroze,31690,Centro Autorizado,Salazar
+F00288,"Platero Alonso, Lourdes",carretera Confederacion Hidrografica del Ebro 4,Yesa,31410,Centro Autorizado,Sangüesa
+F00289,"Urroz Lores, Maria Teresa",calle San Esteban 28,Erro,31697,Centro Autorizado,Auritz/Burguete
+F00291,"Luque Frias, Maria Primitiva",carretera Urbasa 4,Larrión,31290,Centro Autorizado,Ancin-Améscoa
+F00292,"Ollo/Galech Iturralde/Zuazu, Jaione/Vanesa",calle Abajita Bidea 2,Ororbia,31171,Centro Autorizado,Orcoyen
+F00294,"Ayala Gutierrez, Ana",avenida de Navarra 20,Rada,31383,Centro Autorizado,Olite
+F00295,"Eslava Ezcurra, Maria del Carmen",calle Urrutia 31,Ochagavía/Otsagabia,31680,Centro Autorizado,Salazar
+F00298,"Hernandez Gonzalez, Cristina",paseo de la Inmaculada 70,Estella/Lizarra,31200,Centro Autorizado,Estella
+F00299,"Sola Manero, Miguel",carretera de Estella 18,San Adrián,31570,Centro Autorizado,San Adrian
+F00301,"Lozano Sanchez, Maria Jose",calle Jose María Ligués 44,Cintruénigo,31592,Centro Autorizado,Cintruénigo
+F00302,"Echaide Fernandez, Olatz",calle Real 12,Bargota,31229,Centro Autorizado,Los Arcos
+F00303,"Cabrero Cosgaya, Leire",calle La Asunción 4,Jauntsarats,31866,Centro Autorizado,Ultzama
+F00304,"Guruchet Hernandez, Amaia",carrera de Aragón 12,Beire,31393,Centro Autorizado,Olite
+F00305,"Carmona Viniegra, Alejandro",parque Erreniega 66,Zizur Mayor/Zizur Nagusia,31180,Centro Autorizado,Cizur
+F00306,"Arroyo Lopez, Gabriel Manuel",calle Tejerías 1,Tudela,31500,Centro Autorizado,Tudela oeste
+F00307,"Echavarri Pascual, Maria Jose",calle Carlos II el Malo 1,Estella/Lizarra,31200,Centro Autorizado,Estella
+F00308,"Ciordia Borunda, Cristina",calle San Miguel 3,Marcaláin,31193,Centro Autorizado,Berriozar
+F00309,"Akodad Taghi, Achraf",calle Irunbidea 2,Cizur Menor,31190,Centro Autorizado,Cizur
+F00310,"Gonzalez Ayestaran, Tania",calle Lasaga 22,Igantzi,31790,Centro Autorizado,Lesaka
+F00311,"Aranguren Letamendia, Emilia",barrio La Morea s/n. Centro Comercial La Morea,Cordovilla,31191,Centro Autorizado,Noain
+F00315,"Diaz Barcos, Laura",calle Pedro Bidagor 5 trasera,Barañain,31010,Centro Autorizado,Barañain
+F00319,"Presa Rio, Pablo",calle Grupo Urdánoz 2,Pamplona/Iruña,31009,Centro Autorizado,Echavacoiz
+F00321,"Garcia Navarro, David",calle Elizaldea 16,Luzaide/Valcarlos,31660,Centro Autorizado,Auritz/Burguete
+F00322,"Iturgaiz Etayo, Blanca",calle Santo Tomás 5,Urroz-Villa,31420,Centro Autorizado,Aoiz
+F00323,"Recarte Perez de Ciriza, Olimpia Sagrario",calle Concejo de Egüés 10,Pamplona/Iruña,31016,Centro Autorizado,Mendillorri
+F00325,"Ros Nestares, Carlos Javier",plaza Mayor 3,Lezáun,31177,Centro Autorizado,Villatuerta
+F00326,"Vila del Aguila, Cristina",calle Cruz de Barkazio 7,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00330,"Gonzalez Mendizabal, Domingo",calle Picota 2,Espronceda,31228,Centro Autorizado,Los Arcos
+F00333,"Muga/Sillero Rodriguez/Borras, Juan/Concepcion",plaza Castaños 1,Barañain,31010,Centro Autorizado,Barañain
+F00336,"Arrese Villanueva, Blanca",avenida de Eulza 1,Barañain,31010,Centro Autorizado,Barañain
+F00337,"Cabral Monge, Maria del Carmen",calle Parque de los Olmos 8,Zizur Mayor/Zizur Nagusia,31180,Centro Autorizado,Cizur
+F00340,"Arzoz Lezaun, Maria Josefa",calle Zabalgaina 4,Zizur Mayor/Zizur Nagusia,31180,Centro Autorizado,Cizur
+F00345,"Ochoa Garcia, Monica",calle Ronda de las Ventas 15-17,Burlada/Burlata,31600,Centro Autorizado,Burlada
+F00346,"Juarez Laveda, Guillermo",calle San Blas 5,Burlada/Burlata,31600,Centro Autorizado,Burlada
+F00347,"Martinez Miranda, Jose Angel",calle Carlos III El Noble 6,Tudela,31500,Centro Autorizado,Tudela este
+F00348,"Lujambio Goizueta, Carolina",plaza de los Fueros 4,Barañain,31010,Centro Autorizado,Barañain
+F00350,"Jimenez Dominguez, Elena",paseo García de Nájera 1,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00351,"Redondo Iriso, Blanca",plaza Sancho VI el Sabio 4,Villava/Atarrabia,31610,Centro Autorizado,Villava/Atarrabia
+F00352,"Prado Hernandez, Gemma",calle Señorío de Amocáin 13,Pamplona/Iruña,31016,Centro Autorizado,Mendillorri
+F00353,"Fernandez Diez, Arantzazu",plaza de los Fueros 4,Bera,31780,Centro Autorizado,Lesaka
+F00354,"Ochoa Jarauta, Sara","calle Cesar 24, 26 y 28",Cascante,31520,Centro Autorizado,Cascante
+F00355,"Lopez Vaquera, Unzizu",calle Merindad de Sangüesa 21,Burlada/Burlata,31600,Centro Autorizado,Burlada
+F00356,"Martinez Gurrea, Juan",calle Comunidad de la Rioja 3,Barañain,31010,Centro Autorizado,Barañain
+F00357,"Asin Aicua, Raquel",carretera Zaragoza C.Comercial EROSKI,Tudela,31500,Centro Autorizado,Tudela este
+F00358,"Perdigon Vara, Maria Carmen",calle Iruñalde 4,Berriozar,31013,Centro Autorizado,Berriozar
+F00359,"Carrasco Fernandez, Raquel",calle Sandoval 4,Pamplona/Iruña,31002,Centro Autorizado,Casco viejo
+F00360,"Zubiri Ayerra, Blanca",avenida Baja Navarra 9,Tafalla,31300,Centro Autorizado,Tafalla
+F00362,"Lasaga Recondo, Aloña",calle Bidasoa 43,Bera,31780,Centro Autorizado,Lesaka
+F00363,"Lahlou Benkirane, Mohamed",plaza Calahorra 1,Villafranca,31330,Centro Autorizado,Valtierra-Cadreita
+F00365,"Lorente Simon, Maria Carmen",calle Plana 23,Murchante,31521,Centro Autorizado,Cascante
+F00366,"Simon Martinez, Lorena",calle Justicia 17,Murchante,31521,Centro Autorizado,Cascante
+F00367,"Larumbe/Garcia Irurita/Chicon, Lucia/Angel Jose",plaza Zumalacárregui 1,Altsasu/Alsasua,31800,Centro Autorizado,Altsasu/Alsasua
+F00368,"Beltran Barranco, Maria Carmen",calle Canteras 25,Ansoáin/Antsoain,31013,Centro Autorizado,Ansoain
+F00369,"Galipienzo Jimenez, Marta",calle Victoria 25,Cascante,31520,Centro Autorizado,Cascante
+F00370,"Sanz Goya, Maria Jose","calle Bidasoa 14,bajo",Bera,31780,Centro Autorizado,Lesaka
+F00371,"Barbarin Garcia, Ana Isabel",calle Carretera 18,Ayegui/Aiegi,31240,Centro Autorizado,Estella
+F00372,"Murillo Martin, Mª Isabel",calle Santa Cruz 41,Zizur Mayor/Zizur Nagusia,31180,Centro Autorizado,Cizur
+F00373,"Gogorza Moreno, Gloria",paseo Sandúa 42,Pamplona/Iruña,31012,Centro Autorizado,San Jorge
+F00374,Hortal/Ferre Soriano/Ferrer Judit/Marc,calle Iñigo Arista 2,Caparroso,31380,Centro Autorizado,Olite
+F00375,"Ochoa Cortazar, Eva Maria",calle Mayor 27,Los Arcos,31210,Centro Autorizado,Los Arcos
+F00376,"Panadero Sanchez, Fernando",calle Bartolomé de Carranza 46,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00377,"Erbiti Larralde, Oihana",calle Lizarraga 7,Leitza,31880,Centro Autorizado,Leitza
+F00378,"Garcia Garnica, Olga",calle Carlos VII 2,Estella/Lizarra,31200,Centro Autorizado,Estella
+F00380,"Cillero Marin, Olga",calle Abaco 16,Larraga,31251,Centro Autorizado,Artajona
+F00381,"Iraizoz Irigoyen, Ana Maria",plaza del Palacio 8,Gorráiz,31620,Centro Autorizado,Huarte
+F00382,"Moreno Martinez, Luisa Mª",calle Hilarión Eslava 10,Andosilla,31261,Centro Autorizado,San Adrian
+F00383,"Zalacain Jimenez, Miguel",calle Virgen del Soto 2,Pamplona/Iruña,31009,Centro Autorizado,Echavacoiz
+F00384,"Laspalas Manzanero, Sonia",avenida Yerri 29,Estella/Lizarra,31200,Centro Autorizado,Estella
+F00385,"Rehecho Perez, Sheyla",calle La Población 21,Puente la Reina/Gares,31100,Centro Autorizado,Puente la reina
+F00386,"Arruti Peña, Coronacion",calle Tximindo Kalea 48,Arizkun,31713,Centro Autorizado,Elizondo
+F00387,"Gastearena/Martirena Arraiza/Miqueo, Miguel/Jorge",calle Amaya 4,Irurtzun,31860,Centro Autorizado,Irurtzun
+F00388,"Pellejero Gomez de Segura, Luis Fernando",calle Serapio Urra s/n,Viana,31230,Centro Autorizado,Viana
+F00389,"Ugarte Gonzalez, Begoña",calle Ezquibel 11,Mutilva <> Mutiloa,31192,Centro Autorizado,Aranguren
+F00390,"San Martin Ouro, Maider","calle Sansomain, 6, esq. C/ Barasoain",Tafalla,31300,Centro Autorizado,Tafalla
+F00391,"Dong, Jinya",calle Ermitagaña 7,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00392,"Garcia Mesa, Maria Soledad",calle Santo Nicasio 2,Viana,31230,Centro Autorizado,Viana
+F00393,"Andueza Diaz, Oihane",calle Espoz y Mina 1,Estella/Lizarra,31200,Centro Autorizado,Estella
+F00394,"Saenz/Iturria Espelosin/Alzueta, Xabier/Amparo",plaza El Claustro 2,Lumbier,31440,Centro Autorizado,Sangüesa
+F00395,"Martinez Eslava, Maria",plaza San Juan de la Cadena 3,Pamplona/Iruña,31008,Centro Autorizado,San Juan
+F00396,"Echarte Subizar, Maider",calle Mayor 6,Doneztebe/Santesteban,31740,Centro Autorizado,Doneztebe/Santesteban
+F00397,"Aznar Lizarbe, Raquel",calle Beire 5,Tafalla,31300,Centro Autorizado,Tafalla
+F00398,"Lomas Vivanco, Iñigo",calle Real 36,Noáin,31110,Centro Autorizado,Noain
+F00399,"Adrados Ortuño, Cristian",calle Mayor 37,Corella,31591,Centro Autorizado,Corella
+F00400,"Solana Belloso, Maria Rosario",calle Merindades 18,Castejón,31590,Centro Autorizado,Corella
+F00401,"Criado Garcia, Ana Maria",avenida Guipúzcoa 59,Berriozar,31013,Centro Autorizado,Berriozar
+F00402,"Garin Fernandez, Laura",plaza Iturgain 6,Orkoien,31160,Centro Autorizado,Orcoyen
+F00404,"Garcia Armendariz, Maria Teresa",calle Sangüesa 25,Pamplona/Iruña,31005,Centro Autorizado,Milagrosa
+F00405,"Nicolas Fernandez, Maria Angeles",calle Monjardín 14,Pamplona/Iruña,31006,Centro Autorizado,II Ensanche
+F00406,"Mendia Barriola, Miren Itziar",calle Aralar 25,Lekunberri,31870,Centro Autorizado,Irurtzun
+F00407,"Villar Zabaleta, Maria Teresa",calle Republica Argentina 3,Tafalla,31300,Centro Autorizado,Tafalla
+F00408,"Fernandez de Retana Mostajo, Marta",calle San Raimundo 14,Fitero,31593,Centro Autorizado,Cintruénigo
+F00409,"Jimenez Angos, Claudia",avenida Pamplona 39,Pamplona/Iruña,31010,Centro Autorizado,Echavacoiz
+F00410,"Sanchis Rodrigo, Antonio",calle Enrique de Labrit 56,Sangüesa/Zangoza,31400,Centro Autorizado,Sangüesa
+F00411,"Rosino Rodriguez, Aurora",plaza Góngora 1,Pamplona/Iruña,31006,Centro Autorizado,Milagrosa
+F00412,"Aranaz Flamarique, Jesus",calle Miguel Astráin 15,Pamplona/Iruña,31006,Centro Autorizado,Azpilagaña
+F00413,"Frauca Catalan, Patricia",calle Santa Cruz 5,Zizur Mayor/Zizur Nagusia,31180,Centro Autorizado,Cizur
+F00414,"Valero Hernandez, Mª Pilar",calle Iñigo Arista 10,Cintruénigo,31592,Centro Autorizado,Cintruénigo
+F00416,"Lasterra Ibañez, Margarita",carretera Aibar 88,Santacara,31314,Centro Autorizado,Carcastillo
+F00417,"Salanueva de la Torre, Cristina",ronda del Castillo 2,Olite/Erriberri,31390,Centro Autorizado,Olite
+F00418,"Guindano Elizalde, Ana Belen",calle Diputación Foral 12,Tafalla,31300,Centro Autorizado,Tafalla
+F00419,"Serrano Osta, Maria Concepcion",calle Cuesta de Loreto 3,Tudela,31500,Centro Autorizado,Tudela este
+F00420,"Pascual Blanco, Miguel Angel",calle San Francisco 6,Estella/Lizarra,31200,Centro Autorizado,Estella
+F00422,"Escalada Abraham, Montserrat",plaza Fueros 9,Ablitas,31523,Centro Autorizado,Cascante
+F00423,"Olaiz/Romero Vera/Munilla, Beatriz/Luis Javier",plaza Rafael Alberti 3,Ansoáin/Antsoain,31013,Centro Autorizado,Ansoain
+F00424,"Betorz/Zuñiga Poblete/Cia, Veronica/Alicia",calle Fuente Canónigos 16,Tudela,31500,Centro Autorizado,Tudela este
+F00426,"Larrondo Salcedo, Beatriz",calle Agrupacion Los Porches 1,Noáin,31110,Centro Autorizado,Noain
+F00427,"Ojer Martinez, Raquel",calle Monasterio de Irache 16,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00428,"Pisano Lacunza, Vanessa",plaza Portal Peñalta 8,Sangüesa/Zangoza,31400,Centro Autorizado,Sangüesa
+F00429,"Barcos Diaz, Raquel",plaza de los Fueros de Navarra 4,Zizur Mayor/Zizur Nagusia,31180,Centro Autorizado,Cizur
+F00431,"Vilariño Ariz, Eduardo",calle Doctor Lucea 2,Pamplona/Iruña,31012,Centro Autorizado,San Jorge
+F00432,"Blanco Ruiz, Ildelina",calle Zubiarte 26,Huarte/Uharte,31620,Centro Autorizado,Huarte
+F00433,"Pellejero Balduz, Maria Jose",plaza Del Fosal 1,Olite/Erriberri,31390,Centro Autorizado,Olite
+F00434,"Lote, Ayoub",paseo Sandúa 22,Pamplona/Iruña,31012,Centro Autorizado,San Jorge
+F00435,"Fernandez/Apesteguia Ajona/Sanz, Natalia/Leyre",plaza Los Gorris 16,Barañain,31010,Centro Autorizado,Barañain
+F00436,"Angulo Lopez de Armentia, Elena",calle Irunlarrea 52,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00437,"Larrayoz Oses, Susana",carretera Leiza 11,Doneztebe/Santesteban,31740,Centro Autorizado,Doneztebe/Santesteban
+F00438,"Yoldi Perez, Jesusa",calle Los Huertos de Abajo 3B,Lodosa,31580,Centro Autorizado,Lodosa
+F00439,"Gaston Lujambio, Beatriz",calle Canteras 6,Ansoáin/Antsoain,31013,Centro Autorizado,Ansoain
+F00440,"Arce Zubiria, Javier",calle Pelayo Sola 10,San Adrián,31570,Centro Autorizado,San Adrian
+F00441,"Hernandez Boneta, Carolina",calle Miguel Urmeneta 9,Marcilla,31340,Centro Autorizado,Peralta
+F00442,"Mariñelarena Apezteguia, Patricia",calle Santa María 33,Oronoz,31720,Centro Autorizado,Elizondo
+F00443,"Neacsu, Dragos Cosmin",plaza Norte 6,Barañain,31010,Centro Autorizado,Barañain
+F00444,"Pina Garcia, Ana Maria",avenida Navarra 41 A,Cadreita,31515,Centro Autorizado,Valtierra-Cadreita
+F00445,"Miranda Lopez, Francisco Javier",avenida Aragón 4,Sangüesa/Zangoza,31400,Centro Autorizado,Sangüesa
+F00446,"Jimenez Moreno, Maria Jose",avenida de la Paz 4,Peralta/Azkoien,31350,Centro Autorizado,Peralta
+F00447,"Salcedo Sainz, Sara",calle Prado 6,Mendavia,31587,Centro Autorizado,Lodosa
+F00448,Urdaniz/Garin Ostiz/Aguirrebeña Begoña/Beatriz,calle Errekerte 1,Berriozar,31013,Centro Autorizado,Berriozar
+F00449,"Perea/Uriarte Garcia/Totoricagüena, Juan A./Eva",calle La Paz 47,Altsasu/Alsasua,31800,Centro Autorizado,Altsasu/Alsasua
+F00451,"Lasarte Goya, Amalia",calle Leguía 31,Bera,31780,Centro Autorizado,Lesaka
+F00452,"Martin Esteban, David Javier",avenida Madrid 26,Beriáin,31191,Centro Autorizado,Noain
+F00453,"Moreno Gil, David",avenida Rascacielos 4,Barañain,31010,Centro Autorizado,Barañain
+F00454,"Sesma Oiza,Maria Jesus",calle Benjamín de Tudela 29,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00455,"Fernandez de Arcaya Gainza, Mª Nieves",calle Concejo de Olaz 14,Pamplona/Iruña,31016,Centro Autorizado,Mendillorri
+F00457,"Martin Sedano, Maria Asuncion",calle Cuenca de Pamplona 53-55,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00458,"Diaz/Eza Casas/Gascuña, Mercedes/Victoria",calle Corazón de Jesús 5,Falces,31370,Centro Autorizado,Peralta
+F00461,"Garralda/Fernandez de Aguirre Montaño/Martinez, Maria Jose/Blanca",calle Joaquín Beúnza 39,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00462,"Puig Zafon, Consuelo Virginia","calle San Miguel 42,A",Cortes,31530,Centro Autorizado,Buñuel
+F00463,"Tesan Urchaga, Jose Luis",calle Camino Miranda 8,Tafalla,31300,Centro Autorizado,Tafalla
+F00464,"Munarriz Barcos, Leonor",calle Ezcaroz 2,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00465,"Belzunce Saldise, Alicia",paseo Enamorados 45,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00467,"Gimeno Oses, Maria Carmen",calle Aranaz y Vides 10,Tudela,31500,Centro Autorizado,Tudela este
+F00468,"Mendoza Morales, Ana Isabel",calle Teruel 5,Lerín,31260,Centro Autorizado,Allo
+F00469,"Martinez Prado, Jose Miguel",calle Plus Ultra 2,Azagra,31560,Centro Autorizado,San Adrian
+F00470,"de la Escalera Rodriguez, Jesus",calle Luis Morondo 10,Pamplona/Iruña,31006,Centro Autorizado,Azpilagaña
+F00471,"Los Arcos Garcia, Maria Jesus",calle Palanquera 18,Larraga,31251,Centro Autorizado,Artajona
+F00472,"Campos Mendoza, Marcia Zarela",calle Elbarren 52,Leitza,31880,Centro Autorizado,Leitza
+F00473,"Arbeloa Zabaleta, Maria Angeles",calle Mayor 17,Carcastillo,31310,Centro Autorizado,Carcastillo
+F00475,"Kildal Oquiñena, Anne",calle Villafranca 16,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00476,"Alonso Fernandez, Ruben",calle Príncipe de Viana 31,Castejón,31590,Centro Autorizado,Corella
+F00477,"Santesteban Jimenez, Maite",calle Raimundo Lanas 12 trasera,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00478,"Fernandez Saenz, Mercedes",calle Santa Cruz 23,Altsasu/Alsasua,31800,Centro Autorizado,Altsasu/Alsasua
+F00479,"Andres Aranda, Francisco Javier",calle San Ignacio 1,Buñuel,31540,Centro Autorizado,Buñuel
+F00480,"Navarro Zapatero, Maria Eugenia",calle Puente Miluce 2,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00481,"Urbizu Azazeta, Idoia",travesia Intxostia 3,Altsasu/Alsasua,31800,Centro Autorizado,Altsasu/Alsasua
+F00482,"Roncal Garraza, Maria",avenida Yerri 9,Estella/Lizarra,31200,Centro Autorizado,Estella
+F00483,"Arana Castelo, Elsa",calle Díaz Bravo 7 - esq. C/ Almazara,Tudela,31500,Centro Autorizado,Tudela oeste
+F00484,"Rojas Vazquez, Ana julia",calle Bidaburua 6,Villava/Atarrabia,31610,Centro Autorizado,Villava/Atarrabia
+F00485,"Casanova/Ruiz Lopez/Orte, Maria Auxiliadora /Maria Isabel",calle Bernardino Tirapu 54,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00486,"Martinez Forcada, Belen",plaza Sancho VII el Fuerte 5,Tudela,31500,Centro Autorizado,Tudela oeste
+F00487,"Zuñiga Olaso, Ana Maria",calle Monasterio de Tulebras 1,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00489,"Pernas Gonzalez, Eva",calle Ronda de las Ventas 11,Burlada/Burlata,31600,Centro Autorizado,Burlada
+F00490,"Moyano Dominguez, Sonia",calle Concejo de Sagaseta 9,Pamplona/Iruña,31016,Centro Autorizado,Mendillorri
+F00491,"Alzate Bazterretxea, Olga",plaza Bittiria 3,Lesaka,31770,Centro Autorizado,Lesaka
+F00492,"Perez Aldrey, Beatriz",calle Cerco Nuevo 38,Puente la Reina/Gares,31100,Centro Autorizado,Puente la reina
+F00494,"Alvarez Guembe, Daniel",calle Pérez Goyena 1,Huarte/Uharte,31620,Centro Autorizado,Huarte
+F00495,"Catalan/Andres Higueras/Fernandez, Alberto/Laura",calle Río Alhama 2,Corella,31591,Centro Autorizado,Corella
+F00496,"Yoldi Erice, Cristina",calle Tajonar 12,Pamplona/Iruña,31006,Centro Autorizado,Milagrosa
+F00497,"Guezuraga/Guezuraga Gil-Rodrigo/Gil-Rodrigo, Ramon/Maria Carmen",calle Francisco Joaquin Iriarte 2,Elizondo,31700,Centro Autorizado,Elizondo
+F00498,"Cortes Izco, Lourdes",calle Landazabal 1,Burlada/Burlata,31600,Centro Autorizado,Burlada
+F00499,"Prada Rondan, Jesus Angel",calle San Marcial 16,Tudela,31500,Centro Autorizado,Tudela este
+F00500,"Sahuquillo Arratibel, Marta",calle Ansoáin 4,Pamplona/Iruña,31013,Centro Autorizado,Rochapea
+F00501,"Galea Tabar, Leyre",calle Monasterio de Urdax 23,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00502,"Gimeno Oses, Maria Pilar",avenida Sancho el Fuerte 31,Pamplona/Iruña,31007,Centro Autorizado,Iturrama
+F00503,"Nagore Solano, Marta",calle Arieta 11,Estella/Lizarra,31200,Centro Autorizado,Estella
+F00504,"Conceicao Jurado, Carolina",calle Verónica 17,Cintruénigo,31592,Centro Autorizado,Cintruénigo
+F00505,"El Moussaoui Saddiki, Lamya",avenida Marcelo Celayeta 123-125,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00506,"Choperena Alzugaray, Maria Jose",calle Bittiria 6,Lesaka,31770,Centro Autorizado,Lesaka
+F00507,"Saez de Jauregui Urdanoz, Pedro",plaza de los Derechos Humanos 3,Valtierra,31514,Centro Autorizado,Valtierra-Cadreita
+F00508,"Arrastia Diaz, Asuncion",avenida Guipúzcoa 16,Pamplona/Iruña,31014,Centro Autorizado,Buztintxuri
+F00509,"Khayat, Raid",calle Remiro de Goñi 2,Pamplona/Iruña,31009,Centro Autorizado,Echavacoiz
+F00510,"Sola Fernandez, Mayte",calle Señorío de Egulbati 16,Pamplona/Iruña,31016,Centro Autorizado,Mendillorri
+F00511,"Iriarte Iribarren, Cristina",calle Esquíroz 20,Pamplona/Iruña,31007,Centro Autorizado,Iturrama
+F00512,Irisarri/Eguaras Aguirre/Goñi Milagros/Irune ,calle Intxaurrondo 2,Altsasu/Alsasua,31800,Centro Autorizado,Altsasu/Alsasua
+F00513,"Larraya Astibia, Maria Isabel",calle Elbarren 95,Leitza,31880,Centro Autorizado,Leitza
+F00514,"Fernandez/Labat Belzunce/Artajo, Ana/Cristina",calle Isaba 18,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00515,"Soteras Ramirez, Mª Teresa",plaza Sierra del Perdón 16,Beriáin,31191,Centro Autorizado,Noain
+F00516,"Fernandez Perez, Eduardo",calle Porvenir 79,Andosilla,31261,Centro Autorizado,San Adrian
+F00517,"Sagaseta de Ilurdoz Uranga, Juan Luis",travesia del Muelle 2-4,Pamplona/Iruña,31012,Centro Autorizado,San Jorge
+F00518,"Irisarri Moreno, Cristina",calle Irurzun 10,Peralta/Azkoien,31350,Centro Autorizado,Peralta
+F00519,"Diez de Ulzurrun Bernardez, Maria Dolores",calle La Fuente 2,Burlada/Burlata,31600,Centro Autorizado,Burlada
+F00520,"Arza Elorz, Rafael",calle Dr. Huarte de San Juan 6,Estella/Lizarra,31200,Centro Autorizado,Estella
+F00521,"Berraondo Aramendia, Marina",calle Fray Diego 15,Estella/Lizarra,31200,Centro Autorizado,Estella
+F00523,"Beruete Baztan, Raquel",calle Ezpondoa 9,Burlada/Burlata,31600,Centro Autorizado,Burlada
+F00524,"Gil Diaz, Maria Carmen",calle Las Eras 7,Villava/Atarrabia,31610,Centro Autorizado,Villava/Atarrabia
+F00525,"Calvo Sola, Maria Teresa",avenida de la Ribera 30,Lodosa,31580,Centro Autorizado,Lodosa
+F00526,"Muñoz Lara, Eva",calle Tiburcio Redín 3,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00528,"De Fuentes Perez, Natalia",calle Martín de Zalba 7,Pamplona/Iruña,31016,Centro Autorizado,Mendillorri
+F00529,"Carrillo Ruiz, Custodia Angeles",calle Mayor 5,Betelu,31890,Centro Autorizado,Irurtzun
+F00530,"Petrescu, Cristina Valentina",plaza Félix Huarte 6,Pamplona/Iruña,31007,Centro Autorizado,Iturrama
+F00531,"El Idrissi El Morabet, Abdellatif",calle Ventura Rodríguez 110,Pamplona/Iruña,31012,Centro Autorizado,Buztintxuri
+F00532,"Aldunate Martinez de Morentin, Saioa",calle Bartolome Carranza 20,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00533,"Moreno Sola, Beatriz",calle Santa Gema 30,San Adrián,31570,Centro Autorizado,San Adrian
+F00534,"Ariz Martinez, Iñigo","avenida San Juan, 15 bajo",Milagro,31320,Centro Autorizado,Valtierra-Cadreita
+F00535,"Villanueva Roger, Sandra",calle Griseras 11,Tudela,31500,Centro Autorizado,Tudela este
+F00536,"Goñi Medrano, Luisa",calle Dr. José Alfonso 5,Pamplona/Iruña,31012,Centro Autorizado,San Jorge
+F00537,"Ibañez Autor, María Pilar",calle Guelbenzu 50,Pamplona/Iruña,31005,Centro Autorizado,Milagrosa
+F00538,"Oliver Botana, Jesus",calle Herrerías 29,Tudela,31500,Centro Autorizado,Tudela oeste
+F00539,"Melendez Moreno, Rosa",calle Gardachales 5,Tudela,31500,Centro Autorizado,Tudela este
+F00540,"Valero San Miguel, Begoña",calle Fuente del Hierro 21 trasera,Pamplona/Iruña,31007,Centro Autorizado,Iturrama
+F00541,"Gimeno Hernandez, Olga",carretera Estella 77 bis,San Adrián,31570,Centro Autorizado,San Adrian
+F00542,"Celdran Lazaro, Carmen",calle Del Lago 13,Pamplona/Iruña,31016,Centro Autorizado,Mendillorri
+F00543,"Amunarriz Agueda, Maria Pilar",calle Río Araxes 10,Pamplona/Iruña,31005,Centro Autorizado,Milagrosa
+F00544,"Altuna Martinez, Isabel",calle Azuda 6,Lodosa,31580,Centro Autorizado,Lodosa
+F00545,"Rubio Muñoz, Jose Alberto",calle Pintor Paret 5,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00547,"Martinicorena Satrustegui, Gorka",avenida Ayuntamiento 7 trasera,Barañain,31010,Centro Autorizado,Barañain
+F00548,"Marin Ciria, Eva Maria",calle Manresa 12,Tudela,31500,Centro Autorizado,Tudela este
+F00549,"Roson Lete, Cristina",avenida Yerri 6,Estella/Lizarra,31200,Centro Autorizado,Estella
+F00550,"Menendez Garcia, Graciela",calle Irunlarrea 19,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00551,"Grau Cadiñanos, Cesar",calle Cendeas 2,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00553,"Beperet Andres, Ana Maria",calle Centro Parroquial 3,Lodosa,31580,Centro Autorizado,Lodosa
+F00554,"Gonzalez Maria, Raul",calle Lavadero 22,Cortes,31530,Centro Autorizado,Buñuel
+F00555,"Jimenez Lopez, Rosario",calle Gayarre 14,Tudela,31500,Centro Autorizado,Tudela oeste
+F00556,"Sarasibar Sagües, Maria Jesus",avenida Pamplona 28 - esquina Avda. del Valle,Barañain,31010,Centro Autorizado,Barañain
+F00557,"Bermejo Calonge, Arantzazu",calle San José Obrero 71,San Adrián,31570,Centro Autorizado,San Adrian
+F00558,"Garmendia Leiza, Estibaliz",avenida Pío XII 18,Pamplona/Iruña,31008,Centro Autorizado,San Juan
+F00559,"Pascual Ramirez, Enrique",calle Paloteado 6,Tudela,31500,Centro Autorizado,Tudela este
+F00560,"Serrano Sarasa, Susana",calle San Andrés 4,Villava/Atarrabia,31610,Centro Autorizado,Villava/Atarrabia
+F00561,"Miramon Muñoz, Marta",calle Plazaola 2,Erice,31892,Centro Autorizado,Berriozar
+F00562,"Urbasos Garzon, Ignacio",calle Acella 5,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00563,"Casares Polo, Ines",calle Monasterio de Irache 45,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00566,"Marquiegui Rodriguez, Begoña",calle San Ignacio 10,Olazti/Olazagutía,31809,Centro Autorizado,Altsasu/Alsasua
+F00568,"Mantilla Blanco, Alberto",calle Concarera 12,Tudela,31500,Centro Autorizado,Tudela oeste
+F00569,"Alvarez/Chiquirrin Galan/Azqueta, Patricia/Ana",calle Joaquín Beunza 24,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00570,Popescu Radu Daniel Vasile,calle Blanca de Navarra 1,Tudela,31500,Centro Autorizado,Tudela este
+F00571,"Cambra Goñi, Cristina",avenida Navarra 8,Cadreita,31515,Centro Autorizado,Valtierra-Cadreita
+F00572,"Millan Azcune, Antonio Luis",calle Aoiz 35,Pamplona/Iruña,31004,Centro Autorizado,II Ensanche
+F00573,"Lopez Lopez, Manuel",calle El Frontón 7,Tudela,31500,Centro Autorizado,Tudela este
+F00574,"Monente Mozaz, Ana",paseo Anelier 18,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00575,"Luri Dendarieta, Mª Luisa",plaza De la Constitución 1,Azagra,31560,Centro Autorizado,San Adrian
+F00576,"Aycart Villaverde, Noa Maria",calle Hermanos Noáin 8,Ansoáin/Antsoain,31013,Centro Autorizado,Ansoain
+F00577,"Esain Palomero, Maria Mercedes",avenida Marcelo Celayeta 72,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00578,"Calvo Tutor, Jesus Alberto",calle Parlamento Navarro 17,Ribaforada,31550,Centro Autorizado,Buñuel
+F00579,"Sagredo Loitegui, Cristina",calle Mayor 4,Mendavia,31589,Centro Autorizado,Lodosa
+F00580,"Canto Martinez, Maria Luisa",avenida de Peralta 10,Funes,31360,Centro Autorizado,Peralta
+F00581,"Jimeno Garcia, Maria",calle La Cruz 24,Artajona,31140,Centro Autorizado,Artajona
+F00582,"Perez Albeniz, Inmaculada",calle Salvador Ordoñez 7,Cárcar,31579,Centro Autorizado,San Adrian
+F00583,"Del Valle Ledesma, Alvaro",calle Agustín García 16,Villava/Atarrabia,31610,Centro Autorizado,Villava/Atarrabia
+F00584,"Bacaicoa Ormazabal, Virginia",calle Burundabide 3,Etxarri-Aranatz,31820,Centro Autorizado,Etxarri-Aranatz
+F00585,"Palacios Breton, Carlos Jose",calle La Solana 25,Viana,31230,Centro Autorizado,Viana
+F00587,"Medrano Senosiain, Estela I.",calle Real 61,Noáin,31110,Centro Autorizado,Noain
+F00588,"Arbeloa Roch, Maria Isabel",calle Monasterio de Irache 34,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00589,"Uriz Lopez, Maria Laura",paseo Anelier 24,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00590,"Aragües Bro, Andrea",calle Juan Pascual Esteban 4,Fustiñana,31510,Centro Autorizado,Buñuel
+F00591,"Garcia Lipuzcoa, Adriana",calle Navarro Villoslada 12,Pamplona/Iruña,31003,Centro Autorizado,II Ensanche
+F00592,"Palacios Chaurrondo, Raquel",calle Blanca de Navarra 13,Peralta/Azkoien,31350,Centro Autorizado,Peralta
+F00593,"Lamas Rodriguez, Monica",calle Guelbenzu 17,Pamplona/Iruña,31005,Centro Autorizado,Milagrosa
+F00600,"Valero Martinez, Santiago",calle Leandro Azcárate 7,Huarte/Uharte,31620,Centro Autorizado,Huarte
+F00601,"Marco Apesteguia, Cristina","poligono Fuente del Rey Pab. A, 10",Tafalla,31300,Centro Autorizado,Tafalla
+F00602,"Calahorra Urzaiz, Maria Jesus",calle San Juan 28,Ribaforada,31550,Centro Autorizado,Buñuel
+F00607,"Alzueta Pellicer, Maria",calle Mayor 2,Mutilva <> Mutiloa,31192,Centro Autorizado,Aranguren
+F00608,"Muruzabal Pabolleta, Maria Angeles",calle Martínez de Ubago 18,Pamplona/Iruña,31012,Centro Autorizado,Buztintxuri
+F00610,"Cia Aldaba, Isabel",plaza Felisa Munárriz 2,Pamplona/Iruña,31005,Centro Autorizado,Milagrosa
+F00611,"Vallejos Huesa, Maria Josefa","calle Intxaurdia, 5. Centro Comercial Itaroa",Huarte/Uharte,31620,Centro Autorizado,Huarte
+F00612,"Funes Barbarin, Gabriel Maria",calle Abejeras 47,Pamplona/Iruña,31007,Centro Autorizado,Azpilagaña
+F00613,"Ros Zuasti, Nuria",paseo Mariano Arigita 4,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00614,"Fernandez Saenz, Francisco","calle Tajadas 24,A",Corella,31591,Centro Autorizado,Corella
+F00615,"Crespo Irizar, Ana",calle Bergamin 16,Pamplona/Iruña,31003,Centro Autorizado,II Ensanche
+F00617,"Suescun Andueza, Maria Angeles",calle Asunción 2,Berbinzana,31252,Centro Autorizado,Artajona
+F00618,"Arriazu Aranceta, Berta",avenida Bayona 37,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00620,"Preciado Cambra, Ana Carmen",calle Nuestra Señora del Patrocinio 5,Milagro,31320,Centro Autorizado,Valtierra-Cadreita
+F00621,"Macia Soro, Beatriz Francisca",plaza Sabicas 3,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00623,"Sanz Milian, Magdalena",calle Vera de Magallon 8,San Adrián,31570,Centro Autorizado,San Adrian
+F00628,"Baile Jimenez, Ferran",avenida Pamplona 25,Pamplona/Iruña,31010,Centro Autorizado,Echavacoiz
+F00629,"Lecumberri Larrea, Aitziber",calle Bardenas Reales 50,Sarriguren,31621,Centro Autorizado,Sarriguren
+F00630,"Carrion Perez, Nestor",avenida Zaragoza 51,Tudela,31500,Centro Autorizado,Tudela este
+F00632,"Ladron de Guevara Jimenez, Julio",plaza Azucarera 5,Tudela,31500,Centro Autorizado,Tudela este
+F00634,"Basarte Camuel, Maria",calle Monasterio de la Oliva 7 bis,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00635,"Oyarzabal Ibarra, Miren",calle Juan Aguirre 5,Urdazubi/Urdax,31711,Centro Autorizado,Elizondo
+F00636,"Marcotegui Goñi, Cristina",paseo Donantes de Sangre 3,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00639,"Leoz Lanchetas, Santiago",avenida Reino de Navarra 6,Sarriguren,31621,Centro Autorizado,Sarriguren
+F00641,"Echeverria Ansa, Alejandra",calle Ardantzeta 1,Berriozar,31013,Centro Autorizado,Berriozar
+F00642,"Sesma Tejada, Miriam",calle María Domínguez 19,Artica,31013,Centro Autorizado,Buztintxuri
+F00645,"Arbizu Ros, Beatriz",calle Bernardino Tirapu 3,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00646,"Bados Irisarri, Susana",calle Nueva 11,Aoiz/Agoitz,31430,Centro Autorizado,Aoiz
+F00649,"Diaz Hernan, Ana Maria",calle Bardenas Reales 30,Sarriguren,31621,Centro Autorizado,Sarriguren
+F00651,"Mateo Velazquez, Alberto",paseo José Saramago 11,Orkoien,31160,Centro Autorizado,Orcoyen
+F00652,"Goyeneche Azcoiti, Fernando",calle María Domínguez 1,Artica,31013,Centro Autorizado,Buztintxuri
+F00656,"Cobreros Bordenave, Almudena",plaza Conde Rodezno 10,Pamplona/Iruña,31004,Centro Autorizado,II Ensanche
+F00658,"Belzunce Manterola, Gaston",calle Santesteban 4,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00659,"Perez Azcona, Miren Jasone",avenida Sancho el Fuerte 24,Pamplona/Iruña,31007,Centro Autorizado,Iturrama
+F00660,"Alcain Arratibel, Itziar",plaza Mayor 35,Sarriguren,31192,Centro Autorizado,Sarriguren
+F00661,"Guerrero Martin, Marta",paseo Ibaialde 186,Mutilva <> Mutiloa,31192,Centro Autorizado,Aranguren
+F00662,"Garrido Lorenzo, Eva",calle Santos Ochandategui 59,Pamplona/Iruña,31012,Centro Autorizado,Buztintxuri
+F00663,"Blanco Sanz, Lourdes",carrera Estella a Vitoria 23,Murieta,31280,Centro Autorizado,Ancin-Améscoa
+F00665,"Fabo Sangüesa, Estela",paseo Santa Lucía 26,Pamplona/Iruña,31012,Centro Autorizado,Buztintxuri
+F00668,"Bengoetxea Reta, Ainhoa",calle Las Eras 15,Aoiz/Agoitz,31430,Centro Autorizado,Aoiz
+F00669,"Irigoyen Irigoyen, Miren",calle Albistur 39 G,Lesaka,31770,Centro Autorizado,Lesaka
+F00673,"Fernandez Ejea, Marta","calle Badostain 1,bajo",Sarriguren,31621,Centro Autorizado,Sarriguren
+F00675,"Elizalde Sesma, Alejandra",calle La Dehesa 9,Miranda de Arga,31253,Centro Autorizado,Artajona
+F00678,"Prados Lana, Beatriz",calle María Moliner 2,Artica,31013,Centro Autorizado,Buztintxuri
+F00679,"Mediavilla Fernandez, Monica Asuncion",avenida de la Estación 11,Cintruénigo,31592,Centro Autorizado,Cintruénigo
+F00681,"Bujanda Eguino, Cesar","avenida Navarra, trasera de Dr. Simonena, 8",Pamplona/Iruña,31012,Centro Autorizado,San Jorge
+F00682,"Beñaran/Lasheras, Arocena/Carbajo, Susana/Soledad",calle Alfonso el Batallador 9,Pamplona/Iruña,31007,Centro Autorizado,Azpilagaña
+F00684,"Pardo Martinez, Begoña",avenida Diputación 7,Ribaforada,31550,Centro Autorizado,Buñuel
+F00688,"Vela Lamana, Ainhoa",calle Melchor Enrico 9,Tudela,31500,Centro Autorizado,Tudela este
+F00689,"Camps Segui, Emilio",plaza Obispo Irurita 6 trasera,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00691,"Dominguez Marquez, Angel",calle Del rio 45,Peralta/Azkoien,31350,Centro Autorizado,Peralta
+F00692,"Minier Quezada, Fidel Emill",carretera Tudela-Tarazona Km 3 C.C. Carrefour,Tudela,31500,Centro Autorizado,Tudela oeste
+F00693,"Hernandez Sahuquillo, Maximiliano",calle Juan A. Fernández 39,Tudela,31500,Centro Autorizado,Tudela este
+F00695,"Laparra Lavega, Diana",carretera Lodosa 17,Sartaguda,31589,Centro Autorizado,Lodosa
+F00703,"Beroiz Soria, Ignacio",calle Monasterio de la Oliva 31,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00704,"Narro/Martinez Garcia/Crespo, Susana/Francisco Javier",plaza Puerta de Aranguren 1,Sarriguren,31621,Centro Autorizado,Sarriguren
+F00705,"Purroy Sanz, Cristina",calle Mayor 13,Burlada/Burlata,31600,Centro Autorizado,Burlada
+F00711,"Arzoz/Astiz Lezaun/Arzoz, Maria Pilar/Maite",calle Bardenas Reales 70,Sarriguren,31621,Centro Autorizado,Sarriguren
+F00712,"Lopez Alvarez de Eulate, Maria Mar",paseo Buztintxuri 16,Pamplona/Iruña,31012,Centro Autorizado,Buztintxuri
+F00714,"Martinez Urmeneta, Laura",calle Fitero 4,Corella,31591,Centro Autorizado,Corella
+F00715,"Ezpeleta/Viscarret Iturralde/Aranzadi, Mª Pilar/Lucia",avenida Guipuzcoa 40,Pamplona/Iruña,31012,Centro Autorizado,Buztintxuri
+F00717,"Castillejo Celigueta, Maite",calle León 9,Villafranca,31330,Centro Autorizado,Valtierra-Cadreita
+F00718,"Gjiknuri, Julia",calle La Pila 19,Viana,31230,Centro Autorizado,Viana
+F00719,"Aranguren Indurain, Pedro",plaza de los Tilos 4,Barañain,31010,Centro Autorizado,Barañain
+F00722,"Casado/Casado Echavarri/Echavarri, Manuel/Elvira",calle Carmen Baroja Nessi 23,Pamplona/Iruña,31014,Centro Autorizado,Rochapea
+F00724,"Lana Barrena, Amaia",calle Paseo Donantes de Sangre 25,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00727,"Fontan Sanz, Ana",calle Ezequiel Moreno 6,Marcilla,31340,Centro Autorizado,Peralta
+F00728,"Villot Varela, Elena",avenida Barañain 17,Pamplona/Iruña,31008,Centro Autorizado,Ermitagaña
+F00729,"Sanz Garcia, Emilia",calle Mindegui 1,Zizur Mayor/Zizur Nagusia,31180,Centro Autorizado,Cizur
+F00731,"Marfil Tapia, Laura",avenida Erripagaña 24,Sarriguren,31621,Centro Autorizado,Sarriguren
+F00735,"Barricarte Asiain, Carlos",avenida Erripagaña 19,Burlada/Burlata,31600,Centro Autorizado,Burlada
+F00737,"Leone Puncel, Alfonso",calle Santxiki 130,Mutilva <> Mutiloa,31192,Centro Autorizado,Aranguren
+F00738,"Lizarraga Baigorri, Gema",calle Lisboa 1,Burlada/Burlata,31600,Centro Autorizado,Burlada
+F00739,"Borras Trias, Guillem",calle Madres de la Plaza de Mayo 32,Artica,31013,Centro Autorizado,Buztintxuri
+F00741,"Ortega Miranda, Cristina",calle Real 5,Noáin,31110,Centro Autorizado,Noain
+F00744,"Aicua Redondo, Laura",calle Constitucion 14,Caparroso,31380,Centro Autorizado,Olite
+F00745,"Martinez Fernandez, Carla",calle Ribera 4,Cintruénigo,31592,Centro Autorizado,Cintruénigo
+F00750,"Valle Luna, Montserrat","calle Santa Eulalia 31,bajo",Berriosuso,31195,Centro Autorizado,Berriozar
+F00754,"Rubio Muzas, Cesar",avenida Tudela 1,Fontellas,31512,Centro Autorizado,Tudela este
+F00758,"Rodriguez Muñoz, Alicia",avenida Anaitasuna 11,Mutilva <> Mutiloa,31192,Centro Autorizado,Aranguren
+F00761,"Morte Casado, Leticia Alba",paseo Capuchinas 33,Tudela,31500,Centro Autorizado,Tudela oeste
+F00763,"Aguirre Encinas, Oihana",plaza Amaiur 2,Estella/Lizarra,31200,Centro Autorizado,Estella
+F00766,"Diaz de Rada Pellejero, Adriana",calle Albalá 4,Tudela,31500,Centro Autorizado,Tudela oeste
+F00770,"Cardona Lozano, Maria Jose",calle Cataluña 8,Pamplona/Iruña,31006,Centro Autorizado,Lezkairu
+F00771,"Guembe Fernandez de Arcaya, Maria",calle Londres 10,Pamplona/Iruña,31016,Centro Autorizado,Mendillorri
+F00772,"Alvarez/Alvarez Gutierrez/Gutierrez, Andrea/Malen",calle Isabel Garbayo Ayala 9,Pamplona/Iruña,31006,Centro Autorizado,Lezkairu
+F00774,"Sarasa Zubeldia, Patricia",avenida Juan Pablo II 3,Pamplona/Iruña,31004,Centro Autorizado,Lezkairu
+F00777,"Acacio Mañas, Maria",calle Miguel Eza 4,Tudela,31500,Centro Autorizado,Tudela oeste
+F00778,"Barcena Naranjo, Ana Isabel",calle Adela Bazo 10,Pamplona/Iruña,31004,Centro Autorizado,Lezkairu
+F00779,"Barricarte Asiain, Gonzalo",calle María Lacunza 51,Pamplona/Iruña,31004,Centro Autorizado,Lezkairu
+F00780,"Arteche Urtasun, Eduardo",calle Fermin Daoiz 4,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00784,"Carrascal Del Solar, Isabel",calle Monasterio de Urdax 21,Pamplona/Iruña,31011,Centro Autorizado,San Juan
+F00791,"Redin Goñi, Cristina",paseo Jose Maria Lacarra 1-3,Pamplona/Iruña,31008,Centro Autorizado,San Juan
+F00792,"Villanueva Merino, Beatriz",calle Teobaldos 12,Pamplona/Iruña,31002,Centro Autorizado,II Ensanche
+F00798,"Mohamed Anciones, Nadia Teresa",calle Doctor Alexander Fleming 9,Pamplona/Iruña,31012,Centro Autorizado,San Jorge
+F00799,"Azcona Martinez, Maria Pilar",calle Dublin 24,Burlada/Burlata,31600,Centro Autorizado,Burlada
+F00805,"Viedma Ansa, Nerea",calle Errotaxar 17,Zizur Mayor/Zizur Nagusia,31180,Centro Autorizado,Cizur
+F00806,"Garatea Mangado, Marta",calle Mutilva Alta 3,Pamplona/Iruña,31006,Centro Autorizado,Lezkairu
+F00809,"Alcocer Ansorena, Teresa Aurora",calle Camino de San Marcial 3,Tudela,31500,Centro Autorizado,Tudela oeste
+F00811,"Molins Coca, Ernesto",calle San Cristobal 29,Pamplona/Iruña,31015,Centro Autorizado,Chantrea
+F00815,"Astiz Arzoz, Edurne","calle Madrid 22,trasera",Pamplona/Iruña,31016,Centro Autorizado,Mendillorri
+F00816,"De Ariz Lizarraga, Miguel",avenida Mugartea 19,Mutilva <> Mutiloa,31192,Centro Autorizado,Aranguren
+F00817,"Elias Calvo, Ignacio Javier",calle Barrio Nuevo s/n,Sansol,31220,Centro Autorizado,Los Arcos
+F00819,"Martinez de Luco Cortecero, Gemma",calle San Andrés 14,Igúzquiza,31241,Centro Autorizado,Allo
+F00822,"Taberna Huesa, Daniel Jose",calle Leyre 5,Pamplona/Iruña,31002,Centro Autorizado,II Ensanche
+F00826,"Ursua/Ursua Goicoechea/Sesma, Laura/Angel",paseo Ugaldeta 22-24,Pamplona/Iruña,31006,Centro Autorizado,Milagrosa
+F00827,"Cuadra Castillo, Belen","calle Carlos Sanz Biurrun, 4 5",Pamplona/Iruña,31006,Centro Autorizado,Lezkairu
+F00828,"Arz Burgaleta, Pilar","calle Jose Alonso 2,bajo local 2",Pamplona/Iruña,31002,Centro Autorizado,Casco viejo
+F00830,"Paredes Puente, Ana Maria",plaza De La Mujer 7,Zizur Mayor/Zizur Nagusia,31180,Centro Autorizado,Cizur
+F00831,"Lozano Bernal, Javier Jose","plaza Valle de Aranguren 15,bajo C",Mutilva <> Mutiloa,31192,Centro Autorizado,Aranguren
+F00848,"Mata/Rivas Anton/Fernandez, Cristina/Marco Antonio",barrio Barrikata 3,Isaba/Izaba,31417,Centro Autorizado,Isaba
+F00849,"Perez Gonzalez, Dolores Raquel",plaza Baltxarran 5,Cizur Menor,31191,Centro Autorizado,Cizur

@@ -1,0 +1,13 @@
+Farmacias:
+	 Atributo: FEATURE - Descripción: Identificador de feature (objeto geográfico) en el modelo de datos SITNA
+	 Atributo: IDFARMACIA - Descripción: Código de farmacia
+	 Atributo: TITULAR - Descripción: Nombre o tipo de persona u organismo que figura como titular de algún bien (parcelas, equipamiento, etc.)
+	 Atributo: DIRECCION - Descripción: Dirección postal (en formato no normalizado)
+	 Atributo: POBLACION - Descripción: Localidad, núcleo habitado, población…
+	 Atributo: CMUNICIPIO - Descripción: Código INE de municipio
+	 Atributo: MUNICIPIO - Descripción: Nombre oficial de municipio
+	 Atributo: ZONA - Descripción: Nombre 1 de las zonas en las que se divide una capa
+	 Atributo: HELPBIDEA - Descripción: Código único de portal
+	 Atributo: X25830 - Descripción: Coordenada X en EPSG 25830 (UTM 30N ETRS 89)
+	 Atributo: Y25830 - Descripción: Coordenada Y en EPSG 25830 (UTM 30N ETRS 89)
+	 Atributo: BEGINLIFE - Descripción: Fecha de inserción del dato en la base de datos SITNA
