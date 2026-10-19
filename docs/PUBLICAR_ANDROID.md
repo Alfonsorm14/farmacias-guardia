@@ -35,7 +35,7 @@ flutter build appbundle --release --dart-define=SNAPSHOT_URL=https://<usuario>.g
 ```
 
 Resultado: `build\app\outputs\bundle\release\app-release.aab`. Antes de cada versión, subir
-`version:` en `pubspec.yaml` (ahora `0.6.0+6`; el número tras `+` debe crecer siempre).
+`version:` en `pubspec.yaml` (ahora `0.6.1+7`; el número tras `+` debe crecer siempre).
 
 ## 3. Play Console
 
