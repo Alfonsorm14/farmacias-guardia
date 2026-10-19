@@ -30,6 +30,9 @@ abstract class GuardiasRepository {
   /// Texto sobre la vigencia de los datos.
   String get descripcionDatos;
 
+  /// Fuentes oficiales de los datos (para la pantalla de atribución).
+  Future<List<Fuente>> fuentes();
+
   static GuardiasRepository crear() =>
       apiBase.isEmpty ? SnapshotRepository() : ApiRepository(apiBase);
 }
@@ -130,6 +133,9 @@ class SnapshotRepository implements GuardiasRepository {
   }
 
   @override
+  Future<List<Fuente>> fuentes() async => (await _motor()).fuentes;
+
+  @override
   String get descripcionDatos {
     final e = _engine;
     if (e == null) return 'Datos oficiales incluidos en la app';
@@ -182,10 +188,12 @@ class ApiRepository implements GuardiasRepository {
         distanciaKm: (g['distancia_km'] as num).toDouble(),
       );
     }).toList();
+    final hasta = j['datos_hasta'] as String?;
     return ResultadoGuardias(
       cobertura: j['cobertura'] as bool? ?? false,
       mensaje: j['mensaje'] as String?,
       guardias: guardias,
+      datosHasta: hasta == null ? null : DateTime.tryParse(hasta)?.toUtc(),
     );
   }
 
@@ -197,6 +205,24 @@ class ApiRepository implements GuardiasRepository {
   Future<ResultadoGuardias> dia(double lat, double lon, DateTime dia) async {
     final f = '${dia.year.toString().padLeft(4, '0')}-${dia.month.toString().padLeft(2, '0')}-${dia.day.toString().padLeft(2, '0')}';
     return _convertir(await _get('/v1/guardias/dia', {'lat': '$lat', 'lon': '$lon', 'fecha': f, 'radius_km': '$radioPorDefectoKm'}));
+  }
+
+  @override
+  Future<List<Fuente>> fuentes() async {
+    final uri = Uri.parse(base).replace(path: '/v1/fuentes');
+    final r = await _cliente.get(uri).timeout(const Duration(seconds: 15));
+    if (r.statusCode != 200) throw Exception('Error ${r.statusCode} del servidor');
+    return [
+      for (final f in jsonDecode(utf8.decode(r.bodyBytes)) as List)
+        Fuente(
+          id: f['source_id'] as String,
+          editor: f['publisher'] as String,
+          url: f['url'] as String,
+          licencia: f['license'] as String,
+          municipal: f['municipal'] as bool? ?? false,
+          descargado: DateTime.tryParse(f['retrieved_at'] as String? ?? '')?.toUtc(),
+        ),
+    ];
   }
 
   @override

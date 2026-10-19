@@ -204,6 +204,7 @@ def test_farmacia_detalle_y_fuentes(client: TestClient):
         assert "publisher" in f
         assert "license" in f
         assert "url" in f
+        assert f["municipal"] is (f["source_id"] in {"MAD-AYTO-DATOSABIERTOS", "ZGZ-AYTO"})
 
 
 def test_limpieza_api_claves_sin_tildes_y_sin_duplicados(client: TestClient):

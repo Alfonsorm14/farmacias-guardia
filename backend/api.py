@@ -104,6 +104,7 @@ def list_fuentes(db: Session = Depends(get_db)) -> list[dict[str, Any]]:
             "url": s.url,
             "license": s.license,
             "retrieved_at": to_madrid_iso(s.retrieved_at),
+            "municipal": is_municipal(s.source_id),
         }
         for s in sources
     ]

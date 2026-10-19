@@ -31,6 +31,7 @@ class TurnoIndexado {
 }
 
 class GuardiasEngine {
+  final List<Fuente> fuentes;
   final List<Farmacia> farmacias;
   final List<String> zonas;
   final List<TurnoIndexado> turnos; // ordenados por inicio
@@ -46,7 +47,13 @@ class GuardiasEngine {
 
   static const double _margenMunicipalKm = 2.0;
 
-  GuardiasEngine({required this.farmacias, required this.zonas, required this.turnos, required this.generado}) {
+  GuardiasEngine({
+    required this.farmacias,
+    required this.zonas,
+    required this.turnos,
+    required this.generado,
+    List<Fuente>? fuentes,
+  }) : fuentes = fuentes ?? {for (final f in farmacias) if (f.fuente != null) f.fuente!.id: f.fuente!}.values.toList() {
     _turnosPorFarmacia = {};
     _zonasPorFarmacia = {};
     _periodoPorFuente = {};
@@ -185,6 +192,10 @@ class GuardiasEngine {
     );
   }
 
+  /// Las fechas de la base de datos se guardan en UTC sin zona ("2026-10-19 17:23:35.190233").
+  static DateTime? _fechaUtc(String texto) =>
+      DateTime.tryParse(RegExp(r'(Z|[+-]\d\d:?\d\d)$').hasMatch(texto) ? texto : '${texto}Z')?.toUtc();
+
   /// Construye el motor desde el JSON de scripts/export_snapshot.py.
   factory GuardiasEngine.desdeJson(Map<String, dynamic> json) {
     final fuentes = (json['sources'] as List)
@@ -194,6 +205,7 @@ class GuardiasEngine {
               url: s[2] as String,
               licencia: s[3] as String,
               municipal: s.length > 5 && s[5] == true,
+              descargado: s.length > 4 && s[4] is String ? _fechaUtc(s[4] as String) : null,
             ))
         .toList();
     double? n(Object? v) => v == null ? null : (v as num).toDouble();
@@ -216,6 +228,7 @@ class GuardiasEngine {
             tipoTurnoDesdeCodigo(t[4] as String), (t[5] as int) == 1))
         .toList();
     return GuardiasEngine(
+      fuentes: fuentes,
       farmacias: farmacias,
       zonas: (json['zones'] as List).cast<String>(),
       turnos: turnos,

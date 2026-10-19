@@ -20,6 +20,19 @@ void main() {
     expect(motor.zonas, contains('SANT ANTONI'));
   });
 
+  test('fuentes: atribución, ámbito municipal y fecha de descarga', () {
+    final ids = {for (final f in motor.fuentes) f.id: f};
+    expect(ids.keys, containsAll(['IB-CAIB-2026', 'MU-BORM-2026', 'NA-DATOSABIERTOS', 'MAD-AYTO-DATOSABIERTOS', 'ZGZ-AYTO']));
+    expect(ids['MAD-AYTO-DATOSABIERTOS']!.municipal, isTrue);
+    expect(ids['ZGZ-AYTO']!.municipal, isTrue);
+    expect(ids['IB-CAIB-2026']!.municipal, isFalse);
+    for (final f in motor.fuentes) {
+      expect(f.descargado, isNotNull, reason: f.id);
+      expect(f.descargado!.isUtc, isTrue);
+      expect(f.descargado!.year, greaterThanOrEqualTo(2026));
+    }
+  });
+
   test('Palma, 1 de enero de 2026 a las 23:00: las tres nocturnas', () {
     final r = motor.consultar(lat: 39.5696, lon: 2.6502, desde: DateTime.utc(2026, 1, 1, 22), radioKm: 15);
     expect(r.cobertura, isTrue);

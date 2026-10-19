@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
+import '../data/preferencias.dart';
 import '../data/repository.dart';
 import '../location.dart';
 import '../models.dart';
 import '../tiempo.dart';
+import 'acerca_de.dart';
 import 'elegir_lugar.dart';
 import 'guardia_card.dart';
 import 'mapa.dart';
 
-enum Vista { ahora, hoy, manana, pasado }
+enum Vista { ahora, hoy, manana, pasado, fecha }
 
 class HomePage extends StatefulWidget {
   final GuardiasRepository repositorio;
@@ -30,6 +33,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   String? _errorUbicacion;
   bool _buscandoGps = false;
   Vista _vista = Vista.ahora;
+  DateTime? _fechaElegida; // día de Madrid elegido en el calendario (Vista.fecha)
   bool _verMapa = false;
   Future<ResultadoGuardias>? _consulta;
 
@@ -71,13 +75,23 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       _fijarUbicacion(u);
     } catch (e) {
       if (!mounted) return;
-      setState(() => _errorUbicacion = e is ErrorUbicacion ? e.mensaje : 'No se pudo obtener la ubicación.');
+      final error = e is ErrorUbicacion ? e.mensaje : 'No se pudo obtener la ubicación.';
+      // Sin GPS, se vuelve al último lugar elegido a mano (si lo hay).
+      final ultimo = _ubicacion == null ? await leerUltimoLugar() : null;
+      if (!mounted) return;
+      if (ultimo != null) {
+        _fijarUbicacion(ultimo);
+        ScaffoldMessenger.maybeOf(context)?.showSnackBar(SnackBar(content: Text('$error Se muestra ${ultimo.etiqueta}.')));
+      } else {
+        setState(() => _errorUbicacion = error);
+      }
     } finally {
       if (mounted) setState(() => _buscandoGps = false);
     }
   }
 
   void _fijarUbicacion(Ubicacion u) {
+    guardarUltimoLugar(u);
     setState(() {
       _ubicacion = u;
       _errorUbicacion = null;
@@ -97,7 +111,30 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       Vista.hoy => widget.repositorio.dia(u.lat, u.lon, hoy),
       Vista.manana => widget.repositorio.dia(u.lat, u.lon, DateTime(hoy.year, hoy.month, hoy.day + 1)),
       Vista.pasado => widget.repositorio.dia(u.lat, u.lon, DateTime(hoy.year, hoy.month, hoy.day + 2)),
+      Vista.fecha => widget.repositorio.dia(u.lat, u.lon, _fechaElegida ?? hoy),
     };
+  }
+
+  Future<void> _elegirFecha() async {
+    final m = enMadrid(_ahora());
+    final hoy = DateTime(m.year, m.month, m.day);
+    final f = await showDatePicker(
+      context: context,
+      initialDate: _fechaElegida ?? hoy,
+      firstDate: DateTime(hoy.year, hoy.month, hoy.day - 31),
+      lastDate: DateTime(hoy.year + 1, 12, 31),
+      helpText: 'Elegir fecha',
+    );
+    if (f == null || !mounted) return;
+    setState(() {
+      _fechaElegida = DateTime(f.year, f.month, f.day);
+      _vista = Vista.fecha;
+      _consultar();
+    });
+  }
+
+  void _abrirAcercaDe() {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => AcercaDePage(repositorio: widget.repositorio)));
   }
 
   Future<void> _elegirLugar() async {
@@ -125,7 +162,15 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             icon: Icon(_verMapa ? Icons.list : Icons.map_outlined),
             onPressed: u == null ? null : () => setState(() => _verMapa = !_verMapa),
           ),
-          IconButton(tooltip: 'Elegir lugar', icon: const Icon(Icons.edit_location_alt_outlined), onPressed: _elegirLugar),
+          IconButton(tooltip: 'Elegir fecha', icon: const Icon(Icons.calendar_month_outlined), onPressed: _elegirFecha),
+          PopupMenuButton<String>(
+            tooltip: 'Más opciones',
+            onSelected: (v) => v == 'lugar' ? _elegirLugar() : _abrirAcercaDe(),
+            itemBuilder: (_) => const [
+              PopupMenuItem(value: 'lugar', child: Text('Elegir lugar')),
+              PopupMenuItem(value: 'acerca', child: Text('Fuentes y privacidad')),
+            ],
+          ),
         ],
       ),
       body: Column(
@@ -135,19 +180,38 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             child: SegmentedButton<Vista>(
               showSelectedIcon: false,
+              emptySelectionAllowed: true,
               segments: const [
                 ButtonSegment(value: Vista.ahora, label: Text('Ahora')),
                 ButtonSegment(value: Vista.hoy, label: Text('Hoy')),
                 ButtonSegment(value: Vista.manana, label: Text('Mañana')),
                 ButtonSegment(value: Vista.pasado, label: Text('Pasado')),
               ],
-              selected: {_vista},
-              onSelectionChanged: (s) => setState(() {
-                _vista = s.first;
-                _consultar();
-              }),
+              selected: _vista == Vista.fecha ? const {} : {_vista},
+              onSelectionChanged: (s) {
+                if (s.isEmpty) return; // pulsar la pestaña activa no la deselecciona
+                setState(() {
+                  _vista = s.first;
+                  _consultar();
+                });
+              },
             ),
           ),
+          if (_vista == Vista.fecha && _fechaElegida != null)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: InputChip(
+                avatar: const Icon(Icons.event, size: 18),
+                label: Text(DateFormat("EEEE d 'de' MMMM 'de' y", 'es_ES').format(_fechaElegida!)),
+                onPressed: _elegirFecha,
+                deleteButtonTooltipMessage: 'Quitar fecha',
+                onDeleted: () => setState(() {
+                  _vista = Vista.ahora;
+                  _fechaElegida = null;
+                  _consultar();
+                }),
+              ),
+            ),
           Expanded(child: u == null ? _sinUbicacion() : _resultados(u)),
         ],
       ),

@@ -46,12 +46,16 @@ class Fuente {
   /// La fuente solo cubre un término municipal (Madrid, Zaragoza).
   final bool municipal;
 
+  /// Fecha de la última descarga de la fuente (UTC), si se conoce.
+  final DateTime? descargado;
+
   const Fuente({
     required this.id,
     required this.editor,
     required this.url,
     required this.licencia,
     this.municipal = false,
+    this.descargado,
   });
 }
 
