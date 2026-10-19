@@ -3823,11 +3823,11 @@
 "consulta": "URBANIZACION MARCHENA UA-1 | Marchena, Lorca",
 "cp": "30815",
 "direccion": "URBANIZACION MARCHENA UA-1, MANZANA 10,PARCELA UNO, DIPUTACION DE MARCHENA",
-"fuente": null,
-"lat": null,
+"fuente": "nucleus_centroid",
+"lat": 37.6651182,
 "localidad": "MARCHENA-LORCA",
-"lon": null,
-"precision": null
+"lon": -1.6539375,
+"precision": "localidad"
 },
 "MU:131": {
 "consulta": "S ANTONIO, 9 | Totana",
@@ -6443,11 +6443,11 @@
 "consulta": "CALLE LA CRUZ, 48 | Espinardo, Murcia",
 "cp": "30100",
 "direccion": "CL.LA CRUZ, S/N, PROXIMO AL Nº 48",
-"fuente": null,
-"lat": null,
+"fuente": "nucleus_centroid",
+"lat": 38.0084441,
 "localidad": "ESPINARDO",
-"lon": null,
-"precision": null
+"lon": -1.1555733,
+"precision": "localidad"
 },
 "MU:370": {
 "consulta": "BANDO DE LA HUERTA, 8 | Murcia",

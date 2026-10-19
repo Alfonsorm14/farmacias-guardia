@@ -813,7 +813,10 @@ def _nucleus_from_nominatim(
     keys = {muni_key(m) for m in munis}
     for muni in (munis[:3] or [REGION_NAMES.get(region, "")]):
         for it in geo.nominatim(q=f"{name}, {muni}, {REGION_NAMES.get(region, '')}"):
-            if it.get("class") != "place" or it.get("type") not in _PLACE_TYPES:
+            es_lugar = it.get("class") == "place" and it.get("type") in _PLACE_TYPES
+            # Las pedanías de Murcia figuran en OSM como límites administrativos.
+            es_pedania = it.get("class") == "boundary" and it.get("type") == "administrative"
+            if not (es_lugar or es_pedania):
                 continue
             if not _names_match(name, (it.get("name") or it.get("display_name", "").split(",")[0])):
                 continue
