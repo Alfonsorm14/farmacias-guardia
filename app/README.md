@@ -29,7 +29,7 @@ llevan la etiqueta "Ubicación aproximada"; las que no se han podido situar apar
 ```powershell
 cd app
 flutter pub get
-flutter test                 # 24 tests (motor sobre la instantánea real, buscador, pantallas y preferencias)
+flutter test                 # 30 tests (motor sobre la instantánea real, buscador, pantallas y preferencias)
 flutter run                  # con el móvil conectado por USB (depuración USB activada)
 flutter build apk --release  # build/app/outputs/flutter-apk/app-release.apk
 ```

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:farmacias_guardia/compartir.dart';
 import 'package:farmacias_guardia/data/guardias_engine.dart';
 import 'package:farmacias_guardia/data/repository.dart';
 import 'package:farmacias_guardia/data/preferencias.dart';
@@ -41,15 +42,32 @@ void main() {
     expect(find.text('Cómo llegar'), findsWidgets);
   });
 
-  testWidgets('copiar los datos de una guardia', (tester) async {
+  testWidgets('compartir: usa el selector del sistema si está disponible', (tester) async {
+    String? compartido;
+    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(canalCompartir, (call) async {
+      compartido = (call.arguments as Map)['texto'] as String?;
+      return true;
+    });
+    await tester.pumpWidget(_app(repo, lugaresConDatos.first, DateTime.utc(2026, 1, 1, 22).toLocal()));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Compartir').first);
+    await tester.pumpAndSettle();
+    expect(compartido, startsWith('Farmacia de guardia: '));
+    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(canalCompartir, null);
+  });
+
+  testWidgets('compartir sin selector del sistema copia los datos', (tester) async {
     String? copiado;
+    // Sin selector del sistema (el canal responde que no ha podido compartir).
+    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(canalCompartir, (call) async => false);
+    addTearDown(() => tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(canalCompartir, null));
     tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(SystemChannels.platform, (call) async {
       if (call.method == 'Clipboard.setData') copiado = (call.arguments as Map)['text'] as String?;
       return null;
     });
     await tester.pumpWidget(_app(repo, lugaresConDatos.first, DateTime.utc(2026, 1, 1, 22).toLocal()));
     await tester.pumpAndSettle();
-    await tester.tap(find.byTooltip('Copiar datos').first);
+    await tester.tap(find.byTooltip('Compartir').first);
     await tester.pumpAndSettle();
     expect(copiado, startsWith('Farmacia de guardia: '));
     expect(copiado, contains('google.com/maps'));

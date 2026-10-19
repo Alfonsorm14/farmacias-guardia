@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../compartir.dart';
 import '../models.dart';
 import '../tiempo.dart';
 
@@ -96,10 +97,13 @@ class GuardiaCard extends StatelessWidget {
                   ),
                 const Spacer(),
                 IconButton(
-                  tooltip: 'Copiar datos',
-                  icon: const Icon(Icons.copy_outlined),
+                  tooltip: 'Compartir',
+                  icon: const Icon(Icons.share_outlined),
                   onPressed: () async {
-                    await Clipboard.setData(ClipboardData(text: textoGuardia(guardia)));
+                    final texto = textoGuardia(guardia);
+                    if (await compartirTexto(texto)) return;
+                    // Sin selector del sistema: se copia al portapapeles.
+                    await Clipboard.setData(ClipboardData(text: texto));
                     if (context.mounted) {
                       ScaffoldMessenger.maybeOf(context)
                           ?.showSnackBar(const SnackBar(content: Text('Datos de la farmacia copiados')));
