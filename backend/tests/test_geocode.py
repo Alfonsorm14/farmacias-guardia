@@ -22,7 +22,9 @@ from backend.geocode import (
 from backend.importer import import_source_data  # noqa: F401  (el módulo debe importar)
 
 DB_PATH = Path("data/guardias.db")
-ALLOWED_SOURCES = {"cartociudad", "nominatim", "nucleus_centroid", "casco_centroid", "idena", "ayto_zaragoza"}
+ALLOWED_SOURCES = {
+    "cartociudad", "nominatim", "nucleus_centroid", "casco_centroid", "idena", "ayto_zaragoza", "osm_farmacia",
+}
 
 
 def test_muni_matches_es_exacto_y_no_por_subcadena():
@@ -61,6 +63,20 @@ def test_street_similarity():
     assert street_similarity("CANOVAS", "CALLE CANOVAS DEL CASTILLO") >= 0.6
     assert street_similarity("SAN JOSE", "CALLE JOSE ANTONIO PRIMO") < 0.6
     assert street_similarity("MAYOR", "CALLE MAYOR") == 1.0
+
+
+def test_street_core_y_vias_osm():
+    from backend.geocode import osm_street_match, street_core
+
+    assert street_core("CL FALZIA, s/n - URB. PUIG DE ROS").name == "FALZIA"
+    assert street_core("AVD. DE LAS PALMERAS-EDIF. CORAL").street_type == "AVENIDA"
+    assert street_core("AVENIDA MONTE AZAHAR, Nº 4").number == 4
+    assert osm_street_match(street_core("AVENIDA MONTE AZAHAR, Nº 4"), "Avenida Monteazahar")
+    assert osm_street_match(street_core("CL FALZIA, s/n"), "carrer Falzia")
+    assert osm_street_match(street_core("AVD. DE LA PLAYA, 1 LOCAL 32"), "Avinguda de la Platja")
+    # Distinto tipo de vía: no es la misma.
+    assert not osm_street_match(street_core("C/FORTUNA,2 URB.LAS PALOMAS"), "Plaza de Fortuna")
+    assert not osm_street_match(street_core("DR. ORFILA, 28"), "Carrer Gran")
 
 
 def test_hint_phrases():

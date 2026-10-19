@@ -1318,6 +1318,113 @@ def _nominatim_street(
     return accepted
 
 
+_CORE_CUT_RE = re.compile(
+    r"\s*(?:,|\s-\s|-\s*EDIF|\(|\bEDIF(?:ICIO)?\b|\bED\.|\bAPTOS?\b|\bLOC(?:AL)?\b\.?|\bURB(?:ANIZACION)?\b).*$",
+    re.I,
+)
+_TYPE_ABBR = {"AVD": "AVENIDA", "AVDA": "AVENIDA", "AV": "AVENIDA", "PZ": "PLAZA", "PZA": "PLAZA"}
+
+
+def street_core(address: str) -> ParsedAddress:
+    """Vía y número sin complementos (edificio, urbanización, local...) para casar con OSM."""
+    clean = clean_address(address)
+    number_m = re.search(r",\s*(\d+)", clean) or re.search(r"\b(\d+)\s*$", clean)
+    core = _CORE_CUT_RE.sub("", clean).strip(" .,-")
+    first, _, rest = core.partition(" ")
+    first = _TYPE_ABBR.get(first.upper().rstrip("."), first)
+    parsed = parse_address(f"{first} {rest}".strip())
+    number = parsed.number if parsed.number is not None else (int(number_m.group(1)) if number_m else None)
+    return ParsedAddress(parsed.street_type, parsed.name, number)
+
+
+def _compact(text: str) -> str:
+    return "".join(t for t in _tokens(text) if t not in _STREET_STOP)
+
+
+_TYPE_CANON = {
+    "calle": "calle", "carrer": "calle", "c": "calle", "cl": "calle",
+    "avenida": "avenida", "avinguda": "avenida", "av": "avenida", "avda": "avenida",
+    "plaza": "plaza", "placa": "plaza", "pza": "plaza", "pz": "plaza",
+    "paseo": "paseo", "passeig": "paseo", "carretera": "carretera", "ctra": "carretera",
+    "camino": "camino", "cami": "camino", "ronda": "ronda", "travesia": "travesia",
+}
+
+# Apellidos muy frecuentes: coincidir solo en uno de ellos no identifica a la farmacia.
+_COMMON_SURNAMES = frozenset(
+    "garcia rodriguez gonzalez fernandez lopez martinez sanchez perez gomez martin jimenez ruiz "
+    "hernandez diaz moreno alvarez munoz romero alonso gutierrez navarro torres dominguez vazquez "
+    "ramos ramirez serrano blanco molina morales suarez ortega delgado castro ortiz rubio marin "
+    "sanz nunez iglesias medina garrido cortes castillo santos lozano guerrero prieto mendez calvo "
+    "gallego vidal marquez herrera flores cabrera campos fuentes carrasco caballero reyes nieto "
+    "aguilar pascual santana herrero lorenzo montero hidalgo gimenez ibanez ferrer duran santiago "
+    "benitez vicente vargas carmona crespo roman pastor velasco soler parra esteban bravo "
+    "gallardo rojas mateo".split()
+)
+
+
+def _road_type(road: str) -> str | None:
+    first = _tokens(road)[:1]
+    return _TYPE_CANON.get(first[0]) if first else None
+
+
+def osm_street_match(core: ParsedAddress, road: str) -> bool:
+    """La vía de la fuente y la de OSM son la misma ("MONTE AZAHAR" = "Monteazahar")."""
+    if not core.name or not road:
+        return False
+    ours = _TYPE_CANON.get(normalize_text(core.street_type)) if core.street_type else None
+    theirs = _road_type(road)
+    if ours and theirs and ours != theirs:
+        return False  # "CALLE FORTUNA" no es "Plaza de Fortuna"
+    if street_similarity(core.name, road) >= STREET_MIN_SCORE:
+        return True
+    a, b = _compact(core.name), _compact(road)
+    return len(a) >= 5 and a == b
+
+
+def _osm_pharmacy(
+    geo: GeoClient, pharmacy: Pharmacy, center: tuple[float, float]
+) -> tuple[float, float, str, str] | None:
+    """Farmacia cartografiada en OpenStreetMap en la misma vía, cerca del núcleo.
+
+    Solo se acepta si no hay ambigüedad: una sola farmacia OSM en esa vía dentro de la caja y
+    ninguna otra farmacia de la fuente en esa misma vía y localidad (si no, podría ser la otra).
+    Portal si coincide el número o el nombre del titular; si no, calle.
+    """
+    core = street_core(pharmacy.address)
+    if not core.name or len(normalize_text(core.name)) < 3:
+        return None
+    lat, lon = center
+    d = 0.03  # ~3 km
+    found = geo.nominatim(
+        q="farmacia",
+        limit="50",
+        bounded="1",
+        viewbox=f"{lon - d:.4f},{lat + d:.4f},{lon + d:.4f},{lat - d:.4f}",
+    )
+    same_street = [
+        it for it in found
+        if (it.get("type") == "pharmacy" or it.get("class") in ("amenity", "shop"))
+        and osm_street_match(core, (it.get("address") or {}).get("road") or "")
+    ]
+    if len(same_street) != 1:
+        return None
+    others = geo.session.scalars(
+        select(Pharmacy).where(Pharmacy.id != pharmacy.id, Pharmacy.locality == pharmacy.locality)
+    ).all()
+    if any(osm_street_match(core, street_core(o.address).full) or
+           (street_core(o.address).name and street_similarity(street_core(o.address).name, core.name) >= STREET_MIN_SCORE)
+           for o in others):
+        return None
+    it = same_street[0]
+    house = re.match(r"\d+", str((it.get("address") or {}).get("house_number") or ""))
+    holder_tokens = [t for t in _tokens(pharmacy.holder) if len(t) >= 4 and t not in _COMMON_SURNAMES]
+    name_tokens = _tokens(it.get("name") or "")
+    by_number = bool(core.number and house and int(house.group(0)) == core.number)
+    by_holder = any(t in name_tokens for t in holder_tokens)
+    precision = "portal" if by_number or by_holder else "calle"
+    return float(it["lat"]), float(it["lon"]), precision, f"osm {it.get('osm_type')}/{it.get('osm_id')}"
+
+
 def geocode_pharmacy(geo: GeoClient, pharmacy: Pharmacy) -> GeoResult:
     """Geocodifica una farmacia según las reglas del módulo."""
     region = pharmacy.region
@@ -1388,6 +1495,15 @@ def geocode_pharmacy(geo: GeoClient, pharmacy: Pharmacy) -> GeoResult:
             rejected.append(why)
 
     detail = "; ".join(dict.fromkeys(rejected)) or "dirección no encontrada"
+    # Último recurso antes del centro del núcleo: la farmacia cartografiada en OpenStreetMap.
+    center = nucleus or casco_nucleus
+    if center is not None:
+        osm = _osm_pharmacy(geo, pharmacy, (center.lat, center.lon))
+        if osm is not None:
+            why = _validate_point(geo, ctx, nucleus, casco_nucleus, region, osm[0], osm[1])
+            if why is None:
+                return GeoResult(osm[0], osm[1], osm[2], "osm_farmacia", query, f"{detail}; {osm[3]}")
+            detail += f"; farmacia OSM descartada ({why})"
     if nucleus is not None:
         why = _validate_point(geo, ctx, None, None, region, nucleus.lat, nucleus.lon)
         if why is None:
