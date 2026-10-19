@@ -140,6 +140,11 @@ class GuardiasEngine {
     return lat >= a.$1 - dLat && lat <= a.$3 + dLat && lon >= a.$2 - dLon && lon <= a.$4 + dLon;
   }
 
+  /// Inicio del último turno publicado (el día hasta el que hay turnos).
+  DateTime? get ultimoInicio => turnos.isEmpty
+      ? null
+      : DateTime.fromMillisecondsSinceEpoch(turnos.map((t) => t.inicioMin).reduce(math.max) * 60000, isUtc: true);
+
   /// Fecha del último turno publicado (para avisar de datos caducados).
   DateTime? get ultimoTurno => turnos.isEmpty
       ? null

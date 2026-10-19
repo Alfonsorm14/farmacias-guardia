@@ -65,4 +65,9 @@ void main() {
         await t.pumpAndSettle();
       }));
   testWidgets('Fuentes', (t) => captura(t, AcercaDePage(repositorio: repo), 'fuentes'));
+  testWidgets('Pamplona marzo', (t) => captura(t, HomePage(repositorio: repo, ubicacionInicial: lugaresConDatos[9], reloj: () => DateTime(2026, 3, 15, 12)), 'pamplona_marzo', accion: () async {
+        await t.tap(find.text('Hoy'));
+        await t.pumpAndSettle();
+      }));
+  testWidgets('Burgos', (t) => captura(t, HomePage(repositorio: repo, ubicacionInicial: const Ubicacion(42.3439, -3.6969, 'Burgos'), reloj: () => DateTime(2026, 10, 20, 12)), 'burgos'));
 }
