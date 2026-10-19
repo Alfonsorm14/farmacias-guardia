@@ -59,12 +59,14 @@ BBOXES: dict[str, dict[str, float]] = {
     "04": {"lat_min": 38.6, "lat_max": 40.1, "lon_min": 1.1, "lon_max": 4.4},
     "14": {"lat_min": 37.3, "lat_max": 38.8, "lon_min": -2.4, "lon_max": -0.6},
     "15": {"lat_min": 41.9, "lat_max": 43.35, "lon_min": -2.55, "lon_max": -0.7},
+    "13": {"lat_min": 39.85, "lat_max": 41.2, "lon_min": -4.6, "lon_max": -3.0},
 }
-REGION_PROVINCES: dict[str, set[str]] = {"04": {"07"}, "14": {"30"}, "15": {"31"}}
+REGION_PROVINCES: dict[str, set[str]] = {"04": {"07"}, "14": {"30"}, "15": {"31"}, "13": {"28"}}
 REGION_NAMES: dict[str, str] = {
     "04": "Illes Balears",
     "14": "Región de Murcia",
     "15": "Comunidad Foral de Navarra",
+    "13": "Comunidad de Madrid",
 }
 # Capa oficial de farmacias de Navarra (IDENA, CC BY 4.0) con coordenadas por código.
 IDENA_DBF = Path(__file__).resolve().parent.parent / "data" / "raw" / "navarra" / "idena" / "DOTACI_Sym_Farmacias.dbf"
@@ -91,6 +93,9 @@ CASCO_MAX_KM = 15.0
 # Núcleos repartidos entre dos municipios (Cala Millor: Son Servera y Sant Llorenç):
 # se acepta una dirección del municipio vecino si está pegada al núcleo.
 NUCLEUS_SHARED_KM = 1.0
+# En ciudades grandes el centro del casco puede estar a muchos km de la farmacia:
+# por encima de esta extensión no se usa como ubicación aproximada (queda NULL).
+CASCO_CENTROID_MAX_EXTENT_KM = 8.0
 STREET_MIN_SCORE = 0.6
 
 _last_call: dict[str, float] = {"cartociudad": 0.0, "nominatim": 0.0}
@@ -634,6 +639,14 @@ class Nucleus:
     postal_codes: list[str] = field(default_factory=list)
     alternates: list["Nucleus"] = field(default_factory=list)
 
+    def extent_km(self) -> float:
+        """Diagonal de la caja del polígono (0 si no hay polígono)."""
+        pts = [p for ring in self.rings for p in ring]
+        if not pts:
+            return 0.0
+        xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+        return haversine_km(min(ys), min(xs), max(ys), max(xs))
+
     def distance_km(self, lat: float, lon: float) -> float:
         """Distancia al núcleo (o a la entidad homónima más cercana)."""
         own = self._own_distance_km(lat, lon)
@@ -897,6 +910,10 @@ def _zone_municipalities(zones: list[str]) -> list[str]:
 
 def resolve_context(geo: GeoClient, pharmacy: Pharmacy) -> GeoContext:
     """Municipio(s), núcleo y códigos postales esperados para una farmacia."""
+    if pharmacy.region == "13":
+        # Ciudad de Madrid: la fuente solo cubre el municipio (casco = término municipal).
+        loc = (pharmacy.locality or "Madrid").strip()
+        return GeoContext([loc], None, True, [], "municipio de la fuente")
     if pharmacy.region == "15":
         # La fuente da el núcleo (concejo o localidad), no siempre el municipio.
         loc = (pharmacy.locality or "").strip()
@@ -1343,6 +1360,9 @@ def geocode_pharmacy(geo: GeoClient, pharmacy: Pharmacy) -> GeoResult:
                 nucleus.lat, nucleus.lon, "localidad", "nucleus_centroid", query,
                 f"{detail}; centroide del núcleo {nucleus.name}",
             )
+    if casco_nucleus is not None and casco_nucleus.extent_km() > CASCO_CENTROID_MAX_EXTENT_KM:
+        detail += f"; casco urbano de {casco_nucleus.name} demasiado extenso para usar su centro"
+        casco_nucleus = None
     if casco_nucleus is not None:
         why = _validate_point(geo, ctx, None, None, region, casco_nucleus.lat, casco_nucleus.lon)
         if why is None:

@@ -26,6 +26,8 @@ const List<Ubicacion> lugaresConDatos = [
   Ubicacion(42.8169, -1.6432, 'Pamplona / Iruña'),
   Ubicacion(42.0617, -1.6046, 'Tudela'),
   Ubicacion(42.6712, -2.0322, 'Estella-Lizarra'),
+  Ubicacion(40.4168, -3.7038, 'Madrid (Puerta del Sol)'),
+  Ubicacion(40.4637, -3.6909, 'Madrid (Chamartín)'),
 ];
 
 class ErrorUbicacion implements Exception {
