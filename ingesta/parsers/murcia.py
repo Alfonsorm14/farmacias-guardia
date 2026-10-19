@@ -735,6 +735,10 @@ def _looks_like_subzone(block: list[tuple[int, str]], index: int) -> bool:
     text = block[index][1].strip()
     if not text or _DATE_ROW_RE.match(text):
         return False
+    # "(Rotación ..." partido por un salto de página es una regla, no una subzona
+    # (Agrupación 14, Los Alcázares: el boletín repite la fila del 31/12 tras el salto).
+    if text.startswith("("):
+        return False
     first = next((c for c in text if c.isalpha()), "")
     if not first.isupper():
         return False
@@ -811,7 +815,8 @@ def parse(pdf_path: str, retrieved_at: datetime | None = None) -> ParseResult:
         publisher=PUBLISHER,
         url=URL,
         license=LICENSE,
-        retrieved_at=retrieved_at or datetime.now(TZ),
+        # Fecha de descarga = última modificación del PDF (determinista entre ejecuciones).
+        retrieved_at=retrieved_at or datetime.fromtimestamp(os.path.getmtime(pdf_path), TZ),
     )
     filename = os.path.basename(pdf_path)
     text = pdf_to_text(pdf_path)
@@ -854,4 +859,8 @@ def parse(pdf_path: str, retrieved_at: datetime | None = None) -> ParseResult:
             warnings,
         )
 
-    return ParseResult(source, pharmacies, shifts, warnings)
+    # El boletín repite alguna fila tras un salto de página (31/12 de Los Alcázares): una vez.
+    unique: dict[tuple, DutyShift] = {}
+    for shift in shifts:
+        unique.setdefault((shift.pharmacy_id, shift.zone, shift.start, shift.kind), shift)
+    return ParseResult(source, pharmacies, list(unique.values()), warnings)

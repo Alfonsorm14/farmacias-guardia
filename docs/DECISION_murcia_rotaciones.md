@@ -7,9 +7,9 @@ solo los turnos que el BORM asigna en cuadrante. Fuente: Orden de la Consejería
 
 ## Situación
 
-- De las 581 farmacias del Anexo II, 287 tienen algún turno cargado y solo 128 tienen turnos todo
-  el año (15 zonas con cuadrante anual: Murcia capital y pedanías, Cartagena, Lorca, San Javier,
-  Alcantarilla, Alhama, Fuente Álamo, La Manga, Los Alcázares, Campo de Cartagena...).
+- De las 581 farmacias del Anexo II, 287 tienen algún turno cargado y solo 117 tienen turnos todo
+  el año (13 zonas con cuadrante de 365 días: Murcia capital y pedanías (3), Cartagena, Campo de
+  Cartagena, Lorca, San Javier, Alcantarilla, Alhama, Fuente Álamo, La Manga (2) y Los Alcázares).
 - En 33 zonas el Anexo III publica **solo el cuadrante de enero** y una regla del tipo "Rotación por
   días, de modo sucesivo según el orden expuesto, hasta 31/12/2026". Desde el 1 de febrero la app
   dice "Sin datos oficiales para esta fecha" en Mula, Molina de Segura, Cieza, Yecla, Jumilla,
@@ -35,10 +35,14 @@ No son deducciones: el boletín nombra la farmacia (o la única de la localidad)
 - Los festivos salen de la Resolución de la Dirección General de Trabajo de 7/7/2025 (BORM nº 163,
   17/07/2025, NPE A-170725-3546): 12 fiestas regionales/nacionales y las locales de Cartagena
   (27/3 y 25/9) y Águilas (17/2 y 27/3). Isla Plana y La Azohía se tratan como Cartagena.
-- Cada asignación guarda la cita literal del boletín y un test comprueba que está en el PDF
+- Cada asignación guarda la cita literal del boletín y un test comprueba que está en el PDF; las 26
+  fechas de Ifre se contrastan completas. Los festivos usados están transcritos con su referencia en
+  `data/raw/murcia/2026/fiestas_laborales_2026.txt` y un test los compara con el código
   (`ingesta/parsers/murcia_explicitos.py`, `tests/test_murcia_propuestas.py`).
-- **Decisión 1:** el BORM no publica el horario de la "urgencia diurna". Propuesta: cargar el día
-  completo marcado "horario sin confirmar" (como ya se hace con los turnos localizados de Murcia).
+- **Decisión 1:** el BORM no publica el horario de la "urgencia diurna". Opciones: (a) cargar el día
+  completo marcado "horario orientativo" (como los turnos localizados de Murcia), con el defecto de que
+  en "Ahora" a las 3:00 aparecerían como de guardia; (b) mostrarlas solo en las vistas de día (Hoy,
+  Mañana...) y no en "Ahora". Recomiendo (b); requiere un pequeño cambio en la app.
 
 ## B) Proyección de las rotaciones — recomiendo NO activar (o solo con aviso y sin festivos)
 
@@ -57,9 +61,15 @@ turno (el BORM no dice quién sustituye). Resultado:
 **Prueba retrospectiva** (el punto clave): en Fuente Álamo, que sí publica el cuadrante anual con
 una regla "rotación por semanas, de modo sucesivo" igual de limpia, aplicar el método a enero
 acierta 323 de 334 días y **falla en 18-19/3, 1/5, 8-9/6, 14-15/8, 27/8, 12/10, 8/12 y 25/12**:
-festivos y algunas vísperas, donde los turnos se intercambian aunque la regla no lo diga. En Baleares,
-de 5 zonas con ciclo visible en enero, 4 aciertan entre el 93 % y el 100 % y una (Platja de Palma,
-estacional) solo el 26 %.
+festivos y algunas vísperas, donde los turnos se intercambian aunque la regla no lo diga. Es la única
+agrupación de Murcia con cuadrante anual y regla de ciclo simple, así que la evidencia murciana es una
+sola zona. En Baleares (que publica el año entero), repetir el ciclo visible en enero da: 5 de 27 zonas
+con ciclo visible; Eivissa y Manacor 100 %, Inca 99 %, Ciutadella 93 % y Platja de Palma (estacional)
+26 %. Las dos pruebas se reproducen con `scripts/proyectar_rotaciones_murcia.py`.
+
+Otra incertidumbre: 8 de las 13 zonas proyectables dicen "respetando las vacaciones autorizadas". La
+proyección deja sin turno los días de vacaciones de la farmacia a la que le tocaría, pero lo probable
+es que el ciclo se desplace a partir de ahí; ninguna prueba retrospectiva cubre ese caso.
 
 Es decir, la proyección sería correcta la mayoría de los días y errónea justo en los festivos,
 cuando más se usa la app, mandando a alguien a una farmacia cerrada.
@@ -77,13 +87,16 @@ cuando más se usa la app, mandando a alguien a una farmacia cerrada.
 
 - Agrupación 37 (Archena): el cuadrante de enero está fechado en 2025 (01/01/2025 a 31/01/2025).
 - Agrupación 3 (Librilla): la regla dice "hasta 31/12/2025".
+- Agrupación 14 (Los Alcázares): la fila del 31/12/2026 se repite tras un salto de página; el parser
+  creaba una subzona "(Rotación" con ese turno duplicado. Corregido el 20/10 (un turno menos, ninguna
+  guardia distinta).
 
 ## Cómo se activaría
 
 ```powershell
 .venv\Scripts\python scripts\proyectar_rotaciones_murcia.py   # genera data\propuestas\ (no toca nada)
 # A) asignaciones en texto:
-copy data\propuestas\murcia_explicitos_2026.json data\out\murcia_2026.json
+copy data\propuestas\murcia_explicitos_2026.json data\out\murcia_2026.json   # incluye las zonas de esas 10 farmacias
 .venv\Scripts\python scripts\actualizar_todo.py --sin-descargas
 ```
 

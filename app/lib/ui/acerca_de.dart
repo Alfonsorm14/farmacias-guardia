@@ -27,10 +27,18 @@ const List<_Tercero> _terceros = [
 ];
 
 /// Fuentes de los datos, licencias, privacidad y aviso.
-class AcercaDePage extends StatelessWidget {
+class AcercaDePage extends StatefulWidget {
   final GuardiasRepository repositorio;
 
   const AcercaDePage({super.key, required this.repositorio});
+
+  @override
+  State<AcercaDePage> createState() => _AcercaDePageState();
+}
+
+class _AcercaDePageState extends State<AcercaDePage> {
+  // Una sola carga (en modo API sería una petición por cada reconstrucción de la pantalla).
+  late final Future<List<Fuente>> _fuentes = widget.repositorio.fuentes();
 
   Future<void> _abrir(BuildContext context, String url) async {
     final ok = await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
@@ -54,7 +62,7 @@ class AcercaDePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Fuentes y privacidad')),
       body: FutureBuilder<List<Fuente>>(
-        future: repositorio.fuentes(),
+        future: _fuentes,
         builder: (context, snap) {
           final fuentes = snap.data ?? const <Fuente>[];
           return ListView(
@@ -94,14 +102,16 @@ class AcercaDePage extends StatelessWidget {
                   onTap: () => _abrir(context, t.url),
                 ),
               titulo('Privacidad'),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                 child: Text(
-                  '• Tu ubicación (GPS) se usa solo dentro del teléfono para calcular las farmacias más cercanas; '
-                  'no se envía a ningún servidor.\n'
+                  '${apiBase.isEmpty ? '• Tu ubicación (GPS) se usa dentro del teléfono para calcular las farmacias más '
+                      'cercanas; la app no la envía a ningún servidor propio.' : '• Tu ubicación (o el lugar elegido) se envía '
+                      'al servidor de la app para calcular las farmacias más cercanas; no se guarda.'}\n'
+                  '• Al ver el mapa, el teléfono descarga de OpenStreetMap las teselas de la zona que se muestra, '
+                  'lo que revela esa zona a su servidor.\n'
                   '• Si buscas una población, el texto que escribes se envía a CartoCiudad (IGN) para obtener sus '
                   'coordenadas. El último lugar elegido a mano se guarda solo en el teléfono.\n'
-                  '• Al ver el mapa, el teléfono descarga las teselas de OpenStreetMap.\n'
                   '• Sin registro, sin publicidad, sin analítica y sin identificadores de seguimiento.',
                 ),
               ),

@@ -49,6 +49,9 @@ class Fuente {
   /// Fecha de la última descarga de la fuente (UTC), si se conoce.
   final DateTime? descargado;
 
+  /// Término municipal de una fuente municipal: polígonos [anillo exterior, huecos...] de [lat, lon].
+  final List<List<List<List<double>>>>? termino;
+
   const Fuente({
     required this.id,
     required this.editor,
@@ -56,6 +59,7 @@ class Fuente {
     required this.licencia,
     this.municipal = false,
     this.descargado,
+    this.termino,
   });
 }
 

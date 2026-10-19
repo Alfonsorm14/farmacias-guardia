@@ -74,6 +74,29 @@ class TestPropuestasMurcia(unittest.TestCase):
             self.assertIn(_norm(a.cita), texto, a.zone)
             self.assertIn(a.pharmacy_id, ids)
 
+    def test_ifre_lista_completa_literal(self):
+        """Las 26 fechas de Ifre-Cañada de Gallego, contra el texto del PDF (sin espacios ni saltos)."""
+        compacto = re.sub(r"\s", "", self.text)
+        m = re.search(r"siguientesdías:([\d,\-]+)\(MU-493-F", compacto)
+        self.assertIsNotNone(m)
+        en_pdf = [tuple(int(x) for x in f.split("-")) for f in m.group(1).strip(",").split(",")]
+        por_id = {a.pharmacy_id: a for a in asignaciones()}
+        self.assertEqual([(d.day, d.month) for d in por_id["MU:493"].dias], en_pdf)
+
+    def test_festivos_contra_la_transcripcion(self):
+        from ingesta.parsers.murcia_explicitos import FESTIVOS_FUENTE, FESTIVOS_LOCALES_2026
+
+        with open(os.path.join(BASE, FESTIVOS_FUENTE), encoding="utf-8") as fh:
+            texto = fh.read()
+        self.assertIn("BORM nº 163", texto)
+        regionales = {date.fromisoformat(m) for m in re.findall(r"^(2026-\d{2}-\d{2}) ", texto, re.M)}
+        self.assertEqual(regionales, set(FESTIVOS_REGION_2026))
+        meses = {"Febrero": 2, "Marzo": 3, "Septiembre": 9}
+        for municipio, fila in (("AGUILAS", "ÁGUILAS"), ("CARTAGENA", "CARTAGENA")):
+            m = re.search(rf"^\d+ {fila} \w+ (\d+) (\w+) \w+ (\d+) (\w+)$", texto, re.M)
+            esperado = {date(2026, meses[m.group(2)], int(m.group(1))), date(2026, meses[m.group(4)], int(m.group(3)))}
+            self.assertEqual(set(FESTIVOS_LOCALES_2026[municipio]), esperado)
+
     def test_dias_de_las_asignaciones(self):
         por_id = {a.pharmacy_id: a for a in asignaciones()}
         self.assertEqual(len(por_id["MU:383"].dias), 365)  # Albudeite, permanente

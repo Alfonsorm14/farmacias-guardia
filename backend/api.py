@@ -12,7 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from backend.ambito import MUNICIPAL_SOURCES, Box, inside_box, is_municipal
+from backend.ambito import MUNICIPAL_SOURCES, Box, inside_municipal_area, is_municipal
 from backend.db import get_db
 from backend.models import Pharmacy, Shift, Source
 
@@ -163,6 +163,11 @@ def get_farmacia(pharmacy_id: str, db: Session = Depends(get_db)) -> dict[str, A
 MSG_SIN_ZONA = "Sin datos oficiales para esta zona"
 MSG_SIN_FECHA = "Sin datos oficiales para esta fecha"
 MSG_SIN_PUBLICAR = "Aún no hay turnos oficiales publicados para esta fecha"
+MSG_ANTERIOR = "No tenemos los turnos oficiales de esa fecha"
+MSG_ZONA_SIN_PUBLICAR = "Sin turnos oficiales publicados para tu zona en esta fecha"
+# Una zona con turnos a menos de esta distancia de la fecha se considera publicada (cuadrantes
+# semanales o de fin de semana sin turno todos los días).
+ZONE_GAP = datetime.timedelta(days=7)
 
 
 def _parse_at(at: str | None) -> datetime.datetime:
@@ -181,7 +186,7 @@ def _parse_at(at: str | None) -> datetime.datetime:
 
 
 def _municipal_boxes(db: Session) -> dict[str, Box]:
-    """Caja de las farmacias geolocalizadas de cada fuente municipal."""
+    """Caja de las farmacias de cada fuente municipal (solo respaldo si falta el polígono)."""
     rows = db.execute(
         select(
             Pharmacy.source_id,
@@ -221,7 +226,7 @@ def _nearby_pharmacies(
             if boxes is None:
                 boxes = _municipal_boxes(db)
             # Alcalá no es Madrid: una fuente municipal no vale fuera de su término.
-            if not inside_box(boxes.get(p.source_id), lat, lon):
+            if not inside_municipal_area(p.source_id, lat, lon, boxes.get(p.source_id)):
                 continue
         dist = haversine_km(lat, lon, p.lat, p.lon)  # type: ignore[arg-type]
         if dist <= radius_km:
@@ -305,23 +310,32 @@ def _zone_notice(
     if not with_shifts:
         return None
     nearest = min(with_shifts, key=lambda pid: nearby[pid][1])
+    zones = select(Shift.zone).where(Shift.pharmacy_id == nearest).distinct()
     rows = db.execute(
-        select(Shift.zone, func.min(Shift.start_utc), func.max(Shift.end_utc))
-        .where(Shift.zone.in_(select(Shift.zone).where(Shift.pharmacy_id == nearest).distinct()))
+        select(Shift.zone, func.min(Shift.start_utc), func.max(Shift.start_utc), func.max(Shift.end_utc))
+        .where(Shift.zone.in_(zones))
         .group_by(Shift.zone)
     ).all()
     if not rows:
         return None
     probe = start if instant else end - datetime.timedelta(microseconds=1)
-    if any(_as_utc(first) <= probe and start < _as_utc(last) for _, first, last in rows):
-        return None
-    last_day = max(_as_utc(last) for _, _, last in rows) - datetime.timedelta(minutes=1)
-    last_day = last_day.astimezone(MADRID_TZ)
-    zonas = ", ".join(sorted(z for z, _, _ in rows))
-    return (
-        f"La fuente oficial solo ha publicado los turnos de tu zona ({zonas}) "
-        f"hasta el {last_day.day}/{last_day.month}/{last_day.year}."
+    # Publicada = dentro del periodo de la zona y con algún turno a menos de ZONE_GAP (Yecla publica
+    # enero y agosto: marzo no está publicado aunque caiga entre los dos).
+    near = db.scalar(
+        select(Shift.id)
+        .where(Shift.zone.in_(zones), Shift.start_utc < end + ZONE_GAP, Shift.start_utc >= start - ZONE_GAP)
+        .limit(1)
     )
+    if near is not None and any(_as_utc(first) <= probe and start < _as_utc(last) for _, first, _, last in rows):
+        return None
+    zonas = ", ".join(sorted(r[0] for r in rows))
+    last_start = max(_as_utc(r[2]) for r in rows).astimezone(MADRID_TZ)
+    if start >= max(_as_utc(r[3]) for r in rows):
+        return (
+            f"La fuente oficial solo ha publicado los turnos de tu zona ({zonas}) "
+            f"hasta el {last_start.day}/{last_start.month}/{last_start.year}."
+        )
+    return f"La fuente oficial no ha publicado los turnos de tu zona ({zonas}) para esta fecha."
 
 
 def _item(pharmacy: Pharmacy, shift: Shift, source: Source, dist: float) -> dict[str, Any]:
@@ -390,10 +404,10 @@ def _query_guardias(
 
     periods = _published_period(db, {p.source_id for p, _ in nearby.values()})
     published_until = max((last for _, last in periods.values()), default=None)
-    covered = any(
-        first <= (start if instant else end - datetime.timedelta(microseconds=1)) and start < last
-        for first, last in periods.values()
-    )
+    probe = start if instant else end - datetime.timedelta(microseconds=1)
+    covered = any(first <= probe and start < last for first, last in periods.values())
+    # Antes del primer turno que tenemos: no es "aún no publicado", es que no lo tenemos.
+    before_data = bool(periods) and all(probe < first for first, _ in periods.values())
 
     unlocated = _count_unlocated(db, nearby, start, end)
     aviso = _zone_notice(db, nearby, start, end, instant) if covered else None
@@ -428,7 +442,12 @@ def _query_guardias(
 
     mensaje = None
     if not items:
-        mensaje = MSG_SIN_FECHA if covered else MSG_SIN_PUBLICAR
+        if aviso:
+            mensaje = MSG_ZONA_SIN_PUBLICAR
+        elif covered:
+            mensaje = MSG_SIN_FECHA
+        else:
+            mensaje = MSG_ANTERIOR if before_data else MSG_SIN_PUBLICAR
     if aviso:
         aviso += " Se muestran guardias de zonas cercanas." if items else " No hay guardias de zonas cercanas."
     return {
@@ -461,12 +480,14 @@ def get_guardias_dia(
     lon: float = Query(..., description="Longitud de consulta (WGS84)"),
     fecha: str = Query(..., description="Fecha en formato YYYY-MM-DD"),
     radius_km: float = Query(25.0, description="Radio de búsqueda en km"),
-    limit: int = Query(50, description="Límite máximo de resultados"),
+    limit: int = Query(500, description="Límite máximo de resultados"),
     db: Session = Depends(get_db),
 ) -> dict[str, Any]:
     """Turnos de guardia que se solapan con el día natural en Europe/Madrid."""
     try:
         d = datetime.date.fromisoformat(fecha)
+        if not datetime.date(2000, 1, 1) <= d <= datetime.date(2100, 12, 31):
+            raise ValueError(fecha)
     except ValueError:
         raise HTTPException(
             status_code=400,

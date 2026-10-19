@@ -43,13 +43,21 @@ class GuardiasEngine {
   /// Periodo publicado por cada fuente: (primer inicio, último fin) en minutos UTC.
   late final Map<String, (int, int)> _periodoPorFuente;
 
-  /// Periodo publicado por cada zona (cuadrante), en minutos UTC.
-  late final Map<int, (int, int)> _periodoPorZona;
+  /// Periodo publicado por cada zona (cuadrante): (primer inicio, último inicio, último fin), minutos UTC.
+  late final Map<int, (int, int, int)> _periodoPorZona;
 
-  /// Caja (latMin, lonMin, latMax, lonMax) de las fuentes de un solo municipio.
+  /// Inicios de los turnos de cada zona, ordenados (minutos UTC).
+  late final Map<int, List<int>> _iniciosPorZona;
+
+  /// Caja (latMin, lonMin, latMax, lonMax) de las fuentes de un solo municipio: solo respaldo si la
+  /// instantánea no trae el polígono del término municipal.
   late final Map<String, (double, double, double, double)> _ambitoMunicipal;
 
   static const double _margenMunicipalKm = 2.0;
+
+  /// Una zona con turnos a menos de 7 días de la fecha se considera publicada (cuadrantes de fines
+  /// de semana o semanales). Igual que ZONE_GAP en backend/api.py.
+  static const int _huecoZonaMin = 7 * 24 * 60;
 
   GuardiasEngine({
     required this.farmacias,
@@ -62,10 +70,14 @@ class GuardiasEngine {
     _zonasPorFarmacia = {};
     _periodoPorFuente = {};
     _periodoPorZona = {};
+    _iniciosPorZona = {};
     for (var i = 0; i < turnos.length; i++) {
       final t = turnos[i];
       final pz = _periodoPorZona[t.zona];
-      _periodoPorZona[t.zona] = pz == null ? (t.inicioMin, t.finMin) : (math.min(pz.$1, t.inicioMin), math.max(pz.$2, t.finMin));
+      _periodoPorZona[t.zona] = pz == null
+          ? (t.inicioMin, t.inicioMin, t.finMin)
+          : (math.min(pz.$1, t.inicioMin), math.max(pz.$2, t.inicioMin), math.max(pz.$3, t.finMin));
+      (_iniciosPorZona[t.zona] ??= []).add(t.inicioMin);
       (_turnosPorFarmacia[t.farmacia] ??= []).add(i);
       (_zonasPorFarmacia[t.farmacia] ??= {}).add(t.zona);
       final fid = farmacias[t.farmacia].fuente?.id ?? '';
@@ -81,11 +93,46 @@ class GuardiasEngine {
           ? (f.lat!, f.lon!, f.lat!, f.lon!)
           : (math.min(a.$1, f.lat!), math.min(a.$2, f.lon!), math.max(a.$3, f.lat!), math.max(a.$4, f.lon!));
     }
+    for (final l in _iniciosPorZona.values) {
+      l.sort();
+    }
+  }
+
+  /// ¿Algún turno de la zona empieza en [desde, hasta)?
+  bool _hayInicioEntre(int zona, int desde, int hasta) {
+    final l = _iniciosPorZona[zona];
+    if (l == null || l.isEmpty) return false;
+    var lo = 0, hi = l.length;
+    while (lo < hi) {
+      final mid = (lo + hi) >> 1;
+      if (l[mid] < desde) {
+        lo = mid + 1;
+      } else {
+        hi = mid;
+      }
+    }
+    return lo < l.length && l[lo] < hasta;
+  }
+
+  /// Punto en polígono (par/impar) sobre un anillo de [lat, lon].
+  static bool _enAnillo(List<List<double>> anillo, double lat, double lon) {
+    var dentro = false;
+    for (var i = 0, j = anillo.length - 1; i < anillo.length; j = i++) {
+      final yi = anillo[i][0], xi = anillo[i][1], yj = anillo[j][0], xj = anillo[j][1];
+      if ((yi > lat) != (yj > lat) && lon < xi + (lat - yi) * (xj - xi) / (yj - yi)) dentro = !dentro;
+    }
+    return dentro;
   }
 
   /// ¿El punto está dentro del ámbito de la fuente? (siempre, si no es municipal)
   bool _dentroDeAmbito(Fuente? fuente, double lat, double lon) {
     if (fuente == null || !fuente.municipal) return true;
+    final termino = fuente.termino;
+    if (termino != null && termino.isNotEmpty) {
+      // Término municipal (OpenStreetMap): fijo, no depende de las farmacias de guardia del día.
+      return termino.any((pol) =>
+          pol.isNotEmpty && _enAnillo(pol.first, lat, lon) && !pol.skip(1).any((h) => _enAnillo(h, lat, lon)));
+    }
     final a = _ambitoMunicipal[fuente.id];
     if (a == null) return false;
     final dLat = _margenMunicipalKm / 111.0;
@@ -130,6 +177,8 @@ class GuardiasEngine {
     double radioKm = 25,
     String mensajeSinFecha = 'Sin datos oficiales para esta fecha',
     String mensajeSinPublicar = 'Aún no hay turnos oficiales publicados para esta fecha',
+    String mensajeAnterior = 'No tenemos los turnos oficiales de esa fecha',
+    String mensajeZonaSinPublicar = 'Sin turnos oficiales publicados para tu zona en esta fecha',
   }) {
     final cercanas = _cercanas(lat, lon, radioKm);
     if (cercanas.isEmpty) {
@@ -173,11 +222,14 @@ class GuardiasEngine {
     final fuentesZona = {for (final idx in cercanas.keys) farmacias[idx].fuente?.id ?? ''};
     int? publicadoHasta;
     var fechaCubierta = false;
+    var antesDeLosDatos = true; // la fecha es anterior al primer turno de todas las fuentes
+    final sonda = math.max(ini, fin - 1);
     for (final fid in fuentesZona) {
       final p = _periodoPorFuente[fid];
       if (p == null) continue;
       publicadoHasta = publicadoHasta == null ? p.$2 : math.max(publicadoHasta, p.$2);
-      if (p.$1 <= math.max(ini, fin - 1) && ini < p.$2) fechaCubierta = true;
+      if (p.$1 <= sonda && ini < p.$2) fechaCubierta = true;
+      if (sonda >= p.$1) antesDeLosDatos = false;
     }
     final datosHasta =
         publicadoHasta == null ? null : DateTime.fromMillisecondsSinceEpoch(publicadoHasta * 60000, isUtc: true);
@@ -188,16 +240,23 @@ class GuardiasEngine {
     if (fechaCubierta) {
       final masCercana = cercanas.entries.reduce((a, b) => a.value <= b.value ? a : b).key;
       final propias = _zonasPorFarmacia[masCercana] ?? const <int>{};
+      // Publicada = dentro del periodo de la zona y con turnos a menos de 7 días (Yecla publica
+      // enero y agosto: marzo no está publicado aunque caiga entre los dos).
       final cubiertas = propias.any((z) {
         final p = _periodoPorZona[z];
-        return p != null && p.$1 <= math.max(ini, fin - 1) && ini < p.$2;
+        return p != null &&
+            p.$1 <= sonda &&
+            ini < p.$3 &&
+            _hayInicioEntre(z, ini - _huecoZonaMin, fin + _huecoZonaMin);
       });
       if (propias.isNotEmpty && !cubiertas) {
-        final hasta = propias.map((z) => _periodoPorZona[z]?.$2 ?? 0).reduce(math.max);
-        final nombres = propias.map((z) => zonas[z]).toList()..sort();
-        aviso = 'La fuente oficial solo ha publicado los turnos de tu zona (${nombres.join(', ')}) '
-            'hasta el ${_fecha(hasta)}. '
-            '${guardias.isEmpty ? 'No hay' : 'Se muestran'} guardias de zonas cercanas.';
+        final nombres = (propias.map((z) => zonas[z]).toList()..sort()).join(', ');
+        final ultimoFin = propias.map((z) => _periodoPorZona[z]?.$3 ?? 0).reduce(math.max);
+        final ultimoInicio = propias.map((z) => _periodoPorZona[z]?.$2 ?? 0).reduce(math.max);
+        aviso = ini >= ultimoFin
+            ? 'La fuente oficial solo ha publicado los turnos de tu zona ($nombres) hasta el ${_fecha(ultimoInicio)}.'
+            : 'La fuente oficial no ha publicado los turnos de tu zona ($nombres) para esta fecha.';
+        aviso += guardias.isEmpty ? ' No hay guardias de zonas cercanas.' : ' Se muestran guardias de zonas cercanas.';
       }
     }
 
@@ -211,7 +270,13 @@ class GuardiasEngine {
     }
     return ResultadoGuardias(
       cobertura: true,
-      mensaje: guardias.isEmpty ? (fechaCubierta ? mensajeSinFecha : mensajeSinPublicar) : null,
+      mensaje: guardias.isNotEmpty
+          ? null
+          : aviso != null
+              ? mensajeZonaSinPublicar
+              : fechaCubierta
+                  ? mensajeSinFecha
+                  : (antesDeLosDatos ? mensajeAnterior : mensajeSinPublicar),
       guardias: guardias,
       sinCoordenadas: sinCoordenadas,
       datosHasta: datosHasta,
@@ -219,9 +284,9 @@ class GuardiasEngine {
     );
   }
 
-  /// Fecha (día/mes/año, hora de Madrid) del último día incluido hasta [finMin] (fin exclusivo).
-  static String _fecha(int finMin) {
-    final d = enMadrid(DateTime.fromMillisecondsSinceEpoch((finMin - 1) * 60000, isUtc: true));
+  /// Día/mes/año (hora de Madrid) del instante [min] (minutos UTC).
+  static String _fecha(int min) {
+    final d = enMadrid(DateTime.fromMillisecondsSinceEpoch(min * 60000, isUtc: true));
     return '${d.day}/${d.month}/${d.year}';
   }
 
@@ -238,6 +303,15 @@ class GuardiasEngine {
               url: s[2] as String,
               licencia: s[3] as String,
               municipal: s.length > 5 && s[5] == true,
+              termino: s.length > 6 && s[6] is List
+                  ? [
+                      for (final pol in s[6] as List)
+                        [
+                          for (final anillo in pol as List)
+                            [for (final pt in anillo as List) [((pt as List)[0] as num).toDouble(), (pt[1] as num).toDouble()]]
+                        ]
+                    ]
+                  : null,
               descargado: s.length > 4 && s[4] is String ? _fechaUtc(s[4] as String) : null,
             ))
         .toList();

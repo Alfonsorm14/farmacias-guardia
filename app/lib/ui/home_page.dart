@@ -120,7 +120,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     final hoy = DateTime(m.year, m.month, m.day);
     final f = await showDatePicker(
       context: context,
-      initialDate: _fechaElegida ?? hoy,
+      // Si la app lleva días abierta, la fecha elegida puede haber quedado antes del primer día.
+      initialDate: (_fechaElegida == null || _fechaElegida!.isBefore(DateTime(hoy.year, hoy.month, hoy.day - 31)))
+          ? hoy
+          : _fechaElegida!,
       firstDate: DateTime(hoy.year, hoy.month, hoy.day - 31),
       lastDate: DateTime(hoy.year + 1, 12, 31),
       helpText: 'Elegir fecha',
@@ -283,7 +286,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
           child: Text(
             '${widget.repositorio.descripcionDatos}.'
-            '${r.datosHasta == null ? '' : ' Turnos oficiales de tu zona publicados hasta el ${_fechaCorta(r.datosHasta!)}.'}'
+            '${r.datosHasta == null || r.aviso != null ? '' : ' Turnos oficiales de tu zona publicados hasta el ${_fechaCorta(r.datosHasta!)}.'}'
             '${fuentes.isEmpty ? '' : ' Fuente: ${fuentes.join('; ')}.'}'
             ' Antes de desplazarte, confirma la guardia por teléfono.',
             style: Theme.of(context).textTheme.bodySmall,
@@ -302,16 +305,18 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 ),
               );
         if (r.guardias.isEmpty) {
-          return ListView(children: [
-            ?aviso,
-            _aviso(
-                Icons.event_busy,
-                r.mensaje ?? 'Sin datos oficiales para esta fecha',
-                (r.mensaje ?? '').startsWith('Aún no')
-                    ? 'La fuente oficial todavía no ha publicado los turnos de esa fecha.'
-                    : 'La fuente oficial no asigna farmacia de guardia en tu zona para este momento.'),
-            pie,
-          ]);
+          final mensaje = r.mensaje ?? 'Sin datos oficiales para esta fecha';
+          final String detalle;
+          if (r.aviso != null) {
+            detalle = '${r.aviso!} Antes de desplazarte, llama a las farmacias de tu localidad.';
+          } else if (mensaje.startsWith('Aún no')) {
+            detalle = 'La fuente oficial todavía no ha publicado los turnos de esa fecha.';
+          } else if (mensaje.startsWith('No tenemos')) {
+            detalle = 'La app solo guarda los turnos publicados recientemente; los de esa fecha no están disponibles.';
+          } else {
+            detalle = 'La fuente oficial no asigna farmacia de guardia en tu zona para este momento.';
+          }
+          return ListView(children: [_aviso(Icons.event_busy, mensaje, detalle), pie]);
         }
         return ListView(
           children: [

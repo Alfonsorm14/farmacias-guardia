@@ -90,10 +90,11 @@ def engine():
                 p.geo_precision = "localidad"
                 p.geo_source = "test_injected"
 
-            # Madrid capital: coordenadas reales ya calculadas (fuente municipal, ámbito acotado).
+            # Madrid, Zaragoza y Navarra: coordenadas reales ya calculadas (fuentes municipales con
+            # ámbito acotado y Navarra para las fechas anteriores a los datos).
             known = json.loads(Path("data/geo/coordenadas.json").read_text(encoding="utf-8"))
             for pid, k in known.items():
-                if not pid.startswith("MAD:") or k.get("lat") is None:
+                if not pid.startswith(("MAD:", "ZGZ:", "NA:")) or k.get("lat") is None:
                     continue
                 p = session.get(Pharmacy, pid)
                 if p:

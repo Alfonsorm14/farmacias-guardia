@@ -9,8 +9,9 @@ reciente y la guarda en el teléfono. Así basta con publicar un fichero estáti
    así que lo práctico es un repositorio público: los datos son abiertos y el código no tiene secretos).
 2. Subir el proyecto (sin `data/guardias.db`, que se reconstruye; sí `data/geo/coordenadas.json`).
 3. Activar Pages con origen "GitHub Actions".
-4. El flujo `.github/workflows/actualizar.yml` se ejecuta a diario: descarga Navarra, Zaragoza y
-   Madrid, regenera, geocodifica solo lo nuevo, pasa los tests, guarda los cambios y publica
+4. El flujo `.github/workflows/actualizar.yml` se ejecuta dos veces al día (madrugada y después de
+   las 9:15, cuando cambia la guardia de Zaragoza, que solo publica la del día en curso): descarga
+   Navarra, Zaragoza y Madrid (PDF y CSV), regenera, geocodifica solo lo nuevo, pasa los tests, guarda los cambios y publica
    `https://<usuario>.github.io/<repo>/snapshot.json`.
 5. Compilar la app con `--dart-define=SNAPSHOT_URL=` esa dirección.
 

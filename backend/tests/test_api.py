@@ -119,10 +119,8 @@ def test_burgos_sin_cobertura(client: TestClient):
 
 
 def test_mazarron_sin_turnos_esta_fecha(client: TestClient):
-    """Mazarrón (37.598, -1.314), fecha 2026-10-18 -> cobertura true, lista vacía,
-
-    mensaje 'Sin datos oficiales para esta fecha' (agrupación sin cuadrante: decisión de producto).
-    """
+    """Mazarrón (37.598, -1.314), fecha 2026-10-18 -> cobertura true, lista vacía. La agrupación
+    solo tiene publicado enero: mensaje de zona sin turnos publicados y aviso que lo explica."""
     response = client.get(
         "/v1/guardias/dia",
         params={
@@ -136,7 +134,8 @@ def test_mazarron_sin_turnos_esta_fecha(client: TestClient):
     data = response.json()
     assert data["cobertura"] is True
     assert len(data["guardias"]) == 0
-    assert data["mensaje"] == "Sin datos oficiales para esta fecha"
+    assert data["mensaje"] == "Sin turnos oficiales publicados para tu zona en esta fecha"
+    assert "AGRUPACION 18 (MAZARRON)" in data["aviso"]
 
 
 def test_dst_cambio_hora_12h(db_session: Session):
@@ -362,10 +361,9 @@ def test_madrid_capital_tiene_guardias(client: TestClient):
 
 
 def test_fuente_municipal_no_vale_fuera_del_termino(client: TestClient):
-    """Alcalá de Henares (a ~30 km) y Getafe (a ~13 km del centro): las farmacias de Madrid capital
-    no son su guardia. Getafe queda dentro de 25 km de muchas farmacias de Madrid, pero fuera de
-    la caja de la fuente municipal ampliada en 2 km -> sin cobertura."""
-    for lat, lon in ((40.4818, -3.3643), (40.3083, -3.7327)):
+    """Alcalá de Henares, Getafe, Pozuelo de Alarcón y Coslada: las farmacias de Madrid capital no
+    son su guardia aunque estén a menos de 25 km (fuera del término municipal -> sin cobertura)."""
+    for lat, lon in ((40.4818, -3.3643), (40.3083, -3.7327), (40.4357, -3.8130), (40.4238, -3.5610)):
         response = client.get(
             "/v1/guardias",
             params={"lat": lat, "lon": lon, "at": "2026-10-01T12:00:00+02:00", "radius_km": 25},
@@ -387,6 +385,65 @@ def test_fecha_aun_no_publicada(client: TestClient):
     assert data["guardias"] == []
     assert data["mensaje"] == "Aún no hay turnos oficiales publicados para esta fecha"
     assert data["datos_hasta"].startswith("2026-") or data["datos_hasta"].startswith("2027-")
+
+
+def test_zaragoza_todos_los_barrios(client: TestClient, db_session: Session):
+    """El ámbito de Zaragoza es su término municipal, no la caja de las 7 farmacias del día:
+    Actur, Valdespartera, Miralbueno y Arcosur tienen cobertura."""
+    shift = db_session.query(Shift).filter(Shift.source_id == "ZGZ-AYTO").first()
+    at = shift.start_utc.isoformat()
+    for lat, lon in ((41.6700, -0.9050), (41.6175, -0.9240), (41.6300, -0.9600), (41.5900, -0.9000)):
+        data = client.get("/v1/guardias", params={"lat": lat, "lon": lon, "at": at}).json()
+        assert data["cobertura"] is True, (lat, lon)
+        assert any(g["farmacia"]["id"].startswith("ZGZ:") for g in data["guardias"]), (lat, lon)
+
+
+def test_fecha_anterior_a_los_datos(client: TestClient):
+    """Pamplona en marzo de 2026: Navarra solo publica una ventana de ~2 semanas. No es "aún no
+    publicado" (ya no se publicará): es que la app no tiene esos turnos."""
+    data = client.get(
+        "/v1/guardias/dia", params={"lat": 42.8169, "lon": -1.6432, "fecha": "2026-03-15"}
+    ).json()
+    assert data["cobertura"] is True
+    assert data["guardias"] == []
+    assert data["mensaje"] == "No tenemos los turnos oficiales de esa fecha"
+
+
+def test_fecha_fuera_de_rango_400(client: TestClient):
+    assert client.get("/v1/guardias/dia", params={"lat": 40.4, "lon": -3.7, "fecha": "9999-12-31"}).status_code == 400
+
+
+def test_aviso_yecla_meses_sueltos(client: TestClient, db_session: Session):
+    """Yecla publica enero y los cambios de agosto: marzo no está publicado aunque caiga entre medias,
+    y en octubre el aviso dice hasta cuándo hay datos."""
+    p = next(
+        p for p in db_session.query(Pharmacy).filter(Pharmacy.locality == "YECLA").all()
+        if db_session.query(Shift).filter(Shift.pharmacy_id == p.id).count()
+    )
+    p.lat, p.lon, p.geo_precision, p.geo_source = 38.6136, -1.1146, "portal", "test_injected"
+    db_session.commit()
+    try:
+        marzo = client.get("/v1/guardias/dia", params={"lat": 38.6136, "lon": -1.1146, "fecha": "2026-03-15"}).json()
+        assert "no ha publicado los turnos de tu zona" in marzo["aviso"]
+        assert "hasta el" not in marzo["aviso"]
+        octubre = client.get("/v1/guardias/dia", params={"lat": 38.6136, "lon": -1.1146, "fecha": "2026-10-20"}).json()
+        assert "hasta el 31/8/2026" in octubre["aviso"]
+        if not octubre["guardias"]:
+            assert octubre["mensaje"] == "Sin turnos oficiales publicados para tu zona en esta fecha"
+    finally:
+        p.lat = p.lon = p.geo_precision = p.geo_source = None
+        db_session.commit()
+
+
+def test_poligonos_municipales():
+    from backend.ambito import inside_municipal_area
+
+    assert inside_municipal_area("MAD-AYTO-DATOSABIERTOS", 40.4169, -3.7035)  # Sol
+    assert inside_municipal_area("MAD-AYTO-DATOSABIERTOS", 40.3500, -3.6200)  # Valdecarros
+    assert not inside_municipal_area("MAD-AYTO-DATOSABIERTOS", 40.4357, -3.8130)  # Pozuelo
+    assert inside_municipal_area("ZGZ-AYTO", 41.6488, -0.8891)  # Plaza del Pilar
+    assert not inside_municipal_area("ZGZ-AYTO", 41.7090, -0.9950)  # Utebo
+    assert not inside_municipal_area("ZGZ-AYTO", 41.5950, -0.9330)  # Cuarte de Huerva
 
 
 def test_inside_box_margen():

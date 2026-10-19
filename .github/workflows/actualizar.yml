@@ -5,6 +5,8 @@ name: Actualizar guardias
 on:
   schedule:
     - cron: "17 4 * * *"   # 04:17 UTC = 06:17 (verano) / 05:17 (invierno) en Madrid
+    # Zaragoza solo publica la guardia en curso, que cambia a las 9:15: segunda pasada después.
+    - cron: "47 8 * * *"   # 08:47 UTC = 10:47 (verano) / 09:47 (invierno) en Madrid
   workflow_dispatch:
 
 permissions:

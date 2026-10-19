@@ -34,6 +34,40 @@ void main() {
     expect(enero.guardias.any((g) => g.turno.zona == 'AGRUPACION 5 (MULA)'), isTrue);
   });
 
+  test('Zaragoza: el ámbito es el término municipal, no la caja de las farmacias del día', () {
+    final instante = DateTime.utc(2026, 10, 19, 12);
+    for (final (lat, lon) in [(41.6700, -0.9050), (41.6175, -0.9240), (41.6300, -0.9600)]) {
+      final r = motor.consultar(lat: lat, lon: lon, desde: instante);
+      expect(r.guardias.any((g) => g.farmacia.fuente?.id == 'ZGZ-AYTO'), isTrue, reason: '$lat,$lon');
+    }
+    // Utebo y Cuarte de Huerva no son Zaragoza.
+    for (final (lat, lon) in [(41.7090, -0.9950), (41.5950, -0.9330)]) {
+      final r = motor.consultar(lat: lat, lon: lon, desde: instante);
+      expect(r.guardias.any((g) => g.farmacia.fuente?.id == 'ZGZ-AYTO'), isFalse, reason: '$lat,$lon');
+    }
+  });
+
+  test('Pozuelo y Coslada no reciben las guardias de Madrid capital', () {
+    for (final (lat, lon) in [(40.4357, -3.8130), (40.4238, -3.5610)]) {
+      final r = motor.consultar(lat: lat, lon: lon, desde: DateTime.utc(2026, 10, 10, 12));
+      expect(r.guardias.any((g) => g.farmacia.fuente?.id == 'MAD-AYTO-DATOSABIERTOS'), isFalse);
+    }
+  });
+
+  test('fecha anterior a los datos: no es "aún no publicado"', () {
+    final r = motor.consultar(
+        lat: 42.8169, lon: -1.6432, desde: DateTime.utc(2026, 3, 14, 23), hasta: DateTime.utc(2026, 3, 15, 23));
+    expect(r.guardias, isEmpty);
+    expect(r.mensaje, 'No tenemos los turnos oficiales de esa fecha');
+  });
+
+  test('Yecla en marzo: su zona no está publicada aunque haya datos antes y después', () {
+    final r = motor.consultar(
+        lat: 38.6136, lon: -1.1146, desde: DateTime.utc(2026, 3, 14, 23), hasta: DateTime.utc(2026, 3, 15, 23));
+    expect(r.aviso, contains('no ha publicado los turnos de tu zona'));
+    expect(r.aviso, isNot(contains('hasta el')));
+  });
+
   test('Palma: zona con cuadrante anual, sin aviso', () {
     final r = motor.consultar(lat: 39.5696, lon: 2.6502, desde: DateTime.utc(2026, 10, 20, 22));
     expect(r.aviso, isNull);

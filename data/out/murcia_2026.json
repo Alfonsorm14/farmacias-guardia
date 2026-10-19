@@ -4,7 +4,7 @@
     "publisher": "Consejería de Salud de la Región de Murcia (BORM nº 301, 31/12/2025)",
     "url": "https://www.borm.es/services/anuncio/ano/2025/numero/6468/pdf?id=840645",
     "license": "Acto administrativo publicado en diario oficial (art. 13 TRLPI)",
-    "retrieved_at": "2026-10-19T18:53:50.525821+02:00"
+    "retrieved_at": "2026-10-18T12:53:03+02:00"
   },
   "pharmacies": [
     {
@@ -4686,8 +4686,7 @@
       "phone": "968171163",
       "duty_phone": null,
       "zones": [
-        "AGRUPACION 14 (LOS ALCAZARES)",
-        "AGRUPACION 14 (LOS ALCAZARES) - (Rotación"
+        "AGRUPACION 14 (LOS ALCAZARES)"
       ]
     },
     {
@@ -161328,15 +161327,6 @@
       "times_exact": false
     },
     {
-      "pharmacy_id": "MU:460",
-      "zone": "AGRUPACION 14 (LOS ALCAZARES) - (Rotación",
-      "start": "2026-12-31T00:00:00+01:00",
-      "end": "2027-01-01T00:00:00+01:00",
-      "kind": "localizada",
-      "raw_label": "AGRUPACION 14 (LOS ALCAZARES) - (Rotación",
-      "times_exact": false
-    },
-    {
       "pharmacy_id": "MU:506",
       "zone": "AGRUPACION 16 (LA MANGA)",
       "start": "2026-12-31T00:00:00+01:00",
@@ -161680,7 +161670,6 @@
     "BORM_2025_6468.pdf p36841: ANEXO_III_NO_SOPORTADO AGRUPACION 11: Otros refuerzos:",
     "BORM_2025_6468.pdf p36843: ROTACION_NO_SOPORTADA AGRUPACION 12 [AGRUPACION 12 (MOLINOS MARFAGONES)]: Rotación por semanas por el orden expuesto, en sistema localizado fuera",
     "BORM_2025_6468.pdf p36844: REFUERZO_REGLA_NO_SOPORTADA AGRUPACION 13: -       MU-144-F, Lidia Muñoz Salomón",
-    "BORM_2025_6468.pdf p36852: ROTACION_NO_SOPORTADA AGRUPACION 14 [AGRUPACION 14 (LOS ALCAZARES) - (Rotación]: (Rotación por días, distinguiendo un turno para laborables y otro para",
     "BORM_2025_6468.pdf p36852: ANEXO_III_NO_SOPORTADO AGRUPACION 14: AGRUPACIÓN 15 / (MAR MENOR)",
     "BORM_2025_6468.pdf p36852: ANEXO_III_NO_SOPORTADO AGRUPACION 14: Del 1 de enero al 21 de junio:",
     "BORM_2025_6468.pdf p36853: ANEXO_III_NO_SOPORTADO AGRUPACION 14: Desde el 20 de junio hasta el 6 de septiembre:",

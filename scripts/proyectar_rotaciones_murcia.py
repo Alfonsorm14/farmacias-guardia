@@ -14,7 +14,7 @@ import collections
 import json
 import os
 import sys
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
@@ -69,6 +69,31 @@ def backtest(by_zone: dict[str, list[dict]], reglas: dict[int, str], vac: dict) 
     return out
 
 
+def backtest_baleares() -> list[str]:
+    """Baleares publica el año entero: ¿cuánto acierta repetir el ciclo que se ve en enero?"""
+    with open(os.path.join(BASE_DIR, "data", "out", "baleares_2026.json"), encoding="utf-8") as fh:
+        data = json.load(fh)
+    zonas: dict[str, dict[date, set]] = collections.defaultdict(lambda: collections.defaultdict(set))
+    for s in data["shifts"]:
+        d = datetime.fromisoformat(s["start"]).astimezone(TZ).date()
+        zonas[s["zone"]][d].add((s["pharmacy_id"], s["kind"]))
+    out, total_ok, total = [], 0, 0
+    for zona, dias in sorted(zonas.items()):
+        enero = sorted(d for d in dias if d < date(2026, 2, 1))
+        seq = [frozenset(dias[d]) for d in enero]
+        n = len(seq)
+        periodo = next((p for p in range(1, n) if all(seq[i] == seq[i + p] for i in range(n - p))), None)
+        if periodo is None or n - periodo < min(periodo, 7):
+            continue
+        resto = [d for d in sorted(dias) if d >= date(2026, 2, 1)]
+        ok = sum(1 for d in resto if dias[d] == frozenset(dias[enero[0] + timedelta(days=(d - enero[0]).days % periodo)]))
+        total_ok += ok
+        total += len(resto)
+        out.append(f"{zona}: ciclo de {periodo} días; {ok}/{len(resto)} días iguales ({100 * ok / len(resto):.0f} %)")
+    out.append(f"Zonas con ciclo visible en enero: {len(out)} de {len(zonas)}; total {total_ok}/{total} días iguales")
+    return out
+
+
 def main() -> int:
     text = pdf_to_text(PDF)
     anexo_i, anexo_iii = split_annexes(text)
@@ -116,8 +141,14 @@ def main() -> int:
 
     # Asignaciones en texto (permanentes, domingos y festivos, listas de fechas).
     explicitos = [s for a in asignaciones() for s in a.shifts()]
+    zonas_extra: dict[str, set[str]] = collections.defaultdict(set)
+    for a in asignaciones():
+        zonas_extra[a.pharmacy_id].add(a.zone)
+    farmacias = [
+        {**p, "zones": sorted(set(p["zones"]) | zonas_extra.get(p["id"], set()))} for p in data["pharmacies"]
+    ]
     with open(OUT_EXPLICITOS, "w", encoding="utf-8") as fh:
-        json.dump({**out, "shifts": data["shifts"] + explicitos,
+        json.dump({**out, "pharmacies": farmacias, "shifts": data["shifts"] + explicitos,
                    "warnings": data.get("warnings", []) + [f"PROPUESTA: {len(explicitos)} turnos en texto"]},
                   fh, ensure_ascii=False, indent=1)
     print(f"Asignaciones en texto: {len(asignaciones())} farmacias, {len(explicitos)} turnos -> {OUT_EXPLICITOS}")
@@ -134,6 +165,9 @@ def main() -> int:
         print(f"| {e.zona} | {e.farmacias} | {', '.join(locs)[:60]} | {estado} | {dias_vac} |")
     print("\nPrueba retrospectiva (agrupaciones con cuadrante anual publicado):")
     for linea in backtest(by_zone, reglas, vac):
+        print(" ", linea)
+    print("\nPrueba retrospectiva en Baleares (solo periodicidad de enero, sin reglas escritas):")
+    for linea in backtest_baleares():
         print(" ", linea)
     if avisos:
         print("\nAvisos de vacaciones:")

@@ -32,8 +32,9 @@ FESTIVOS_REGION_2026: frozenset[date] = frozenset({
 FESTIVOS_LOCALES_2026: dict[str, frozenset[date]] = {
     "CARTAGENA": frozenset({date(2026, 3, 27), date(2026, 9, 25)}),
     "AGUILAS": frozenset({date(2026, 2, 17), date(2026, 3, 27)}),
-    "MAZARRON": frozenset({date(2026, 6, 12), date(2026, 11, 17)}),
 }
+# Transcripción de las filas usadas, con la referencia del boletín (los tests la contrastan).
+FESTIVOS_FUENTE = "data/raw/murcia/2026/fiestas_laborales_2026.txt"
 
 
 def festivos(municipio: str) -> frozenset[date]:
