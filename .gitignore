@@ -3,3 +3,4 @@ __pycache__/
 data/out/*_v1.json
 .venv/
 data/guardias.db
+data/propuestas/
