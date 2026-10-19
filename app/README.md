@@ -1,14 +1,17 @@
-# App Farmacias de guardia (Flutter) — v0.1
+# App Farmacias de guardia (Flutter) — v0.4
 
 Muestra la farmacia de guardia más cercana con datos oficiales: ahora, hoy, mañana y pasado,
-con mapa (OpenStreetMap), botón de llamar y "Cómo llegar". Por ahora cubre las Illes Balears
-y la Región de Murcia; fuera de ellas avisa de "Sin datos oficiales para esta zona".
+con mapa (OpenStreetMap), botón de llamar y "Cómo llegar". Por ahora cubre las Illes Balears,
+la Región de Murcia, Navarra y las ciudades de Madrid y Zaragoza; fuera de ellas avisa de
+"Sin datos oficiales para esta zona". Permite buscar cualquier población (geocodificador CartoCiudad).
 
 ## Datos
 - **Sin servidor (por defecto):** usa `assets/snapshot.json`, generado desde `data/guardias.db`:
   ```powershell
   python scripts/export_snapshot.py
   ```
+- **Instantánea publicada:** con `--dart-define=SNAPSHOT_URL=https://…/snapshot.json` la app
+  descarga al arrancar la instantánea más reciente y la guarda (ver docs/DESPLIEGUE.md).
 - **Con backend:** compilar con `--dart-define=API_BASE=https://servidor` y la app usa
   `/v1/guardias` y `/v1/guardias/dia` (ver docs/BACKEND.md).
 
@@ -20,7 +23,7 @@ llevan la etiqueta "Ubicación aproximada"; las que no se han podido situar apar
 ```powershell
 cd app
 flutter pub get
-flutter test                 # 10 tests (motor sobre la instantánea real + pantallas)
+flutter test                 # 13 tests (motor sobre la instantánea real, buscador y pantallas)
 flutter run                  # con el móvil conectado por USB (depuración USB activada)
 flutter build apk --release  # build/app/outputs/flutter-apk/app-release.apk
 ```
@@ -31,3 +34,5 @@ flutter build apk --release  # build/app/outputs/flutter-apk/app-release.apk
   sin servidor).
 - Servidor propio de teselas o proveedor con condiciones de uso para producción (la política de
   tile.openstreetmap.org no admite uso intensivo).
+
+Nota: el objetivo es Android (y más adelante iOS); la versión web no se compila porque la app guarda la instantánea en el almacenamiento del teléfono.
