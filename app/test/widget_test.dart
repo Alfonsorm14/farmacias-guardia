@@ -78,6 +78,16 @@ void main() {
     expect(find.textContaining('solo ha publicado los turnos de tu zona'), findsOneWidget);
   });
 
+  testWidgets('el mapa también muestra el aviso de zona', (tester) async {
+    await tester.pumpWidget(_app(repo, const Ubicacion(38.0413, -1.4904, 'Mula'), DateTime(2026, 10, 20, 12)));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Hoy'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Ver mapa'));
+    await tester.pump(const Duration(milliseconds: 500));
+    expect(find.textContaining('solo ha publicado los turnos de tu zona'), findsOneWidget);
+  });
+
   testWidgets('la pantalla de fuentes cita las fuentes oficiales y OpenStreetMap', (tester) async {
     await tester.pumpWidget(MaterialApp(home: AcercaDePage(repositorio: repo)));
     await tester.pumpAndSettle();

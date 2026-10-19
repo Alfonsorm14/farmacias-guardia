@@ -10,7 +10,10 @@ class MapaGuardias extends StatelessWidget {
   final Ubicacion ubicacion;
   final List<Guardia> guardias;
 
-  const MapaGuardias({super.key, required this.ubicacion, required this.guardias});
+  /// Texto destacado sobre el mapa (aviso de zona o "sin datos para esta fecha").
+  final String? aviso;
+
+  const MapaGuardias({super.key, required this.ubicacion, required this.guardias, this.aviso});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,7 @@ class MapaGuardias extends StatelessWidget {
         if (g.farmacia.tieneCoordenadas) LatLng(g.farmacia.lat!, g.farmacia.lon!),
     ];
     final color = Theme.of(context).colorScheme.primary;
-    return FlutterMap(
+    final mapa = FlutterMap(
       options: MapOptions(
         initialCameraFit: puntos.isEmpty
             ? null
@@ -53,5 +56,25 @@ class MapaGuardias extends StatelessWidget {
         const RichAttributionWidget(attributions: [TextSourceAttribution('© colaboradores de OpenStreetMap')]),
       ],
     );
+    if (aviso == null) return mapa;
+    return Stack(children: [
+      mapa,
+      Positioned(
+        left: 8,
+        right: 8,
+        top: 8,
+        child: Card(
+          color: Theme.of(context).colorScheme.tertiaryContainer,
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Row(children: [
+              const Icon(Icons.info_outline),
+              const SizedBox(width: 8),
+              Expanded(child: Text(aviso!)),
+            ]),
+          ),
+        ),
+      ),
+    ]);
   }
 }

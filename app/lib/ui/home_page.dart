@@ -269,7 +269,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   'Iremos añadiendo comunidades a medida que publiquen sus datos.');
         }
         if (_verMapa) {
-          return MapaGuardias(ubicacion: u, guardias: r.guardias);
+          return MapaGuardias(
+            ubicacion: u,
+            guardias: r.guardias,
+            aviso: r.aviso ?? (r.guardias.isEmpty ? (r.mensaje ?? 'Sin datos oficiales para esta fecha') : null),
+          );
         }
         final fuentes = {
           for (final g in r.guardias)
