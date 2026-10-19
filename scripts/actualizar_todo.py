@@ -6,7 +6,8 @@ Pasos:
 2. Regenera data/out/*.json con los parsers.
 3. Importa en data/guardias.db (las coordenadas se conservan si la dirección no cambia).
 4. Geocodifica solo lo nuevo o pendiente (--recheck; la caché evita repetir consultas).
-5. Exporta la instantánea de la app (app/assets/snapshot.json).
+5. Exporta la instantánea de la app (app/assets/snapshot.json) y regenera los casos del test de
+   paridad app/API (app/test/fixtures/paridad_api.json).
 
 Baleares y Murcia son anuales: sus PDF se descargan a mano cuando sale el año nuevo.
 
@@ -121,6 +122,7 @@ def main() -> int:
     _run("-m", "backend.importer", "data/out")
     _run("-m", "backend.geocode", "--recheck")
     _run("scripts/export_snapshot.py")
+    _run("scripts/generar_paridad.py")  # casos del test de paridad app/API (misma base de datos)
     print(f"\nActualización completada ({date.today():%d/%m/%Y}).")
     return 0
 
