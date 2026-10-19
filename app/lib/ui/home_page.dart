@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../data/repository.dart';
 import '../location.dart';
 import '../models.dart';
+import 'elegir_lugar.dart';
 import 'guardia_card.dart';
 import 'mapa.dart';
 
@@ -82,30 +83,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _elegirLugar() async {
-    final elegido = await showModalBottomSheet<Ubicacion>(
-      context: context,
-      showDragHandle: true,
-      builder: (ctx) => SafeArea(
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.my_location),
-              title: const Text('Usar mi ubicación (GPS)'),
-              onTap: () => Navigator.pop(ctx, const Ubicacion(0, 0, '__gps__')),
-            ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(16, 8, 16, 4),
-              child: Text('Zonas con datos oficiales cargados (Baleares, Región de Murcia, Navarra, Madrid y Zaragoza capital):'),
-            ),
-            for (final l in lugaresConDatos)
-              ListTile(leading: const Icon(Icons.place_outlined), title: Text(l.etiqueta), onTap: () => Navigator.pop(ctx, l)),
-          ],
-        ),
-      ),
+    final elegido = await Navigator.push<Ubicacion>(
+      context,
+      MaterialPageRoute(builder: (_) => const ElegirLugarPage()),
     );
-    if (elegido == null) return;
-    if (elegido.etiqueta == '__gps__') {
+    if (elegido == null || !mounted) return;
+    if (identical(elegido, usarGps) || elegido.etiqueta == usarGps.etiqueta) {
       _usarGps();
     } else {
       _fijarUbicacion(elegido);
