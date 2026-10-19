@@ -19,6 +19,7 @@ from ingesta.parsers.murcia import (
     _anexo2_page_range,
     _anexo2_vocabulary,
     _column_of,
+    _complete_locality,
     _join_fragment,
     parse,
 )
@@ -165,6 +166,27 @@ class MurciaAcceptanceTests(unittest.TestCase):
         )
         self.assertEqual(unknown, [])
 
+    def test_articulo_pospuesto_no_se_completa(self) -> None:
+        """El boletín escribe "UNION,LA"; "LA" no es un corte de "LAS"."""
+        localities = {
+            pharmacy.id: pharmacy.locality
+            for pharmacy in self.result.pharmacies.values()
+        }
+        self.assertEqual(localities["MU:152"], "UNION,LA")
+        self.assertEqual(localities["MU:553"], "ALBERCA,LA")
+        self.assertEqual(localities["MU:13"], "ÑORA,LA")
+        self.assertEqual(localities["MU:353"], "LA MANGA DEL MAR MENOR")
+        # Los ",LAS" genuinos del boletín se conservan.
+        self.assertIn("TORRES DE COTILLAS,LAS", localities.values())
+
+    def test_truncada_ambigua_genera_aviso(self) -> None:
+        self.assertTrue(
+            any(
+                "POBLACION_TRUNCADA_AMBIGUA MU:483" in warning
+                for warning in self.result.warnings
+            )
+        )
+
 
 class ReconstruccionColumnasTests(unittest.TestCase):
     def test_join_fragment(self) -> None:
@@ -193,6 +215,30 @@ class ReconstruccionColumnasTests(unittest.TestCase):
         self.assertEqual(
             _join_fragment("LOS NAREJOS (LOS", "ALCAZARES)"),
             "LOS NAREJOS (LOS ALCAZARES)",
+        )
+
+    def test_complete_locality(self) -> None:
+        vocabulary = frozenset({"TORRE", "PACHECO", "MENOR", "MENORES", "LA"})
+        self.assertEqual(
+            _complete_locality("DOLORES-TORRE PACHEC", vocabulary),
+            ("DOLORES-TORRE PACHECO", False),
+        )
+        # Palabra completa conocida: no se toca aunque otra empiece igual.
+        self.assertEqual(
+            _complete_locality("LA MANGA DEL MAR MENOR", vocabulary),
+            ("LA MANGA DEL MAR MENOR", False),
+        )
+        self.assertEqual(_complete_locality("UNION,LA", vocabulary), ("UNION,LA", False))
+        # Varias opciones: no se completa y se marca como ambigua.
+        self.assertEqual(
+            _complete_locality("MAR MEN", vocabulary), ("MAR MEN", True)
+        )
+        # Sin opciones: se deja tal cual (palabra no truncada).
+        self.assertEqual(_complete_locality("BENIAJAN", vocabulary), ("BENIAJAN", False))
+        # Palabra que cierra celda en varias filas: se da por completa.
+        self.assertEqual(
+            _complete_locality("MAR MEN", vocabulary, frozenset({"MEN"})),
+            ("MAR MEN", False),
         )
 
     def test_column_of(self) -> None:

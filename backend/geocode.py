@@ -1,26 +1,47 @@
-"""Módulo de geocodificación de farmacias con CartoCiudad y Nominatim (Tarea 03c).
+"""Geocodificación de farmacias con CartoCiudad (IGN) y Nominatim (OSM) — v4.
 
-Normas estrictas de la Tarea 03c:
-1. Prohibido usar coordenadas fijas, de test o de comunidad como respaldo.
-   Ninguna constante de coordenadas salvo las cajas de validación por comunidad (BBOXES).
-2. Precisión "localidad" = centroide del NÚCLEO de población (pedanía),
-   geocodificado dinámicamente como lugar habitado y validado en su municipio.
-3. Si no se puede situar ni la dirección ni el núcleo: lat/lon = NULL, geo_precision = NULL.
-   Nunca el centroide del municipio para una pedanía (solo para casco urbano: locality == municipio).
-4. Control final: ningún par (lat, lon) compartido por más de 2 farmacias salvo que tengan
-   la misma dirección normalizada; listarlos en el informe.
+Reglas (Tareas 03b/03c, revisadas el 19/10/2026):
+1. No hay coordenadas fijas ni de respaldo en el código: las únicas constantes
+   geográficas son las cajas de validación por comunidad (BBOXES).
+2. Todo punto aceptado se valida con la geocodificación inversa de CartoCiudad:
+   su municipio debe coincidir con el esperado (comparación exacta normalizada,
+   sin subcadenas: "Murcia" no casa con "Alhama de Murcia").
+3. Una dirección solo cuenta como portal/calle si el nombre de la vía devuelta
+   coincide con el de la fuente y, si la farmacia trae código postal, también
+   el código postal.
+4. Precisión "localidad" = centroide del NÚCLEO de población (entidad
+   "poblacion" de CartoCiudad), validado en su municipio. El centroide del núcleo
+   principal del municipio solo se usa si la fuente sitúa la farmacia en el casco
+   urbano (localidad == municipio). Si no se puede situar ni la dirección ni el
+   núcleo: lat/lon = NULL.
+5. Control final: ningún punto compartido por más de 2 farmacias con direcciones
+   distintas.
+
+Documentación de los servicios:
+- CartoCiudad: https://www.cartociudad.es/web/portal/herramientas-calculos/geocodificador
+  (candidates con cod_postal_filter; find por id y tipo; reverseGeocode).
+- Nominatim: https://nominatim.org/release-docs/latest/api/Search/ (búsqueda
+  estructurada; política de uso: 1 petición/s y User-Agent identificable).
+
+Uso:
+    python -m backend.geocode                # reprocesa todas las farmacias
+    python -m backend.geocode --recheck      # solo localidad / sin coordenadas
+    python -m backend.geocode --ids MU:302,IB:5b84a70432fe
 """
 from __future__ import annotations
 
 import argparse
 import datetime
+import difflib
 import json
 import logging
+import math
 import random
 import re
 import time
 import unicodedata
 from collections import defaultdict
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -33,29 +54,34 @@ from backend.models import GeocodeCache, Pharmacy
 
 logger = logging.getLogger(__name__)
 
-# Bounding boxes oficiales por comunidad autónoma (únicas constantes de coordenadas permitidas)
+# Cajas de validación por comunidad autónoma (únicas constantes geográficas).
 BBOXES: dict[str, dict[str, float]] = {
-    # Baleares: lat 38.6–40.1, lon 1.1–4.4
     "04": {"lat_min": 38.6, "lat_max": 40.1, "lon_min": 1.1, "lon_max": 4.4},
-    # Murcia: lat 37.3–38.8, lon -2.4 a -0.6
     "14": {"lat_min": 37.3, "lat_max": 38.8, "lon_min": -2.4, "lon_max": -0.6},
 }
+REGION_PROVINCES: dict[str, set[str]] = {"04": {"07"}, "14": {"30"}}
+REGION_NAMES: dict[str, str] = {"04": "Illes Balears", "14": "Región de Murcia"}
 
-CARTOCIUDAD_CANDIDATES_URL = (
-    "https://www.cartociudad.es/geocoder/api/geocoder/candidates"
-)
-CARTOCIUDAD_FIND_URL = "https://www.cartociudad.es/geocoder/api/geocoder/find"
+CARTOCIUDAD_BASE = "https://www.cartociudad.es/geocoder/api/geocoder"
 NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
 NOMINATIM_USER_AGENT = "farmacias-guardia/0.1 (alfonsorivero.es@gmail.com)"
 
 EARTH_RADIUS_KM = 6371.0
-_last_nominatim_time = 0.0
+# Distancia máxima de una dirección al polígono de su núcleo (pedanía).
+NUCLEUS_MAX_KM = 2.5
+# Distancia máxima de una dirección de casco urbano al centroide del núcleo principal.
+CASCO_MAX_KM = 15.0
+# Núcleos repartidos entre dos municipios (Cala Millor: Son Servera y Sant Llorenç):
+# se acepta una dirección del municipio vecino si está pegada al núcleo.
+NUCLEUS_SHARED_KM = 1.0
+STREET_MIN_SCORE = 0.6
+
+_last_call: dict[str, float] = {"cartociudad": 0.0, "nominatim": 0.0}
+_MIN_INTERVAL = {"cartociudad": 0.12, "nominatim": 1.05}
 
 
 def haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
-    """Calcula la distancia ortodrómica en kilómetros entre dos coordenadas WGS84."""
-    import math
-
+    """Distancia ortodrómica en kilómetros entre dos coordenadas WGS84."""
     phi1, phi2 = math.radians(lat1), math.radians(lat2)
     dphi = math.radians(lat2 - lat1)
     dlambda = math.radians(lon2 - lon1)
@@ -63,22 +89,11 @@ def haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
         math.sin(dphi / 2.0) ** 2
         + math.cos(phi1) * math.cos(phi2) * math.sin(dlambda / 2.0) ** 2
     )
-    c = 2.0 * math.atan2(math.sqrt(a), math.sqrt(1.0 - a))
-    return EARTH_RADIUS_KM * c
+    return EARTH_RADIUS_KM * 2.0 * math.atan2(math.sqrt(a), math.sqrt(1.0 - a))
 
 
-def _nominatim_rate_limit() -> None:
-    """Respeta la política de uso de Nominatim (máx 1 petición por segundo)."""
-    global _last_nominatim_time
-    now = time.time()
-    elapsed = now - _last_nominatim_time
-    if elapsed < 1.05:
-        time.sleep(1.05 - elapsed)
-    _last_nominatim_time = time.time()
-
-
-def normalize_text(text: str) -> str:
-    """Normaliza quitando acentos y caracteres especiales para comparaciones seguras."""
+def normalize_text(text: str | None) -> str:
+    """Minúsculas, sin acentos y solo [a-z0-9] (para claves y comparaciones)."""
     if not text:
         return ""
     n = unicodedata.normalize("NFD", text)
@@ -86,21 +101,17 @@ def normalize_text(text: str) -> str:
     return re.sub(r"[^a-z0-9]", "", n.lower())
 
 
-def muni_matches(expected: str, result_muni: str) -> bool:
-    """Comprueba si el municipio retornado coincide con el esperado."""
-    if not expected or not result_muni:
-        return False
-    exp_norm = normalize_text(expected)
-    res_norm = normalize_text(result_muni)
-    if exp_norm == res_norm:
-        return True
-    if exp_norm in res_norm or res_norm in exp_norm:
-        return True
-    return False
+def _tokens(text: str | None) -> list[str]:
+    """Palabras normalizadas (sin acentos, minúsculas); el apóstrofo separa."""
+    if not text:
+        return []
+    n = unicodedata.normalize("NFD", text)
+    n = "".join(c for c in n if unicodedata.category(c) != "Mn").lower()
+    return re.findall(r"[a-z0-9ñ]+", n.replace("ñ", "n"))
 
 
 def is_within_bbox(region: str, lat: float, lon: float) -> bool:
-    """Comprueba si las coordenadas están dentro de la caja de su comunidad autónoma."""
+    """Comprueba si las coordenadas están dentro de la caja de su comunidad."""
     bbox = BBOXES.get(region)
     if not bbox:
         return True
@@ -138,14 +149,14 @@ def clean_address(address: str) -> str:
 
     # 4. Quitar menciones de edificio, bloque, barrio, barriada
     addr = re.sub(
-        r"(?i),?\s*(?:edificio|edf\.?|edifico)\s*[\w\d\s\-]+", " ", addr
+        r"(?i),?\s*\b(?:edificio|edf\.?|edifico)\s*[\w\d\s\-]+", " ", addr
     )
     addr = re.sub(
-        r"(?i),?\s*(?:barrio|barriada)\s*(?:de\s*)?[\w\d\s\-]+", " ", addr
+        r"(?i),?\s*\b(?:barrio|barriada)\s*(?:de\s*)?[\w\d\s\-]+", " ", addr
     )
     addr = re.sub(r"(?i),?\s*pueblo nuevo\b\.?", " ", addr)
-    addr = re.sub(r"(?i),?\s*farmacia\b\.?", " ", addr)
-    addr = re.sub(r"(?i),?\s*bajo\b\.?", " ", addr)
+    addr = re.sub(r"(?i),?\s*\bfarmacia\b\.?", " ", addr)
+    addr = re.sub(r"(?i),?\s*\bbajos?\b\.?", " ", addr)
     addr = re.sub(r"(?i)\bbl(?:oque)?\.?\s*[\w\d]+", " ", addr)
 
     # 5. Quitar S/N, s/n
@@ -173,7 +184,10 @@ def clean_address(address: str) -> str:
     addr = re.sub(r"(?i)\b(c/|cl\b\.?)\s*", "CALLE ", addr)
     addr = re.sub(r"(?i)\b(avda\b\.?|av\b\.?)\s*", "AVENIDA ", addr)
     addr = re.sub(r"(?i)\bctra\b\.?\s*", "CARRETERA ", addr)
-    addr = re.sub(r"(?i)\b(pza\b\.?|pl\b\.?|plz\b\.?|pz\b\.?)\s*", "PLAZA ", addr)
+    addr = re.sub(r"(?i)\b(pza\b\.?|plza\b\.?|pl\b\.?|plz\b\.?|pz\b\.?)\s*", "PLAZA ", addr)
+    # "S. FRANCISCO" -> "SAN FRANCISCO"; "STA." -> "SANTA"
+    addr = re.sub(r"(?i)\bS\.\s*(?=[A-ZÁÉÍÓÚ])", "SAN ", addr)
+    addr = re.sub(r"(?i)\bSTA\.\s*", "SANTA ", addr)
     addr = re.sub(r"(?i)\bpso\b\.?\s*", "PASEO ", addr)
     addr = re.sub(r"(?i)\btrav\b\.?\s*", "TRAVESIA ", addr)
     addr = re.sub(r"(?i)\burb\b\.?\s*", "URBANIZACION ", addr)
@@ -193,6 +207,8 @@ def clean_address(address: str) -> str:
     # 13. Si después del número hay una coma y más texto sobrante, quitarlo
     addr = re.sub(r"(\d+)\s*,\s*.*$", r"\1", addr)
     return addr
+
+
 
 
 # Mapeo de pedanías y nombres invertidos en Murcia -> (municipio, nucleo)
@@ -240,6 +256,11 @@ MURCIA_KNOWN_MAP: dict[str, tuple[str, str | None]] = {
     "TORRES DE COTILLAS,LAS": ("Las Torres de Cotillas", None),
     "UNION,LAS": ("La Unión", None),
     "ÑORA,LAS": ("Murcia", "La Ñora"),
+    "ALBERCA,LA": ("Murcia", "La Alberca"),
+    "ALJORRA,LA": ("Cartagena", "La Aljorra"),
+    "ALMUDEMA,LA": ("Caravaca de la Cruz", "La Almudema"),
+    "UNION,LA": ("La Unión", None),
+    "ÑORA,LA": ("Murcia", "La Ñora"),
 }
 
 MURCIA_CITY_PEDANIAS: set[str] = {
@@ -346,18 +367,35 @@ BALEARES_KNOWN_MAP: dict[str, tuple[str, str | None]] = {
     "CA'N PASTILLA": ("Palma", "Can Pastilla"),
     "Coll d'en Rebassa": ("Palma", "Coll d'en Rabassa"),
     "cami del cementiri": ("Palma", None),
+    # Núcleos citados en las direcciones de Baleares sin localidad.
+    "FORNELLS": ("Es Mercadal", "Fornells"),
+    "TORRENOVA": ("Calvià", "Torrenova"),
+    "MAGALUF": ("Calvià", "Magaluf"),
+    "ES CANAR": ("Santa Eulària des Riu", "Es Canar"),
+    "CAS CAPITÀ": ("Santa Eulària des Riu", "Es Canar"),
+    "CALA LLONGA": ("Santa Eulària des Riu", "Cala Llonga"),
+    "SANT CARLES": ("Santa Eulària des Riu", "Sant Carles de Peralta"),
+    "SANTA EULÀRIA": ("Santa Eulària des Riu", None),
+    "ES PUJOLS": ("Formentera", "Es Pujols"),
+    "ES CALO DE SANT AGUSTI": ("Formentera", "Es Caló"),
+    "SA CABANA": ("Marratxí", "Sa Cabana"),
+    "C'AS CONCOS": ("Felanitx", "Cas Concos des Cavaller"),
+    "CAS CONCOS": ("Felanitx", "Cas Concos des Cavaller"),
+    "PUIG DE ROS": ("Llucmajor", "Puig de Ros"),
+    "MAIORIS": ("Llucmajor", "Maioris Decima"),
+    "PLATJA DE MURO": ("Muro", "Platja de Muro"),
 }
+
 
 
 def get_candidate_municipalities(
     pharmacy: Pharmacy,
 ) -> list[tuple[str, str | None]]:
-    """Determina los municipios y núcleos candidatos según las reglas de la Tarea 03c.
+    """Municipio(s) y núcleo de una farmacia de la Región de Murcia.
 
-    Devuelve lista de (municipio, nucleo).
-    Si nucleo es None, indica que es el casco urbano municipal.
+    Devuelve lista de (municipio, núcleo); núcleo None = casco urbano.
     """
-    if pharmacy.region == "14":  # Región de Murcia
+    if pharmacy.region == "14":
         loc = (pharmacy.locality or "").strip()
         if not loc:
             return [("Murcia", None)]
@@ -397,659 +435,898 @@ def get_candidate_municipalities(
         # Casco urbano directo
         muni_direct = MURCIA_MUNI_ALIASES.get(loc.upper(), loc.title())
         return [(muni_direct, None)]
+    return []
 
-    else:  # Illes Balears (04)
-        loc = (pharmacy.locality or "").strip()
 
-        # Mapeo conocido directo
-        if loc and loc in BALEARES_KNOWN_MAP:
-            return [BALEARES_KNOWN_MAP[loc]]
+# Municipios de Illes Balears (INE, provincia 07). Se usan para reconocer
+# municipios en zonas y direcciones; no contienen coordenadas.
+BALEARES_MUNICIPALITIES: tuple[str, ...] = (
+    "Alaior", "Alaró", "Alcúdia", "Algaida", "Andratx", "Ariany", "Artà",
+    "Banyalbufar", "Binissalem", "Búger", "Bunyola", "Calvià", "Campanet",
+    "Campos", "Capdepera", "Ciutadella de Menorca", "Consell", "Costitx",
+    "Deià", "Eivissa", "Es Castell", "Es Mercadal", "Es Migjorn Gran",
+    "Escorca", "Esporles", "Estellencs", "Felanitx", "Ferreries", "Formentera",
+    "Fornalutx", "Inca", "Lloret de Vistalegre", "Lloseta", "Llubí",
+    "Llucmajor", "Manacor", "Mancor de la Vall", "Maó-Mahón",
+    "Maria de la Salut", "Marratxí", "Montuïri", "Muro", "Palma", "Petra",
+    "Pollença", "Porreres", "Puigpunyent", "Sa Pobla", "Sant Antoni de Portmany",
+    "Sant Joan", "Sant Joan de Labritja", "Sant Josep de sa Talaia",
+    "Sant Llorenç des Cardassar", "Sant Lluís", "Santa Eugènia",
+    "Santa Eulària des Riu", "Santa Margalida", "Santa Maria del Camí",
+    "Santanyí", "Selva", "Ses Salines", "Sencelles", "Sineu", "Sóller",
+    "Son Servera", "Valldemossa", "Vilafranca de Bonany",
+)
 
-        # Si locality es un municipio directo reconocido
-        if loc:
-            loc_title = loc.title()
-            return [(loc_title, None)]
+_ARTICLES = {
+    "es", "sa", "ses", "s", "el", "la", "los", "las", "l", "d", "de", "del",
+    "dels", "des", "en", "na", "lo", "y", "i",
+}
 
-        # Si locality está vacía, derivar de zones
-        res: list[tuple[str, str | None]] = []
-        zones_list: list[str] = []
-        if pharmacy.zones:
+# Variantes (clave normalizada sin artículos) -> clave canónica del municipio.
+MUNI_KEY_ALIASES: dict[str, str] = {
+    "mao": "maomahon", "mahon": "maomahon",
+    "ibiza": "eivissa",
+    "santaeularia": "santaeulariariu", "santaeulalia": "santaeulariariu",
+    "santaeulaliario": "santaeulariariu", "eularia": "santaeulariariu",
+    "eulalia": "santaeulariariu",
+    "santantoni": "santantoniportmany", "sanantonioabad": "santantoniportmany",
+    "santjosep": "santjoseptalaia", "sanjose": "santjoseptalaia",
+    "santjosepsatalaia": "santjoseptalaia",
+    "ciutadella": "ciutadellamenorca",
+    "vilafranca": "vilafrancabonany", "villafranca": "vilafrancabonany",
+    "villafrancabonany": "vilafrancabonany",
+    "lloret": "lloretvistalegre",
+    "santamaria": "santamariacami",
+    "santllorenc": "santllorenccardassar",
+    "sanjoan": "santjoan",
+    "pollensa": "pollenca",
+    "palmademallorca": "palma",
+    "migjorngran": "migjorngran",
+    "fuentealamo": "fuentealamomurcia",
+    "caravaca": "caravacacruz",
+    "torrepachec": "torrepacheco",
+}
+
+
+def muni_key(name: str | None) -> str:
+    """Clave canónica de un municipio: sin acentos, sin artículos, con alias."""
+    toks = [t for t in _tokens(name) if t not in _ARTICLES]
+    key = "".join(toks)
+    return MUNI_KEY_ALIASES.get(key, key)
+
+
+def muni_matches(expected: str, result_muni: str) -> bool:
+    """Igualdad exacta de claves canónicas (nunca por subcadena)."""
+    if not expected or not result_muni:
+        return False
+    return muni_key(expected) == muni_key(result_muni)
+
+
+_BALEARES_BY_KEY: dict[str, str] = {muni_key(m): m for m in BALEARES_MUNICIPALITIES}
+
+
+def baleares_municipality(name: str | None) -> str | None:
+    """Nombre oficial del municipio balear si `name` lo designa; si no, None."""
+    return _BALEARES_BY_KEY.get(muni_key(name))
+
+
+# ---------------------------------------------------------------------------
+# Cliente HTTP con caché persistente (tabla geocode_cache)
+# ---------------------------------------------------------------------------
+
+
+class GeoClient:
+    """Acceso a CartoCiudad y Nominatim con caché en BD y límites de ritmo."""
+
+    def __init__(self, session: Session, http: httpx.Client, offline: bool = False):
+        self.session = session
+        self.http = http
+        self.offline = offline
+        self.live_calls = 0
+
+    def _get(self, provider: str, url: str, params: dict[str, Any]) -> Any:
+        key = f"v4:{provider}:{url.rsplit('/', 1)[-1]}:" + json.dumps(
+            params, sort_keys=True, ensure_ascii=False
+        )
+        cached = self.session.get(GeocodeCache, key)
+        if cached is not None:
+            return json.loads(cached.raw_json) if cached.raw_json else None
+        if self.offline:
+            return None
+        wait = _MIN_INTERVAL[provider] - (time.time() - _last_call[provider])
+        if wait > 0:
+            time.sleep(wait)
+        headers = {"User-Agent": NOMINATIM_USER_AGENT}
+        data: Any = None
+        ok = False
+        for attempt in range(3):
             try:
-                zs = json.loads(pharmacy.zones)
-                if isinstance(zs, list):
-                    zones_list = zs
-            except Exception:
-                pass
-
-        for z in zones_list:
-            z_upper = z.upper()
-            if z_upper in ("PALMA", "PLATJA DE PALMA"):
-                if ("Palma", None) not in res:
-                    res.append(("Palma", None))
-            elif "-" in z:
-                # Zona compuesta A-B-C: probar cada municipio
-                parts = [p.strip().title() for p in z.split("-") if p.strip()]
-                for p in parts:
-                    if (p, None) not in res:
-                        res.append((p, None))
-            else:
-                z_title = z.strip().title()
-                if (z_title, None) not in res:
-                    res.append((z_title, None))
-
-        if not res:
-            res.append(("Palma", None))
-
-        return res
-
-
-def get_cached_result(
-    session: Session, query: str
-) -> tuple[float | None, float | None, str | None, str | None] | None:
-    norm = re.sub(r"\s+", " ", query.strip().lower())
-    cached = session.get(GeocodeCache, norm)
-    if cached:
-        return (cached.lat, cached.lon, cached.precision, cached.provider)
-    return None
-
-
-def save_cached_result(
-    session: Session,
-    query: str,
-    lat: float | None,
-    lon: float | None,
-    precision: str | None,
-    provider: str | None,
-    raw_data: Any = None,
-) -> None:
-    norm = re.sub(r"\s+", " ", query.strip().lower())
-    raw_json = json.dumps(raw_data, ensure_ascii=False) if raw_data else None
-    cache_entry = session.get(GeocodeCache, norm)
-    if cache_entry is None:
-        cache_entry = GeocodeCache(
-            query=norm,
-            lat=lat,
-            lon=lon,
-            precision=precision,
-            provider=provider,
-            raw_json=raw_json,
-            created_at=datetime.datetime.now(datetime.timezone.utc),
-        )
-        session.add(cache_entry)
-    else:
-        cache_entry.lat = lat
-        cache_entry.lon = lon
-        cache_entry.precision = precision
-        cache_entry.provider = provider
-        cache_entry.raw_json = raw_json
-
-
-def get_nucleus_centroid(
-    client: httpx.Client,
-    session: Session,
-    nucleo: str,
-    municipio: str,
-    region: str,
-) -> tuple[float, float] | None:
-    """Devuelve las coordenadas del centroide de un núcleo/pedanía sin valores fijos.
-
-    Geocodificado dinámicamente como lugar habitado en CartoCiudad o Nominatim.
-    """
-    if not nucleo:
-        return None
-
-    cache_key = (
-        f"nucleus:{normalize_text(nucleo)}:{normalize_text(municipio)}:{region}"
-    )
-    cached = get_cached_result(session, cache_key)
-    if cached and cached[0] is not None and cached[1] is not None:
-        return (cached[0], cached[1])
-
-    # 1. CartoCiudad find
-    try:
-        r = client.get(
-            CARTOCIUDAD_FIND_URL, params={"q": f"{nucleo}, {municipio}"}, timeout=8.0
-        )
-        if r.status_code == 200:
-            d = r.json()
-            lat, lng = d.get("lat"), d.get("lng")
-            if lat and lng and (float(lat) != 0.0 or float(lng) != 0.0):
-                lat_f, lon_f = float(lat), float(lng)
-                if is_within_bbox(region, lat_f, lon_f) and muni_matches(
-                    municipio, d.get("muni", "")
-                ):
-                    save_cached_result(
-                        session, cache_key, lat_f, lon_f, "localidad", "cartociudad_find"
-                    )
-                    return (lat_f, lon_f)
-    except Exception:
-        pass
-
-    # 2. CartoCiudad candidates
-    try:
-        region_name = "Illes Balears" if region == "04" else "Región de Murcia"
-        r = client.get(
-            CARTOCIUDAD_CANDIDATES_URL,
-            params={
-                "q": nucleo,
-                "municipio_filter": municipio,
-                "comunidad_autonoma_filter": region_name,
-            },
-            timeout=8.0,
-        )
-        if r.status_code == 200:
-            data = r.json()
-            if data and isinstance(data, list):
-                for item in data:
-                    lat, lng = item.get("lat"), item.get("lng")
-                    if lat and lng and (float(lat) != 0.0 or float(lng) != 0.0):
-                        lat_f, lon_f = float(lat), float(lng)
-                        if is_within_bbox(region, lat_f, lon_f) and muni_matches(
-                            municipio, item.get("muni", "")
-                        ):
-                            save_cached_result(
-                                session,
-                                cache_key,
-                                lat_f,
-                                lon_f,
-                                "localidad",
-                                "cartociudad_candidates",
-                            )
-                            return (lat_f, lon_f)
-    except Exception:
-        pass
-
-    # 3. Nominatim
-    _nominatim_rate_limit()
-    try:
-        r = client.get(
-            NOMINATIM_URL,
-            params={
-                "q": f"{nucleo}, {municipio}, Spain",
-                "format": "json",
-                "addressdetails": 1,
-                "limit": 3,
-            },
-            headers={"User-Agent": NOMINATIM_USER_AGENT},
-            timeout=8.0,
-        )
-        if r.status_code == 200:
-            data = r.json()
-            if data and isinstance(data, list):
-                for it in data:
-                    lat_f = float(it["lat"])
-                    lon_f = float(it["lon"])
-                    if is_within_bbox(region, lat_f, lon_f):
-                        addr = it.get("address", {})
-                        res_muni = (
-                            addr.get("city")
-                            or addr.get("town")
-                            or addr.get("municipality")
-                            or addr.get("village")
-                            or ""
-                        )
-                        if muni_matches(municipio, res_muni) or not res_muni:
-                            save_cached_result(
-                                session,
-                                cache_key,
-                                lat_f,
-                                lon_f,
-                                "localidad",
-                                "nominatim",
-                            )
-                            return (lat_f, lon_f)
-    except Exception:
-        pass
-
-    return None
-
-
-def get_municipality_centroid(
-    client: httpx.Client,
-    session: Session,
-    municipio: str,
-    region: str,
-) -> tuple[float, float] | None:
-    """Devuelve las coordenadas del centroide del municipio (con caché, sin valores fijos)."""
-    norm_muni = normalize_text(municipio)
-    cache_key = f"muni_centroid:{norm_muni}:{region}"
-    cached = get_cached_result(session, cache_key)
-    if cached and cached[0] is not None and cached[1] is not None:
-        return (cached[0], cached[1])
-
-    region_name = "Illes Balears" if region == "04" else "Región de Murcia"
-
-    # 1. CartoCiudad find
-    try:
-        r = client.get(
-            CARTOCIUDAD_FIND_URL, params={"q": f"{municipio}, {region_name}"}, timeout=8.0
-        )
-        if r.status_code == 200:
-            d = r.json()
-            lat = d.get("lat")
-            lng = d.get("lng")
-            if lat and lng and (float(lat) != 0.0 or float(lng) != 0.0):
-                lat_f, lon_f = float(lat), float(lng)
-                if is_within_bbox(region, lat_f, lon_f) and muni_matches(
-                    municipio, d.get("muni", "")
-                ):
-                    save_cached_result(
-                        session,
-                        cache_key,
-                        lat_f,
-                        lon_f,
-                        "localidad",
-                        "cartociudad",
-                    )
-                    return (lat_f, lon_f)
-    except Exception:
-        pass
-
-    # 2. Nominatim
-    _nominatim_rate_limit()
-    try:
-        r = client.get(
-            NOMINATIM_URL,
-            params={"city": municipio, "countrycodes": "es", "format": "json", "limit": 1},
-            headers={"User-Agent": NOMINATIM_USER_AGENT},
-            timeout=8.0,
-        )
-        if r.status_code == 200:
-            data = r.json()
-            if data and isinstance(data, list):
-                lat_f = float(data[0]["lat"])
-                lon_f = float(data[0]["lon"])
-                if is_within_bbox(region, lat_f, lon_f):
-                    save_cached_result(
-                        session,
-                        cache_key,
-                        lat_f,
-                        lon_f,
-                        "localidad",
-                        "nominatim",
-                    )
-                    return (lat_f, lon_f)
-    except Exception:
-        pass
-
-    return None
-
-
-def geocode_cartociudad_structured(
-    client: httpx.Client,
-    clean_addr: str,
-    municipio: str,
-    region: str,
-    postal_code: str | None = None,
-    nucleo: str | None = None,
-) -> tuple[float | None, float | None, str | None, dict[str, Any] | None]:
-    """Consulta CartoCiudad con filtros por municipio y comunidad autónoma."""
-    region_name = "Illes Balears" if region == "04" else "Región de Murcia"
-
-    # Probar diferentes variantes de consulta:
-    # 1. Si hay núcleo: "clean_addr, nucleo"
-    # 2. "clean_addr, municipio"
-    # 3. Sin tipo de vía si clean_addr empieza por CALLE/AVENIDA/etc.
-    queries = []
-    if nucleo:
-        queries.append(f"{clean_addr}, {nucleo}")
-    queries.append(f"{clean_addr}, {municipio}")
-
-    parts = clean_addr.split(" ", 1)
-    if len(parts) == 2 and parts[0] in (
-        "CALLE", "AVENIDA", "CARRETERA", "PLAZA", "PASEO", "TRAVESIA", "URBANIZACION"
-    ):
-        if nucleo:
-            queries.append(f"{parts[1]}, {nucleo}")
-        queries.append(f"{parts[1]}, {municipio}")
-
-    for q_str in queries:
-        params: dict[str, Any] = {
-            "q": q_str,
-            "limit": 6,
-            "comunidad_autonoma_filter": region_name,
-            "municipio_filter": municipio,
-        }
-        if postal_code and postal_code.strip():
-            params["cod_postal_filter"] = postal_code.strip()
-
-        try:
-            resp = client.get(
-                CARTOCIUDAD_CANDIDATES_URL, params=params, timeout=8.0
+                resp = self.http.get(url, params=params, headers=headers, timeout=15.0)
+                _last_call[provider] = time.time()
+                self.live_calls += 1
+                if resp.status_code == 200:
+                    text = resp.text.strip()
+                    data = json.loads(text) if text else None
+                    ok = True
+                    break
+                if resp.status_code in (400, 404):
+                    ok = True  # respuesta definitiva: sin resultados
+                    break
+            except (httpx.HTTPError, json.JSONDecodeError) as exc:
+                logger.warning("%s %s: %s", provider, url, exc)
+            time.sleep(1.5 * (attempt + 1))
+        if not ok:
+            return None  # error transitorio: no se cachea
+        self.session.add(
+            GeocodeCache(
+                query=key,
+                lat=None,
+                lon=None,
+                precision=None,
+                provider=provider,
+                raw_json=json.dumps(data, ensure_ascii=False) if data is not None else None,
+                created_at=datetime.datetime.now(datetime.timezone.utc),
             )
-            if resp.status_code != 200:
-                params.pop("cod_postal_filter", None)
-                resp = client.get(
-                    CARTOCIUDAD_CANDIDATES_URL, params=params, timeout=8.0
-                )
+        )
+        return data
 
-            if resp.status_code != 200:
-                continue
+    def candidates(self, q: str, limit: int = 10, **filters: str) -> list[dict[str, Any]]:
+        params: dict[str, Any] = {"q": q, "limit": limit}
+        params.update({k: v for k, v in filters.items() if v})
+        data = self._get("cartociudad", f"{CARTOCIUDAD_BASE}/candidates", params)
+        return data if isinstance(data, list) else []
 
-            data = resp.json()
-            if not data or not isinstance(data, list):
-                continue
+    def find(self, item_id: str, item_type: str) -> dict[str, Any] | None:
+        data = self._get(
+            "cartociudad", f"{CARTOCIUDAD_BASE}/find", {"id": item_id, "type": item_type}
+        )
+        return data if isinstance(data, dict) else None
 
-            # Si hay núcleo, ordenar para priorizar candidatos cuya población coincida con el núcleo
-            if nucleo:
-                norm_nuc = normalize_text(nucleo)
+    def reverse(self, lat: float, lon: float) -> dict[str, Any] | None:
+        data = self._get(
+            "cartociudad",
+            f"{CARTOCIUDAD_BASE}/reverseGeocode",
+            {"lat": f"{lat:.6f}", "lon": f"{lon:.6f}"},
+        )
+        return data if isinstance(data, dict) else None
 
-                def rank_candidate(it: dict[str, Any]) -> int:
-                    pob = normalize_text(it.get("poblacion") or "")
-                    addr_str = normalize_text(it.get("address") or "")
-                    if norm_nuc and (norm_nuc in pob or pob in norm_nuc or norm_nuc in addr_str):
-                        return 0
-                    return 1
-
-                data.sort(key=rank_candidate)
-
-            for item in data:
-                lat = item.get("lat")
-                lon = item.get("lng")
-                item_type = str(item.get("type", "")).lower()
-                res_muni = item.get("muni", "")
-
-                if not muni_matches(municipio, res_muni):
-                    continue
-
-                if (lat is None or lon is None or (lat == 0.0 and lon == 0.0)) and item.get("address"):
-                    try:
-                        r_find = client.get(
-                            CARTOCIUDAD_FIND_URL, params={"q": item.get("address")}, timeout=8.0
-                        )
-                        if r_find.status_code == 200:
-                            find_data = r_find.json()
-                            lat = find_data.get("lat")
-                            lon = find_data.get("lng")
-                            if not item_type:
-                                item_type = str(find_data.get("type", "")).lower()
-                    except Exception:
-                        pass
-
-                if lat is not None and lon is not None and (lat != 0.0 or lon != 0.0):
-                    lat_f = float(lat)
-                    lon_f = float(lon)
-                    if not is_within_bbox(region, lat_f, lon_f):
-                        continue
-
-                    if item_type in ("portal", "expendeduria"):
-                        precision = "portal"
-                    elif item_type in ("callejero", "tramo", "carretera", "vial"):
-                        precision = "calle"
-                    else:
-                        continue
-
-                    return lat_f, lon_f, precision, item
-
-        except Exception as e:
-            logger.warning("CartoCiudad structured error: %s", e)
-
-    return None, None, None, None
-
-
-def geocode_nominatim_structured(
-    client: httpx.Client,
-    clean_addr: str,
-    municipio: str,
-    region: str,
-    postal_code: str | None = None,
-    nucleo: str | None = None,
-) -> tuple[float | None, float | None, str | None, dict[str, Any] | None]:
-    """Consulta Nominatim en modo estructurado (street, city, postalcode, countrycodes=es)."""
-    headers = {"User-Agent": NOMINATIM_USER_AGENT}
-
-    cities_to_try = [municipio]
-    if nucleo and nucleo.lower() != municipio.lower():
-        cities_to_try.insert(0, nucleo)
-
-    for city in cities_to_try:
-        _nominatim_rate_limit()
-        params: dict[str, Any] = {
-            "street": clean_addr,
-            "city": city,
+    def nominatim(self, **params: str) -> list[dict[str, Any]]:
+        query = {
             "countrycodes": "es",
             "format": "json",
-            "addressdetails": 1,
-            "limit": 2,
+            "addressdetails": "1",
+            "limit": "5",
         }
-        if postal_code and postal_code.strip():
-            params["postalcode"] = postal_code.strip()
-
-        try:
-            resp = client.get(
-                NOMINATIM_URL, params=params, headers=headers, timeout=8.0
-            )
-            if resp.status_code != 200:
-                continue
-
-            data = resp.json()
-            if not data or not isinstance(data, list):
-                continue
-
-            for item in data:
-                lat = float(item["lat"])
-                lon = float(item["lon"])
-                if not is_within_bbox(region, lat, lon):
-                    continue
-
-                addr_info = item.get("address", {})
-                res_muni = (
-                    addr_info.get("city")
-                    or addr_info.get("town")
-                    or addr_info.get("municipality")
-                    or addr_info.get("village")
-                    or ""
-                )
-                if not muni_matches(municipio, res_muni) and not muni_matches(city, res_muni):
-                    continue
-
-                osm_class = item.get("class", "")
-                osm_type = item.get("type", "")
-
-                if osm_class in ("place", "building", "amenity", "shop") and osm_type in (
-                    "house",
-                    "building",
-                    "yes",
-                    "pharmacy",
-                    "commercial",
-                    "apartments",
-                ):
-                    precision = "portal"
-                elif osm_class == "highway":
-                    precision = "calle"
-                else:
-                    precision = "calle"
-
-                return lat, lon, precision, item
-
-        except Exception as e:
-            logger.warning("Nominatim structured error: %s", e)
-
-    return None, None, None, None
+        query.update({k: v for k, v in params.items() if v})
+        data = self._get("nominatim", NOMINATIM_URL, query)
+        return data if isinstance(data, list) else []
 
 
-def geocode_pharmacy_v3(
-    session: Session,
-    client: httpx.Client,
-    pharmacy: Pharmacy,
-) -> tuple[float | None, float | None, str | None, str | None, str, str | None, bool]:
-    """Estrategia de geocodificación v3 (Tarea 03c):
+# ---------------------------------------------------------------------------
+# Núcleos de población (entidad "poblacion" de CartoCiudad)
+# ---------------------------------------------------------------------------
 
-    1. Normaliza dirección.
-    2. Obtiene candidatos a (municipio, nucleo).
-    3. Para cada candidato, intenta CartoCiudad estructurado -> Nominatim estructurado.
-    4. Control de calidad:
-       - Si hay núcleo (pedanía): valida distancia < 5 km al centroide del núcleo.
-       - Si es casco urbano: valida distancia < 15 km al centroide del municipio.
-    5. Si falla la dirección:
-       - Si hay núcleo (pedanía): fallback al centroide del núcleo (precisión 'localidad').
-         NUNCA al centroide del municipio. Si el núcleo no se halla: NULL.
-       - Si es casco urbano: fallback al centroide del municipio (precisión 'localidad').
-    Devuelve (lat, lon, precision, provider, final_query, error_reason, es_sospechosa).
+
+@dataclass
+class Nucleus:
+    name: str
+    muni: str
+    lat: float
+    lon: float
+    rings: list[list[tuple[float, float]]] = field(default_factory=list)
+    postal_codes: list[str] = field(default_factory=list)
+    alternates: list["Nucleus"] = field(default_factory=list)
+
+    def distance_km(self, lat: float, lon: float) -> float:
+        """Distancia al núcleo (o a la entidad homónima más cercana)."""
+        own = self._own_distance_km(lat, lon)
+        return min([own] + [alt._own_distance_km(lat, lon) for alt in self.alternates])
+
+    def _own_distance_km(self, lat: float, lon: float) -> float:
+        """0 si el punto está dentro del polígono; si no, distancia a su borde."""
+        if not self.rings:
+            return haversine_km(lat, lon, self.lat, self.lon)
+        if any(_point_in_ring(lon, lat, ring) for ring in self.rings):
+            return 0.0
+        return min(_distance_to_ring_km(lat, lon, ring) for ring in self.rings)
+
+
+def _distance_to_ring_km(lat: float, lon: float, ring: list[tuple[float, float]]) -> float:
+    """Distancia (km) de un punto al borde de un anillo, en proyección local plana."""
+    kx = 111.320 * math.cos(math.radians(lat))
+    ky = 110.574
+    px, py = 0.0, 0.0
+    best = float("inf")
+    pts = [((x - lon) * kx, (y - lat) * ky) for x, y in ring]
+    for (ax, ay), (bx, by) in zip(pts, pts[1:] + pts[:1]):
+        dx, dy = bx - ax, by - ay
+        seg2 = dx * dx + dy * dy
+        t = 0.0 if seg2 == 0 else max(0.0, min(1.0, ((px - ax) * dx + (py - ay) * dy) / seg2))
+        cx, cy = ax + t * dx, ay + t * dy
+        best = min(best, math.hypot(px - cx, py - cy))
+    return best
+
+
+def _point_in_ring(x: float, y: float, ring: list[tuple[float, float]]) -> bool:
+    inside = False
+    n = len(ring)
+    j = n - 1
+    for i in range(n):
+        xi, yi = ring[i]
+        xj, yj = ring[j]
+        if (yi > y) != (yj > y) and x < (xj - xi) * (y - yi) / ((yj - yi) or 1e-15) + xi:
+            inside = not inside
+        j = i
+    return inside
+
+
+def _parse_wkt_rings(wkt: str | None) -> list[list[tuple[float, float]]]:
+    """Anillos exteriores de un POLYGON/MULTIPOLYGON WKT como listas (lon, lat)."""
+    if not wkt or "POLYGON" not in wkt:
+        return []
+    rings = []
+    for chunk in re.findall(r"\(\(([^()]+)\)", wkt):
+        pts = []
+        for pair in chunk.split(","):
+            parts = pair.strip().split()
+            if len(parts) >= 2:
+                pts.append((float(parts[0]), float(parts[1])))
+        if len(pts) >= 3:
+            rings.append(pts)
+    return rings
+
+
+def _names_match(a: str, b: str) -> bool:
+    ka = "".join(t for t in _tokens(a) if t not in _ARTICLES)
+    kb = "".join(t for t in _tokens(b) if t not in _ARTICLES)
+    if not ka or not kb:
+        return False
+    return ka == kb or difflib.SequenceMatcher(None, ka, kb).ratio() >= 0.9
+
+
+def find_nucleus(
+    geo: GeoClient, name: str, munis: list[str], region: str
+) -> Nucleus | None:
+    """Localiza la entidad de población `name` en alguno de los municipios esperados.
+
+    Si `munis` está vacío se acepta cualquier municipio de la comunidad.
     """
-    clean_addr = clean_address(pharmacy.address)
-    candidates = get_candidate_municipalities(pharmacy)
-    region_name = "Illes Balears" if pharmacy.region == "04" else "Región de Murcia"
-
-    for muni, nucleo in candidates:
-        sent_query = f"{clean_addr}, {nucleo or muni} ({muni}, {region_name})"
-
-        # Obtener centroide de referencia (núcleo si existe, o municipio)
-        ref_centroid = None
-        if nucleo:
-            ref_centroid = get_nucleus_centroid(
-                client, session, nucleo, muni, pharmacy.region
-            )
-        if not ref_centroid:
-            ref_centroid = get_municipality_centroid(
-                client, session, muni, pharmacy.region
-            )
-
-        # 1. CartoCiudad estructurado
-        lat, lon, precision, raw = geocode_cartociudad_structured(
-            client,
-            clean_addr,
-            muni,
-            pharmacy.region,
-            pharmacy.postal_code,
-            nucleo=nucleo,
-        )
-        provider = "cartociudad"
-
-        # 2. Nominatim estructurado
-        if lat is None:
-            lat, lon, precision, raw = geocode_nominatim_structured(
-                client,
-                clean_addr,
-                muni,
-                pharmacy.region,
-                pharmacy.postal_code,
-                nucleo=nucleo,
-            )
-            provider = "nominatim"
-
-        # Si se encontró a nivel portal o calle:
-        if lat is not None and lon is not None and precision in ("portal", "calle"):
-            # Control de distancia
-            max_dist = 5.0 if nucleo else 15.0
-            if ref_centroid:
-                dist = haversine_km(lat, lon, ref_centroid[0], ref_centroid[1])
-                if dist > max_dist:
-                    # Degradación a centroide de localidad correspondiente
-                    return (
-                        ref_centroid[0],
-                        ref_centroid[1],
-                        "localidad",
-                        "centroid",
-                        sent_query,
-                        None,
-                        True,
-                    )
-            return lat, lon, precision, provider, sent_query, None, False
-
-        # Si no se encontró calle ni portal: fallback a localidad
-        if nucleo:
-            # Para una pedanía: SOLO el centroide del núcleo, NUNCA el del municipio
-            nuc_centroid = get_nucleus_centroid(
-                client, session, nucleo, muni, pharmacy.region
-            )
-            if nuc_centroid:
-                return (
-                    nuc_centroid[0],
-                    nuc_centroid[1],
-                    "localidad",
-                    "nucleus_centroid",
-                    f"{nucleo}, {muni}",
-                    None,
-                    False,
-                )
-        else:
-            # Casco urbano (locality == municipio)
-            muni_c = get_municipality_centroid(
-                client, session, muni, pharmacy.region
-            )
-            if muni_c:
-                return (
-                    muni_c[0],
-                    muni_c[1],
-                    "localidad",
-                    "muni_centroid",
-                    f"{muni}, {region_name}",
-                    None,
-                    False,
-                )
-
-    # Si ningún candidato pudo situarse: NULL
-    best_muni = candidates[0][0]
-    return (
-        None,
-        None,
-        None,
-        None,
-        f"{clean_addr}, {best_muni}",
-        "No se pudo situar la dirección ni el núcleo",
-        False,
+    if not name:
+        return None
+    provinces = REGION_PROVINCES.get(region, set())
+    keys = {muni_key(m) for m in munis}
+    items: list[dict[str, Any]] = []
+    for q in [f"{name}, {m}" for m in munis[:4]] + [name]:
+        items.extend(geo.candidates(q, limit=20))
+    matches: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+    for it in items:
+        if it.get("type") != "poblacion":
+            continue
+        if it.get("provinceCode") not in provinces:
+            continue
+        if keys and muni_key(it.get("muni")) not in keys:
+            continue
+        if not _names_match(name, it.get("poblacion") or ""):
+            continue
+        if str(it.get("id")) in seen_ids:
+            continue
+        seen_ids.add(str(it.get("id")))
+        matches.append(it)
+    if not matches:
+        return None
+    # Puede haber varias entidades homónimas en el municipio (p. ej. dos "Los
+    # Nietos" en Cartagena): se toma como principal la de polígono más extenso y
+    # las demás se usan como alternativas al validar distancias.
+    found: list[tuple[int, dict[str, Any], dict[str, Any]]] = []
+    for it in matches[:4]:
+        detail = geo.find(str(it["id"]), "poblacion") or it
+        lat, lon = detail.get("lat"), detail.get("lng")
+        if not lat or not lon or not is_within_bbox(region, float(lat), float(lon)):
+            continue
+        found.append((len(detail.get("geom") or ""), it, detail))
+    if not found:
+        return None
+    found.sort(key=lambda f: -f[0])
+    _size, chosen, detail = found[0]
+    lat, lon = detail.get("lat"), detail.get("lng")
+    alternates = [
+        Nucleus(it.get("poblacion") or name, it.get("muni") or "", float(d["lat"]), float(d["lng"]),
+                rings=_parse_wkt_rings(d.get("geom")))
+        for _s, it, d in found[1:]
+    ]
+    postal = sorted(
+        {
+            str(it["postalCode"])
+            for it in items
+            if it.get("postalCode")
+            and _names_match(name, it.get("poblacion") or "")
+            and muni_key(it.get("muni")) == muni_key(chosen.get("muni"))
+        }
     )
+    return Nucleus(
+        name=chosen.get("poblacion") or name,
+        muni=chosen.get("muni") or "",
+        lat=float(lat),
+        lon=float(lon),
+        rings=_parse_wkt_rings(detail.get("geom")),
+        postal_codes=postal,
+        alternates=alternates,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Contexto esperado de cada farmacia
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class GeoContext:
+    munis: list[str]
+    nucleus_name: str | None = None
+    casco: bool = False
+    postal_codes: list[str] = field(default_factory=list)
+    note: str = ""
+
+    @property
+    def muni_keys(self) -> set[str]:
+        return {muni_key(m) for m in self.munis}
+
+
+_HINT_SKIP = re.compile(
+    r"^(?:junto|frente|enfrente|davant|al costat|entre|cantonada|esq|esquina|inicio|"
+    r"final|rotonda|edif|ed|local|loc|bl|esc|bajos|club|supermercado|al lado|"
+    r"mercadona|eroski|carrefour)\b",
+    re.IGNORECASE,
+)
+
+
+def _hint_phrases(address: str) -> list[str]:
+    """Posibles nombres de núcleo dentro de una dirección de Baleares."""
+    phrases: list[str] = []
+    for inner in re.findall(r"\(([^()]*)\)?", address):
+        phrases.append(inner)
+    unclosed = re.search(r"\(([^()]*)$", address)
+    if unclosed:
+        phrases.append(unclosed.group(1))
+    no_paren = re.sub(r"\([^()]*\)?", " ", address)
+    # Texto tras el último número de portal ("11 CALA MILLOR", "12-C'AS CONCOS").
+    tail = re.search(r"\d+[A-Za-z]?\s*[-,]?\s*([A-Za-zÀ-ÿ'´ .]+?)\s*[-.]*\s*$", no_paren)
+    if tail:
+        phrases.append(tail.group(1))
+    # Trozos separados por guion tras el último dígito ("31-IFRE-CAÑADA DE GALLEGO").
+    after_digits = re.split(r"\d", no_paren)[-1] if re.search(r"\d", no_paren) else ""
+    for piece in re.split(r"\s*-\s*", after_digits):
+        phrases.append(piece)
+    # Texto tras el último ". " o " - ".
+    for sep in (". ", " - ", "- "):
+        if sep in no_paren:
+            before, after = no_paren.rsplit(sep, 1)
+            last_word = before.split()[-1] if before.split() else ""
+            if _HINT_SKIP.match(last_word.strip(".")) or len(last_word.strip(".")) <= 2:
+                continue  # "Ed. Can Cardona", "L. K4": nombre de edificio o local
+            phrases.append(after)
+    out = []
+    for p in phrases:
+        p = re.sub(r"(?i)\bsta\.?\s*", "SANTA ", p)
+        p = re.sub(r"(?i)\burb(?:anizaci[oó]n)?\b\.?\s*", "", p)
+        p = re.sub(r"[\d]+", " ", p)
+        p = re.sub(r"\s+", " ", p).strip(" .,-")
+        if len(p) < 3 or _HINT_SKIP.match(p):
+            continue
+        if p not in out:
+            out.append(p)
+    return out
+
+
+def _known_baleares(name: str) -> tuple[str, str | None] | None:
+    """(municipio, núcleo) si `name` es una localidad balear conocida."""
+    key = normalize_text(name)
+    for k, v in BALEARES_KNOWN_MAP.items():
+        if normalize_text(k) == key:
+            return v
+    muni = baleares_municipality(name)
+    if muni:
+        return (muni, None)
+    return None
+
+
+def _zone_municipalities(zones: list[str]) -> list[str]:
+    munis: list[str] = []
+    for zone in zones:
+        parts = [zone] if baleares_municipality(zone) else re.split(r"\s*-\s*", zone)
+        for part in parts:
+            muni = baleares_municipality(part)
+            if muni is None:
+                known = _known_baleares(part)
+                muni = known[0] if known else None
+            if muni and muni not in munis:
+                munis.append(muni)
+    return munis
+
+
+def resolve_context(geo: GeoClient, pharmacy: Pharmacy) -> GeoContext:
+    """Municipio(s), núcleo y códigos postales esperados para una farmacia."""
+    if pharmacy.region == "14":
+        pairs = get_candidate_municipalities(pharmacy)
+        munis = []
+        for muni, _nuc in pairs:
+            if muni not in munis:
+                munis.append(muni)
+        nucleus = next((n for _m, n in pairs if n), None)
+        if nucleus and muni_key(nucleus) in {muni_key(m) for m in munis}:
+            nucleus = None
+        postal = [pharmacy.postal_code] if pharmacy.postal_code else []
+        return GeoContext(munis, nucleus, nucleus is None, postal, "localidad de la fuente")
+
+    zones: list[str] = []
+    if pharmacy.zones:
+        try:
+            zones = [z for z in json.loads(pharmacy.zones) if isinstance(z, str)]
+        except (json.JSONDecodeError, TypeError):
+            zones = []
+    zone_munis = _zone_municipalities(zones)
+    loc = (pharmacy.locality or "").strip()
+
+    if loc:
+        known = _known_baleares(loc)
+        if known:
+            muni, nucleus = known
+            return GeoContext([muni], nucleus, nucleus is None, [], "localidad de la fuente")
+        # Localidad no reconocida: tratarla como núcleo dentro de las zonas.
+        return GeoContext(zone_munis, loc.title(), False, [], "localidad no reconocida")
+
+    for phrase in _hint_phrases(pharmacy.address):
+        known = _known_baleares(phrase)
+        if known:
+            muni, nucleus = known
+            return GeoContext([muni], nucleus, nucleus is None, [], f"núcleo en dirección: {phrase}")
+        nuc = find_nucleus(geo, phrase, [], pharmacy.region)
+        if nuc is not None and (not zone_munis or len(phrase) >= 5):
+            return GeoContext(
+                [nuc.muni], nuc.name, False, [], f"núcleo en dirección: {phrase}"
+            )
+    # Sin núcleo identificable: municipios de sus zonas, sin casco conocido.
+    return GeoContext(zone_munis, None, False, [], "municipios de la zona de guardia")
+
+
+# ---------------------------------------------------------------------------
+# Direcciones
+# ---------------------------------------------------------------------------
+
+_STREET_TYPES = {
+    "CALLE": "CARRER", "AVENIDA": "AVINGUDA", "PLAZA": "PLAÇA", "PASEO": "PASSEIG",
+    "CARRETERA": "CARRETERA", "CAMINO": "CAMÍ", "TRAVESIA": "TRAVESSIA",
+    "RONDA": "RONDA", "GLORIETA": "GLORIETA", "URBANIZACION": "URBANITZACIO",
+    "CARRER": "CALLE", "AVINGUDA": "AVENIDA", "PLAÇA": "PLAZA", "PASSEIG": "PASEO",
+    "CAMI": "CAMINO", "CAMÍ": "CAMINO", "TRAVESSIA": "TRAVESIA",
+}
+_EXTRA_TYPES = {
+    "CM": "CAMI", "CR": "CARRETERA", "AVG": "AVINGUDA", "AVGDA": "AVINGUDA",
+    "PG": "PASSEIG", "PS": "PASEO", "C": "CALLE",
+}
+_STREET_STOP = _ARTICLES | {
+    "calle", "carrer", "avenida", "avinguda", "plaza", "placa", "paseo", "passeig",
+    "carretera", "camino", "cami", "travesia", "travessia", "ronda", "glorieta",
+    "urbanizacion", "via", "dr", "doctor", "doctora", "sr", "san", "sant", "santa",
+    "santo", "km", "av", "cl", "c", "pz", "pl", "ctra", "cm", "gran",
+    "bulevar", "bulevard", "boulevar", "boulevard", "rambla", "pasaje", "passatge",
+    "pintor", "poeta", "escultor", "maestro", "mestre", "general", "capitan",
+    "padre", "pare", "obispo", "bisbe", "notario", "notari", "arquitecto",
+    "almirante", "comandante", "teniente", "coronel", "ingeniero", "enginyer",
+    "profesor", "professor", "historiador", "musico", "music", "compositor",
+}
+
+
+# Equivalencias castellano -> catalán frecuentes en el callejero balear. Se usan
+# para comparar nombres de vía y para consultar con la forma catalana oficial.
+_CA_WORDS: dict[str, str] = {
+    "playa": "platja", "playas": "platges", "paseo": "passeig", "calle": "carrer",
+    "avenida": "avinguda", "plaza": "placa", "camino": "cami", "carretera": "carretera",
+    "travesia": "travessia", "mayor": "major", "puerto": "port", "iglesia": "esglesia",
+    "pinos": "pins", "pino": "pi", "palmeras": "palmeres", "molino": "moli",
+    "molinos": "molins", "fuente": "font", "pozo": "pou", "cruz": "creu",
+    "virgen": "verge", "rey": "rei", "reyes": "reis", "reina": "reina",
+    "jose": "josep", "juan": "joan", "jaime": "jaume", "pedro": "pere",
+    "miguel": "miquel", "francisco": "francesc", "antonio": "antoni",
+    "bartolome": "bartomeu", "cristobal": "cristofol", "luis": "lluis",
+    "lorenzo": "llorenc", "jorge": "jordi", "andres": "andreu", "mateo": "mateu",
+    "nicolas": "nicolau", "pablo": "pau", "esteban": "esteve", "vicente": "vicenc",
+    "santiago": "jaume", "isidro": "isidre", "margarita": "margalida",
+    "catalina": "catalina", "rosario": "roser", "carmen": "carme",
+    "huerto": "hort", "huertos": "horts", "campo": "camp", "mar": "mar",
+    "sol": "sol", "luna": "lluna", "flores": "flors", "olivos": "oliveres",
+    "almendros": "ametllers", "sur": "sud", "norte": "nord", "levante": "llevant",
+    "poniente": "ponent", "san": "sant", "nuevo": "nou", "nueva": "nova",
+    "viejo": "vell", "vieja": "vella", "alto": "alt", "bajo": "baix",
+    "general": "general", "doctor": "doctor", "maestro": "mestre",
+    "poeta": "poeta", "pintor": "pintor", "padre": "pare", "obispo": "bisbe",
+    "conde": "comte", "marques": "marques", "duque": "duc", "infanta": "infanta",
+    "colon": "colom", "canonigo": "canonge", "escuelas": "escoles", "escuela": "escola",
+}
+
+
+def _canon_token(tok: str) -> str:
+    return _CA_WORDS.get(tok, tok)
+
+
+def to_catalan(text: str) -> str:
+    """Versión catalana aproximada de un nombre de vía (solo para consultas)."""
+    words = []
+    for word in text.split():
+        key = normalize_text(word)
+        words.append(_CA_WORDS.get(key, word).upper() if key in _CA_WORDS else word)
+    return " ".join(words)
+
+
+@dataclass
+class ParsedAddress:
+    street_type: str
+    name: str
+    number: int | None
+
+    @property
+    def full(self) -> str:
+        return f"{self.street_type} {self.name}".strip()
+
+
+def parse_address(clean: str) -> ParsedAddress:
+    """Separa tipo de vía, nombre y número de una dirección ya normalizada."""
+    text = clean.strip()
+    number = None
+    m = re.match(r"^(.*?),\s*(.*)$", text)
+    if m and re.search(r"\d", m.group(2)):
+        text = m.group(1)
+        num = re.search(r"\d+", m.group(2))
+        number = int(num.group(0)) if num and "km" not in m.group(2).lower() else None
+    else:
+        m2 = re.match(r"^(.*?\D)\s+(\d+)\b.*$", text)
+        if m2:
+            text, number = m2.group(1), int(m2.group(2))
+    text = re.sub(r"(?i)\bDR\.?\s+", "DOCTOR ", text)
+    text = re.sub(r"(?i)\bSTA\.?\s+", "SANTA ", text)
+    text = re.sub(r"\s+", " ", text).strip(" ,.-")
+    parts = text.split(" ", 1)
+    first = parts[0].upper().rstrip(".")
+    if first in _EXTRA_TYPES and len(parts) == 2:
+        return ParsedAddress(_EXTRA_TYPES[first], parts[1].strip(), number)
+    if first in _STREET_TYPES and len(parts) == 2:
+        rest = parts[1].strip()
+        # "AVENIDA AVINGUDA DE CARLES V" -> se queda una sola vez el tipo
+        rest_first = rest.split(" ", 1)[0].upper()
+        same_kind = rest_first == first or _STREET_TYPES.get(rest_first) == first or (
+            _STREET_TYPES.get(first) == rest_first
+        )
+        if same_kind and " " in rest:
+            rest = rest.split(" ", 1)[1]
+        elif rest_first in _STREET_TYPES and " " in rest:
+            # "CALLE CAMINO REAL": el tipo real es el segundo.
+            first, rest = rest_first, rest.split(" ", 1)[1]
+        return ParsedAddress(first, rest, number)
+    return ParsedAddress("", text, number)
+
+
+def street_similarity(query_name: str, result_street: str) -> float:
+    """Proporción de palabras significativas de la vía buscada presentes en la hallada."""
+    qt = [_canon_token(t) for t in _tokens(query_name)]
+    rt = [_canon_token(t) for t in _tokens(result_street)]
+    q = [t for t in qt if t not in _STREET_STOP and not t.isdigit()]
+    r = [t for t in rt if t not in _STREET_STOP and not t.isdigit()]
+    if not q:
+        q = [t for t in qt if not t.isdigit()]
+        r = [t for t in rt if not t.isdigit()]
+    if not q or not r:
+        return 0.0
+    hits = 0.0
+    for tok in q:
+        best = max(difflib.SequenceMatcher(None, tok, cand).ratio() for cand in r)
+        if best >= 0.75:
+            hits += 1.0
+        elif any(cand.startswith(tok) or tok.startswith(cand) for cand in r if len(cand) >= 3):
+            hits += 0.8
+    return hits / len(q)
+
+
+def _result_street(address: str | None) -> str:
+    """Nombre de vía de un 'address' de CartoCiudad ('CALLE X 17, Núcleo (Muni)')."""
+    if not address:
+        return ""
+    head = address.split(",", 1)[0]
+    head = re.sub(r"\s+\d+\s*[A-Z]?$", "", head.strip())
+    return head
+
+
+# ---------------------------------------------------------------------------
+# Geocodificación de una farmacia
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class GeoResult:
+    lat: float | None
+    lon: float | None
+    precision: str | None
+    source: str | None
+    query: str
+    reason: str = ""
+
+
+def _validate_point(
+    geo: GeoClient,
+    ctx: GeoContext,
+    nucleus: Nucleus | None,
+    casco_nucleus: Nucleus | None,
+    region: str,
+    lat: float,
+    lon: float,
+) -> str | None:
+    """Devuelve None si el punto es coherente; si no, el motivo del rechazo."""
+    if not is_within_bbox(region, lat, lon):
+        return "fuera de la comunidad"
+    rev = geo.reverse(lat, lon)
+    if rev is None:
+        return "sin geocodificación inversa"
+    if ctx.munis and muni_key(rev.get("muni")) not in ctx.muni_keys:
+        shared = nucleus is not None and nucleus.distance_km(lat, lon) <= NUCLEUS_SHARED_KM
+        if not shared:
+            return f"municipio inverso {rev.get('muni')!r} no esperado"
+    if nucleus is not None and nucleus.distance_km(lat, lon) > NUCLEUS_MAX_KM:
+        return f"a {nucleus.distance_km(lat, lon):.1f} km del núcleo {nucleus.name}"
+    if casco_nucleus is not None and haversine_km(
+        lat, lon, casco_nucleus.lat, casco_nucleus.lon
+    ) > CASCO_MAX_KM:
+        return "lejos del casco urbano"
+    return None
+
+
+def _cartociudad_street(
+    geo: GeoClient,
+    ctx: GeoContext,
+    addr: ParsedAddress,
+    region: str,
+    postal_codes: list[str],
+    places: list[str],
+    nucleus: Nucleus | None = None,
+) -> list[tuple[float, float, str, str, dict[str, Any]]]:
+    """Candidatos de CartoCiudad que superan municipio, vía y código postal."""
+    provinces = REGION_PROVINCES.get(region, set())
+    num = f" {addr.number}" if addr.number else ""
+    variants = [f"{addr.full}{num}"]
+    if addr.street_type and addr.street_type.upper() in _STREET_TYPES:
+        variants.append(f"{_STREET_TYPES[addr.street_type.upper()]} {addr.name}{num}")
+    variants.append(f"{addr.name}{num}")
+    if region == "04":
+        catalan = to_catalan(f"{addr.full}{num}")
+        if catalan not in variants:
+            variants.insert(1, catalan)
+    if re.search(r"\s+I\s+", addr.name, re.IGNORECASE):
+        variants.append(re.sub(r"(?i)\s+i\s+", " ", addr.name) + num)
+    core = [t for t in addr.name.split() if normalize_text(t) not in _STREET_STOP]
+    if len(core) >= 3:
+        variants.append(" ".join(core[:2]) + num)
+    if len(core) >= 2:
+        variants.append(f"{core[-1]}{num}")
+    seen: set[str] = set()
+    queries: list[tuple[str, dict[str, str]]] = []
+    for v in variants:
+        for cp in postal_codes:
+            queries.append((v, {"cod_postal_filter": cp}))
+    for i, pl in enumerate(places):
+        for v in (variants[:3] if i < 3 else [f"{addr.name}{num}"]):
+            queries.append((f"{v}, {pl}", {}))
+    accepted: list[tuple[float, float, str, str, dict[str, Any]]] = []
+    for q, flt in queries:
+        sig = q + json.dumps(flt, sort_keys=True)
+        if sig in seen:
+            continue
+        seen.add(sig)
+        for it in geo.candidates(q, limit=10, **flt):
+            if it.get("provinceCode") not in provinces:
+                continue
+            other_muni = bool(ctx.munis) and muni_key(it.get("muni")) not in ctx.muni_keys
+            if other_muni and nucleus is None:
+                continue
+            if it.get("type") not in ("portal", "callejero", "expendeduria"):
+                continue
+            cp_near = False
+            if postal_codes and it.get("postalCode") and str(it["postalCode"]) not in postal_codes:
+                # CP vecino de la misma ciudad (30001 frente a 30005): se admite, pero
+                # nunca como portal. Distinto prefijo = otra población: se descarta.
+                if not any(str(it["postalCode"])[:4] == cp[:4] for cp in postal_codes):
+                    continue
+                cp_near = True
+            street = _result_street(it.get("address"))
+            if street_similarity(addr.name, street) < STREET_MIN_SCORE:
+                continue
+            lat, lon = it.get("lat"), it.get("lng")
+            if not lat or not lon:
+                detail = geo.find(str(it["id"]), str(it["type"]))
+                if detail:
+                    lat, lon = detail.get("lat"), detail.get("lng")
+            if not lat or not lon:
+                continue
+            if other_muni and nucleus is not None and (
+                nucleus.distance_km(float(lat), float(lon)) > NUCLEUS_SHARED_KM
+            ):
+                continue
+            if not cp_near and it.get("type") in ("portal", "expendeduria") and addr.number and (
+                it.get("portalNumber") == addr.number
+            ):
+                precision = "portal"
+            else:
+                precision = "calle"
+            accepted.append((float(lat), float(lon), precision, f"cartociudad:{q}", it))
+        if any(a[2] == "portal" for a in accepted):
+            break
+        if accepted and not addr.number:
+            break
+    accepted.sort(key=lambda a: 0 if a[2] == "portal" else 1)
+    return accepted
+
+
+def _nominatim_street(
+    geo: GeoClient,
+    ctx: GeoContext,
+    addr: ParsedAddress,
+    postal_codes: list[str],
+    cities: list[str],
+) -> list[tuple[float, float, str, str, dict[str, Any]]]:
+    accepted = []
+    street = f"{addr.number} {addr.full}" if addr.number else addr.full
+    searches: list[dict[str, str]] = []
+    for city in cities:
+        for cp in (postal_codes or [""]):
+            searches.append({"street": street, "city": city, "postalcode": cp})
+    for city in cities[:2]:
+        searches.append({"q": f"{addr.full} {addr.number or ''}, {city}".replace(" ,", ",")})
+    for params in searches:
+        if True:
+            for it in geo.nominatim(**params):
+                info = it.get("address", {})
+                road = info.get("road") or info.get("pedestrian") or info.get("square") or ""
+                if street_similarity(addr.name, road) < STREET_MIN_SCORE:
+                    continue
+                cls, typ = it.get("class"), it.get("type")
+                house = info.get("house_number")
+                if cls == "highway" or it.get("addresstype") == "road":
+                    precision = "calle"
+                elif house and (cls in ("building", "place", "amenity", "shop", "office") or typ == "house"):
+                    house_num = re.match(r"\d+", str(house))
+                    precision = (
+                        "portal"
+                        if addr.number and house_num and int(house_num.group(0)) == addr.number
+                        else "calle"
+                    )
+                else:
+                    continue
+                if postal_codes and info.get("postcode") and info["postcode"] not in postal_codes:
+                    continue
+                accepted.append(
+                    (float(it["lat"]), float(it["lon"]), precision, "nominatim", it)
+                )
+            if accepted:
+                return sorted(accepted, key=lambda a: 0 if a[2] == "portal" else 1)
+    return accepted
+
+
+def geocode_pharmacy(geo: GeoClient, pharmacy: Pharmacy) -> GeoResult:
+    """Geocodifica una farmacia según las reglas del módulo."""
+    region = pharmacy.region
+    ctx = resolve_context(geo, pharmacy)
+    clean = clean_address(pharmacy.address)
+    addr = parse_address(clean)
+    nucleus = None
+    casco_nucleus = None
+    if ctx.nucleus_name:
+        nucleus = find_nucleus(geo, ctx.nucleus_name, ctx.munis, region)
+        if nucleus is not None and nucleus.muni and nucleus.muni not in ctx.munis:
+            ctx.munis.append(nucleus.muni)
+    if ctx.casco and ctx.munis and nucleus is None:
+        for phrase in _hint_phrases(pharmacy.address):
+            if muni_key(phrase) in ctx.muni_keys:
+                continue
+            hinted = find_nucleus(geo, phrase, ctx.munis, region)
+            if hinted is not None and muni_key(hinted.name) not in ctx.muni_keys:
+                nucleus = hinted
+                ctx.nucleus_name, ctx.casco = hinted.name, False
+                ctx.note = f"núcleo en dirección: {phrase}"
+                break
+    if ctx.casco and ctx.munis:
+        for muni in ctx.munis:
+            casco_nucleus = find_nucleus(geo, muni, [muni], region)
+            if casco_nucleus is None and muni_key(muni) == "maomahon":
+                casco_nucleus = find_nucleus(geo, "Maó", [muni], region)
+            if casco_nucleus is not None:
+                break
+
+    postal = list(ctx.postal_codes)
+    if not postal and nucleus is not None:
+        postal = list(nucleus.postal_codes)
+    short_munis: list[str] = []
+    for m in ctx.munis[:8]:
+        for variant in [m] + [x for x in m.split("-") if len(x) > 2 and x != m]:
+            if variant not in short_munis:
+                short_munis.append(variant)
+    places = [f"{ctx.nucleus_name}, {m}" for m in ctx.munis[:2]] if ctx.nucleus_name else []
+    places += short_munis or [REGION_NAMES[region]]
+    query = f"{addr.full}{', ' + str(addr.number) if addr.number else ''} | {places[0]}"
+    rejected: list[str] = []
+
+    if addr.name and len(normalize_text(addr.name)) >= 3 and ctx.munis:
+        attempts = [_cartociudad_street(geo, ctx, addr, region, postal, places, nucleus)]
+        cities = []
+        if ctx.nucleus_name:
+            cities.append(ctx.nucleus_name)
+        cities.extend(short_munis[:4])
+        for cands in attempts:
+            for lat, lon, precision, src, _raw in cands:
+                why = _validate_point(geo, ctx, nucleus, casco_nucleus, region, lat, lon)
+                if why is None:
+                    return GeoResult(lat, lon, precision, src.split(":", 1)[0], query, ctx.note)
+                rejected.append(why)
+        for lat, lon, precision, src, _raw in _nominatim_street(geo, ctx, addr, postal, cities):
+            why = _validate_point(geo, ctx, nucleus, casco_nucleus, region, lat, lon)
+            if why is None:
+                return GeoResult(lat, lon, precision, "nominatim", query, ctx.note)
+            rejected.append(why)
+
+    detail = "; ".join(dict.fromkeys(rejected)) or "dirección no encontrada"
+    if nucleus is not None:
+        why = _validate_point(geo, ctx, None, None, region, nucleus.lat, nucleus.lon)
+        if why is None:
+            return GeoResult(
+                nucleus.lat, nucleus.lon, "localidad", "nucleus_centroid", query,
+                f"{detail}; centroide del núcleo {nucleus.name}",
+            )
+    if casco_nucleus is not None:
+        why = _validate_point(geo, ctx, None, None, region, casco_nucleus.lat, casco_nucleus.lon)
+        if why is None:
+            return GeoResult(
+                casco_nucleus.lat, casco_nucleus.lon, "localidad", "casco_centroid", query,
+                f"{detail}; centroide del casco urbano de {casco_nucleus.name}",
+            )
+    if ctx.nucleus_name and nucleus is None:
+        detail += f"; núcleo {ctx.nucleus_name!r} no localizado"
+    elif not ctx.nucleus_name and not ctx.casco:
+        detail += "; núcleo desconocido (sin localidad en la fuente)"
+    return GeoResult(None, None, None, None, query, detail)
+
+
+# ---------------------------------------------------------------------------
+# Control final y proceso por lotes
+# ---------------------------------------------------------------------------
 
 
 def enforce_shared_coordinates_limit(session: Session) -> list[dict[str, Any]]:
-    """Aplica la regla de control final de la Tarea 03c:
+    """Ningún punto compartido por más de 2 farmacias con direcciones distintas.
 
-    Ningún par (lat, lon) puede ser compartido por más de 2 farmacias
-    salvo que tengan la misma dirección normalizada.
-    Las farmacias sobrantes en clusters de centroide se degradan a lat/lon = NULL.
+    Las sobrantes (priorizando conservar portal/calle) pasan a lat/lon = NULL.
     """
     pharmacies = session.scalars(
         select(Pharmacy).where(Pharmacy.lat.is_not(None), Pharmacy.lon.is_not(None))
     ).all()
-
-    coords_map: dict[tuple[float, float], list[Pharmacy]] = defaultdict(list)
+    groups: dict[tuple[float, float], list[Pharmacy]] = defaultdict(list)
     for p in pharmacies:
-        key = (round(p.lat, 5), round(p.lon, 5))
-        coords_map[key].append(p)
-
-    degraded_list: list[dict[str, Any]] = []
-
-    for (lat_r, lon_r), members in coords_map.items():
-        if len(members) <= 2:
+        groups[(round(p.lat, 5), round(p.lon, 5))].append(p)
+    degraded: list[dict[str, Any]] = []
+    order = {"portal": 0, "calle": 1}
+    for coords, members in groups.items():
+        if len(members) <= 2 or len({clean_address(m.address) for m in members}) == 1:
             continue
-
-        # Comprobar si todas tienen la misma dirección normalizada
-        clean_addrs = {clean_address(m.address) for m in members}
-        if len(clean_addrs) == 1:
-            # Es la misma dirección física compartida (ej. co-titulares o mismo edificio)
-            continue
-
-        # Es un cluster indebido (ej. centroide compartido por múltiples farmacias distintas).
-        # Conservar hasta 2 (priorizando las que sean portal o calle) y degradar las demás a NULL
-        def sort_priority(p: Pharmacy) -> int:
-            if p.geo_precision == "portal":
-                return 0
-            if p.geo_precision == "calle":
-                return 1
-            return 2
-
-        members.sort(key=sort_priority)
-
-        # Las dos primeras se conservan
+        members.sort(key=lambda m: order.get(m.geo_precision or "", 2))
         for excess in members[2:]:
-            degraded_list.append(
+            degraded.append(
                 {
                     "id": excess.id,
-                    "titular": excess.holder,
                     "direccion": excess.address,
-                    "localidad": excess.locality,
-                    "coords": (lat_r, lon_r),
-                    "motivo": f"Punto compartido por {len(members)} farmacias con distintas direcciones",
+                    "coords": coords,
+                    "motivo": f"punto compartido por {len(members)} farmacias",
                 }
             )
-            excess.lat = None
-            excess.lon = None
-            excess.geo_precision = None
-            excess.geo_source = None
-
+            excess.lat = excess.lon = None
+            excess.geo_precision = excess.geo_source = None
     session.commit()
-    return degraded_list
+    return degraded
 
 
 def geocode_all_pharmacies(
@@ -1057,315 +1334,131 @@ def geocode_all_pharmacies(
     recheck_only: bool = False,
     report_path: Path | str = "tmp/geocode_report.txt",
     database_url: str | None = None,
+    ids: list[str] | None = None,
+    offline: bool = False,
 ) -> dict[str, Any]:
-    """Geocodifica las farmacias de la base de datos y genera el informe final (Tarea 03c)."""
+    """Geocodifica las farmacias y escribe el informe."""
     engine = create_db_engine(database_url)
     init_db(engine)
-
-    report_file = Path(report_path)
-    report_file.parent.mkdir(parents=True, exist_ok=True)
-
+    reasons: dict[str, str] = {}
     with Session(engine) as session:
-        if recheck_only:
-            query = (
-                select(Pharmacy)
-                .where(
-                    or_(
-                        Pharmacy.geo_precision == "localidad",
-                        Pharmacy.geo_precision.is_(None),
-                        Pharmacy.lat.is_(None),
-                        Pharmacy.lon.is_(None),
-                        # También reprocesar las que tengan exactamente coordenadas de centroide conocidas
-                        Pharmacy.lat.between(39.5695, 39.5697),
-                        Pharmacy.lat.between(37.9885, 37.9887),
-                        Pharmacy.lat.between(37.6055, 37.6057),
-                    )
-                )
-                .order_by(Pharmacy.id)
+        query = select(Pharmacy).order_by(Pharmacy.id)
+        if ids:
+            query = query.where(Pharmacy.id.in_(ids))
+        elif recheck_only:
+            query = query.where(
+                or_(Pharmacy.geo_precision == "localidad", Pharmacy.lat.is_(None))
             )
-        else:
-            query = select(Pharmacy).order_by(Pharmacy.id)
-
         if limit:
             query = query.limit(limit)
-
-        target_pharmacies = session.scalars(query).all()
-        print(f"Farmacias a procesar en esta pasada: {len(target_pharmacies)}")
-
-        sospechosas_list: list[dict[str, Any]] = []
-        with httpx.Client(timeout=10.0) as client:
-            for idx, p in enumerate(target_pharmacies, 1):
-                lat, lon, precision, provider, sent_query, error, sospechosa = (
-                    geocode_pharmacy_v3(session, client, p)
-                )
-
-                p.geo_query = sent_query
-                if lat is not None and lon is not None:
-                    p.lat = lat
-                    p.lon = lon
-                    p.geo_precision = precision
-                    p.geo_source = provider
-                    if sospechosa:
-                        sospechosas_list.append(
-                            {
-                                "id": p.id,
-                                "titular": p.holder,
-                                "direccion": p.address,
-                                "localidad": p.locality,
-                                "motivo": "Distancia > tolerancia (degradada a localidad)",
-                            }
-                        )
-                else:
-                    p.lat = None
-                    p.lon = None
-                    p.geo_precision = None
-                    p.geo_source = None
-
-                if idx % 25 == 0:
+        targets = session.scalars(query).all()
+        print(f"Farmacias a procesar: {len(targets)}")
+        with httpx.Client() as http:
+            geo = GeoClient(session, http, offline=offline)
+            for idx, p in enumerate(targets, 1):
+                res = geocode_pharmacy(geo, p)
+                p.lat, p.lon = res.lat, res.lon
+                p.geo_precision, p.geo_source = res.precision, res.source
+                p.geo_query = res.query
+                reasons[p.id] = res.reason
+                if idx % 20 == 0:
                     session.commit()
-                    print(f"Procesadas {idx}/{len(target_pharmacies)} farmacias...")
-
+                    print(f"  {idx}/{len(targets)} (llamadas en vivo: {geo.live_calls})", flush=True)
             session.commit()
-
-        # Control final de coordenadas compartidas
-        degraded_shared = enforce_shared_coordinates_limit(session)
-
-        # Recopilar estadísticas globales de toda la base de datos
-        all_pharmacies = session.scalars(select(Pharmacy)).all()
-
-    # Estadísticas por precisión y región
-    total = len(all_pharmacies)
-    stats: dict[str, Any] = {
-        "total": total,
-        "portal": 0,
-        "calle": 0,
-        "localidad": 0,
-        "fallidos": 0,
-        "por_region": {
-            "04": {"total": 0, "portal": 0, "calle": 0, "localidad": 0, "fallidos": 0},
-            "14": {"total": 0, "portal": 0, "calle": 0, "localidad": 0, "fallidos": 0},
-        },
-        "palma": {"total": 0, "portal_calle": 0},
-        "murcia_muni": {"total": 0, "portal_calle": 0},
-        "failed_list": [],
-        "sospechosas_list": sospechosas_list,
-        "degraded_shared": degraded_shared,
-        "test_palma_violations": [],
-        "sample_20": [],
-    }
-
-    portal_calle_list = []
-    coords_count: dict[tuple[float, float], list[Pharmacy]] = defaultdict(list)
-
-    for p in all_pharmacies:
-        reg = p.region
-        prec = p.geo_precision
-        reg_stat = stats["por_region"].setdefault(
-            reg, {"total": 0, "portal": 0, "calle": 0, "localidad": 0, "fallidos": 0}
-        )
-        reg_stat["total"] += 1
-
-        is_palma = False
-        if reg == "04":
-            loc = (p.locality or "").upper()
-            zs = (p.zones or "").upper()
-            if loc == "PALMA" or (not loc and "PALMA" in zs):
-                is_palma = True
-                stats["palma"]["total"] += 1
-
-        is_murcia_muni = False
-        if reg == "14":
-            loc = (p.locality or "").upper()
-            if (
-                loc == "MURCIA"
-                or "(MURCIA)" in loc
-                or (p.postal_code and p.postal_code.startswith("300"))
-            ):
-                is_murcia_muni = True
-                stats["murcia_muni"]["total"] += 1
-
-        if p.lat is not None and p.lon is not None:
-            # Comprobación de coordenadas de test de Palma
-            if abs(p.lat - 39.5696) < 0.0001 and abs(p.lon - 2.6502) < 0.0001:
-                stats["test_palma_violations"].append(p)
-
-            coords_count[(round(p.lat, 5), round(p.lon, 5))].append(p)
-
-            if prec in ("portal", "calle"):
-                stats[prec] += 1
-                reg_stat[prec] += 1
-                if is_palma:
-                    stats["palma"]["portal_calle"] += 1
-                if is_murcia_muni:
-                    stats["murcia_muni"]["portal_calle"] += 1
-                portal_calle_list.append(p)
-            elif prec == "localidad":
-                stats["localidad"] += 1
-                reg_stat["localidad"] += 1
-        else:
-            stats["fallidos"] += 1
-            reg_stat["fallidos"] += 1
-            stats["failed_list"].append(
-                {
-                    "id": p.id,
-                    "titular": p.holder,
-                    "direccion": p.address,
-                    "localidad": p.locality,
-                    "region": p.region,
-                    "motivo": "No se encontraron coordenadas ni dirección ni núcleo",
-                }
-            )
-
-    portal = stats["portal"]
-    calle = stats["calle"]
-    localidad = stats["localidad"]
-    fallidos = stats["fallidos"]
-    portal_calle = portal + calle
-    tasa_portal_calle = (portal_calle / total * 100) if total > 0 else 0.0
-
-    palma_total = stats["palma"]["total"]
-    palma_pc = stats["palma"]["portal_calle"]
-    palma_pct = (palma_pc / palma_total * 100) if palma_total > 0 else 0.0
-
-    murcia_total = stats["murcia_muni"]["total"]
-    murcia_pc = stats["murcia_muni"]["portal_calle"]
-    murcia_pct = (murcia_pc / murcia_total * 100) if murcia_total > 0 else 0.0
-
-    # Muestra de 20 farmacias aleatorias a portal/calle
-    sample_size = min(20, len(portal_calle_list))
-    sample = random.sample(portal_calle_list, sample_size) if sample_size > 0 else []
-
-    # Lista de grupos compartidos
-    shared_groups = [
-        (c, members) for c, members in coords_count.items() if len(members) > 1
-    ]
-    shared_groups.sort(key=lambda x: len(x[1]), reverse=True)
-
-    lines = [
-        "============================================================",
-        "INFORME DE GEOCODIFICACIÓN DE FARMACIAS (Tarea 03c)",
-        f"Fecha y hora: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
-        "============================================================",
-        f"Total farmacias analizadas: {total}",
-        f"Precisión Portal + Calle:   {portal_calle} ({tasa_portal_calle:.1f}%)",
-        f"Palma (Portal + Calle):     {palma_pc}/{palma_total} ({palma_pct:.1f}%) [Objetivo: >= 85%]",
-        f"Murcia muni (Portal+Calle): {murcia_pc}/{murcia_total} ({murcia_pct:.1f}%) [Objetivo: >= 85%]",
-        f"Farmacias en (39.5696, 2.6502): {len(stats['test_palma_violations'])} [Objetivo: 0]",
-        f"Farmacias con lat/lon NULL:  {fallidos}",
-        "",
-        "DESGLOSE GLOBAL POR PRECISIÓN:",
-        f"  - Portal:    {portal:>4} ({portal / total * 100:.1f}%)",
-        f"  - Calle:     {calle:>4} ({calle / total * 100:.1f}%)",
-        f"  - Localidad: {localidad:>4} ({localidad / total * 100:.1f}%)",
-        f"  - Fallidas:  {fallidos:>4} ({fallidos / total * 100:.1f}%)",
-        "",
-        "DESGLOSE POR COMUNIDAD AUTÓNOMA:",
-    ]
-
-    for reg_code, rstats in stats["por_region"].items():
-        r_name = "Illes Balears (04)" if reg_code == "04" else "Región de Murcia (14)"
-        r_tot = rstats["total"]
-        r_pc = rstats["portal"] + rstats["calle"]
-        r_pct = (r_pc / r_tot * 100) if r_tot > 0 else 0.0
-        lines.extend([
-            f"  [{r_name}] Total: {r_tot}",
-            f"    * Portal:    {rstats['portal']} ({rstats['portal'] / r_tot * 100:.1f}%)" if r_tot else "    * Portal: 0",
-            f"    * Calle:     {rstats['calle']} ({rstats['calle'] / r_tot * 100:.1f}%)" if r_tot else "    * Calle: 0",
-            f"    * Localidad: {rstats['localidad']} ({rstats['localidad'] / r_tot * 100:.1f}%)" if r_tot else "    * Localidad: 0",
-            f"    * Fallidas:  {rstats['fallidos']} ({rstats['fallidos'] / r_tot * 100:.1f}%)" if r_tot else "    * Fallidas: 0",
-            f"    * Portal + Calle: {r_pc} ({r_pct:.1f}%)",
-        ])
-
-    lines.extend([
-        "",
-        "============================================================",
-        f"VERIFICACIÓN DE COORDENADAS DE TEST (PALMA 39.5696, 2.6502):",
-        "============================================================",
-    ])
-    if not stats["test_palma_violations"]:
-        lines.append("0 farmacias en (39.5696, 2.6502). Criterio cumplido al 100%.")
-    else:
-        for v in stats["test_palma_violations"]:
-            lines.append(f"VIOLACIÓN: {v.id} | {v.holder} | {v.address} | {v.locality}")
-
-    lines.extend([
-        "",
-        "============================================================",
-        f"COMPROBACIÓN DE PUNTOS COMPARTIDOS (Control Final Tarea 03c):",
-        "============================================================",
-        f"Puntos compartidos por > 1 farmacia: {len(shared_groups)}",
-    ])
-    for coords, members in shared_groups:
-        diff_addrs = len({clean_address(m.address) for m in members}) > 1
-        tag = "[DIRECCIONES DISTINTAS]" if diff_addrs else "[MISMA DIRECCIÓN NORMALIZADA]"
-        lines.append(
-            f"Punto {coords}: {len(members)} farmacias {tag} -> "
-            + ", ".join(f"{m.id} ({clean_address(m.address)})" for m in members)
-        )
-
-    lines.extend([
-        "",
-        "============================================================",
-        f"FARMACIAS CON LAT/LON NULL (Total: {len(stats['failed_list'])}):",
-        "============================================================",
-    ])
-    for item in stats["failed_list"]:
-        lines.append(
-            f"ID: {item['id']} | [{item['region']}] {item['titular']} | Dir: {item['direccion']} | Loc: {item['localidad']}"
-        )
-    if not stats["failed_list"]:
-        lines.append("(Ninguna farmacia con lat/lon NULL)")
-
-    lines.extend([
-        "",
-        "============================================================",
-        f"MUESTRA DE 20 FARMACIAS A PORTAL/CALLE (REVISIÓN MANUAL):",
-        "============================================================",
-    ])
-    for s in sample:
-        osm_link = f"https://www.openstreetmap.org/?mlat={s.lat}&mlon={s.lon}#map=18/{s.lat}/{s.lon}"
-        lines.append(
-            f"ID: {s.id} | [{s.geo_precision.upper()}] {s.holder} | {s.address} ({s.locality or ''}) | {osm_link}"
-        )
-
-    report_content = "\n".join(lines) + "\n"
-    report_file.write_text(report_content, encoding="utf-8")
-    print(f"\nInforme generado en: {report_file.resolve()}")
-    print(
-        f"Resumen Tarea 03c: Portal+Calle: {portal_calle}/{total} ({tasa_portal_calle:.1f}%). "
-        f"Palma: {palma_pc}/{palma_total} ({palma_pct:.1f}%), Murcia: {murcia_pc}/{murcia_total} ({murcia_pct:.1f}%). "
-        f"Fallidas: {fallidos}, Palma 39.5696: {len(stats['test_palma_violations'])}"
-    )
-
+        degraded = enforce_shared_coordinates_limit(session)
+        stats = write_report(session, report_path, reasons, degraded)
     return stats
 
 
+def _pct(a: int, b: int) -> str:
+    return f"{a / b * 100:.1f}%" if b else "n/d"
+
+
+def write_report(
+    session: Session,
+    report_path: Path | str,
+    reasons: dict[str, str],
+    degraded: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Informe de calidad de la geocodificación (tmp/geocode_report.txt)."""
+    rows = session.scalars(select(Pharmacy).order_by(Pharmacy.id)).all()
+    by_region: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
+    for p in rows:
+        by_region[p.region]["total"] += 1
+        by_region[p.region][p.geo_precision or "sin_coordenadas"] += 1
+    total = len(rows)
+    pc = sum(1 for p in rows if p.geo_precision in ("portal", "calle"))
+    palma = [p for p in rows if p.region == "04" and (
+        (p.locality or "").upper() == "PALMA"
+        or (not p.locality and json.loads(p.zones or "[]") == ["PALMA"]))]
+    murcia = [p for p in rows if p.region == "14" and (p.locality or "").upper() == "MURCIA"]
+    lines = [
+        "=" * 70,
+        "INFORME DE GEOCODIFICACIÓN (v4)",
+        f"Generado: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+        "=" * 70,
+        f"Total farmacias: {total}",
+        f"Portal + calle: {pc} ({_pct(pc, total)})",
+        f"Palma (solo zona PALMA o localidad PALMA): "
+        f"{sum(p.geo_precision in ('portal', 'calle') for p in palma)}/{len(palma)}",
+        f"Murcia (localidad MURCIA): "
+        f"{sum(p.geo_precision in ('portal', 'calle') for p in murcia)}/{len(murcia)}",
+        "",
+    ]
+    for reg, st in sorted(by_region.items()):
+        lines.append(f"[{REGION_NAMES.get(reg, reg)}] total {st['total']}: " + ", ".join(
+            f"{k} {v} ({_pct(v, st['total'])})" for k, v in sorted(st.items()) if k != "total"
+        ))
+    lines += ["", "-" * 70, "PUNTOS COMPARTIDOS (> 1 farmacia)", "-" * 70]
+    groups: dict[tuple[float, float], list[Pharmacy]] = defaultdict(list)
+    for p in rows:
+        if p.lat is not None:
+            groups[(round(p.lat, 5), round(p.lon, 5))].append(p)
+    shared = [(c, m) for c, m in groups.items() if len(m) > 1]
+    lines.append(f"Grupos: {len(shared)}; con más de 2: {sum(len(m) > 2 for _c, m in shared)}")
+    for c, m in sorted(shared, key=lambda x: -len(x[1])):
+        lines.append(f"{c}: " + " | ".join(f"{x.id} {x.address} [{x.geo_precision}]" for x in m))
+    if degraded:
+        lines.append("Degradadas a NULL por el control de puntos compartidos:")
+        lines += [f"  {d['id']} {d['direccion']} {d['coords']}" for d in degraded]
+    lines += ["", "-" * 70, "A NIVEL LOCALIDAD (centroide de núcleo)", "-" * 70]
+    for p in rows:
+        if p.geo_precision == "localidad":
+            lines.append(f"{p.id} | {p.address} | {p.locality or '-'} | {p.geo_source} | {reasons.get(p.id, '')}")
+    lines += ["", "-" * 70, "SIN COORDENADAS", "-" * 70]
+    for p in rows:
+        if p.lat is None:
+            lines.append(f"{p.id} | {p.address} | {p.locality or '-'} | {p.zones or ''} | {reasons.get(p.id, '')}")
+    lines += ["", "-" * 70, "MUESTRA ALEATORIA DE 20 A PORTAL/CALLE (revisión manual)", "-" * 70]
+    good = [p for p in rows if p.geo_precision in ("portal", "calle")]
+    for p in random.Random(19).sample(good, min(20, len(good))):
+        lines.append(
+            f"{p.id} [{p.geo_precision}] {p.address} ({p.locality or ''}) "
+            f"https://www.openstreetmap.org/?mlat={p.lat:.6f}&mlon={p.lon:.6f}#map=18/{p.lat:.6f}/{p.lon:.6f}"
+        )
+    report = Path(report_path)
+    report.parent.mkdir(parents=True, exist_ok=True)
+    report.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print("\n".join(lines[:12]))
+    return {"total": total, "portal_calle": pc, "por_region": {k: dict(v) for k, v in by_region.items()}}
+
+
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Geocodificador mejorado de farmacias de guardia (Tarea 03c)."
-    )
-    parser.add_argument(
-        "--limit",
-        type=int,
-        default=None,
-        help="Límite máximo de farmacias a geocodificar.",
-    )
-    parser.add_argument(
-        "--recheck",
-        action="store_true",
-        help="Reprocesar solo las farmacias a precisión localidad, fallidas o centroides.",
-    )
-    parser.add_argument(
-        "--report",
-        type=str,
-        default="tmp/geocode_report.txt",
-        help="Ruta para el informe de geocodificación.",
-    )
+    parser = argparse.ArgumentParser(description="Geocodificador de farmacias (v4).")
+    parser.add_argument("--limit", type=int, default=None)
+    parser.add_argument("--recheck", action="store_true",
+                        help="Solo farmacias a nivel localidad o sin coordenadas.")
+    parser.add_argument("--ids", type=str, default=None, help="Lista de ids separada por comas.")
+    parser.add_argument("--offline", action="store_true",
+                        help="Usar solo la caché (sin llamadas a los servicios).")
+    parser.add_argument("--report", type=str, default="tmp/geocode_report.txt")
     args = parser.parse_args()
     geocode_all_pharmacies(
         limit=args.limit,
         recheck_only=args.recheck,
         report_path=args.report,
+        ids=[i.strip() for i in args.ids.split(",")] if args.ids else None,
+        offline=args.offline,
     )
 
 

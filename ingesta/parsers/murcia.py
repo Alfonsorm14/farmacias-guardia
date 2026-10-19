@@ -18,6 +18,7 @@ Uso:
 from __future__ import annotations
 
 import os
+from dataclasses import replace
 import re
 from datetime import date, datetime, time, timedelta
 
@@ -285,17 +286,26 @@ def _anexo2_vocabulary(
     return frozenset(words)
 
 
-def _complete_locality(locality: str, vocabulary: frozenset[str]) -> tuple[str, bool]:
-    """Completa el último token solo cuando el vocabulario da una única opción."""
+def _complete_locality(
+    locality: str, vocabulary: frozenset[str], complete_words: frozenset[str] = frozenset()
+) -> tuple[str, bool]:
+    """Completa el último token de una población truncada por el ancho de columna.
+
+    Un token es candidato a truncado si no es palabra conocida (`vocabulary`
+    ni `complete_words`) y alguna palabra del vocabulario empieza por él. Se
+    completa solo si la opción es única; si hay varias se devuelve ambiguo=True.
+    """
     match = re.search(r"([^\W\d_]+)([^\w]*)$", locality, re.UNICODE)
     if match is None:
         return locality, False
     token = normalize(match.group(1))
-    matches = sorted(word for word in vocabulary if word.startswith(token) and word != token)
+    if token in vocabulary or token in complete_words:
+        return locality, False
+    matches = sorted(word for word in vocabulary if word.startswith(token))
     if len(matches) != 1:
         return locality, len(matches) > 1
     replacement = matches[0]
-    return locality[:match.start(1)] + replacement + locality[match.end(1):], False
+    return locality[: match.start(1)] + replacement + locality[match.end(1) :], False
 
 
 def _anexo2_page_range(
@@ -331,6 +341,7 @@ def _parse_anexo2(
     start, end = span
     vocabulary = _anexo2_vocabulary(pages, start, end)
     seen: dict[str, tuple[str, str, str | None]] = {}
+    locality_pages: dict[str, int] = {}
     buffers: dict[str, list[str]] | None = None
     page_number = start + 1
 
@@ -362,12 +373,7 @@ def _parse_anexo2(
         if locality:
             locality = _LOCALITY_REPAIRS.get(locality, locality)
         if locality:
-            locality, ambiguous = _complete_locality(locality, _REFERENCE_WORDS)
-            if ambiguous:
-                warnings.append(
-                    f"{filename} p{page_number}: POBLACION_TRUNCADA_AMBIGUA "
-                    f"{pharmacy_id}: {locality}"
-                )
+            locality_pages[pharmacy_id] = page_number
         postal_code = digits_only(cell("cp")) or None
         phone = None
         raw_phone = digits_only(cell("tlfn"))
@@ -434,6 +440,53 @@ def _parse_anexo2(
                 if fragment:
                     buffers[name].append(fragment)
     flush()
+    _complete_truncated_localities(
+        filename, pharmacies, locality_pages, warnings
+    )
+
+
+def _completion_vocabulary(localities: list[str]) -> tuple[frozenset[str], frozenset[str]]:
+    """Vocabulario para completar poblaciones truncadas del Anexo II.
+
+    - `vocabulary`: municipios oficiales (INE), conectores y las palabras que no
+      cierran su celda (solo la última palabra de una celda puede venir cortada
+      por el ancho de columna, así que las demás son palabras completas).
+    - `complete_words`: palabras que cierran la celda en dos o más farmacias; un
+      corte por ancho de columna no se repite igual, así que se dan por completas.
+    """
+    words = set(_REFERENCE_WORDS) | _II_CONNECTORS
+    final_counts: dict[str, int] = {}
+    for locality in localities:
+        tokens = [normalize(t) for t in re.findall(r"[^\W\d_]+", locality)]
+        words.update(tokens[:-1])
+        if tokens:
+            final_counts[tokens[-1]] = final_counts.get(tokens[-1], 0) + 1
+    complete = frozenset(word for word, count in final_counts.items() if count >= 2)
+    return frozenset(words), complete
+
+
+def _complete_truncated_localities(
+    filename: str,
+    pharmacies: dict[str, Pharmacy],
+    locality_pages: dict[str, int],
+    warnings: list[str],
+) -> None:
+    """Completa el último token de cada población del Anexo II si está truncado."""
+    vocabulary, complete_words = _completion_vocabulary(
+        [pharmacies[pid].locality for pid in locality_pages]
+    )
+    for pharmacy_id, page_number in locality_pages.items():
+        pharmacy = pharmacies[pharmacy_id]
+        locality, ambiguous = _complete_locality(
+            pharmacy.locality, vocabulary, complete_words
+        )
+        if ambiguous:
+            warnings.append(
+                f"{filename} p{page_number}: POBLACION_TRUNCADA_AMBIGUA "
+                f"{pharmacy_id}: {locality}"
+            )
+        if locality != pharmacy.locality:
+            pharmacies[pharmacy_id] = replace(pharmacy, locality=locality)
 
 
 def _parse_date_row(

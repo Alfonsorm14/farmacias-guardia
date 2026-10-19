@@ -338,12 +338,20 @@ def _resolve_ambiguous(
 def _parse_file(path: str, source: SourceInfo) -> ParseResult:
     filename = os.path.basename(path)
     text = pdf_to_text(path)
+    notes: list[str] = []
     if text is None:
-        return ParseResult(source, {}, [], [f"{filename}: SIN_TEXTO"])
+        transcription = os.path.splitext(path)[0] + ".txt"
+        if not os.path.exists(transcription):
+            return ParseResult(source, {}, [], [f"{filename}: SIN_TEXTO"])
+        # PDF escaneado: se usa la transcripción verificada generada por
+        # scripts/transcribir_sant_antoni.py (mismo formato que pdftotext -layout).
+        with open(transcription, encoding="utf-8") as fh:
+            text = fh.read()
+        notes.append(f"{filename}: TRANSCRIPCION ({os.path.basename(transcription)})")
 
     pharmacies: dict[str, Pharmacy] = {}
     shifts: list[DutyShift] = []
-    warnings: list[str] = []
+    warnings: list[str] = list(notes)
 
     zone: str | None = None
     day: date | None = None

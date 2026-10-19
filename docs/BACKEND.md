@@ -23,7 +23,7 @@ pip install -r backend/requirements.txt
 
 ## 2. Importación de Datos
 
-El importador lee los ficheros oficiales generados por la ingesta (`data/out/*.json`, excluyendo `*_v1.json`) y realiza un upsert idempotente en la base de datos relacional (por defecto `data/guardias.db`). Si una farmacia ya contaba con coordenadas calculadas y su dirección no ha cambiado, las coordenadas se conservan intactas.
+El importador lee los ficheros oficiales generados por la ingesta (`data/out/*.json`, excluyendo `*_v1.json`) y realiza un upsert idempotente en la base de datos relacional (por defecto `data/guardias.db`). Si una farmacia ya contaba con coordenadas y no han cambiado ni su dirección, ni su localidad, ni su código postal, las coordenadas se conservan.
 
 ```powershell
 python -m backend.importer data/out
@@ -31,32 +31,25 @@ python -m backend.importer data/out
 
 ---
 
-## 3. Geocodificación (Tareas 03b y 03c)
+## 3. Geocodificación (v4, 19/10/2026)
 
-El geocodificador (`backend/geocode.py`) resuelve las coordenadas de las farmacias cumpliendo estrictamente con la eliminación de coordenadas falsas o centros fijos:
-1. **Sin coordenadas fijas:** Prohibidas las constantes de coordenadas de respaldo (salvo las cajas geográficas oficiales `BBOXES`). Ningún valor prefijado de prueba.
-2. **Normalización avanzada:** Limpieza de cruces (`ESQUINA...`), supresión de `S/N`, `Nº`, paréntesis descriptivos, unidades comerciales (`Local N`, `LOC. 7,8`), expansión de abreviaturas viales (`CALLE`, `AVENIDA`, `CARRETERA`, `PLAZA`, etc.) y separación de caracteres pegados.
-3. **Resolución de municipio y núcleo (pedanía):**
-   - **Murcia:** Desglose de `X (MUNICIPIO)` y mapeo de las 157 localidades/pedanías regionales (ej. *Los Belones* -> municipio Cartagena; *La Raya*, *El Palmar* -> municipio Murcia).
-   - **Baleares:** Mapeo exhaustivo de pedanías e islas (ej. *Cala Rajada* -> Capdepera; *Port d'Andratx* -> Andratx; *Sant Ferran* -> Formentera; *Peguera*, *Santa Ponça*, *Cas Català* -> Calvià; *Ciutadella de Menorca*).
-4. **Estrategia en cascada:**
-   - **CartoCiudad (IGN/CNIG):** Endpoints `candidates` y `find` con filtros estructurados (`municipio_filter`, `comunidad_autonoma_filter`), priorizando candidatos pertenecientes al núcleo.
-   - **Nominatim (OpenStreetMap):** En modo estructurado (`street`, `city`, `countrycodes=es`, 1 req/s).
-   - **Precisión Localidad:** Si la calle/portal no se localiza, se sitúa en el **centroide dinámico del núcleo de población (pedanía)**, nunca en el del municipio. Si no se puede situar ni la dirección ni el núcleo, `lat/lon = NULL` (nunca puntos falsos).
-5. **Control de calidad y puntos compartidos:**
-   - Distancia al centroide de referencia validada (< 5 km para pedanías, < 15 km para cascos urbanos).
-   - Ningún par `(lat, lon)` puede ser compartido por más de 2 farmacias salvo que compartan la misma dirección normalizada (los excesos se degradan a `lat/lon = NULL`).
-6. **Reprocesamiento:** Soporta `--recheck` para reprocesar farmacias a localidad, pendientes o en centroides.
+`backend/geocode.py` sitúa cada farmacia con CartoCiudad (IGN) y Nominatim (OSM). Sustituye a la versión de las Tareas 03b/03c, cuya revisión detectó pedanías en el centroide de su municipio, una comparación de municipios por subcadena ("Murcia" aceptaba resultados de "Alhama de Murcia") y resultados de Nominatim de cualquier tipo contados como "calle".
+
+1. **Sin coordenadas fijas.** Las únicas constantes geográficas son las cajas `BBOXES` por comunidad.
+2. **Validación de cada punto.** Todo punto aceptado se comprueba con `reverseGeocode` de CartoCiudad: su municipio debe ser el esperado (igualdad exacta normalizada, sin artículos y con alias bilingües: Maó/Mahón, Eivissa/Ibiza, Santa Eulària/Santa Eulalia…). Excepción: núcleos repartidos entre dos municipios (Cala Millor: Son Servera y Sant Llorenç), se acepta el vecino si el punto está a ≤ 1 km del núcleo.
+3. **Vía y código postal.** Un resultado solo cuenta si el nombre de la vía coincide con el de la fuente (similitud de palabras significativas ≥ 0,6) y, si la farmacia trae CP (Murcia), si coincide el CP. En Murcia la búsqueda se filtra por CP (`cod_postal_filter`), lo que evita confundir, p. ej., la Calle Mayor de Puente Tocinos con la de otra pedanía.
+4. **Precisión.** `portal` = portal con el mismo número; `calle` = misma vía sin ese número exacto; `localidad` = centroide de la entidad de población (núcleo/pedanía) de CartoCiudad (`geo_source = nucleus_centroid`), o del núcleo principal del municipio solo si la fuente da localidad = municipio (`casco_centroid`). Si no hay ni dirección ni núcleo: `lat/lon = NULL`.
+5. **Núcleo esperado.** Murcia: localidad de la fuente ("X (MUNICIPIO)", "NUCLEO-MUNICIPIO", mapas de pedanías) y, si la localidad es el municipio, pistas de la dirección ("MAYOR, 104 - PUENTE TOCINOS"). Baleares: localidad de la fuente; si falta, núcleo citado en la dirección ("… 11 CALA MILLOR", "(ES CANAR)") y, si no, los municipios de sus zonas de guardia (sin centroide de respaldo).
+6. **Control final.** Ningún punto compartido por más de 2 farmacias con direcciones distintas.
+7. **Caché.** Cada respuesta de los servicios se guarda en `geocode_cache` (claves `v4:`), así que repetir la geocodificación no vuelve a consultar lo ya consultado (`--offline` usa solo la caché).
 
 ```powershell
-# Geocodificar todas las farmacias pendientes
-python -m backend.geocode
-
-# Reprocesar farmacias afectadas y generar informe
-python -m backend.geocode --recheck --report tmp/geocode_report.txt
+python -m backend.geocode                 # todas las farmacias
+python -m backend.geocode --recheck       # solo localidad o sin coordenadas
+python -m backend.geocode --ids MU:302,IB:5b84a70432fe
 ```
 
-El informe final de resultados se genera automáticamente en `tmp/geocode_report.txt`.
+Informe: `tmp/geocode_report.txt` (totales, puntos compartidos, lista de farmacias a nivel localidad y sin coordenadas con el motivo, y muestra de 20 enlaces OSM para revisión manual).
 
 ---
 
@@ -75,7 +68,7 @@ uvicorn backend.api:app --reload
 ### Formato Unificado y Claves Limpias
 - `/v1/guardias` y `/v1/guardias/dia` devuelven una única lista `guardias` (se eliminaron listas redundantes como `turnos` o `resultados`).
 - Todas las claves del objeto `farmacia` van estrictamente **sin tildes**: `direccion`, `telefono`, `telefono_guardia`.
-- `ubicacion_aproximada`: `true` cuando `geo_precision == "localidad"` (centroide de núcleo o municipio), `false` en caso contrario.
+- `ubicacion_aproximada`: `true` cuando `geo_precision == "localidad"` (centroide del núcleo de población), `false` en caso contrario.
 - `farmacias_sin_coordenadas`: cuenta exclusivamente farmacias con turno activo en el momento consultado cuyas `zones` coincidan con las de las farmacias cercanas encontradas (ámbito local, no nacional).
 
 ### Health Check

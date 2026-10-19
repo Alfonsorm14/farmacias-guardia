@@ -38,13 +38,34 @@ class BalearesAcceptanceTests(unittest.TestCase):
         cls.result = parse_dir(RAW_DIR)
 
     def test_26_pdfs_con_texto_y_uno_sin_texto(self) -> None:
+        """Sant Antoni no tiene capa de texto: se usa su transcripción verificada."""
         pdfs = [f for f in os.listdir(RAW_DIR) if f.lower().endswith(".pdf")]
         self.assertEqual(len(pdfs), 27)
         sin_texto = [w for w in self.result.warnings if "SIN_TEXTO" in w]
-        self.assertEqual(len(sin_texto), 1)
-        self.assertIn("Sant_Antoni", sin_texto[0])
+        self.assertEqual(sin_texto, [])
+        transcritos = [w for w in self.result.warnings if "TRANSCRIPCION" in w]
+        self.assertEqual(len(transcritos), 1)
+        self.assertIn("Sant_Antoni", transcritos[0])
         zones = {shift.zone for shift in self.result.shifts}
-        self.assertEqual(len(zones), 26)
+        self.assertEqual(len(zones), 27)
+
+    def test_sant_antoni_transcripcion(self) -> None:
+        shifts = [s for s in self.result.shifts if s.zone == "SANT ANTONI"]
+        self.assertEqual(len({s.start.date() for s in shifts}), 365)
+        dia1 = [s for s in shifts if s.start.date() == date(2026, 1, 1)]
+        holders = {(s.kind, self.result.pharmacies[s.pharmacy_id].holder) for s in dia1}
+        self.assertEqual(holders, {("diurna", "BRU BONILLA"), ("nocturna", "BRU BONILLA")})
+        bru = self.result.pharmacies[dia1[0].pharmacy_id]
+        self.assertEqual(bru.phone, "971724707")
+        # El 9 de enero la fuente solo publica servicio diurno (cuatro farmacias).
+        dia9 = [s for s in shifts if s.start.date() == date(2026, 1, 9)]
+        self.assertEqual({s.kind for s in dia9}, {"diurna"})
+        self.assertEqual(len(dia9), 4)
+        farmacias = {
+            p.phone for pid, p in self.result.pharmacies.items()
+            if any(s.pharmacy_id == pid for s in shifts)
+        }
+        self.assertEqual(len(farmacias), 10)
 
     def test_palma_2026_01_01(self) -> None:
         day = date(2026, 1, 1)

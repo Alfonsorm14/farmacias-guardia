@@ -55,7 +55,11 @@ class ParseResult:
 ## Reglas de calidad
 - Nunca inventar datos: si un campo no se puede extraer con seguridad, None + warning.
 - Nunca descartar en silencio una línea que parezca farmacia: warning con fichero, página y línea.
-- Fuentes escaneadas (sin texto): warning "SIN_TEXTO" y se omite el fichero.
+- Fuentes escaneadas (sin texto): warning "SIN_TEXTO" y se omite el fichero, salvo que exista al lado
+  una transcripción verificada `<nombre>.txt` (mismo formato que `pdftotext -layout`); entonces se usa y
+  se deja el aviso informativo "TRANSCRIPCION". Caso actual: Sant Antoni (Baleares), generada con
+  `scripts/transcribir_sant_antoni.py` (cada línea se identifica por la huella de sus píxeles y las fechas
+  se contrastan por OCR; cualquier línea desconocida detiene el proceso).
 
 ## Decisiones de producto (Alfonso, 18/10/2026)
 - No se extrapolan reglas de rotación descritas en texto. Solo se publican turnos que la fuente

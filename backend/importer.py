@@ -53,7 +53,7 @@ def import_source_data(
                 source.license = source_data["license"]
                 source.retrieved_at = retrieved_at
 
-            # 2. Upsert Pharmacies (mantener coordenadas si la dirección no cambió)
+            # 2. Upsert Pharmacies (mantener coordenadas si dirección, localidad y CP no cambian)
             pharmacies_count = 0
             for p_dict in data.get("pharmacies", []):
                 pid = p_dict["id"]
@@ -82,7 +82,13 @@ def import_source_data(
                     )
                     session.add(pharmacy)
                 else:
-                    if pharmacy.address != new_address:
+                    location_changed = (
+                        pharmacy.address != new_address
+                        or pharmacy.locality != p_dict.get("locality")
+                        or pharmacy.postal_code != p_dict.get("postal_code")
+                    )
+                    if location_changed:
+                        # La dirección, localidad o CP cambió: hay que geocodificar de nuevo.
                         pharmacy.address = new_address
                         pharmacy.lat = None
                         pharmacy.lon = None
