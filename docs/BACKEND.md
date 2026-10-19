@@ -113,7 +113,8 @@ curl -X GET "http://127.0.0.1:8000/v1/guardias?lat=39.5696&lon=2.6502&at=2026-10
 - `mensaje`: `"Aún no hay turnos oficiales publicados para esta fecha"` cuando la fecha cae fuera del periodo publicado por las fuentes de la zona (no es ausencia de guardia, es que aún no se conoce).
 - `datos_hasta`: último instante (hora de Madrid) con turnos publicados por las fuentes de la zona.
 - `aviso`: texto cuando la zona de la farmacia más cercana no tiene turnos publicados para la fecha (p. ej. agrupaciones de Murcia con solo enero publicado) y lo mostrado son guardias de zonas vecinas; `null` en otro caso.
-- Fuentes municipales (`backend/ambito.py`: Madrid, Zaragoza): sus farmacias solo se ofrecen si el punto consultado cae en la caja de sus farmacias geolocalizadas ampliada 2 km. Alcalá o Getafe no reciben las guardias de Madrid capital. La app aplica la misma regla.
+- Fuentes municipales (`backend/ambito.py`: Madrid, Zaragoza): sus farmacias solo se ofrecen si el punto consultado está dentro del término municipal (polígono fijo de `data/geo/municipios.json`, límites de OpenStreetMap, ODbL). Alcalá, Getafe, Pozuelo o Coslada no reciben las guardias de Madrid capital; todos los barrios de Zaragoza reciben las suyas. La app aplica la misma regla (el polígono va en la instantánea).
+- `mensaje` cuando no hay guardias: "Sin datos oficiales para esta zona" (sin cobertura), "Sin turnos oficiales publicados para tu zona en esta fecha" (con `aviso`), "Sin datos oficiales para esta fecha" (fecha publicada sin turno), "Aún no hay turnos oficiales publicados para esta fecha" (posterior a lo publicado) o "No tenemos los turnos oficiales de esa fecha" (anterior a los datos que tenemos).
 - `farmacias_sin_coordenadas`: Conteo localizado de farmacias con turno activo en la zona que carecen de coordenadas.
 - `guardias`: Lista única donde cada elemento contiene `farmacia`, `turno` (`horario_confirmado`), `distancia_km` y `fuente`.
 
