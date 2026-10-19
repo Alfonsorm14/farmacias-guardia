@@ -11,12 +11,37 @@ from sqlalchemy import delete
 from sqlalchemy.orm import Session, sessionmaker
 
 from backend.db import create_db_engine, init_db
+
+COORDS_PATH = Path(__file__).resolve().parent.parent / "data" / "geo" / "coordenadas.json"
+
+
+def _load_coordinates() -> dict[str, dict[str, Any]]:
+    """Coordenadas ya calculadas (data/geo/coordenadas.json), si existen."""
+    try:
+        return json.loads(COORDS_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+def _apply_known_coordinates(pharmacy: Any, known: dict[str, dict[str, Any]]) -> None:
+    """Reutiliza una geocodificación previa si la dirección, localidad y CP coinciden."""
+    k = known.get(pharmacy.id)
+    if not k or pharmacy.lat is not None:
+        return
+    if (k.get("direccion"), k.get("localidad"), k.get("cp")) != (
+        pharmacy.address, pharmacy.locality, pharmacy.postal_code
+    ):
+        return
+    pharmacy.lat, pharmacy.lon = k.get("lat"), k.get("lon")
+    pharmacy.geo_precision, pharmacy.geo_source = k.get("precision"), k.get("fuente")
+    pharmacy.geo_query = k.get("consulta")
 from backend.models import Pharmacy, Shift, Source
 
 
 def import_source_data(
     file_path: Path | str,
     session_factory: sessionmaker[Session] | None = None,
+    reuse_coordinates: bool = True,
 ) -> dict[str, Any]:
     """Importa un fichero JSON de ingesta (data/out/*.json) de forma idempotente en una sola transacción."""
     path = Path(file_path)
@@ -55,6 +80,7 @@ def import_source_data(
 
             # 2. Upsert Pharmacies (mantener coordenadas si dirección, localidad y CP no cambian)
             pharmacies_count = 0
+            known = _load_coordinates() if reuse_coordinates else {}
             for p_dict in data.get("pharmacies", []):
                 pid = p_dict["id"]
                 new_address = p_dict["address"]
@@ -104,6 +130,7 @@ def import_source_data(
                     pharmacy.duty_phone = p_dict.get("duty_phone")
                     pharmacy.source_id = source_id
                     pharmacy.zones = zones_json
+                _apply_known_coordinates(pharmacy, known)
                 pharmacies_count += 1
 
             # 3. Borrar shifts del source_id e insertar nuevos
@@ -158,6 +185,7 @@ def import_source_data(
 def import_all(
     target_path: Path | str = "data/out",
     session_factory: sessionmaker[Session] | None = None,
+    reuse_coordinates: bool = True,
 ) -> list[dict[str, Any]]:
     path = Path(target_path)
     if path.is_file():
@@ -175,7 +203,9 @@ def import_all(
 
     summaries = []
     for file in files:
-        summary = import_source_data(file, session_factory=session_factory)
+        summary = import_source_data(
+            file, session_factory=session_factory, reuse_coordinates=reuse_coordinates
+        )
         summaries.append(summary)
     return summaries
 

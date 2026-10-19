@@ -1467,7 +1467,37 @@ def geocode_all_pharmacies(
             session.commit()
         degraded = enforce_shared_coordinates_limit(session)
         stats = write_report(session, report_path, reasons, degraded)
+        export_coordinates(session)
     return stats
+
+
+COORDS_PATH = Path(__file__).resolve().parent.parent / "data" / "geo" / "coordenadas.json"
+
+
+def export_coordinates(session: Session, path: Path = COORDS_PATH) -> int:
+    """Guarda el resultado de la geocodificación en un JSON versionable.
+
+    Permite reconstruir data/guardias.db desde cero (p. ej. en una tarea en la
+    nube) sin volver a consultar los servicios: el importador reutiliza estas
+    coordenadas mientras no cambien la dirección, la localidad ni el CP.
+    """
+    rows = session.scalars(select(Pharmacy).order_by(Pharmacy.id)).all()
+    data = {
+        p.id: {
+            "direccion": p.address,
+            "localidad": p.locality,
+            "cp": p.postal_code,
+            "lat": None if p.lat is None else round(p.lat, 7),
+            "lon": None if p.lon is None else round(p.lon, 7),
+            "precision": p.geo_precision,
+            "fuente": p.geo_source,
+            "consulta": p.geo_query,
+        }
+        for p in rows
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=0, sort_keys=True), encoding="utf-8")
+    return len(data)
 
 
 def _pct(a: int, b: int) -> str:

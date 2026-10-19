@@ -4,11 +4,14 @@
 /// si no, la instantánea `assets/snapshot.json` incluida en la app.
 library;
 
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 
 import '../models.dart';
 import 'guardias_engine.dart';
@@ -35,17 +38,62 @@ DateTime inicioDelDia(DateTime d) => DateTime(d.year, d.month, d.day);
 class SnapshotRepository implements GuardiasRepository {
   GuardiasEngine? _engine;
   Future<GuardiasEngine>? _cargando;
+  final http.Client _cliente;
 
-  SnapshotRepository([GuardiasEngine? engine]) : _engine = engine;
+  /// URL opcional de una instantánea publicada (p. ej. GitHub Pages) que la app
+  /// descarga al arrancar si es más reciente que la incluida o la guardada.
+  final String snapshotUrl;
+
+  SnapshotRepository([GuardiasEngine? engine, http.Client? cliente, String? url])
+      : _engine = engine,
+        _cliente = cliente ?? http.Client(),
+        snapshotUrl = url ?? const String.fromEnvironment('SNAPSHOT_URL');
+
+  Future<File?> _ficheroCache() async {
+    try {
+      final dir = await getApplicationSupportDirectory();
+      return File('${dir.path}/snapshot.json');
+    } catch (_) {
+      return null; // web o tests sin path_provider
+    }
+  }
+
+  static DateTime _fecha(String texto) {
+    final m = RegExp(r'"generated_at":"([^"]+)"').firstMatch(texto);
+    return m == null ? DateTime.fromMillisecondsSinceEpoch(0) : DateTime.parse(m.group(1)!);
+  }
 
   Future<GuardiasEngine> _motor() {
     if (_engine != null) return Future.value(_engine!);
     return _cargando ??= () async {
-      final texto = await rootBundle.loadString('assets/snapshot.json');
+      var texto = await rootBundle.loadString('assets/snapshot.json');
+      final cache = await _ficheroCache();
+      if (cache != null && await cache.exists()) {
+        final guardado = await cache.readAsString();
+        if (_fecha(guardado).isAfter(_fecha(texto))) texto = guardado;
+      }
       final motor = await compute(_decodificar, texto);
       _engine = motor;
+      unawaited(_actualizar(motor.generado));
       return motor;
     }();
+  }
+
+  /// Descarga una instantánea más reciente y la usa a partir de la siguiente consulta.
+  Future<void> _actualizar(DateTime actual) async {
+    if (snapshotUrl.isEmpty) return;
+    try {
+      final r = await _cliente.get(Uri.parse(snapshotUrl)).timeout(const Duration(seconds: 30));
+      if (r.statusCode != 200) return;
+      final texto = utf8.decode(r.bodyBytes);
+      if (!_fecha(texto).isAfter(actual)) return;
+      final motor = await compute(_decodificar, texto);
+      _engine = motor;
+      final cache = await _ficheroCache();
+      await cache?.writeAsString(texto);
+    } catch (_) {
+      // Sin conexión: se sigue con los datos que hay.
+    }
   }
 
   static GuardiasEngine _decodificar(String texto) =>

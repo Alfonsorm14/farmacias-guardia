@@ -31,7 +31,7 @@ def engine():
     session_factory = sessionmaker(autocommit=False, autoflush=False, bind=eng)
 
     # 1. Importar los JSONs reales de data/out
-    import_all("data/out", session_factory=session_factory)
+    import_all("data/out", session_factory=session_factory, reuse_coordinates=False)
 
     # 2. Inyectar coordenadas para los casos de test
     with session_factory() as session:

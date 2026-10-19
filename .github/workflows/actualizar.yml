@@ -1,0 +1,52 @@
+# Actualización diaria de las fuentes y publicación de la instantánea para la app.
+# Requiere: repositorio en GitHub con GitHub Pages activado (origen: GitHub Actions).
+name: Actualizar guardias
+
+on:
+  schedule:
+    - cron: "17 4 * * *"   # 04:17 UTC = 06:17 (verano) / 05:17 (invierno) en Madrid
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: actualizar-guardias
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Dependencias
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q poppler-utils
+          pip install -r backend/requirements.txt
+      - name: Descargar, procesar, geocodificar y exportar
+        run: python scripts/actualizar_todo.py
+      - name: Tests
+        run: |
+          python -m unittest discover -s tests
+          python -m pytest backend/tests -q
+      - name: Guardar cambios (datos brutos, salidas y coordenadas)
+        run: |
+          git config user.name "actualizador"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/raw data/out data/geo app/assets/snapshot.json
+          git diff --cached --quiet || git commit -m "Actualización automática $(date -u +%F)"
+          git push
+      - name: Preparar web estática
+        run: |
+          mkdir -p public
+          cp app/assets/snapshot.json public/snapshot.json
+          echo '<!doctype html><meta charset="utf-8"><title>Farmacias de guardia</title><p>Instantánea de datos: <a href="snapshot.json">snapshot.json</a></p>' > public/index.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - uses: actions/deploy-pages@v4
