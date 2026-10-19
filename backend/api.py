@@ -287,6 +287,43 @@ def _count_unlocated(
     return sum(1 for up in unlocated if _pharmacy_zones(up) & nearby_zones)
 
 
+def _zone_notice(
+    db: Session,
+    nearby: dict[str, tuple[Pharmacy, float]],
+    start: datetime.datetime,
+    end: datetime.datetime,
+    instant: bool,
+) -> str | None:
+    """Aviso si la zona de la farmacia más cercana no tiene turnos publicados para la fecha.
+
+    Caso típico: agrupaciones de Murcia con solo el cuadrante de enero publicado; sin el aviso,
+    la app mostraría guardias de otra agrupación como si fueran las de la zona.
+    """
+    with_shifts = set(
+        db.scalars(select(Shift.pharmacy_id).where(Shift.pharmacy_id.in_(list(nearby))).distinct()).all()
+    )
+    if not with_shifts:
+        return None
+    nearest = min(with_shifts, key=lambda pid: nearby[pid][1])
+    rows = db.execute(
+        select(Shift.zone, func.min(Shift.start_utc), func.max(Shift.end_utc))
+        .where(Shift.zone.in_(select(Shift.zone).where(Shift.pharmacy_id == nearest).distinct()))
+        .group_by(Shift.zone)
+    ).all()
+    if not rows:
+        return None
+    probe = start if instant else end - datetime.timedelta(microseconds=1)
+    if any(_as_utc(first) <= probe and start < _as_utc(last) for _, first, last in rows):
+        return None
+    last_day = max(_as_utc(last) for _, _, last in rows) - datetime.timedelta(minutes=1)
+    last_day = last_day.astimezone(MADRID_TZ)
+    zonas = ", ".join(sorted(z for z, _, _ in rows))
+    return (
+        f"La fuente oficial solo ha publicado los turnos de tu zona ({zonas}) "
+        f"hasta el {last_day.day}/{last_day.month}/{last_day.year}."
+    )
+
+
 def _item(pharmacy: Pharmacy, shift: Shift, source: Source, dist: float) -> dict[str, Any]:
     return {
         "farmacia": {
@@ -345,6 +382,7 @@ def _query_guardias(
         return {
             "cobertura": False,
             "mensaje": MSG_SIN_ZONA,
+            "aviso": None,
             "farmacias_sin_coordenadas": 0,
             "datos_hasta": None,
             "guardias": [],
@@ -358,6 +396,7 @@ def _query_guardias(
     )
 
     unlocated = _count_unlocated(db, nearby, start, end)
+    aviso = _zone_notice(db, nearby, start, end, instant) if covered else None
 
     if instant:
         overlap = (Shift.start_utc <= start, Shift.end_utc > start)
@@ -390,9 +429,12 @@ def _query_guardias(
     mensaje = None
     if not items:
         mensaje = MSG_SIN_FECHA if covered else MSG_SIN_PUBLICAR
+    if aviso:
+        aviso += " Se muestran guardias de zonas cercanas." if items else " No hay guardias de zonas cercanas."
     return {
         "cobertura": True,
         "mensaje": mensaje,
+        "aviso": aviso,
         "farmacias_sin_coordenadas": unlocated,
         "datos_hasta": to_madrid_iso(published_until) if published_until else None,
         "guardias": items[:limit],

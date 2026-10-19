@@ -397,3 +397,28 @@ def test_inside_box_margen():
     assert inside_box(box, 40.51, -3.75)  # ~1,1 km fuera: dentro del margen de 2 km
     assert not inside_box(box, 40.55, -3.75)  # ~5,5 km fuera
     assert not inside_box(None, 40.25, -3.75)
+
+
+def test_aviso_zona_sin_turnos_publicados(client: TestClient, db_session: Session):
+    """Una farmacia de Mula (agrupación con solo enero publicado) en octubre: aviso de zona."""
+    mula = next(
+        p for p in db_session.query(Pharmacy).filter(Pharmacy.locality == "MULA").all()
+        if db_session.query(Shift).filter(Shift.pharmacy_id == p.id).count()
+    )
+    mula.lat, mula.lon, mula.geo_precision, mula.geo_source = 38.0413, -1.4904, "portal", "test_injected"
+    db_session.commit()
+    try:
+        data = client.get(
+            "/v1/guardias/dia", params={"lat": 38.0413, "lon": -1.4904, "fecha": "2026-10-20"}
+        ).json()
+        assert data["cobertura"] is True
+        assert "AGRUPACION 5 (MULA)" in data["aviso"]
+        assert "31/1/2026" in data["aviso"]
+        enero = client.get(
+            "/v1/guardias/dia", params={"lat": 38.0413, "lon": -1.4904, "fecha": "2026-01-15"}
+        ).json()
+        assert enero["aviso"] is None
+        assert any(g["turno"]["zona"] == "AGRUPACION 5 (MULA)" for g in enero["guardias"])
+    finally:
+        mula.lat = mula.lon = mula.geo_precision = mula.geo_source = None
+        db_session.commit()

@@ -134,11 +134,16 @@ class ResultadoGuardias {
   /// Último instante con turnos publicados por las fuentes de la zona.
   final DateTime? datosHasta;
 
+  /// Aviso cuando la zona de las farmacias más cercanas no tiene turnos publicados para la
+  /// fecha y lo que se muestra son guardias de zonas vecinas.
+  final String? aviso;
+
   const ResultadoGuardias({
     required this.cobertura,
     required this.guardias,
     this.mensaje,
     this.sinCoordenadas = const [],
     this.datosHasta,
+    this.aviso,
   });
 }

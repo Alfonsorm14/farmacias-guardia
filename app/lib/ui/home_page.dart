@@ -286,8 +286,20 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             textAlign: TextAlign.center,
           ),
         );
+        final aviso = r.aviso == null
+            ? null
+            : Card(
+                margin: const EdgeInsets.fromLTRB(12, 8, 12, 4),
+                color: Theme.of(context).colorScheme.tertiaryContainer,
+                child: ListTile(
+                  leading: const Icon(Icons.info_outline),
+                  title: Text(r.aviso!),
+                  subtitle: const Text('Antes de desplazarte, llama a las farmacias de tu localidad.'),
+                ),
+              );
         if (r.guardias.isEmpty) {
           return ListView(children: [
+            ?aviso,
             _aviso(
                 Icons.event_busy,
                 r.mensaje ?? 'Sin datos oficiales para esta fecha',
@@ -299,6 +311,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         }
         return ListView(
           children: [
+            ?aviso,
             for (final g in r.guardias) GuardiaCard(guardia: g, ahora: _ahora()),
             if (r.sinCoordenadas.isNotEmpty)
               Card(

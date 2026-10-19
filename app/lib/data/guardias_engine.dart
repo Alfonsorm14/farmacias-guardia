@@ -9,6 +9,7 @@ library;
 import 'dart:math' as math;
 
 import '../models.dart';
+import '../tiempo.dart';
 
 const double radioTierraKm = 6371.0;
 
@@ -42,6 +43,9 @@ class GuardiasEngine {
   /// Periodo publicado por cada fuente: (primer inicio, último fin) en minutos UTC.
   late final Map<String, (int, int)> _periodoPorFuente;
 
+  /// Periodo publicado por cada zona (cuadrante), en minutos UTC.
+  late final Map<int, (int, int)> _periodoPorZona;
+
   /// Caja (latMin, lonMin, latMax, lonMax) de las fuentes de un solo municipio.
   late final Map<String, (double, double, double, double)> _ambitoMunicipal;
 
@@ -57,8 +61,11 @@ class GuardiasEngine {
     _turnosPorFarmacia = {};
     _zonasPorFarmacia = {};
     _periodoPorFuente = {};
+    _periodoPorZona = {};
     for (var i = 0; i < turnos.length; i++) {
       final t = turnos[i];
+      final pz = _periodoPorZona[t.zona];
+      _periodoPorZona[t.zona] = pz == null ? (t.inicioMin, t.finMin) : (math.min(pz.$1, t.inicioMin), math.max(pz.$2, t.finMin));
       (_turnosPorFarmacia[t.farmacia] ??= []).add(i);
       (_zonasPorFarmacia[t.farmacia] ??= {}).add(t.zona);
       final fid = farmacias[t.farmacia].fuente?.id ?? '';
@@ -175,6 +182,25 @@ class GuardiasEngine {
     final datosHasta =
         publicadoHasta == null ? null : DateTime.fromMillisecondsSinceEpoch(publicadoHasta * 60000, isUtc: true);
 
+    // ¿La zona de la farmacia más cercana tiene turnos publicados para la fecha? Si no (p. ej.
+    // agrupaciones de Murcia con solo enero publicado), lo que se muestra es de zonas vecinas.
+    String? aviso;
+    if (fechaCubierta) {
+      final masCercana = cercanas.entries.reduce((a, b) => a.value <= b.value ? a : b).key;
+      final propias = _zonasPorFarmacia[masCercana] ?? const <int>{};
+      final cubiertas = propias.any((z) {
+        final p = _periodoPorZona[z];
+        return p != null && p.$1 <= math.max(ini, fin - 1) && ini < p.$2;
+      });
+      if (propias.isNotEmpty && !cubiertas) {
+        final hasta = propias.map((z) => _periodoPorZona[z]?.$2 ?? 0).reduce(math.max);
+        final nombres = propias.map((z) => zonas[z]).toList()..sort();
+        aviso = 'La fuente oficial solo ha publicado los turnos de tu zona (${nombres.join(', ')}) '
+            'hasta el ${_fecha(hasta)}. '
+            '${guardias.isEmpty ? 'No hay' : 'Se muestran'} guardias de zonas cercanas.';
+      }
+    }
+
     if (fin == ini) {
       guardias.sort((a, b) => a.distanciaKm.compareTo(b.distanciaKm));
     } else {
@@ -189,7 +215,14 @@ class GuardiasEngine {
       guardias: guardias,
       sinCoordenadas: sinCoordenadas,
       datosHasta: datosHasta,
+      aviso: aviso,
     );
+  }
+
+  /// Fecha (día/mes/año, hora de Madrid) del último día incluido hasta [finMin] (fin exclusivo).
+  static String _fecha(int finMin) {
+    final d = enMadrid(DateTime.fromMillisecondsSinceEpoch((finMin - 1) * 60000, isUtc: true));
+    return '${d.day}/${d.month}/${d.year}';
   }
 
   /// Las fechas de la base de datos se guardan en UTC sin zona ("2026-10-19 17:23:35.190233").

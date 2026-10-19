@@ -20,6 +20,25 @@ void main() {
     expect(motor.zonas, contains('SANT ANTONI'));
   });
 
+  test('Mula en octubre: avisa de que su agrupación solo tiene publicado enero', () {
+    final r = motor.consultar(
+        lat: 38.0413, lon: -1.4904, desde: DateTime.utc(2026, 10, 20, 8), hasta: DateTime.utc(2026, 10, 21, 8));
+    expect(r.cobertura, isTrue);
+    expect(r.aviso, isNotNull);
+    expect(r.aviso, contains('AGRUPACION 5 (MULA)'));
+    expect(r.aviso, contains('31/1/2026'));
+    // En enero sí hay turno propio: sin aviso.
+    final enero = motor.consultar(
+        lat: 38.0413, lon: -1.4904, desde: DateTime.utc(2026, 1, 15, 8), hasta: DateTime.utc(2026, 1, 16, 8));
+    expect(enero.aviso, isNull);
+    expect(enero.guardias.any((g) => g.turno.zona == 'AGRUPACION 5 (MULA)'), isTrue);
+  });
+
+  test('Palma: zona con cuadrante anual, sin aviso', () {
+    final r = motor.consultar(lat: 39.5696, lon: 2.6502, desde: DateTime.utc(2026, 10, 20, 22));
+    expect(r.aviso, isNull);
+  });
+
   test('fuentes: atribución, ámbito municipal y fecha de descarga', () {
     final ids = {for (final f in motor.fuentes) f.id: f};
     expect(ids.keys, containsAll(['IB-CAIB-2026', 'MU-BORM-2026', 'NA-DATOSABIERTOS', 'MAD-AYTO-DATOSABIERTOS', 'ZGZ-AYTO']));

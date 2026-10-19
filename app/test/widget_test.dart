@@ -54,6 +54,14 @@ void main() {
     expect(find.textContaining('mié 11'), findsWidgets);
   });
 
+  testWidgets('Mula en octubre muestra el aviso de zona sin turnos publicados', (tester) async {
+    await tester.pumpWidget(_app(repo, const Ubicacion(38.0413, -1.4904, 'Mula'), DateTime(2026, 10, 20, 12)));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Hoy'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('solo ha publicado los turnos de tu zona'), findsOneWidget);
+  });
+
   testWidgets('la pantalla de fuentes cita las fuentes oficiales y OpenStreetMap', (tester) async {
     await tester.pumpWidget(MaterialApp(home: AcercaDePage(repositorio: repo)));
     await tester.pumpAndSettle();
