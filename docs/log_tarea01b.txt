@@ -1,0 +1,1910 @@
+
+> build ┬╖ deepseek-v4.1-flash-free
+
+ΓåÆ Read AGENTS.md
+ΓåÆ Read docs/TAREA_01b_baleares_columnas.md
+ΓåÆ Read .
+Γ£▒ Glob "**/*.py" 7 matches
+ΓåÆ Read ingesta/model.py
+ΓåÆ Read ingesta/export.py
+ΓåÆ Read ingesta/parsers/baleares.py
+ΓåÆ Read scripts/run_baleares.py
+ΓåÆ Read tests/test_baleares.py
+ΓåÆ Read data
+ΓåÆ Read docs
+ΓåÆ Read data/out
+ΓåÆ Read docs/SPEC.md
+ΓåÆ Read docs/log_tarea01b.txt
+ΓåÆ Read docs/log_tarea01.txt
+
+$ Get-ChildItem data\out | Format-Table Name,Length,LastWriteTime; Get-ChildItem data\raw\baleares\2026 | Measure-Object
+Name                    Length LastWriteTime      
+----                    ------ -------------      
+baleares_2026.json    10655378 18/10/2026 13:29:18
+baleares_2026_v1.json 10655378 18/10/2026 13:29:18
+
+
+
+
+Count    : 28
+Average  : 
+Sum      : 
+Maximum  : 
+Minimum  : 
+Property :
+
+$ python --version; pdftotext -v 2>&1 | Select-Object -First 2
+Python 3.12.10
+pdftotext : pdftotext version 25.07.0
+En l∩┐╜nea: 1 Car∩┐╜cter: 19
++ python --version; pdftotext -v 2>&1 | Select-Object -First 2
++                   ~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (pdftotext version 25.07.0:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Copyright 2005-2025 The Poppler Developers - http://poppler.freedesktop.org
+
+$ $a=(Get-FileHash data\out\baleares_2026.json).Hash; $b=(Get-FileHash data\out\baleares_2026_v1.json).Hash; "$a`n$b`nidentical=$($a -eq $b)"
+Get-FileHash : El t∩┐╜rmino 'Get-FileHash' no se reconoce como nombre de un cmdlet, funci∩┐╜n, archivo de script o 
+
+
+identical=True
+programa ejecutable. Compruebe si escribi∩┐╜ correctamente el nombre o, si incluy∩┐╜ una ruta de acceso, compruebe que 
+dicha ruta es correcta e int∩┐╜ntelo de nuevo.
+En l∩┐╜nea: 1 Car∩┐╜cter: 5
++ $a=(Get-FileHash data\out\baleares_2026.json).Hash; $b=(Get-FileHash  ...
++     ~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (Get-FileHash:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+Get-FileHash : El t∩┐╜rmino 'Get-FileHash' no se reconoce como nombre de un cmdlet, funci∩┐╜n, archivo de script o 
+programa ejecutable. Compruebe si escribi∩┐╜ correctamente el nombre o, si incluy∩┐╜ una ruta de acceso, compruebe que 
+dicha ruta es correcta e int∩┐╜ntelo de nuevo.
+En l∩┐╜nea: 1 Car∩┐╜cter: 57
++ ... -FileHash data\out\baleares_2026.json).Hash; $b=(Get-FileHash data\ou ...
++                                                      ~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (Get-FileHash:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+$ python -c "import json; d=json.load(open('data/out/baleares_2026_v1.json',encoding='utf-8')); print(len(d['pharmacies']),len(d['shifts']),len(d['warnings'])); [print(w) for w in d['warnings'] if 'AMBIGUA' in w][:5]"
+...output truncated...
+
+Full output saved to: C:\Users\adoni\.local\share\opencode\tool-output\tool_14ecf88db0010Tlj8N6vUys761
+
+Palma.pdf p52: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p53: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                             971609946
+Palma.pdf p54: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p55: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p56: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p57: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p58: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p59: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p60: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                             971609946
+Palma.pdf p61: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                             971609946
+Palma.pdf p62: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p63: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p64: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p65: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p66: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p67: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                             971609946
+Palma.pdf p68: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p69: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p70: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p71: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p72: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p73: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p74: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                             971609946
+Palma.pdf p75: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p76: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p77: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p78: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p79: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p80: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p81: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                             971609946
+Palma.pdf p82: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p83: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p84: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p85: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p86: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p87: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p88: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                             971609946
+Palma.pdf p89: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p90: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p91: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p92: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                             971609946
+Palma.pdf p93: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                             971609946
+Palma.pdf p94: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p95: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                             971609946
+Palma.pdf p96: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                             971609946
+Palma.pdf p97: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p98: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p99: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                 971609946
+Palma.pdf p100: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p101: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p102: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p103: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p104: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p105: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p106: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p107: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p108: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p109: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p110: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p111: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p112: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p113: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p114: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p115: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p116: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p117: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p118: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p119: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p120: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p121: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p122: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p123: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p124: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p125: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p126: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p127: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p128: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p129: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p130: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p131: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p132: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p133: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p134: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p135: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p136: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p137: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p138: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p139: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p140: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p141: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p142: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p143: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p144: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p145: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p146: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p147: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p148: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p149: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p150: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p151: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p152: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p153: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p154: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p155: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p156: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p157: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p158: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p159: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p160: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p161: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p162: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p163: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p164: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p165: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p166: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p167: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p168: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p169: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p170: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p171: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p172: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p173: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p174: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p175: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p176: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p177: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p178: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p179: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p180: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p181: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p182: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p183: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p184: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p185: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p186: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p187: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p188: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p189: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p190: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p191: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p192: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p193: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p194: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p195: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p196: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p197: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p198: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p199: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p200: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p201: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p202: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p203: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p204: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p205: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p206: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p207: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p208: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p209: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p210: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p211: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p212: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p213: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p214: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p215: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p216: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p217: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p218: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p219: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p220: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p221: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p222: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p223: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p224: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p225: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p226: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p227: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p228: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p229: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p230: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p231: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p232: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p233: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p234: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p235: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p236: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p237: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p238: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p239: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p240: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p241: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p242: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p243: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p244: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p245: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p246: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p247: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p248: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p249: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p250: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p251: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p252: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p253: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p254: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p255: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p256: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p257: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p258: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p259: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p260: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p261: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p262: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p263: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p264: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p265: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p266: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p267: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p268: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p269: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p270: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p271: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p272: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p273: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p274: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p275: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p276: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p277: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p278: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p279: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p280: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p281: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p282: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p283: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p284: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p285: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p286: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p287: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p288: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p289: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p290: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p291: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p292: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p293: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p294: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p295: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p296: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p297: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p298: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p299: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p300: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p301: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p302: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p303: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p304: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p305: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p306: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p307: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p308: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p309: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p310: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p311: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p312: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p313: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p314: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p315: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p316: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p317: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p318: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p319: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p320: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p321: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p322: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p323: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p324: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p325: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p326: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p327: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p328: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p329: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p330: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p331: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p332: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p333: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p334: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p335: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p336: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p337: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p338: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p339: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p340: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p341: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p342: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p343: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p344: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p345: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p346: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p347: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p348: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p349: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p350: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p351: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p352: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p353: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p354: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p355: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p356: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p357: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p358: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p359: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p360: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                              971609946
+Palma.pdf p361: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p362: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p363: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Palma.pdf p364: LINEA_AMBIGUA: SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)                                  971609946
+Pollen_a.pdf p4: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                         971530063
+Pollen_a.pdf p12: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                          971530063
+Pollen_a.pdf p20: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                          971530063
+Pollen_a.pdf p28: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                          971530063
+Pollen_a.pdf p36: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                          971530063
+Pollen_a.pdf p44: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                          971530063
+Pollen_a.pdf p52: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                          971530063
+Pollen_a.pdf p60: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                          971530063
+Pollen_a.pdf p68: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                          971530063
+Pollen_a.pdf p76: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                          971530063
+Pollen_a.pdf p84: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                          971530063
+Pollen_a.pdf p96: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                          971530063
+Pollen_a.pdf p100: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p108: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p116: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p124: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p132: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p140: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p148: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p156: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p164: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p172: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p188: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p196: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p204: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p212: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p220: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p228: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p236: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p244: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p252: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p260: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p268: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p276: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p284: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p292: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p300: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p308: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p316: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p324: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p332: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p340: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p342: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p348: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p356: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+Pollen_a.pdf p364: LINEA_AMBIGUA: MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 - POLLEN∩┐╜A                           971530063
+
+$ $tmp="C:\Users\adoni\AppData\Local\Temp\opencode\pdf2"; New-Item -ItemType Directory -Force -Path $tmp | Out-Null; pdftotext -layout -f 1 -l 2 "data\raw\baleares\2026\Palma.pdf" "$tmp\palma_layout.txt"; python -c "
+data=open(r'$tmp\palma_layout.txt','rb').read()
+print('len',len(data))
+print('count FF', data.count(b'\x0c'))
+idx=data.find(b'\x0c')
+print('first FF at', idx)
+print(repr(data[idx-40:idx+40]))
+"
+len 6363
+count FF 2
+first FF at 2737
+b"                      P\xc3\xa1gina 1 de 364\r\n\x0cServei Farmac\xc3\xa8utic d'urg\xc3\xa8ncia:\r\nPALMA"
+
+$ $tmp="C:\Users\adoni\AppData\Local\Temp\opencode\pdf2"; pdftotext -bbox-layout -f 1 -l 1 "data\raw\baleares\2026\Palma.pdf" "$tmp\palma_bbox.xhtml"; Get-Content -LiteralPath "$tmp\palma_bbox.xhtml" -TotalCount 40
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta name="Creator" content="PDFium"/>
+<meta name="Producer" content="PDFium"/>
+<meta name="CreationDate" content="2025-11-26T13:07:32Z"/>
+</head>
+<body>
+<doc>
+  <page width="595.000000" height="842.000000">
+    <flow>
+      <block xMin="9.500000" yMin="39.727200" xMax="224.476000" yMax="74.017200">
+        <line xMin="9.500000" yMin="39.727200" xMax="224.476000" yMax="54.127200">
+          <word xMin="9.500000" yMin="39.727200" xMax="52.140000" yMax="54.127200">Servei</word>
+          <word xMin="56.140000" yMin="39.727200" xMax="142.284000" yMax="54.127200">FarmacA"utic</word>
+          <word xMin="146.284000" yMin="39.727200" xMax="224.476000" yMax="54.127200">d&apos;urgA"ncia:</word>
+        </line>
+        <line xMin="9.500000" yMin="59.617200" xMax="60.988000" yMax="74.017200">
+          <word xMin="9.500000" yMin="59.617200" xMax="60.988000" yMax="74.017200">PALMA</word>
+        </line>
+      </block>
+      <block xMin="9.500000" yMin="101.859200" xMax="142.148000" yMax="112.659200">
+        <line xMin="9.500000" yMin="101.859200" xMax="142.148000" yMax="112.659200">
+          <word xMin="9.500000" yMin="101.859200" xMax="44.492000" yMax="112.659200">jueves,</word>
+          <word xMin="47.492000" yMin="101.859200" xMax="53.492000" yMax="112.659200">1</word>
+          <word xMin="56.492000" yMin="101.859200" xMax="68.492000" yMax="112.659200">de</word>
+          <word xMin="71.492000" yMin="101.859200" xMax="100.148000" yMax="112.659200">enero</word>
+          <word xMin="103.148000" yMin="101.859200" xMax="115.148000" yMax="112.659200">de</word>
+          <word xMin="118.148000" yMin="101.859200" xMax="142.148000" yMax="112.659200">2026</word>
+        </line>
+      </block>
+      <block xMin="71.750000" yMin="120.249200" xMax="309.518000" yMax="131.049200">
+        <line xMin="71.750000" yMin="120.249200" xMax="309.518000" yMax="131.049200">
+          <word xMin="71.750000" yMin="120.249200" xMax="111.026000" yMax="131.049200">SERVEI</word>
+          <word xMin="114.026000" yMin="120.249200" xMax="184.550000" yMax="131.049200">D&apos;URGA^NCIA</word>
+          <word xMin="187.550000" yMin="120.249200" xMax="224.198000" yMax="131.049200">DIURN</word>
+          <word xMin="227.198000" yMin="120.249200" xMax="238.526000" yMax="131.049200">de</word>
+          <word xMin="241.526000" yMin="120.249200" xMax="269.522000" yMax="131.049200">09:00</word>
+          <word xMin="272.522000" yMin="120.249200" xMax="278.522000" yMax="131.049200">a</word>
+          <word xMin="281.522000" yMin="120.249200" xMax="309.518000" yMax="131.049200">22:00</word>
+
+$ $tmp="C:\Users\adoni\AppData\Local\Temp\opencode\pdf2"; Get-Content -LiteralPath "$tmp\palma_bbox.xhtml" | Select-String -Pattern "SAGRISTA-FARRE|RAPINYA|Rotonda" 
+<word xMin="9.500000" yMin="360.637200" xMax="160.560000" yMax="369.637200">SAGRISTA-FARRE-MATEMALAS</word>
+          <word xMin="199.690000" yMin="360.637200" xMax="246.630000" yMax="369.637200">RAPINYA,</word>
+          <word xMin="301.620000" yMin="360.637200" xMax="338.830000" yMax="369.637200">(Rotonda</word>
+
+$ python -c "
+import subprocess
+p=r'data\raw\baleares\2026\Campos.pdf'
+proc=subprocess.run(['pdftotext','-layout',p,'-'],capture_output=True)
+raw=proc.stdout
+print('rawtype',type(raw),len(raw))
+for enc in ('utf-8','latin-1'):
+    t=raw.decode(enc,errors='replace')
+    for line in t.split(chr(10)):
+        if 'RIERA OLIVER' in line and 'MAGDALENA' in line:
+            print(enc, repr(line.strip()[:70])); break
+"
+rawtype <class 'bytes'> 425587
+utf-8 'RIERA OLIVER, M∩┐╜ MAGDALENA BATLE ANDREU BURGUERA MUT,9 - SES SALINES  '
+latin-1 'RIERA OLIVER, M┬¬ MAGDALENA BATLE ANDREU BURGUERA MUT,9 - SES SALINES '
+
+$ $tmp="C:\Users\adoni\AppData\Local\Temp\opencode\pdf2"; pdftotext -bbox-layout -f 12 -l 12 "data\raw\baleares\2026\Campos.pdf" "$tmp\campos_p12.xhtml"; python -c "
+import re
+t=open(r'$tmp\campos_p12.xhtml',encoding='utf-8',errors='replace').read()
+for m in re.finditer(r'<line[^>]*>(.*?)</line>', t, re.S):
+    if 'RIERA' in m.group(1) or 'AZCARATE' in m.group(1):
+        print(m.group(0));print('---')
+"
+(no output)
+
+$ $tmp="C:\Users\adoni\AppData\Local\Temp\opencode\pdf2"; python -c "
+import re
+t=open(r'$tmp\palma_bbox.xhtml',encoding='utf-8',errors='replace').read()
+# find the line containing SAGRISTA
+for m in re.finditer(r'<line[^>]*>(.*?)</line>', t, re.S):
+    if 'SAGRISTA-FARRE' in m.group(1):
+        print(m.group(0)); break
+"
+<line xMin="9.500000" yMin="360.637200" xMax="380.200000" yMax="369.637200">
+          <word xMin="9.500000" yMin="360.637200" xMax="160.560000" yMax="369.637200">SAGRISTA-FARRE-MATEMALAS</word>
+          <word xMin="167.750000" yMin="360.637200" xMax="197.190000" yMax="369.637200">C/SON</word>
+          <word xMin="199.690000" yMin="360.637200" xMax="246.630000" yMax="369.637200">RAPINYA,</word>
+          <word xMin="249.130000" yMin="360.637200" xMax="259.130000" yMax="369.637200">31</word>
+          <word xMin="261.630000" yMin="360.637200" xMax="284.120000" yMax="369.637200">LOC.</word>
+          <word xMin="286.620000" yMin="360.637200" xMax="299.120000" yMax="369.637200">7,8</word>
+          <word xMin="301.620000" yMin="360.637200" xMax="338.830000" yMax="369.637200">(Rotonda</word>
+          <word xMin="341.330000" yMin="360.637200" xMax="380.200000" yMax="369.637200">Colegios)</word>
+        </line>
+
+$ $tmp="C:\Users\adoni\AppData\Local\Temp\opencode\pdf2"; python -c "
+import re
+t=open(r'$tmp\palma_bbox.xhtml',encoding='utf-8',errors='replace').read()
+i=0
+for m in re.finditer(r'<line[^>]*>(.*?)</line>', t, re.S):
+    body=m.group(1)
+    words=re.findall(r'<word xMin=\"([0-9.]+)\"[^>]*>(.*?)</word>', body)
+    if not words: continue
+    print(['%s@%.1f'%(w[1],float(w[0])) for w in words])
+"
+En l∩┐╜nea: 7 Car∩┐╜cter: 39
++     words=re.findall(r'<word xMin=\"([0-9.]+)\"[^>]*>(.*?)</word>', b ...
++                                       ~
+Falta el nombre de tipo despu∩┐╜s de '['.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : MissingTypename
+
+ΓåÉ Write C:/Users/adoni/AppData/Local/Temp/opencode/pdf2/inspect.py
+Wrote file successfully.
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\inspect.py" "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\palma_bbox.xhtml"
+['Servei@9.5', 'Farmac∩┐╜utic@56.1', 'd&apos;urg∩┐╜ncia:@146.3']
+['PALMA@9.5']
+['jueves,@9.5', '1@47.5', 'de@56.5', 'enero@71.5', 'de@103.1', '2026@118.1']
+['SERVEI@71.8', 'D&apos;URG∩┐╜NCIA@114.0', 'DIURN@187.6', 'de@227.2', '09:00@241.5', 'a@272.5', '22:00@281.5']
+['ALCOVER@9.5', 'CASASNOVAS,@59.2', 'R@130.9']
+['AV.@167.8', 'JOAN@187.2', 'MIR∩┐╜,@215.2', '186@246.3', '(davant@263.9', 'C.Cial.@296.3', 'Porto-P∩┐╜)-PALMA@327.1']
+['971909015@503.3']
+['BENITO@9.5', 'BUENO@48.6']
+['CTRA.@167.8', 'VALLDEMOSSA,@199.4', '59@278.8', '(Junto@291.3', 'Carrefour)@318.8']
+['971293740@503.3']
+['BENNASER@9.5', '-@64.8', 'VERD@70.6']
+['LA@167.8', 'RAMBLA,@183.6', '14@231.3', '(cantonada@243.8', 'C/@290.2', 'Horts)@302.1']
+['971711511@503.3']
+['BUADES@9.5', 'MATEU@52.0']
+['PZA.@167.8', 'JUAN@191.6', 'CARLOS@219.7', 'I,@261.6', '3@269.9', '(Inicio@277.4', 'Jaime@306.6', 'III)@332.4']
+['971070635@503.3']
+['FLUXA@9.5', 'TORRES@45.3']
+['ARAG∩┐╜,@167.8', '202@208.3', '(al@228.3', 'costat@241.3', 'd&apos;Eroski,@267.1', 'Lidl@305.0', 'i@324.2', 'Aldi)@329.4']
+['971474566@503.3']
+['FORNES@9.5', 'NADAL@50.3']
+['CTRA.@167.8', 'VALLDEMOSSA,@199.4', '25@278.8']
+['971298050@503.3']
+['GOMEZ@9.5', 'GARCIA@47.5']
+['CL@167.8', 'BALANGUERA,@183.0', '15@256.9', '(Junto@269.4', 'Plaza@296.9', 'Madrid)@321.0', 'PALMA@356.3']
+['971458788@503.3']
+['HERNANDEZ@9.5', 'FRONTERA@73.1']
+['MIQUEL@167.8', 'CAPLLONCH,@209.1', '32@274.1', '(@289.1', 'Frente@294.9', 'Conservatorio@323.0', 'de@382.1', 'M∩┐╜sica)@394.0']
+['971666901@503.3']
+['MARIMON@9.5', 'SIMO@61.4']
+['CL@167.8', 'TRAFALGAR,@183.0', '25@248.0', '(Ciudad@260.5', 'Jard∩┐╜n)@295.2']
+['971267660@503.3']
+['MUNAR@9.5', 'MASOT@49.2']
+['AV.@167.8', 'ALEXANDRE@187.2', 'ROSSELL∩┐╜,@250.8', '19@306.3', '(davant@318.8', 'del@351.3', 'Corte@366.0', 'Ingl∩┐╜s)@390.7']
+['971726817@503.3']
+['PI∩┐╜A@9.5', '-@35.3', 'GALLARDO@41.2']
+['AUSI∩┐╜S@167.8', 'MARCH,@206.4', '32@248.0', '(Al@260.5', 'costat@276.4', 'Pl.@302.2', 'Sta.@315.5', 'Pagesa)@333.3']
+['971909095@503.3']
+['REAL@9.5', 'VICENS@38.1']
+['ARAG∩┐╜,@167.8', '70@208.3', '(al@220.8', 'costat@233.8', 'Bar@259.6', 'G∩┐╜ell)-@276.6', 'PALMA@307.9']
+['971272501@503.3']
+['SAGRISTA@9.5', 'BUADES,@60.9', 'F@105.9']
+['CL@167.8', 'MARQUES@183.0', 'DE@234.4', 'LA@250.2', 'FONTSANTA,@266.0', '6@330.5', '(Junto@338.0', 'a@365.4', 'Plaza@372.4', 'Espa∩┐╜a)@396.5']
+['971222202@503.3']
+['SAGRISTA@9.5', 'BUADES,@60.9', 'G@105.9']
+['PASQUAL@167.8', 'RIBOT,52@216.3', '(Entre@261.3', 'Policl∩┐╜nica@288.8', 'Miramar@334.0', 'i@371.5', 'PAC@376.8', 'Son@398.7', 'Piz∩┐╜)@416.8']
+['971222201@503.3']
+['SAGRISTA-FARRE-MATEMALAS@9.5', 'C/SON@167.8', 'RAPINYA,@199.7', '31@249.1', 'LOC.@261.6', '7,8@286.6', '(Rotonda@301.6', 'Colegios)@341.3']
+['971609946@503.3']
+['TINOCO@9.5', 'GIL@49.8']
+['AV@167.8', 'GABRIEL@184.7', 'ALOMAR@230.5', 'I@276.3', 'VILLALONGA,@282.1', '27@352.1']
+['645899135@503.3']
+['TORRES@9.5', 'CERDO@50.3']
+['BARTOMEU@167.8', 'ROSSELL∩┐╜@226.3', 'I@279.4', 'P∩┐╜RCEL,@285.2', '25@328.5', '(Esquina@341.0', 'Andrea@379.1', 'Doria)@411.0']
+['971737529@503.3']
+['VAQUER@9.5', 'MESTRE@53.6']
+['ANSELM@167.8', 'TURMEDA,@211.3', '9@265.8', '(Davant@273.3', 'c/@308.0', 'Jes∩┐╜s-cami@317.7', 'del@364.0', 'cementiri)@378.8']
+['971291159@503.3']
+['VICENS@9.5', 'CALDENTEY,@48.1', 'JOAN@113.0']
+['REIS@167.8', 'CAT∩┐╜LICS,@191.9', '58-60@245.8']
+['971274756@503.3']
+['SERVEI@71.8', 'D&apos;URG∩┐╜NCIA@114.0', 'NOCTURN@187.6', 'de@245.9', '22:00@260.2', 'a@291.2', '09:00@300.2']
+['ALCOVER@9.5', 'CASASNOVAS,@59.2', 'R@130.9']
+['AV.@167.8', 'JOAN@187.2', 'MIR∩┐╜,@215.2', '186@246.3', '(davant@263.9', 'C.Cial.@296.3', 'Porto-P∩┐╜)-PALMA@327.1']
+['971909015@503.3']
+['GOMEZ@9.5', 'GARCIA@47.5']
+['CL@167.8', 'BALANGUERA,@183.0', '15@256.9', '(Junto@269.4', 'Plaza@296.9', 'Madrid)@321.0', 'PALMA@356.3']
+['971458788@503.3']
+['REAL@9.5', 'VICENS@38.1']
+['ARAG∩┐╜,@167.8', '70@208.3', '(al@220.8', 'costat@233.8', 'Bar@259.6', 'G∩┐╜ell)-@276.6', 'PALMA@307.9']
+['971272501@503.3']
+['01/01/2026@9.5', '-@47.9', '31/12/2026@52.6']
+['P∩┐╜gina@496.1', '1@521.2', 'de@527.2', '364@536.7']
+
+ΓåÉ Write C:/Users/adoni/AppData/Local/Temp/opencode/pdf2/find.py
+Wrote file successfully.
+
+ΓåÉ Write C:/Users/adoni/AppData/Local/Temp/opencode/pdf2/find.py
+Wrote file successfully.
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\find.py" "data\raw\baleares\2026\Campos.pdf" "RIERA OLIVER" 2>&1 | Select-Object -First 20
+page 1
+['RIERA@9.5', 'OLIVER,@42.0', 'LAURA@83.6']
+
+page 2
+['RIERA@9.5', 'OLIVER,@42.0', 'M∩┐╜@83.6', 'MAGDALENA@97.8', 'BATLE@167.8', 'ANDREU@202.4', 'BURGUERA@246.6', 'MUT,9@304.1', '-@336.3', 'SES@342.1', 'SALINES@361.8']
+
+page 18
+['RIERA@9.5', 'OLIVER,@42.0', 'LAURA@83.6']
+
+page 19
+['RIERA@9.5', 'OLIVER,@42.0', 'M∩┐╜@83.6', 'MAGDALENA@97.8', 'BATLE@167.8', 'ANDREU@202.4', 'BURGUERA@246.6', 'MUT,9@304.1', '-@336.3', 'SES@342.1', 'SALINES@361.8']
+
+page 35
+['RIERA@9.5', 'OLIVER,@42.0', 'LAURA@83.6']
+
+page 36
+['RIERA@9.5', 'OLIVER,@42.0', 'M∩┐╜@83.6', 'MAGDALENA@97.8', 'BATLE@167.8', 'ANDREU@202.4', 'BURGUERA@246.6', 'MUT,9@304.1', '-@336.3', 'SES@342.1', 'SALINES@361.8']
+
+page 52
+['RIERA@9.5', 'OLIVER,@42.0', 'LAURA@83.6']
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\find.py" "data\raw\baleares\2026\Campos.pdf" "SASTRE" 2>&1 | Select-Object -First 12
+page 6
+['SASTRE@9.5', 'BARCELO,@49.2', 'BARTOLOME@100.9', 'CL@167.8', 'DELS@183.0', 'AMETLLERS,@210.5', '25@274.3', '-@289.3', 'Local@295.2', '1.@320.4', 'CAMPOS@330.4']
+
+page 6
+['SASTRE@9.5', 'BARCELO,@49.2', 'BARTOLOME@100.9', 'CL@167.8', 'DELS@183.0', 'AMETLLERS,@210.5', '25@274.3', '-@289.3', 'Local@295.2', '1.@320.4', 'CAMPOS@330.4']
+
+page 23
+['SASTRE@9.5', 'BARCELO,@49.2', 'BARTOLOME@100.9', 'CL@167.8', 'DELS@183.0', 'AMETLLERS,@210.5', '25@274.3', '-@289.3', 'Local@295.2', '1.@320.4', 'CAMPOS@330.4']
+
+page 23
+['SASTRE@9.5', 'BARCELO,@49.2', 'BARTOLOME@100.9', 'CL@167.8', 'DELS@183.0', 'AMETLLERS,@210.5', '25@274.3', '-@289.3', 'Local@295.2', '1.@320.4', 'CAMPOS@330.4']
+
+$ python -c "
+import subprocess,re
+p=r'data\raw\baleares\2026\Palma.pdf'
+bb=subprocess.run(['pdftotext','-bbox-layout','-f','1','-l','1',p,'-'],capture_output=True).stdout
+i=bb.find(b'Farmac'); print('bbox bytes:', bb[i:i+30])
+lay=subprocess.run(['pdftotext','-layout','-f','1','-l','1',p,'-'],capture_output=True).stdout
+j=lay.find(b'Farmac'); print('lay bytes:', lay[j:j+30])
+print('bbox latin1:', bb[i:i+30].decode('latin-1'))
+print('lay latin1:', lay[j:j+30].decode('latin-1'))
+"
+bbox bytes: b'Farmac\xc3\xa8utic</word>\r\n         '
+lay bytes: b"Farmac\xc3\xa8utic d'urg\xc3\xa8ncia:\r\nPAL"
+bbox latin1: Farmac├¿utic</word>
+
+         
+lay latin1: Farmac├¿utic d'urg├¿ncia:
+
+PAL
+
+$ python -c "
+import subprocess
+p=r'data\raw\baleares\2026\Campos.pdf'
+bb=subprocess.run(['pdftotext','-bbox-layout','-f','2','-l','2',p,'-'],capture_output=True).stdout
+i=bb.find(b'RIERA'); seg=bb[i:i+120]; print(seg)
+print(repr(seg.decode('utf-8')))
+"
+b'RIERA</word>\r\n          <word xMin="41.990000" yMin="155.887200" xMax="81.130000" yMax="164.887200">OLIVER,</word>\r\n    '
+'RIERA</word>\r\n          <word xMin="41.990000" yMin="155.887200" xMax="81.130000" yMax="164.887200">OLIVER,</word>\r\n    '
+
+$ python -c "
+import subprocess
+p=r'data\raw\baleares\2026\Campos.pdf'
+bb=subprocess.run(['pdftotext','-bbox-layout','-f','2','-l','2',p,'-'],capture_output=True).stdout
+i=bb.find(b'MAGDALENA')
+print(repr(bb[i-80:i+20]))
+"
+b'   <word xMin="97.780000" yMin="155.887200" xMax="162.190000" yMax="164.887200">MAGDALENA</word>\r\n  '
+
+$ python -c "
+import subprocess
+p=r'data\raw\baleares\2026\Campos.pdf'
+bb=subprocess.run(['pdftotext','-bbox-layout','-f','2','-l','2',p,'-'],capture_output=True).stdout
+i=bb.find(b'83.6')
+j=bb.find(b'>',i); print(repr(bb[j-60:j+20]))
+"
+b'630000" yMin="155.887200" xMax="95.280000" yMax="164.887200">M\xc2\xaa</word>\r\n       '
+
+$ python -c "
+import subprocess
+p=r'data\raw\baleares\2026\Campos.pdf'
+lay=subprocess.run(['pdftotext','-layout','-f','2','-l','2',p,'-'],capture_output=True).stdout
+i=lay.find(b'RIERA')
+print(repr(lay[i:i+90]))
+"
+b'RIERA OLIVER, M\xc2\xaa MAGDALENA BATLE ANDREU BURGUERA MUT,9 - SES SALINES                     '
+
+$ python -c "
+import subprocess
+p=r'data\raw\baleares\2026\Campos.pdf'
+raw=subprocess.run(['pdftotext','-layout','-f','2','-l','2',p,'-'],capture_output=True).stdout
+for line in raw.decode('utf-8').split(chr(10)):
+    if 'RIERA OLIVER' in line and 'MAGDALENA' in line:
+        print(repr(line.strip()[:45]))
+"
+'RIERA OLIVER, M∩┐╜ MAGDALENA BATLE ANDREU BURGU'
+
+$ python -c "
+import subprocess
+p=r'data\raw\baleares\2026\Campos.pdf'
+raw=subprocess.run(['pdftotext','-layout','-f','2','-l','2',p,'-'],capture_output=True).stdout
+i=raw.find(b'RIERA OLIVER')
+print('bytes',repr(raw[i:i+20]))
+s=raw.decode('utf-8')
+i2=s.find('RIERA OLIVER')
+print('str',repr(s[i2:i2+14]))
+"
+bytes b'RIERA OLIVER, M\xc2\xaa MA'
+str 'RIERA OLIVER, '
+
+$ python -c "
+import subprocess
+p=r'data\raw\baleares\2026\Campos.pdf'
+raw=subprocess.run(['pdftotext','-layout','-f','2','-l','2',p,'-'],capture_output=True).stdout
+s=raw.decode('utf-8')
+i=s.find('MAGDALENA')
+print([hex(ord(c)) for c in s[i-3:i]])
+"
+['0x4d', '0xaa', '0x20']
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\find.py" "data\raw\baleares\2026\Eivissa.pdf" "TUR-TUR" 2>&1 | Select-Object -First 8
+page 16
+['TUR-TUR@9.5', '(FCIA.@55.3', 'MERCAT@86.4', 'VELL)@130.6', 'Antoni@167.8', 'Palau,@198.0', '1@225.2']
+
+page 35
+['TUR-TUR@9.5', '(FCIA.@55.3', 'MERCAT@86.4', 'VELL)@130.6', 'Antoni@167.8', 'Palau,@198.0', '1@225.2']
+
+page 54
+['TUR-TUR@9.5', '(FCIA.@55.3', 'MERCAT@86.4', 'VELL)@130.6', 'Antoni@167.8', 'Palau,@198.0', '1@225.2']
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\find.py" "data\raw\baleares\2026\Eivissa.pdf" "MATEO" 2>&1 | Select-Object -First 8
+page 10
+['MATEO-LLAVADOR@9.5', '(FARMACIA@105.8', 'Pere@167.8', 'Frances,@188.0', '23@224.1', '(Es@239.1', 'Pratet)@254.9']
+
+page 29
+['MATEO-LLAVADOR@9.5', '(FARMACIA@105.8', 'Pere@167.8', 'Frances,@188.0', '23@224.1', '(Es@239.1', 'Pratet)@254.9']
+
+page 48
+['MATEO-LLAVADOR@9.5', '(FARMACIA@105.8', 'Pere@167.8', 'Frances,@188.0', '23@224.1', '(Es@239.1', 'Pratet)@254.9']
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\find.py" "data\raw\baleares\2026\Pollen_a.pdf" "MIQUEL" 2>&1 | Select-Object -First 8
+page 4
+['MIQUEL@9.5', 'OLIVER@50.9', '-@90.0', 'AINA@95.8', 'OLIVER@123.3', 'ALCUDIA,@167.8', '16@217.7', '-@230.2', 'POLLEN∩┐╜A@236.1']
+
+page 12
+['MIQUEL@9.5', 'OLIVER@50.9', '-@90.0', 'AINA@95.8', 'OLIVER@123.3', 'ALCUDIA,@167.8', '16@217.7', '-@230.2', 'POLLEN∩┐╜A@236.1']
+
+page 20
+['MIQUEL@9.5', 'OLIVER@50.9', '-@90.0', 'AINA@95.8', 'OLIVER@123.3', 'ALCUDIA,@167.8', '16@217.7', '-@230.2', 'POLLEN∩┐╜A@236.1']
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\find.py" "data\raw\baleares\2026\Campos.pdf" "AZCARATE" 2>&1 | Select-Object -First 8
+page 122
+['AZCARATE@9.5', 'HERNANDEZ-PINZON@65.3', 'GLOSADOR@167.8', 'SEBASTIA@224.7', 'VIDAL,@274.9', 'sostre,@311.0', '12-C&apos;AS@339.4', 'CONCOS@376.4']
+
+page 139
+['AZCARATE@9.5', 'HERNANDEZ-PINZON@65.3', 'GLOSADOR@167.8', 'SEBASTIA@224.7', 'VIDAL,@274.9', 'sostre,@311.0', '12-C&apos;AS@339.4', 'CONCOS@376.4']
+
+page 156
+['AZCARATE@9.5', 'HERNANDEZ-PINZON@65.3', 'GLOSADOR@167.8', 'SEBASTIA@224.7', 'VIDAL,@274.9', 'sostre,@311.0', '12-C&apos;AS@339.4', 'CONCOS@376.4']
+
+ΓåÉ Write C:/Users/adoni/AppData/Local/Temp/opencode/pdf2/gaps.py
+Wrote file successfully.
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\gaps.py" "data\raw\baleares\2026\Eivissa.pdf" 10 "MATEO-LLAVADOR"
+MATEO-LLAVADOR         x=   9.50 xMax= 103.33 
+(FARMACIA              x= 105.83 xMax= 161.94 gap=2.50
+Pere                   x= 167.75 xMax= 185.52 gap=5.81
+Frances,               x= 188.02 xMax= 221.62 gap=2.50
+23                     x= 224.12 xMax= 234.12 gap=2.50
+(Es                    x= 239.12 xMax= 252.44 gap=5.00
+Pratet)                x= 254.94 xMax= 281.58 gap=2.50
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\gaps.py" "data\raw\baleares\2026\Eivissa.pdf" 16 "TUR-TUR"
+TUR-TUR                x=   9.50 xMax=  52.81 
+(FCIA.                 x=  55.31 xMax=  83.92 gap=2.50
+MERCAT                 x=  86.42 xMax= 128.07 gap=2.50
+VELL)                  x= 130.57 xMax= 159.42 gap=2.50
+Antoni                 x= 167.75 xMax= 195.51 gap=8.33
+Palau,                 x= 198.01 xMax= 222.72 gap=2.50
+1                      x= 225.22 xMax= 230.22 gap=2.50
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\gaps.py" "data\raw\baleares\2026\Pollen_a.pdf" 4 "MIQUEL"
+MIQUEL                 x=   9.50 xMax=  48.36 
+OLIVER                 x=  50.86 xMax=  87.50 gap=2.50
+-                      x=  90.00 xMax=  93.33 gap=2.50
+AINA                   x=  95.83 xMax= 120.82 gap=2.50
+OLIVER                 x= 123.32 xMax= 159.96 gap=2.50
+ALCUDIA,               x= 167.75 xMax= 215.23 gap=7.79
+16                     x= 217.73 xMax= 227.73 gap=2.50
+-                      x= 230.23 xMax= 233.56 gap=2.50
+POLLEN∩┐╜A               x= 236.06 xMax= 288.25 gap=2.50
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\gaps.py" "data\raw\baleares\2026\Palma.pdf" 1 "SAGRISTA-FARRE-MATEMALAS"
+SAGRISTA-FARRE-MATEMALAS x=   9.50 xMax= 160.56 
+C/SON                  x= 167.75 xMax= 197.19 gap=7.19
+RAPINYA,               x= 199.69 xMax= 246.63 gap=2.50
+31                     x= 249.13 xMax= 259.13 gap=2.50
+LOC.                   x= 261.63 xMax= 284.12 gap=2.50
+7,8                    x= 286.62 xMax= 299.12 gap=2.50
+(Rotonda               x= 301.62 xMax= 338.83 gap=2.50
+Colegios)              x= 341.33 xMax= 380.20 gap=2.50
+
+$ Measure-Command { pdftotext -layout "data\raw\baleares\2026\Palma.pdf" "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\palma_full.txt" } | Select-Object -ExpandProperty TotalSeconds
+0,6492387
+
+$ Measure-Command { pdftotext -bbox-layout "data\raw\baleares\2026\Palma.pdf" "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\palma_full.xhtml" } | Select-Object -ExpandProperty TotalSeconds
+1,2211334
+
+ΓåÉ Write C:/Users/adoni/AppData/Local/Temp/opencode/pdf2/rows.py
+Wrote file successfully.
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\rows.py" "data\raw\baleares\2026\Palma.pdf" 1
+['Servei@9.50', 'Farmac∩┐╜utic@56.14', "d'urg∩┐╜ncia:@146.28"]
+['PALMA@9.50']
+['jueves,@9.50', '1@47.49', 'de@56.49', 'enero@71.49', 'de@103.15', '2026@118.15']
+['SERVEI@71.75', "D'URG∩┐╜NCIA@114.03", 'DIURN@187.55', 'de@227.20', '09:00@241.53', 'a@272.52', '22:00@281.52']
+['ALCOVER@9.50', 'CASASNOVAS,@59.20', 'R@130.87', 'AV.@167.75', 'JOAN@187.19', 'MIR∩┐╜,@215.24', '186@246.35', '(davant@263.85', 'C.Cial.@296.33', 'Porto-P∩┐╜)-PALMA@327.15', '971909015@503.28']
+['BENITO@9.50', 'BUENO@48.64', 'CTRA.@167.75', 'VALLDEMOSSA,@199.41', '59@278.82', '(Junto@291.32', 'Carrefour)@318.81', '971293740@503.28']
+['BENNASER@9.50', '-@64.76', 'VERD@70.59', 'LA@167.75', 'RAMBLA,@183.57', '14@231.34', '(cantonada@243.84', 'C/@290.20', 'Horts)@302.14', '971711511@503.28']
+['BUADES@9.50', 'MATEU@51.99', 'PZA.@167.75', 'JUAN@191.63', 'CARLOS@219.68', 'I,@261.62', '3@269.95', '(Inicio@277.45', 'Jaime@306.59', 'III)@332.41', '971070635@503.28']
+['FLUXA@9.50', 'TORRES@45.32', 'ARAG∩┐╜,@167.75', '202@208.30', '(al@228.30', 'costat@241.34', "d'Eroski,@267.15", 'Lidl@305.04', 'i@324.18', 'Aldi)@329.45', '971474566@503.28']
+['FORNES@9.50', 'NADAL@50.33', 'CTRA.@167.75', 'VALLDEMOSSA,@199.41', '25@278.82', '971298050@503.28']
+['GOMEZ@9.50', 'GARCIA@47.53', 'CL@167.75', 'BALANGUERA,@183.02', '15@256.88', '(Junto@269.38', 'Plaza@296.87', 'Madrid)@321.02', 'PALMA@356.28', '971458788@503.28']
+['HERNANDEZ@9.50', 'FRONTERA@73.07', 'MIQUEL@167.75', 'CAPLLONCH,@209.11', '32@274.09', '(@289.09', 'Frente@294.92', 'Conservatorio@322.96', 'de@382.10', 'M∩┐╜sica)@394.04', '971666901@503.28']
+['MARIMON@9.50', 'SIMO@61.44', 'CL@167.75', 'TRAFALGAR,@183.02', '25@248.00', '(Ciudad@260.50', 'Jard∩┐╜n)@295.21', '971267660@503.28']
+['MUNAR@9.50', 'MASOT@49.22', 'AV.@167.75', 'ALEXANDRE@187.19', 'ROSSELL∩┐╜,@250.76', '19@306.29', '(davant@318.79', 'del@351.27', 'Corte@365.98', 'Ingl∩┐╜s)@390.69', '971726817@503.28']
+['PI∩┐╜A@9.50', '-@35.33', 'GALLARDO@41.16', 'AUSI∩┐╜S@167.75', 'MARCH,@206.36', '32@248.03', '(Al@260.53', 'costat@276.35', 'Pl.@302.16', 'Sta.@315.49', 'Pagesa)@333.26', '971909095@503.28']
+['REAL@9.50', 'VICENS@38.09', 'ARAG∩┐╜,@167.75', '70@208.30', '(al@220.80', 'costat@233.84', 'Bar@259.65', 'G∩┐╜ell)-@276.59', 'PALMA@307.95', '971272501@503.28']
+['SAGRISTA@9.50', 'BUADES,@60.88', 'F@105.87', 'CL@167.75', 'MARQUES@183.02', 'DE@234.40', 'LA@250.22', 'FONTSANTA,@266.04', '6@330.46', '(Junto@337.96', 'a@365.45', 'Plaza@372.39', 'Espa∩┐╜a)@396.54', '971222202@503.28']
+['SAGRISTA@9.50', 'BUADES,@60.88', 'G@105.87', 'PASQUAL@167.75', 'RIBOT,52@216.35', '(Entre@261.34', 'Policl∩┐╜nica@288.81', 'Miramar@334.04', 'i@371.52', 'PAC@376.79', 'Son@398.74', 'Piz∩┐╜)@416.80', '971222201@503.28']
+['SAGRISTA-FARRE-MATEMALAS@9.50', 'C/SON@167.75', 'RAPINYA,@199.69', '31@249.13', 'LOC.@261.63', '7,8@286.62', '(Rotonda@301.62', 'Colegios)@341.33', '971609946@503.28']
+['TINOCO@9.50', 'GIL@49.76', 'AV@167.75', 'GABRIEL@184.69', 'ALOMAR@230.50', 'I@276.32', 'VILLALONGA,@282.15', '27@352.10', '645899135@503.28']
+['TORRES@9.50', 'CERDO@50.32', 'BARTOMEU@167.75', 'ROSSELL∩┐╜@226.34', 'I@279.37', 'P∩┐╜RCEL,@285.20', '25@328.52', '(Esquina@341.02', 'Andrea@379.05', 'Doria)@410.98', '971737529@503.28']
+['VAQUER@9.50', 'MESTRE@53.65', 'ANSELM@167.75', 'TURMEDA,@211.34', '9@265.76', '(Davant@273.26', 'c/@307.96', 'Jes∩┐╜s-cami@317.67', 'del@364.04', 'cementiri)@378.75', '971291159@503.28']
+['VICENS@9.50', 'CALDENTEY,@48.10', 'JOAN@113.05', 'REIS@167.75', 'CAT∩┐╜LICS,@191.91', '58-60@245.78', '971274756@503.28']
+['SERVEI@71.75', "D'URG∩┐╜NCIA@114.03", 'NOCTURN@187.55', 'de@245.88', '22:00@260.21', 'a@291.21', '09:00@300.21']
+['ALCOVER@9.50', 'CASASNOVAS,@59.20', 'R@130.87', 'AV.@167.75', 'JOAN@187.19', 'MIR∩┐╜,@215.24', '186@246.35', '(davant@263.85', 'C.Cial.@296.33', 'Porto-P∩┐╜)-PALMA@327.15', '971909015@503.28']
+['GOMEZ@9.50', 'GARCIA@47.53', 'CL@167.75', 'BALANGUERA,@183.02', '15@256.88', '(Junto@269.38', 'Plaza@296.87', 'Madrid)@321.02', 'PALMA@356.28', '971458788@503.28']
+['REAL@9.50', 'VICENS@38.09', 'ARAG∩┐╜,@167.75', '70@208.30', '(al@220.80', 'costat@233.84', 'Bar@259.65', 'G∩┐╜ell)-@276.59', 'PALMA@307.95', '971272501@503.28']
+['01/01/2026@9.50', '-@47.93', '31/12/2026@52.60', 'P∩┐╜gina@496.08', '1@521.18', 'de@527.18', '364@536.73']
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\gaps.py" "data\raw\baleares\2026\Campos.pdf" 122 "AZCARATE"
+AZCARATE               x=   9.50 xMax=  62.80 
+HERNANDEZ-PINZON       x=  65.30 xMax= 166.35 gap=2.50
+GLOSADOR               x= 167.75 xMax= 222.18 gap=1.40
+SEBASTIA               x= 224.68 xMax= 272.44 gap=2.50
+VIDAL,                 x= 274.94 xMax= 308.53 gap=2.50
+sostre,                x= 311.03 xMax= 336.85 gap=2.50
+12-C&apos;AS           x= 339.35 xMax= 373.93 gap=2.50
+CONCOS                 x= 376.43 xMax= 416.99 gap=2.50
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\gaps.py" "data\raw\baleares\2026\Campos.pdf" 6 "SASTRE"
+SASTRE                 x=   9.50 xMax=  46.71 
+BARCELO,               x=  49.21 xMax=  98.36 gap=2.50
+BARTOLOME              x= 100.86 xMax= 163.05 gap=2.50
+CL                     x= 167.75 xMax= 180.52 gap=4.70
+DELS                   x= 183.02 xMax= 208.00 gap=2.50
+AMETLLERS,             x= 210.50 xMax= 271.84 gap=2.50
+25                     x= 274.34 xMax= 284.34 gap=2.50
+-                      x= 289.34 xMax= 292.67 gap=5.00
+Local                  x= 295.17 xMax= 317.92 gap=2.50
+1.                     x= 320.42 xMax= 327.92 gap=2.50
+CAMPOS                 x= 330.42 xMax= 371.54 gap=2.50
+SASTRE                 x=   9.50 xMax=  46.71 
+BARCELO,               x=  49.21 xMax=  98.36 gap=2.50
+BARTOLOME              x= 100.86 xMax= 163.05 gap=2.50
+CL                     x= 167.75 xMax= 180.52 gap=4.70
+DELS                   x= 183.02 xMax= 208.00 gap=2.50
+AMETLLERS,             x= 210.50 xMax= 271.84 gap=2.50
+25                     x= 274.34 xMax= 284.34 gap=2.50
+-                      x= 289.34 xMax= 292.67 gap=5.00
+Local                  x= 295.17 xMax= 317.92 gap=2.50
+1.                     x= 320.42 xMax= 327.92 gap=2.50
+CAMPOS                 x= 330.42 xMax= 371.54 gap=2.50
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\gaps.py" "data\raw\baleares\2026\Campos.pdf" 2 "RIERA OLIVER"
+RIERA                  x=   9.50 xMax=  39.49 
+OLIVER,                x=  41.99 xMax=  81.13 gap=2.50
+M∩┐╜                     x=  83.63 xMax=  95.28 gap=2.50
+MAGDALENA              x=  97.78 xMax= 162.19 gap=2.50
+BATLE                  x= 167.75 xMax= 199.94 gap=5.56
+ANDREU                 x= 202.44 xMax= 244.09 gap=2.50
+BURGUERA               x= 246.59 xMax= 301.58 gap=2.50
+MUT,9                  x= 304.08 xMax= 333.79 gap=2.50
+-                      x= 336.29 xMax= 339.62 gap=2.50
+SES                    x= 342.12 xMax= 359.34 gap=2.50
+SALINES                x= 361.84 xMax= 402.93 gap=2.50
+
+$ python -c "
+import subprocess
+for f in ['Palma','Campos','Eivissa','Pollen_a','Felanitx','Llucmajor']:
+    t=subprocess.run(['pdftotext','-layout','data/raw/baleares/2026/%s.pdf'%f,'-'],capture_output=True).stdout.decode('utf-8')
+    print(f, t.count(chr(12))+1)
+"
+Palma 365
+Campos 366
+Eivissa 366
+Pollen_a 366
+Felanitx 366
+Llucmajor 366
+
+$ python -c "
+import subprocess, xml.etree.ElementTree as ET
+ns='{http://www.w3.org/1999/xhtml}'
+for f in ['Palma','Campos']:
+    d=subprocess.run(['pdftotext','-bbox-layout','data/raw/baleares/2026/%s.pdf'%f,'-'],capture_output=True).stdout.decode('utf-8')
+    root=ET.fromstring(d)
+    print(f, 'pages', sum(1 for _ in root.iter(ns+'page')))
+"
+Palma pages 364
+Campos pages 365
+
+$ python -c "
+import subprocess
+for f in ['Palma','Campos']:
+    t=subprocess.run(['pdftotext','-layout','data/raw/baleares/2026/%s.pdf'%f,'-'],capture_output=True).stdout.decode('utf-8')
+    parts=t.replace(chr(13),'').split(chr(12))
+    print(f,'chunks',len(parts))
+    print(' first chunk repr:',repr(parts[0][:40]))
+    print(' last chunk repr:',repr(parts[-1][:40]))
+    print(' empty chunks at:',[i for i,p in enumerate(parts) if not p.strip()])
+"
+Palma chunks 365
+ first chunk repr: "Servei Farmac∩┐╜utic d'urg∩┐╜ncia:\nPALMA\n\nju"
+ last chunk repr: ''
+ empty chunks at: [364]
+Campos chunks 366
+ first chunk repr: "Servei Farmac∩┐╜utic d'urg∩┐╜ncia:\nCAMPOS-SE"
+ last chunk repr: ''
+ empty chunks at: [365]
+
+Now I understand the approach. Let me implement it.
+ΓåÉ Edit ingesta/parsers/baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+@@ -13,8 +13,9 @@
+ import os
+ import re
+ import subprocess
+ import unicodedata
++import xml.etree.ElementTree as ET
+ from datetime import date, datetime, time, timedelta
+ from zoneinfo import ZoneInfo
+ 
+ from ingesta.model import DutyShift, ParseResult, Pharmacy, SourceInfo
+
+
+ΓåÉ Edit ingesta/parsers/baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+@@ -33,8 +33,15 @@
+     r"^\d{2}/\d{2}/\d{4} - \d{2}/\d{2}/\d{4}\s+P.gina\s+\d+\s+de\s+\d+$"
+ )
+ _PHONE_RE = re.compile(r"(?<!\d)(\d{9})(?!\d)")
+ _SPLIT_RE = re.compile(r"(?<=\S)(\s{2,})(?=\S)")
++_XHTML_NS = "{http://www.w3.org/1999/xhtml}"
++# Hueco (pt) que como m├¡nimo separa las columnas titular/direcci├│n en el PDF;
++# una palabra normal va precedida de ~2,5 pt (un espacio), as├¡ que 2+ espacios
++# equivalen a un hueco amplio.
++_COLUMN_GAP = 4.5
++# Tolerancia (pt) al comparar el xMin de una palabra con la columna de direcci├│n.
++_COLUMN_TOLERANCE = 2.0
+ _TIMES_A_RE = re.compile(r"de\s+(\d{1,2}):(\d{2})\s+a\s+(\d{1,2}):(\d{2})", re.I)
+ _TIMES_PAREN_RE = re.compile(
+     r"\(\s*(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})\s*\)"
+ )
+
+
+ΓåÉ Edit ingesta/parsers/baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+@@ -259,8 +259,115 @@
+         return None
+     return text
+ 
+ 
++def _pdf_bbox_pages(
++    path: str,
++) -> list[list[list[tuple[float, float, str]]]] | None:
++    """Palabras con coordenadas por p├ígina (pdftotext -bbox-layout).
++
++    Devuelve una lista de p├íginas; cada p├ígina es una lista de filas (l├¡neas
++    visuales) y cada fila, una lista de (xMin, xMax, texto) ordenada por xMin.
++    None si no hay texto o no se puede interpretar. Sin dependencias nuevas:
++    el XHTML se lee con xml.etree de la stdlib.
++    """
++    proc = subprocess.run(
++        ["pdftotext", "-bbox-layout", path, "-"],
++        capture_output=True,
++        check=False,
++    )
++    data = proc.stdout.decode("utf-8", errors="replace")
++    if not data.strip():
++        return None
++    try:
++        root = ET.fromstring(data)
++    except ET.ParseError:
++        return None
++
++    pages: list[list[list[tuple[float, float, str]]]] = []
++    for page in root.iter(_XHTML_NS + "page"):
++        words: list[tuple[float, float, float, str]] = []
++        for word in page.iter(_XHTML_NS + "word"):
++            text = (word.text or "").strip()
++            if not text:
++                continue
++            words.append(
++                (
++                    float(word.get("yMin", "0")),
++                    float(word.get("xMin", "0")),
++                    float(word.get("xMax", "0")),
++                    text,
++                )
++            )
++        words.sort()
++        rows: list[list] = []
++        for ymin, xmin, xmax, text in words:
++            if rows and abs(ymin - rows[-1][0]) < 3.0:
++                rows[-1][1].append((xmin, xmax, text))
++            else:
++                rows.append([ymin, [(xmin, xmax, text)]])
++        for row in rows:
++            row[1].sort()
++        pages.append([row[1] for row in rows])
++    return pages
++
++
++def _page_column_x(rows: list[list[tuple[float, float, str]]]) -> float | None:
++    """Calcula la X de inicio de la columna de direcci├│n de una p├ígina.
++
++    Usa la primera palabra tras el hueco amplio de cada l├¡nea de farmacia y
++    toma la coordenada m├ís frecuente (la columna es fija dentro de la p├ígina).
++    """
++    counts: dict[int, int] = {}
++    for words in rows:
++        if not any(_PHONE_RE.fullmatch(text) for _, _, text in words):
++            continue
++        for index in range(1, len(words)):
++            gap = words[index][0] - words[index - 1][1]
++            if gap >= _COLUMN_GAP and words[index][0] > 120:
++                key = round(words[index][0])
++                counts[key] = counts.get(key, 0) + 1
++                break
++    if not counts:
++        return None
++    return float(max(counts, key=lambda key: (counts[key], -key)))
++
++
++def _resolve_ambiguous(
++    pages: list[list[list[tuple[float, float, str]]]] | None,
++    page: int,
++    phone: str,
++    cache: dict[int, float | None],
++) -> tuple[str, str] | None:
++    """Resuelve titular/direcci├│n con las columnas del PDF (bbox).
++
++    Devuelve (holder, address) o None si no se puede separar con seguridad.
++    """
++    if pages is None or not 1 <= page <= len(pages):
++        return None
++    if page not in cache:
++        cache[page] = _page_column_x(pages[page - 1])
++    column_x = cache[page]
++    if column_x is None:
++        return None
++    for words in pages[page - 1]:
++        if not any(text == phone for _, _, text in words):
++            continue
++        holder_words: list[str] = []
++        address_words: list[str] = []
++        for xmin, _xmax, text in words:
++            if text == phone:
++                continue
++            if xmin >= column_x - _COLUMN_TOLERANCE:
++                address_words.append(text)
++            else:
++                holder_words.append(text)
++        if holder_words and address_words:
++            return " ".join(holder_words), " ".join(address_words)
++        return None
++    return None
++
++
+ def _parse_file(path: str, source: SourceInfo) -> ParseResult:
+     filename = os.path.basename(path)
+     text = _pdf_to_text(path)
+     if text is None:
+
+
+Now modify the parsing loop in `_parse_file`:
+ΓåÆ Read ingesta/parsers/baleares.py [offset=375, limit=110]
+
+ΓåÉ Edit ingesta/parsers/baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+@@ -376,71 +376,98 @@
+     pharmacies: dict[str, Pharmacy] = {}
+     shifts: list[DutyShift] = []
+     warnings: list[str] = []
+ 
+-    lines = _merge_continuations(text.replace("\r", "").split("\n"))
+     zone: str | None = None
+     day: date | None = None
+     shift: tuple[str, time, time, str] | None = None
+-    page = 0
+     expect_zone = False
++    bbox_pages: list[list[list[tuple[float, float, str]]]] | None = None
++    bbox_loaded = False
++    column_cache: dict[int, float | None] = {}
+ 
+-    for raw in lines:
+-        stripped = raw.strip()
+-        if not stripped:
+-            continue
++    page_texts = text.replace("\r", "").split("\f")
++    for page, raw_page in enumerate(page_texts, start=1):
++        for raw in _merge_continuations(raw_page.split("\n")):
++            stripped = raw.strip()
++            if not stripped:
++                continue
+ 
+-        if _HEADER_PREFIX in raw:
+-            page += 1
+-            expect_zone = True
+-            continue
++            if _HEADER_PREFIX in raw:
++                expect_zone = True
++                continue
+ 
+-        if expect_zone:
+-            zone = stripped
+-            expect_zone = False
+-            continue
++            if expect_zone:
++                zone = stripped
++                expect_zone = False
++                continue
+ 
+-        parsed_date = parse_date_line(stripped)
+-        if parsed_date is not None:
+-            day = parsed_date
+-            continue
++            parsed_date = parse_date_line(stripped)
++            if parsed_date is not None:
++                day = parsed_date
++                continue
+ 
+-        if _FOOTER_RE.match(stripped):
+-            continue
++            if _FOOTER_RE.match(stripped):
++                continue
+ 
+-        header = parse_shift_header(stripped)
+-        if header is not None:
+-            kind, start, end = header
+-            shift = (kind, start, end, stripped)
+-            continue
++            header = parse_shift_header(stripped)
++            if header is not None:
++                kind, start, end = header
++                shift = (kind, start, end, stripped)
++                continue
+ 
+-        if _PHONE_RE.search(raw):
+-            parsed = parse_pharmacy_line(raw)
+-            if parsed is None:
+-                warnings.append(
+-                    f"{filename} p{page}: LINEA_NO_RECONOCIDA: {stripped}"
++            if _PHONE_RE.search(raw):
++                parsed = parse_pharmacy_line(raw)
++                if parsed is None:
++                    warnings.append(
++                        f"{filename} p{page}: LINEA_NO_RECONOCIDA: {stripped}"
++                    )
++                    continue
++                pharmacy, ambiguous = parsed
++                if ambiguous:
++                    if not bbox_loaded:
++                        bbox_pages = _pdf_bbox_pages(path)
++                        bbox_loaded = True
++                    resolved = _resolve_ambiguous(
++                        bbox_pages, page, pharmacy.phone, column_cache
++                    )
++                    if resolved is not None:
++                        holder, address = resolved
++                        address, locality = _extract_locality(address)
++                        pharmacy = Pharmacy(
++                            id=pharmacy_id(holder, address, pharmacy.phone),
++                            region=REGION,
++                            holder=holder,
++                            address=address,
++                            locality=locality,
++                            postal_code=None,
++                            phone=pharmacy.phone,
++                            duty_phone=pharmacy.duty_phone,
++                        )
++                        ambiguous = False
++                if ambiguous:
++                    warnings.append(
++                        f"{filename} p{page}: LINEA_AMBIGUA: {stripped}"
++                    )
++                if zone is None or day is None or shift is None:
++                    warnings.append(
++                        f"{filename} p{page}: FARMACIA_SIN_TURNO: {stripped}"
++                    )
++                    continue
++                pharmacies.setdefault(pharmacy.id, pharmacy)
++
++                kind, start, end, raw_label = shift
++                shifts.append(
++                    make_shift(
++                        pharmacy.id, zone, day, kind, start, end, raw_label
++                    )
+                 )
+                 continue
+-            pharmacy, ambiguous = parsed
+-            if ambiguous:
+-                warnings.append(
+-                    f"{filename} p{page}: LINEA_AMBIGUA: {stripped}"
+-                )
+-            if zone is None or day is None or shift is None:
+-                warnings.append(
+-                    f"{filename} p{page}: FARMACIA_SIN_TURNO: {stripped}"
+-                )
+-                continue
+-            pharmacies.setdefault(pharmacy.id, pharmacy)
+ 
+-            kind, start, end, raw_label = shift
+-            shifts.append(
+-                make_shift(pharmacy.id, zone, day, kind, start, end, raw_label)
++            warnings.append(
++                f"{filename} p{page}: LINEA_NO_RECONOCIDA: {stripped}"
+             )
+-            continue
+ 
+-        warnings.append(f"{filename} p{page}: LINEA_NO_RECONOCIDA: {stripped}")
+-
+     return ParseResult(source, pharmacies, shifts, warnings)
+ 
+ 
+ def parse_dir(path: str, retrieved_at: datetime | None = None) -> ParseResult:
+
+
+ΓåÉ Write C:/Users/adoni/AppData/Local/Temp/opencode/pdf2/verify.py
+Wrote file successfully.
+
+ΓåÉ Write C:/Users/adoni/AppData/Local/Temp/opencode/pdf2/verify.py
+Wrote file successfully.
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\verify.py"
+Traceback (most recent call last):
+  File "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\verify.py", line 5, in <module>
+    from ingesta.parsers.baleares import normalize, parse_file
+  File "C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py", line 21, in <module>
+    from ingesta.model import DutyShift, ParseResult, Pharmacy, SourceInfo
+  File "C:\Users\adoni\dev\farmacias-guardia\ingesta\model.py", line 7, in <module>
+    from dataclasses import dataclass
+  File "C:\Users\adoni\AppData\Local\Programs\Python\Python312\Lib\dataclasses.py", line 5, in <module>
+    import inspect
+  File "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\inspect.py", line 4, in <module>
+    t = open(sys.argv[1], encoding="utf-8", errors="replace").read()
+             ~~~~~~~~^^^
+IndexError: list index out of range
+
+$ Rename-Item -LiteralPath "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\inspect.py" -NewName "inspect_bbox.py"; python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\verify.py"
+=== Campos.pdf | pharmacies 47 | ambigua 0
+   [971655207] holder='RIERA OLIVER, LAURA' addr='AV. MARQUES DEL PALMER, 8' loc='COLONIA DE SANT JORDI'
+   [971649144] holder='RIERA OLIVER, M∩┐╜ MAGDALENA' addr='BATLE ANDREU BURGUERA MUT,9' loc='SES SALINES'
+   [971650662] holder='SASTRE BARCELO, BARTOLOME' addr='CL DELS AMETLLERS, 25 - Local 1. CAMPOS' loc=None
+   [971839503] holder='AZCARATE HERNANDEZ-PINZON' addr='GLOSADOR SEBASTIA VIDAL, sostre, 12' loc="C'AS CONCOS"
+=== Palma.pdf | pharmacies 27 | ambigua 0
+   [971609946] holder='SAGRISTA-FARRE-MATEMALAS' addr='C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)' loc=None
+=== Eivissa.pdf | pharmacies 17 | ambigua 0
+   [971196117] holder='MATEO-LLAVADOR (FARMACIA' addr='Pere Frances, 23 (Es Pratet)' loc=None
+   [971310326] holder='TUR-TUR (FCIA. MERCAT VELL)' addr='Antoni Palau, 1' loc=None
+=== Pollen_a.pdf | pharmacies 9 | ambigua 0
+   [971530063] holder='MIQUEL OLIVER - AINA OLIVER' addr='ALCUDIA, 16' loc='POLLEN∩┐╜A'
+
+$ python -c "
+import json
+d=json.load(open('data/out/baleares_2026_v1.json',encoding='utf-8'))
+n=0
+for p in d['pharmacies']:
+    a=p['address']; loc=p['locality']
+    if not loc: continue
+    if a and a[-1].isalnum() and loc[0].isalnum():
+        n+=1
+        if n<=40: print(repr(a[-25:]),'||',repr(loc))
+print('total con guion pegado alnum-alnum y locality:',n,'de',len(d['pharmacies']))
+"
+'I DES SALINAR S/N LOCAL-1' || 'CAMP DE MAR'
+'SOL, 22 - Ed. Can Cardona' || 'STA. EUL∩┐╜LIA'
+'Ctra. Andratx, 2 Local 1' || "CA'S CATALA"
+'C/ POLLENTIA, 75' || 'A (ALCUDIA'
+'VIA DE LA CONSTITUCI∩┐╜, 25' || 'ART∩┐╜'
+'. JAUME II DE MALLORCA, 5' || 'CIUTADELLA'
+'ar de Peguera, 19 Local 1' || 'PEGUERA'
+'SES PARRES, 10' || 'LLORET'
+'Major, 42' || 'MONTUIRI'
+'C/ Falc∩┐╜, 2 Locals 4-5' || 'SON FERRER ( CALVIA'
+'Joan Castello Guasch, 21' || 'SANT FERRAN'
+'EIVISSA, 50' || 'CIUTADELLA'
+'ALCUDIA, 117' || 'INCA'
+'CL CORAL, 11 L-G' || 'PORT ALCUDIA'
+'PLA∩┐╜A DE LES PALMERES, 3' || 'LES PALMERES'
+"Puig d'es Galatzo, s/n" || 'SANTA PONSA'
+'FOSSAR, 28' || 'SINEU'
+'Dels Donants de Sang, 9-c' || 'BAHIA GRANDE'
+'Bisbe Abad i Lasierra, 54' || 'EIVISSA'
+'Avda. de la Playa, 7' || 'PALMA NOVA'
+'PZ DEL TREN, 7' || 'SA POBLA'
+'CL SANTA MARIA, 46' || 'PORTO COLOM'
+'PL. CATEDRAL, 7' || 'CIUTADELLA'
+'DR. ORFILA, 28' || 'MAO'
+'AV.SA MARINA, 14' || 'CALA EGOS'
+'CL PINTOR BERNAREGGI, 22' || 'CALA FIGUERA'
+'CARRER MAJOR, 179' || 'ES MIGJORN GRAN'
+'C/ PARE PAYERAS,1' || 'BINISSALEM'
+"'Art∩┐╜, 135 - Edifici Ed∩┐╜n" || 'PTO. ALCUDIA'
+'Bosch, 4' || 'MANACOR'
+'AV. GENERAL LUQUE , 336' || 'INCA'
+'ANTONIO MAURA,20' || 'LLUCMAJOR'
+' LAS PALMERAS-EDIF. CORAL' || 'SA COMA'
+'FERRERETAS, 15' || 'SANTANYI'
+'PZ CONSTITUCIO, 10' || 'SA POBLA'
+'MAJOR, 41' || 'INCA'
+'Passeig Colon, 96' || 'CAN PICAFORT'
+'AV. DE LA CONSTITUCI∩┐╜, 2' || 'ALAR∩┐╜'
+'SANT MANUEL, 68-70' || 'MAO'
+'NA LLAMBIAS, S/N' || 'CALA BONA'
+total con guion pegado alnum-alnum y locality: 165 de 253
+
+$ python -c "
+import json
+d=json.load(open('data/out/baleares_2026_v1.json',encoding='utf-8'))
+for p in d['pharmacies']:
+    if p['phone'] in ('971839503','971530063','971196117','971310326'):
+        print(p['phone'], '|', p['holder'], '|', p['address'], '|', p['locality'])
+"
+971310326 | TUR-TUR | TUR-TUR (FCIA. MERCAT VELL) Antoni Palau, 1 | None
+971196117 | MATEO-LLAVADOR | MATEO-LLAVADOR (FARMACIA Pere Frances, 23 (Es Pratet) | None
+971530063 | MIQUEL | MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16 | POLLEN∩┐╜A
+971839503 | AZCARATE | AZCARATE HERNANDEZ-PINZON GLOSADOR SEBASTIA VIDAL, sostre, 12 | C'AS CONCOS
+
+ΓåÆ Read ingesta/parsers/baleares.py [offset=138, limit=22]
+
+ΓåÉ Edit ingesta/parsers/baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+@@ -139,8 +139,17 @@
+ 
+ def _extract_locality(address: str) -> tuple[str, str | None]:
+     """Extrae la localidad final tras '-' si el patr├│n es claro."""
+     for match in reversed(list(re.finditer(r"-\s*", address))):
++        # Un guion pegado a alfanum├⌐ricos por ambos lados forma parte de la
++        # direcci├│n (p.ej. "12-C'AS CONCOS"), no separa la localidad.
++        if (
++            match.start() > 0
++            and address[match.start() - 1].isalnum()
++            and match.end() < len(address)
++            and address[match.end()].isalnum()
++        ):
++            continue
+         locality = address[match.end():].strip("() ")
+         if len(locality) < 3 or re.search(r"[0-9,]", locality):
+             continue
+         if not re.search(r"[^\W\d_]", locality, re.UNICODE):
+
+
+ΓåÉ Write C:/Users/adoni/AppData/Local/Temp/opencode/pdf2/diffids.py
+Wrote file successfully.
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\diffids.py" 2>&1 | Select-Object -First 80
+new pharmacies 253 v1 253
+shifts 38956 v1 38956
+warnings 1 ambigua 0
+phones cambiados: 15
+   871037337
+     OLD ('CRESPI GOST', 'C/ POLLENTIA, 75', 'A (ALCUDIA')
+     NEW ('CRESPI GOST', 'C/ POLLENTIA, 75-A (ALCUDIA)', None)
+   971609946
+     OLD ('SAGRISTA-FARRE-MATEMALAS', 'SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)', None)
+     NEW ('SAGRISTA-FARRE-MATEMALAS', 'C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)', None)
+   971310326
+     OLD ('TUR-TUR', 'TUR-TUR (FCIA. MERCAT VELL) Antoni Palau, 1', None)
+     NEW ('TUR-TUR (FCIA. MERCAT VELL)', 'Antoni Palau, 1', None)
+   971196117
+     OLD ('MATEO-LLAVADOR', 'MATEO-LLAVADOR (FARMACIA Pere Frances, 23 (Es Pratet)', None)
+     NEW ('MATEO-LLAVADOR (FARMACIA', 'Pere Frances, 23 (Es Pratet)', None)
+   971675136
+     OLD ('VILANOVA MURET', 'Ctra. Andratx,30', 'Frente Ed.Portals Plaza. PORTALS NOUS')
+     NEW ('VILANOVA MURET', 'Ctra. Andratx,30-Frente Ed.Portals Plaza. PORTALS NOUS', None)
+   971650662
+     OLD ('SASTRE', 'SASTRE BARCELO, BARTOLOME CL DELS AMETLLERS, 25 - Local 1. CAMPOS', None)
+     NEW ('SASTRE BARCELO, BARTOLOME', 'CL DELS AMETLLERS, 25 - Local 1. CAMPOS', None)
+   971530063
+     OLD ('MIQUEL', 'MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16', 'POLLEN∩┐╜A')
+     NEW ('MIQUEL OLIVER - AINA OLIVER', 'ALCUDIA, 16', 'POLLEN∩┐╜A')
+   971839503
+     OLD ('AZCARATE', 'AZCARATE HERNANDEZ-PINZON GLOSADOR SEBASTIA VIDAL, sostre, 12', "C'AS CONCOS")
+     NEW ('AZCARATE HERNANDEZ-PINZON', "GLOSADOR SEBASTIA VIDAL, sostre, 12-C'AS CONCOS", None)
+   971672019
+     OLD ('GONZALEZ - PUIG', 'AVD.MATEO BOSCH,16', 'B (PORT ANDRATX')
+     NEW ('GONZALEZ - PUIG', 'AVD.MATEO BOSCH,16-B (PORT ANDRATX)', None)
+   971246357
+     OLD ('COLOM RUB∩┐╜', 'CL LLUCMAJOR, 164 - La Gruta (Carrt. Molinar', "Coll d'en Rebassa")
+     NEW ('COLOM RUB∩┐╜', 'CL LLUCMAJOR, 164', "La Gruta (Carrt. Molinar-Coll d'en Rebassa")
+   971837318
+     OLD ('GAYA - SASTRE', 'PZ SAN ISIDRO, 14 BJO', "S'HORTA")
+     NEW ('GAYA - SASTRE', "PZ SAN ISIDRO, 14 BJO-S'HORTA", None)
+   971291159
+     OLD ('VAQUER MESTRE', 'ANSELM TURMEDA, 9 (Davant c/ Jes∩┐╜s', 'cami del cementiri')
+     NEW ('VAQUER MESTRE', 'ANSELM TURMEDA, 9 (Davant c/ Jes∩┐╜s-cami del cementiri)', None)
+   971890530
+     OLD ('VIZOSO - RIUTORT', 'AVDA. PEDRO MAS REUS, 30', 'PTO. ALCUDIA')
+     NEW ('VIZOSO - RIUTORT', 'AVDA. PEDRO MAS REUS, 30- PTO. ALCUDIA', None)
+   971655207
+     OLD ('RIERA OLIVER, LAURA', 'AV. MARQUES DEL PALMER, 8', 'COLONIA DE SANT JORDI')
+     NEW ('RIERA OLIVER, LAURA', 'AV. MARQUES DEL PALMER, 8- COLONIA DE SANT JORDI', None)
+   971649144
+     OLD ('RIERA', 'RIERA OLIVER, M∩┐╜ MAGDALENA BATLE ANDREU BURGUERA MUT,9', 'SES SALINES')
+     NEW ('RIERA OLIVER, M∩┐╜ MAGDALENA', 'BATLE ANDREU BURGUERA MUT,9', 'SES SALINES')
+
+The global guard changed too many other pharmacies. Let me confine it to the bbox-resolved addresses only.
+ΓåÉ Edit ingesta/parsers/baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+@@ -136,18 +136,26 @@
+     cleaned = text[: match.start()] + " " + text[match.end():]
+     return cleaned, match.group(1)
+ 
+ 
+-def _extract_locality(address: str) -> tuple[str, str | None]:
+-    """Extrae la localidad final tras '-' si el patr├│n es claro."""
++def _extract_locality(
++    address: str, tight_hyphen_is_address: bool = False
++) -> tuple[str, str | None]:
++    """Extrae la localidad final tras '-' si el patr├│n es claro.
++
++    Con `tight_hyphen_is_address`, un guion pegado a alfanum├⌐ricos por ambos
++    lados ("12-C'AS CONCOS") se considera parte de la direcci├│n y no un
++    separador de localidad. Solo lo usan las l├¡neas reconstruidas por columnas
++    (bbox), donde el texto se recompone sin los espacios originales del PDF.
++    """
+     for match in reversed(list(re.finditer(r"-\s*", address))):
+-        # Un guion pegado a alfanum├⌐ricos por ambos lados forma parte de la
+-        # direcci├│n (p.ej. "12-C'AS CONCOS"), no separa la localidad.
+         if (
+-            match.start() > 0
++            tight_hyphen_is_address
++            and match.start() > 0
+             and address[match.start() - 1].isalnum()
+-            and match.end() < len(address)
+-            and address[match.end()].isalnum()
++            and match.start() + 1 < len(address)
++            and not address[match.start() + 1].isspace()
++            and address[match.start() + 1].isalnum()
+         ):
+             continue
+         locality = address[match.end():].strip("() ")
+         if len(locality) < 3 or re.search(r"[0-9,]", locality):
+
+
+ΓåÉ Edit ingesta/parsers/baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+@@ -448,9 +448,11 @@
+     bbox_pages, page, pharmacy.phone, column_cache
+ )
+ if resolved is not None:
+     holder, address = resolved
+-    address, locality = _extract_locality(address)
++    address, locality = _extract_locality(
++        address, tight_hyphen_is_address=True
++    )
+     pharmacy = Pharmacy(
+         id=pharmacy_id(holder, address, pharmacy.phone),
+         region=REGION,
+         holder=holder,
+
+
+$ python "C:\Users\adoni\AppData\Local\Temp\opencode\pdf2\diffids.py" 2>&1 | Select-Object -First 60
+new pharmacies 253 v1 253
+shifts 38956 v1 38956
+warnings 1 ambigua 0
+phones cambiados: 7
+   971609946
+     OLD ('SAGRISTA-FARRE-MATEMALAS', 'SAGRISTA-FARRE-MATEMALAS C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)', None)
+     NEW ('SAGRISTA-FARRE-MATEMALAS', 'C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)', None)
+   971310326
+     OLD ('TUR-TUR', 'TUR-TUR (FCIA. MERCAT VELL) Antoni Palau, 1', None)
+     NEW ('TUR-TUR (FCIA. MERCAT VELL)', 'Antoni Palau, 1', None)
+   971196117
+     OLD ('MATEO-LLAVADOR', 'MATEO-LLAVADOR (FARMACIA Pere Frances, 23 (Es Pratet)', None)
+     NEW ('MATEO-LLAVADOR (FARMACIA', 'Pere Frances, 23 (Es Pratet)', None)
+   971650662
+     OLD ('SASTRE', 'SASTRE BARCELO, BARTOLOME CL DELS AMETLLERS, 25 - Local 1. CAMPOS', None)
+     NEW ('SASTRE BARCELO, BARTOLOME', 'CL DELS AMETLLERS, 25 - Local 1. CAMPOS', None)
+   971530063
+     OLD ('MIQUEL', 'MIQUEL OLIVER - AINA OLIVER ALCUDIA, 16', 'POLLEN∩┐╜A')
+     NEW ('MIQUEL OLIVER - AINA OLIVER', 'ALCUDIA, 16', 'POLLEN∩┐╜A')
+   971839503
+     OLD ('AZCARATE', 'AZCARATE HERNANDEZ-PINZON GLOSADOR SEBASTIA VIDAL, sostre, 12', "C'AS CONCOS")
+     NEW ('AZCARATE HERNANDEZ-PINZON', "GLOSADOR SEBASTIA VIDAL, sostre, 12-C'AS CONCOS", None)
+   971649144
+     OLD ('RIERA', 'RIERA OLIVER, M∩┐╜ MAGDALENA BATLE ANDREU BURGUERA MUT,9', 'SES SALINES')
+     NEW ('RIERA OLIVER, M∩┐╜ MAGDALENA', 'BATLE ANDREU BURGUERA MUT,9', 'SES SALINES')
+
+Exactly the 7 intended pharmacies changed, warnings down to 1 (the SIN_TEXTO). Now let me run the existing tests.
+$ python -m unittest discover -s tests -v 2>&1 | Select-Object -Last 40
+python : test_26_pdfs_con_texto_y_uno_sin_texto 
+(test_baleares.BalearesAcceptanceTests.test_26_pdfs_con_texto_y_uno_sin_texto) ... ok
+En l∩┐╜nea: 1 Car∩┐╜cter: 1
++ python -m unittest discover -s tests -v 2>&1 | Select-Object -Last 40
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_26_pdfs_co...n_texto) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_costa_amengual_duty_phone (test_baleares.BalearesAcceptanceTests.test_costa_amengual_duty_phone) ... ok
+test_formentera_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_formentera_2026_01_01) ... ok
+test_ningun_turno_invertido (test_baleares.BalearesAcceptanceTests.test_ningun_turno_invertido) ... ok
+test_palma_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_palma_2026_01_01) ... ok
+test_duty_phone_extraido_y_quitado_de_direccion 
+(test_baleares.SyntheticLineTests.test_duty_phone_extraido_y_quitado_de_direccion) ... ok
+test_fin_de_turno_al_dia_siguiente (test_baleares.SyntheticLineTests.test_fin_de_turno_al_dia_siguiente) ... ok
+test_id_estable_entre_dias_y_zonas (test_baleares.SyntheticLineTests.test_id_estable_entre_dias_y_zonas) ... ok
+test_locality_segun_patron (test_baleares.SyntheticLineTests.test_locality_segun_patron) ... ok
+test_normalize (test_baleares.SyntheticLineTests.test_normalize) ... ok
+test_parse_date_line (test_baleares.SyntheticLineTests.test_parse_date_line) ... ok
+test_parse_shift_header_variantes (test_baleares.SyntheticLineTests.test_parse_shift_header_variantes) ... ok
+test_split_ambiguo_conserva_linea_completa 
+(test_baleares.SyntheticLineTests.test_split_ambiguo_conserva_linea_completa) ... ok
+test_split_standard (test_baleares.SyntheticLineTests.test_split_standard) ... ok
+----------------------------------------------------------------------
+Ran 14 tests in 13.813s
+OK
+
+Now let me add the new tests.
+ΓåÉ Edit tests/test_baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\tests\test_baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\tests\test_baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\tests\test_baleares.py
+@@ -3,8 +3,9 @@
+ Incluye pruebas sobre los PDF reales (sin mocks) y casos sint├⌐ticos de l├¡neas.
+ """
+ from __future__ import annotations
+ 
++import json
+ import os
+ import sys
+ import unittest
+ from datetime import date, time
+
+
+ΓåÉ Edit tests/test_baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\tests\test_baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\tests\test_baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\tests\test_baleares.py
+@@ -23,15 +23,11 @@
+     pharmacy_id,
+     split_holder_address,
+ )
+ 
+-RAW_DIR = os.path.join(
+-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+-    "data",
+-    "raw",
+-    "baleares",
+-    "2026",
+-)
++BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
++RAW_DIR = os.path.join(BASE_DIR, "data", "raw", "baleares", "2026")
++V1_PATH = os.path.join(BASE_DIR, "data", "out", "baleares_2026_v1.json")
+ 
+ 
+ class BalearesAcceptanceTests(unittest.TestCase):
+     @classmethod
+
+
+ΓåÉ Edit tests/test_baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\tests\test_baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\tests\test_baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\tests\test_baleares.py
+@@ -81,8 +81,86 @@
+     pharmacy = self.result.pharmacies[shift.pharmacy_id]
+     self.assertEqual(pharmacy.holder, "TORRES - TORRES")
+     self.assertEqual(pharmacy.phone, "971322419")
+ 
++def _by_phone(self, phone: str):
++    matches = [
++        p for p in self.result.pharmacies.values() if p.phone == phone
++    ]
++    self.assertEqual(len(matches), 1, msg=phone)
++    return matches[0]
++
++def test_sin_warnings_ambigua(self) -> None:
++    ambiguous = [
++        w for w in self.result.warnings if "LINEA_AMBIGUA" in w
++    ]
++    self.assertEqual(ambiguous, [])
++
++def test_riera_oliver_magdalena_columnas(self) -> None:
++    pharmacy = self._by_phone("971649144")
++    self.assertEqual(pharmacy.holder, "RIERA OLIVER, M┬¬ MAGDALENA")
++    self.assertEqual(pharmacy.address, "BATLE ANDREU BURGUERA MUT,9")
++    self.assertEqual(pharmacy.locality, "SES SALINES")
++
++def test_sastre_barcelo_columnas(self) -> None:
++    pharmacy = self._by_phone("971650662")
++    self.assertEqual(pharmacy.holder, "SASTRE BARCELO, BARTOLOME")
++    self.assertEqual(
++        pharmacy.address, "CL DELS AMETLLERS, 25 - Local 1. CAMPOS"
++    )
++    self.assertIsNone(pharmacy.locality)
++
++def test_sagrista_farre_columnas(self) -> None:
++    pharmacy = self._by_phone("971609946")
++    self.assertEqual(pharmacy.holder, "SAGRISTA-FARRE-MATEMALAS")
++    self.assertEqual(
++        pharmacy.address, "C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)"
++    )
++    self.assertIsNone(pharmacy.locality)
++
++def test_azcarate_hernandez_pinzon_columnas(self) -> None:
++    pharmacy = self._by_phone("971839503")
++    self.assertEqual(pharmacy.holder, "AZCARATE HERNANDEZ-PINZON")
++    self.assertEqual(
++        pharmacy.address,
++        "GLOSADOR SEBASTIA VIDAL, sostre, 12-C'AS CONCOS",
++    )
++    self.assertIsNone(pharmacy.locality)
++
++def test_ids_palma_2026_01_01_salvo_sagrista(self) -> None:
++    with open(V1_PATH, encoding="utf-8") as handle:
++        v1 = json.load(handle)
++    v1_pharmacies = {p["id"]: p for p in v1["pharmacies"]}
++
++    v1_ids = {
++        shift["pharmacy_id"]
++        for shift in v1["shifts"]
++        if shift["zone"] == "PALMA"
++        and shift["start"][:10] == date(2026, 1, 1).isoformat()
++    }
++    current_ids = {
++        shift.pharmacy_id
++        for shift in self.result.shifts
++        if shift.zone == "PALMA" and shift.start.date() == date(2026, 1, 1)
++    }
++
++    sagrista_phone = "971609946"
++    v1_sagrista = {
++        pid for pid in v1_ids if v1_pharmacies[pid]["phone"] == sagrista_phone
++    }
++    current_sagrista = {
++        pid
++        for pid in current_ids
++        if self.result.pharmacies[pid].phone == sagrista_phone
++    }
++
++    self.assertEqual(len(v1_sagrista), 1)
++    self.assertEqual(len(current_sagrista), 1)
++    self.assertNotEqual(v1_sagrista, current_sagrista)
++    self.assertEqual(
++        v1_ids - v1_sagrista, current_ids - current_sagrista
++    )
++
+ def test_costa_amengual_duty_phone(self) -> None:
+     matches = [
+         p
+         for p in self.result.pharmacies.values()
+
+
+ΓåÉ Edit tests/test_baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\tests\test_baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\tests\test_baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\tests\test_baleares.py
+@@ -13,8 +13,10 @@
+ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+ 
+ from ingesta.parsers.baleares import (
+     _extract_locality,
++    _page_column_x,
++    _resolve_ambiguous,
+     make_shift,
+     normalize,
+     parse_date_line,
+     parse_dir,
+
+
+ΓåÉ Edit tests/test_baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\tests\test_baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\tests\test_baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\tests\test_baleares.py
+@@ -244,8 +244,41 @@
+         addr, locality = _extract_locality(address)
+         self.assertEqual(addr, expected_address, msg=address)
+         self.assertEqual(locality, expected_locality, msg=address)
+ 
++def test_locality_guion_pegado_es_direccion(self) -> None:
++    address = "GLOSADOR SEBASTIA VIDAL, sostre, 12-C'AS CONCOS"
++    self.assertEqual(
++        _extract_locality(address, tight_hyphen_is_address=True),
++        (address, None),
++    )
++    self.assertEqual(
++        _extract_locality(
++            "BATLE ANDREU BURGUERA MUT,9 - SES SALINES",
++            tight_hyphen_is_address=True,
++        ),
++        ("BATLE ANDREU BURGUERA MUT,9", "SES SALINES"),
++    )
++    self.assertEqual(
++        _extract_locality(address),
++        ("GLOSADOR SEBASTIA VIDAL, sostre, 12", "C'AS CONCOS"),
++    )
++
++def test_columna_direccion_por_bbox(self) -> None:
++    row = [
++        (9.5, 50.0, "HOLDER"),
++        (167.75, 250.0, "STREET"),
++        (503.0, 540.0, "123456789"),
++    ]
++    self.assertEqual(_page_column_x([row]), 168.0)
++    cache: dict[int, float | None] = {}
++    self.assertEqual(
++        _resolve_ambiguous([ [row] ], 1, "123456789", cache),
++        ("HOLDER", "STREET"),
++    )
++    self.assertIsNone(_resolve_ambiguous([ [row] ], 1, "999999999", cache))
++    self.assertIsNone(_resolve_ambiguous(None, 1, "123456789", cache))
++
+ def test_parse_date_line(self) -> None:
+     self.assertEqual(parse_date_line("jueves, 1 de enero de 2026"), date(2026, 1, 1))
+     self.assertEqual(parse_date_line("s├íbado, 28 de febrero de 2026"), date(2026, 2, 28))
+     self.assertIsNone(parse_date_line("no es una fecha"))
+
+
+$ python -m unittest discover -s tests -v 2>&1 | Select-Object -Last 45
+python : test_26_pdfs_con_texto_y_uno_sin_texto 
+(test_baleares.BalearesAcceptanceTests.test_26_pdfs_con_texto_y_uno_sin_texto) ... ok
+En l∩┐╜nea: 1 Car∩┐╜cter: 1
++ python -m unittest discover -s tests -v 2>&1 | Select-Object -Last 45
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_26_pdfs_co...n_texto) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_azcarate_hernandez_pinzon_columnas 
+(test_baleares.BalearesAcceptanceTests.test_azcarate_hernandez_pinzon_columnas) ... ok
+test_costa_amengual_duty_phone (test_baleares.BalearesAcceptanceTests.test_costa_amengual_duty_phone) ... ok
+test_formentera_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_formentera_2026_01_01) ... ok
+test_ids_palma_2026_01_01_salvo_sagrista 
+(test_baleares.BalearesAcceptanceTests.test_ids_palma_2026_01_01_salvo_sagrista) ... ok
+test_ningun_turno_invertido (test_baleares.BalearesAcceptanceTests.test_ningun_turno_invertido) ... ok
+test_palma_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_palma_2026_01_01) ... ok
+test_riera_oliver_magdalena_columnas (test_baleares.BalearesAcceptanceTests.test_riera_oliver_magdalena_columnas) ... 
+ok
+test_sagrista_farre_columnas (test_baleares.BalearesAcceptanceTests.test_sagrista_farre_columnas) ... ok
+test_sastre_barcelo_columnas (test_baleares.BalearesAcceptanceTests.test_sastre_barcelo_columnas) ... ok
+test_sin_warnings_ambigua (test_baleares.BalearesAcceptanceTests.test_sin_warnings_ambigua) ... ok
+test_columna_direccion_por_bbox (test_baleares.SyntheticLineTests.test_columna_direccion_por_bbox) ... ok
+test_duty_phone_extraido_y_quitado_de_direccion 
+(test_baleares.SyntheticLineTests.test_duty_phone_extraido_y_quitado_de_direccion) ... ok
+test_fin_de_turno_al_dia_siguiente (test_baleares.SyntheticLineTests.test_fin_de_turno_al_dia_siguiente) ... ok
+test_id_estable_entre_dias_y_zonas (test_baleares.SyntheticLineTests.test_id_estable_entre_dias_y_zonas) ... ok
+test_locality_guion_pegado_es_direccion (test_baleares.SyntheticLineTests.test_locality_guion_pegado_es_direccion) ... 
+ok
+test_locality_segun_patron (test_baleares.SyntheticLineTests.test_locality_segun_patron) ... ok
+test_normalize (test_baleares.SyntheticLineTests.test_normalize) ... ok
+test_parse_date_line (test_baleares.SyntheticLineTests.test_parse_date_line) ... ok
+test_parse_shift_header_variantes (test_baleares.SyntheticLineTests.test_parse_shift_header_variantes) ... ok
+test_split_ambiguo_conserva_linea_completa 
+(test_baleares.SyntheticLineTests.test_split_ambiguo_conserva_linea_completa) ... ok
+test_split_standard (test_baleares.SyntheticLineTests.test_split_standard) ... ok
+----------------------------------------------------------------------
+Ran 22 tests in 13.860s
+OK
+
+$ python scripts/run_baleares.py 2>&1 | Select-Object -Last 60
+Farmacias: 253
+Turnos:    38956
+Warnings:  1
+Salida:    C:\Users\adoni\dev\farmacias-guardia\data\out\baleares_2026.json
+
+Turnos de Palma del 2026-10-18:
+  [diurna  ] 09:00-22:00  ALCOVER CASASNOVAS, R  (971909015)
+  [diurna  ] 09:00-22:00  BENITO BUENO  (971293740)
+  [diurna  ] 09:00-22:00  BENNASER - VERD  (971711511)
+  [diurna  ] 09:00-22:00  BUADES MATEU  (971070635)
+  [diurna  ] 09:00-22:00  FLUXA TORRES  (971474566)
+  [diurna  ] 09:00-22:00  FORNES NADAL  (971298050)
+  [diurna  ] 09:00-22:00  GOMEZ GARCIA  (971458788)
+  [diurna  ] 09:00-22:00  HERNANDEZ FRONTERA  (971666901)
+  [diurna  ] 09:00-22:00  MARIMON SIMO  (971267660)
+  [diurna  ] 09:00-22:00  MUNAR MASOT  (971726817)
+  [diurna  ] 09:00-22:00  PI∩┐╜A - GALLARDO  (971909095)
+  [diurna  ] 09:00-22:00  REAL VICENS  (971272501)
+  [diurna  ] 09:00-22:00  SAGRISTA BUADES, F  (971222202)
+  [diurna  ] 09:00-22:00  SAGRISTA BUADES, G  (971222201)
+  [diurna  ] 09:00-22:00  SAGRISTA-FARRE-MATEMALAS  (971609946)
+  [diurna  ] 09:00-22:00  TINOCO GIL  (645899135)
+  [diurna  ] 09:00-22:00  TORRES CERDO  (971737529)
+  [diurna  ] 09:00-22:00  VAQUER MESTRE  (971291159)
+  [diurna  ] 09:00-22:00  VICENS CALDENTEY, JOAN  (971274756)
+  [nocturna] 22:00-09:00  ALCOVER CASASNOVAS, R  (971909015)
+  [nocturna] 22:00-09:00  GOMEZ GARCIA  (971458788)
+  [nocturna] 22:00-09:00  REAL VICENS  (971272501)
+  total: 22 turnos
+
+$ python -c "
+import json
+new=json.load(open('data/out/baleares_2026.json',encoding='utf-8'))
+old=json.load(open('data/out/baleares_2026_v1.json',encoding='utf-8'))
+print('warnings new:',new['warnings'])
+print('ambigua new:',[w for w in new['warnings'] if 'AMBIGUA' in w])
+nby={p['id']:p for p in new['pharmacies']}
+oby={p['id']:p for p in old['pharmacies']}
+newids=set(nby); oldids=set(oby)
+print('ids iguales:', newids==oldids, '| solo new:',len(newids-oldids),'solo old:',len(oldids-newids))
+for phone in ('971649144','971650662','971609946','971839503'):
+    p=[x for x in new['pharmacies'] if x['phone']==phone][0]
+    print(phone, '->', repr(p['holder']), '|', repr(p['address']), '|', repr(p['locality']))
+"
+warnings new: ['Sant_Antoni.pdf: SIN_TEXTO']
+ambigua new: []
+ids iguales: False | solo new: 7 solo old: 7
+971649144 -> 'RIERA OLIVER, M∩┐╜ MAGDALENA' | 'BATLE ANDREU BURGUERA MUT,9' | 'SES SALINES'
+971650662 -> 'SASTRE BARCELO, BARTOLOME' | 'CL DELS AMETLLERS, 25 - Local 1. CAMPOS' | None
+971609946 -> 'SAGRISTA-FARRE-MATEMALAS' | 'C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)' | None
+971839503 -> 'AZCARATE HERNANDEZ-PINZON' | "GLOSADOR SEBASTIA VIDAL, sostre, 12-C'AS CONCOS" | None
+
+ΓåÆ Read ingesta/parsers/baleares.py [offset=255, limit=130]
+All criteria met. Here's the summary.
+
+## Archivos tocados
+- `ingesta/parsers/baleares.py` ΓÇö nueva resoluci├│n por columnas con `pdftotext -bbox-layout` (stdlib `xml.etree`): `_pdf_bbox_pages`, `_page_column_x`, `_resolve_ambiguous`; `_parse_file` divide el texto por p├íginas (`\f`), carga el bbox de forma perezosa solo cuando aparece una l├¡nea ambigua y la recompone; `_extract_locality` gana el par├ímetro `tight_hyphen_is_address` (uni├│n `12-C'AS CONCOS`).
+- `tests/test_baleares.py` ΓÇö 4 tests de los ejemplos con PDF real, test de 0 warnings `LINEA_AMBIGUA`, test de ids de Palma 2026ΓÇæ01ΓÇæ01 (salvo SAGRISTAΓÇæFARRE) contra `data/out/baleares_2026_v1.json`, y 2 tests sint├⌐ticos de la l├│gica nueva.
+- `data/out/baleares_2026.json` ΓÇö regenerado por el script.
+
+## Comandos ejecutados
+- `python -m unittest discover -s tests -v`
+- `python scripts/run_baleares.py`
+
+## Resultado
+- Tests: **Ran 22 tests ΓÇª OK** (13,9 s). Todos los anteriores siguen pasando.
+- `run_baleares.py`: Farmacias **253**, Turnos **38956**, Warnings **1** (`Sant_Antoni.pdf: SIN_TEXTO`), **0 `LINEA_AMBIGUA`**.
+- Comparaci├│n de ids contra `baleares_2026_v1.json`: solo cambian **7** ids (exactamente RIERA OLIVER M┬¬ MAGDALENA, SASTRE BARCELO, SAGRISTAΓÇæFARREΓÇæMATEMALAS, AZCARATE HERNANDEZΓÇæPINZON, MATEOΓÇæLLAVADOR, TURΓÇæTUR, MIQUEL OLIVER); el resto iguales. Salida exacta de los 4 ejemplos:
+  - `RIERA OLIVER, M┬¬ MAGDALENA` / `BATLE ANDREU BURGUERA MUT,9` / `SES SALINES`
+  - `SASTRE BARCELO, BARTOLOME` / `CL DELS AMETLLERS, 25 - Local 1. CAMPOS`
+  - `SAGRISTA-FARRE-MATEMALAS` / `C/SON RAPINYA, 31 LOC. 7,8 (Rotonda Colegios)`
+  - `AZCARATE HERNANDEZ-PINZON` / `GLOSADOR SEBASTIA VIDAL, sostre, 12-C'AS CONCOS`

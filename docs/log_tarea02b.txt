@@ -1,0 +1,550 @@
+
+> build ┬╖ gpt-5.6-terra
+
+Revisar├⌐ la tarea, la especificaci├│n y la estructura existente para aplicar el cambio m├¡nimo, a├▒adir cobertura de la l├│gica nueva y validar la regeneraci├│n completa de datos.
+# Todos
+[ΓÇó] Revisar TAREA_02b, SPEC y la implementaci├│n existente
+[ ] Implementar localidades y sus pruebas siguiendo convenciones
+[ ] Ejecutar tests y regenerar data/out; corregir incidencias
+
+ΓåÆ Read AGENTS.md
+ΓåÆ Read docs/SPEC.md
+ΓåÆ Read docs/TAREA_02b_localidades.md
+Γ£▒ Glob "**/*" in . ┬╖ 100 matches
+Γ£▒ Glob "data/**/*" in . ┬╖ 34 matches
+ΓåÆ Read ingesta/export.py
+ΓåÆ Read scripts/run_murcia.py
+ΓåÆ Read tests/test_murcia.py
+ΓåÆ Read tests/test_baleares.py
+ΓåÆ Read scripts/run_baleares.py
+ΓåÆ Read ingesta/parsers/baleares.py
+ΓåÆ Read ingesta/parsers/murcia.py
+ΓåÆ Read ingesta/common.py
+La extracci├│n ya usa UTF-8 y existen las copias `*_v1.json`. El cambio se concentrar├í en la reconstrucci├│n contextual de Murcia, el saneamiento conservador de localidades de Baleares y la serializaci├│n de `zones`, sin tocar el modelo.
+
+$ python -m unittest discover -s tests -v
+test_26_pdfs_con_texto_y_uno_sin_texto (test_baleares.BalearesAcceptanceTests.test_26_pdfs_con_texto_y_uno_sin_texto) ... ok
+test_azcarate_hernandez_pinzon_columnas (test_baleares.BalearesAcceptanceTests.test_azcarate_hernandez_pinzon_columnas) ... ok
+test_costa_amengual_duty_phone (test_baleares.BalearesAcceptanceTests.test_costa_amengual_duty_phone) ... ok
+test_formentera_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_formentera_2026_01_01) ... ok
+test_ids_palma_2026_01_01_salvo_sagrista (test_baleares.BalearesAcceptanceTests.test_ids_palma_2026_01_01_salvo_sagrista) ... FAIL
+test_ningun_turno_invertido (test_baleares.BalearesAcceptanceTests.test_ningun_turno_invertido) ... ok
+test_palma_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_palma_2026_01_01) ... ok
+test_riera_oliver_magdalena_columnas (test_baleares.BalearesAcceptanceTests.test_riera_oliver_magdalena_columnas) ... ok
+test_sagrista_farre_columnas (test_baleares.BalearesAcceptanceTests.test_sagrista_farre_columnas) ... ok
+test_sastre_barcelo_columnas (test_baleares.BalearesAcceptanceTests.test_sastre_barcelo_columnas) ... ok
+test_sin_warnings_ambigua (test_baleares.BalearesAcceptanceTests.test_sin_warnings_ambigua) ... ok
+test_columna_direccion_por_bbox (test_baleares.SyntheticLineTests.test_columna_direccion_por_bbox) ... ok
+test_duty_phone_extraido_y_quitado_de_direccion (test_baleares.SyntheticLineTests.test_duty_phone_extraido_y_quitado_de_direccion) ... ok
+test_fin_de_turno_al_dia_siguiente (test_baleares.SyntheticLineTests.test_fin_de_turno_al_dia_siguiente) ... ok
+test_id_estable_entre_dias_y_zonas (test_baleares.SyntheticLineTests.test_id_estable_entre_dias_y_zonas) ... ok
+test_locality_guion_pegado_es_direccion (test_baleares.SyntheticLineTests.test_locality_guion_pegado_es_direccion) ... ok
+test_locality_segun_patron (test_baleares.SyntheticLineTests.test_locality_segun_patron) ... ok
+test_normalize (test_baleares.SyntheticLineTests.test_normalize) ... ok
+test_parse_date_line (test_baleares.SyntheticLineTests.test_parse_date_line) ... ok
+test_parse_shift_header_variantes (test_baleares.SyntheticLineTests.test_parse_shift_header_variantes) ... ok
+test_split_ambiguo_conserva_linea_completa (test_baleares.SyntheticLineTests.test_split_ambiguo_conserva_linea_completa) ... ok
+test_split_standard (test_baleares.SyntheticLineTests.test_split_standard) ... ok
+test_agrupacion1_enero (test_murcia.MurciaAcceptanceTests.test_agrupacion1_enero) ... ok
+test_agrupacion2_mu56_y_refuerzo_no_soportado (test_murcia.MurciaAcceptanceTests.test_agrupacion2_mu56_y_refuerzo_no_soportado) ... ok
+test_agrupacion6_ocho_farmacias_24h (test_murcia.MurciaAcceptanceTests.test_agrupacion6_ocho_farmacias_24h) ... ok
+test_mu45_directorio (test_murcia.MurciaAcceptanceTests.test_mu45_directorio) ... ok
+test_mu534_direccion (test_murcia.MurciaAcceptanceTests.test_mu534_direccion) ... ok
+test_source_info (test_murcia.MurciaAcceptanceTests.test_source_info) ... ok
+test_times_exact_por_tipo (test_murcia.MurciaAcceptanceTests.test_times_exact_por_tipo) ... ok
+test_todos_los_turnos_referencian_farmacia (test_murcia.MurciaAcceptanceTests.test_todos_los_turnos_referencian_farmacia) ... ok
+test_column_of (test_murcia.ReconstruccionColumnasTests.test_column_of) ... ok
+test_join_fragment (test_murcia.ReconstruccionColumnasTests.test_join_fragment) ... ok
+
+======================================================================
+FAIL: test_ids_palma_2026_01_01_salvo_sagrista (test_baleares.BalearesAcceptanceTests.test_ids_palma_2026_01_01_salvo_sagrista)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\adoni\dev\farmacias-guardia\tests\test_baleares.py", line 160, in test_ids_palma_2026_01_01_salvo_sagrista
+    self.assertNotEqual(v1_sagrista, current_sagrista)
+AssertionError: {'IB:0577e0116fbd'} == {'IB:0577e0116fbd'}
+
+----------------------------------------------------------------------
+Ran 32 tests in 17.387s
+
+FAILED (failures=1)
+
+Γ£▒ Grep "LOSALCAZARES|TORREPACHECO|DESEGURA|DECOTILLAS|ALMENDRIC" in data/out ┬╖ 6 matches
+Γ£▒ Grep "ALMENDRIC|LOSALCAZARES|TORREPACHECO|DESEGURA|DECOTILLAS|PACHEC" in tmp ┬╖ 16 matches
+Γ£▒ Grep "URB\. MAIORIS|Frente Ed\.Portals Plaza|CALA LLITERAS|ALCOVER CASASNOVAS" in data/out ┬╖ 4 matches
+Editar├⌐ los tres m├│dulos y ampliar├⌐ las pruebas de aceptaci├│n: conservaci├│n de IDs, correcci├│n de los casos de localidad y zonas exportadas. La compatibilidad de IDs de Baleares se conserva calculando el identificador con la direcci├│n previa, ya publicada, ├║nicamente en el caso `URB.` que ahora debe permanecer como direcci├│n.
+% Patch 3 files
+% Patch 2 files
+
+# Todos
+[Γ£ô] Revisar TAREA_02b, SPEC y la implementaci├│n existente
+[ΓÇó] Implementar localidades y sus pruebas siguiendo convenciones
+[ ] Ejecutar tests y regenerar data/out; corregir incidencias
+
+$ python -m unittest discover -s tests -v
+test_26_pdfs_con_texto_y_uno_sin_texto (test_baleares.BalearesAcceptanceTests.test_26_pdfs_con_texto_y_uno_sin_texto) ... ok
+test_azcarate_hernandez_pinzon_columnas (test_baleares.BalearesAcceptanceTests.test_azcarate_hernandez_pinzon_columnas) ... ok
+test_costa_amengual_duty_phone (test_baleares.BalearesAcceptanceTests.test_costa_amengual_duty_phone) ... ok
+test_exporta_zonas_para_cada_farmacia (test_baleares.BalearesAcceptanceTests.test_exporta_zonas_para_cada_farmacia) ... ok
+test_formentera_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_formentera_2026_01_01) ... ok
+test_ids_palma_2026_01_01_se_conservan (test_baleares.BalearesAcceptanceTests.test_ids_palma_2026_01_01_se_conservan) ... ok
+test_ningun_turno_invertido (test_baleares.BalearesAcceptanceTests.test_ningun_turno_invertido) ... ok
+test_palma_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_palma_2026_01_01) ... ok
+test_riera_oliver_magdalena_columnas (test_baleares.BalearesAcceptanceTests.test_riera_oliver_magdalena_columnas) ... ok
+test_sagrista_farre_columnas (test_baleares.BalearesAcceptanceTests.test_sagrista_farre_columnas) ... ok
+test_sastre_barcelo_columnas (test_baleares.BalearesAcceptanceTests.test_sastre_barcelo_columnas) ... ok
+test_sin_warnings_ambigua (test_baleares.BalearesAcceptanceTests.test_sin_warnings_ambigua) ... ok
+test_columna_direccion_por_bbox (test_baleares.SyntheticLineTests.test_columna_direccion_por_bbox) ... ok
+test_duty_phone_extraido_y_quitado_de_direccion (test_baleares.SyntheticLineTests.test_duty_phone_extraido_y_quitado_de_direccion) ... ok
+test_fin_de_turno_al_dia_siguiente (test_baleares.SyntheticLineTests.test_fin_de_turno_al_dia_siguiente) ... ok
+test_id_estable_entre_dias_y_zonas (test_baleares.SyntheticLineTests.test_id_estable_entre_dias_y_zonas) ... ok
+test_locality_guion_pegado_es_direccion (test_baleares.SyntheticLineTests.test_locality_guion_pegado_es_direccion) ... ok
+test_locality_segun_patron (test_baleares.SyntheticLineTests.test_locality_segun_patron) ... ok
+test_normalize (test_baleares.SyntheticLineTests.test_normalize) ... ok
+test_parse_date_line (test_baleares.SyntheticLineTests.test_parse_date_line) ... ok
+test_parse_shift_header_variantes (test_baleares.SyntheticLineTests.test_parse_shift_header_variantes) ... ok
+test_split_ambiguo_conserva_linea_completa (test_baleares.SyntheticLineTests.test_split_ambiguo_conserva_linea_completa) ... ok
+test_split_standard (test_baleares.SyntheticLineTests.test_split_standard) ... ok
+test_agrupacion1_enero (test_murcia.MurciaAcceptanceTests.test_agrupacion1_enero) ... ok
+test_agrupacion2_mu56_y_refuerzo_no_soportado (test_murcia.MurciaAcceptanceTests.test_agrupacion2_mu56_y_refuerzo_no_soportado) ... ok
+test_agrupacion6_ocho_farmacias_24h (test_murcia.MurciaAcceptanceTests.test_agrupacion6_ocho_farmacias_24h) ... ok
+test_localidades_reconstruidas (test_murcia.MurciaAcceptanceTests.test_localidades_reconstruidas) ... FAIL
+test_mu45_directorio (test_murcia.MurciaAcceptanceTests.test_mu45_directorio) ... FAIL
+test_mu534_direccion (test_murcia.MurciaAcceptanceTests.test_mu534_direccion) ... FAIL
+test_source_info (test_murcia.MurciaAcceptanceTests.test_source_info) ... ok
+test_times_exact_por_tipo (test_murcia.MurciaAcceptanceTests.test_times_exact_por_tipo) ... ok
+test_todos_los_turnos_referencian_farmacia (test_murcia.MurciaAcceptanceTests.test_todos_los_turnos_referencian_farmacia) ... ok
+test_column_of (test_murcia.ReconstruccionColumnasTests.test_column_of) ... ok
+test_join_fragment (test_murcia.ReconstruccionColumnasTests.test_join_fragment) ... FAIL
+
+======================================================================
+FAIL: test_localidades_reconstruidas (test_murcia.MurciaAcceptanceTests.test_localidades_reconstruidas)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\adoni\dev\farmacias-guardia\tests\test_murcia.py", line 142, in test_localidades_reconstruidas
+    self.assertEqual(found, [])
+AssertionError: Lists differ: ['MU:198: ALMENDRIC OS-LORCA'] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+'MU:198: ALMENDRIC OS-LORCA'
+
+- ['MU:198: ALMENDRIC OS-LORCA']
++ []
+
+======================================================================
+FAIL: test_mu45_directorio (test_murcia.MurciaAcceptanceTests.test_mu45_directorio)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\adoni\dev\farmacias-guardia\tests\test_murcia.py", line 46, in test_mu45_directorio
+    self.assertEqual(pharmacy.holder, "RUBIO FERNANDEZ, MARIA")
+AssertionError: 'RUBIO FERNANDEZ,MARIA' != 'RUBIO FERNANDEZ, MARIA'
+- RUBIO FERNANDEZ,MARIA
++ RUBIO FERNANDEZ, MARIA
+?                 +
+
+
+======================================================================
+FAIL: test_mu534_direccion (test_murcia.MurciaAcceptanceTests.test_mu534_direccion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\adoni\dev\farmacias-guardia\tests\test_murcia.py", line 54, in test_mu534_direccion
+    self.assertEqual(
+AssertionError: 'CALLE MEDICO PEDRO NOGUEROLES,ESQUINA CALLE ANDORRA' != 'CALLE MEDICO PEDRO NOGUEROLES, ESQUINA CALLE ANDORRA'
+- CALLE MEDICO PEDRO NOGUEROLES,ESQUINA CALLE ANDORRA
++ CALLE MEDICO PEDRO NOGUEROLES, ESQUINA CALLE ANDORRA
+?                               +
+
+
+======================================================================
+FAIL: test_join_fragment (test_murcia.ReconstruccionColumnasTests.test_join_fragment)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\adoni\dev\farmacias-guardia\tests\test_murcia.py", line 164, in test_join_fragment
+    self.assertEqual(
+AssertionError: 'CALABARDIN A (AGUILAS)' != 'CALABARDINA (AGUILAS)'
+- CALABARDIN A (AGUILAS)
+?           -
++ CALABARDINA (AGUILAS)
+
+
+----------------------------------------------------------------------
+Ran 34 tests in 18.664s
+
+FAILED (failures=4)
+
+Las pruebas han detectado una sutileza de puntuaci├│n: el separador tras comas se estaba evaluando como si no hubiera palabra previa. Ajustar├⌐ esa normalizaci├│n y a├▒adir├⌐ las formas completas de Anexo II que resuelven los dos cortes reales restantes.
+% Patch 1 file
+
+$ python -m unittest discover -s tests -v
+test_26_pdfs_con_texto_y_uno_sin_texto (test_baleares.BalearesAcceptanceTests.test_26_pdfs_con_texto_y_uno_sin_texto) ... ok
+test_azcarate_hernandez_pinzon_columnas (test_baleares.BalearesAcceptanceTests.test_azcarate_hernandez_pinzon_columnas) ... ok
+test_costa_amengual_duty_phone (test_baleares.BalearesAcceptanceTests.test_costa_amengual_duty_phone) ... ok
+test_exporta_zonas_para_cada_farmacia (test_baleares.BalearesAcceptanceTests.test_exporta_zonas_para_cada_farmacia) ... ok
+test_formentera_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_formentera_2026_01_01) ... ok
+test_ids_palma_2026_01_01_se_conservan (test_baleares.BalearesAcceptanceTests.test_ids_palma_2026_01_01_se_conservan) ... ok
+test_ningun_turno_invertido (test_baleares.BalearesAcceptanceTests.test_ningun_turno_invertido) ... ok
+test_palma_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_palma_2026_01_01) ... ok
+test_riera_oliver_magdalena_columnas (test_baleares.BalearesAcceptanceTests.test_riera_oliver_magdalena_columnas) ... ok
+test_sagrista_farre_columnas (test_baleares.BalearesAcceptanceTests.test_sagrista_farre_columnas) ... ok
+test_sastre_barcelo_columnas (test_baleares.BalearesAcceptanceTests.test_sastre_barcelo_columnas) ... ok
+test_sin_warnings_ambigua (test_baleares.BalearesAcceptanceTests.test_sin_warnings_ambigua) ... ok
+test_columna_direccion_por_bbox (test_baleares.SyntheticLineTests.test_columna_direccion_por_bbox) ... ok
+test_duty_phone_extraido_y_quitado_de_direccion (test_baleares.SyntheticLineTests.test_duty_phone_extraido_y_quitado_de_direccion) ... ok
+test_fin_de_turno_al_dia_siguiente (test_baleares.SyntheticLineTests.test_fin_de_turno_al_dia_siguiente) ... ok
+test_id_estable_entre_dias_y_zonas (test_baleares.SyntheticLineTests.test_id_estable_entre_dias_y_zonas) ... ok
+test_locality_guion_pegado_es_direccion (test_baleares.SyntheticLineTests.test_locality_guion_pegado_es_direccion) ... ok
+test_locality_segun_patron (test_baleares.SyntheticLineTests.test_locality_segun_patron) ... ok
+test_normalize (test_baleares.SyntheticLineTests.test_normalize) ... ok
+test_parse_date_line (test_baleares.SyntheticLineTests.test_parse_date_line) ... ok
+test_parse_shift_header_variantes (test_baleares.SyntheticLineTests.test_parse_shift_header_variantes) ... ok
+test_split_ambiguo_conserva_linea_completa (test_baleares.SyntheticLineTests.test_split_ambiguo_conserva_linea_completa) ... ok
+test_split_standard (test_baleares.SyntheticLineTests.test_split_standard) ... ok
+test_agrupacion1_enero (test_murcia.MurciaAcceptanceTests.test_agrupacion1_enero) ... ok
+test_agrupacion2_mu56_y_refuerzo_no_soportado (test_murcia.MurciaAcceptanceTests.test_agrupacion2_mu56_y_refuerzo_no_soportado) ... ok
+test_agrupacion6_ocho_farmacias_24h (test_murcia.MurciaAcceptanceTests.test_agrupacion6_ocho_farmacias_24h) ... ok
+test_localidades_reconstruidas (test_murcia.MurciaAcceptanceTests.test_localidades_reconstruidas) ... FAIL
+test_mu45_directorio (test_murcia.MurciaAcceptanceTests.test_mu45_directorio) ... ok
+test_mu534_direccion (test_murcia.MurciaAcceptanceTests.test_mu534_direccion) ... ok
+test_source_info (test_murcia.MurciaAcceptanceTests.test_source_info) ... ok
+test_times_exact_por_tipo (test_murcia.MurciaAcceptanceTests.test_times_exact_por_tipo) ... ok
+test_todos_los_turnos_referencian_farmacia (test_murcia.MurciaAcceptanceTests.test_todos_los_turnos_referencian_farmacia) ... ok
+test_column_of (test_murcia.ReconstruccionColumnasTests.test_column_of) ... ok
+test_join_fragment (test_murcia.ReconstruccionColumnasTests.test_join_fragment) ... ok
+
+======================================================================
+FAIL: test_localidades_reconstruidas (test_murcia.MurciaAcceptanceTests.test_localidades_reconstruidas)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\adoni\dev\farmacias-guardia\tests\test_murcia.py", line 143, in test_localidades_reconstruidas
+    self.assertEqual(localities["MU:460"], "LOS NAREJOS (LOS ALCAZARES)")
+AssertionError: 'LOS NAREJOS(LOS ALCAZARES)' != 'LOS NAREJOS (LOS ALCAZARES)'
+- LOS NAREJOS(LOS ALCAZARES)
++ LOS NAREJOS (LOS ALCAZARES)
+?            +
+
+
+----------------------------------------------------------------------
+Ran 34 tests in 16.906s
+
+FAILED (failures=1)
+
+% Patch 1 file
+
+$ python -m unittest discover -s tests -v
+test_26_pdfs_con_texto_y_uno_sin_texto (test_baleares.BalearesAcceptanceTests.test_26_pdfs_con_texto_y_uno_sin_texto) ... ok
+test_azcarate_hernandez_pinzon_columnas (test_baleares.BalearesAcceptanceTests.test_azcarate_hernandez_pinzon_columnas) ... ok
+test_costa_amengual_duty_phone (test_baleares.BalearesAcceptanceTests.test_costa_amengual_duty_phone) ... ok
+test_exporta_zonas_para_cada_farmacia (test_baleares.BalearesAcceptanceTests.test_exporta_zonas_para_cada_farmacia) ... ok
+test_formentera_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_formentera_2026_01_01) ... ok
+test_ids_palma_2026_01_01_se_conservan (test_baleares.BalearesAcceptanceTests.test_ids_palma_2026_01_01_se_conservan) ... ok
+test_ningun_turno_invertido (test_baleares.BalearesAcceptanceTests.test_ningun_turno_invertido) ... ok
+test_palma_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_palma_2026_01_01) ... ok
+test_riera_oliver_magdalena_columnas (test_baleares.BalearesAcceptanceTests.test_riera_oliver_magdalena_columnas) ... ok
+test_sagrista_farre_columnas (test_baleares.BalearesAcceptanceTests.test_sagrista_farre_columnas) ... ok
+test_sastre_barcelo_columnas (test_baleares.BalearesAcceptanceTests.test_sastre_barcelo_columnas) ... ok
+test_sin_warnings_ambigua (test_baleares.BalearesAcceptanceTests.test_sin_warnings_ambigua) ... ok
+test_columna_direccion_por_bbox (test_baleares.SyntheticLineTests.test_columna_direccion_por_bbox) ... ok
+test_duty_phone_extraido_y_quitado_de_direccion (test_baleares.SyntheticLineTests.test_duty_phone_extraido_y_quitado_de_direccion) ... ok
+test_fin_de_turno_al_dia_siguiente (test_baleares.SyntheticLineTests.test_fin_de_turno_al_dia_siguiente) ... ok
+test_id_estable_entre_dias_y_zonas (test_baleares.SyntheticLineTests.test_id_estable_entre_dias_y_zonas) ... ok
+test_locality_guion_pegado_es_direccion (test_baleares.SyntheticLineTests.test_locality_guion_pegado_es_direccion) ... ok
+test_locality_segun_patron (test_baleares.SyntheticLineTests.test_locality_segun_patron) ... ok
+test_normalize (test_baleares.SyntheticLineTests.test_normalize) ... ok
+test_parse_date_line (test_baleares.SyntheticLineTests.test_parse_date_line) ... ok
+test_parse_shift_header_variantes (test_baleares.SyntheticLineTests.test_parse_shift_header_variantes) ... ok
+test_split_ambiguo_conserva_linea_completa (test_baleares.SyntheticLineTests.test_split_ambiguo_conserva_linea_completa) ... ok
+test_split_standard (test_baleares.SyntheticLineTests.test_split_standard) ... ok
+test_agrupacion1_enero (test_murcia.MurciaAcceptanceTests.test_agrupacion1_enero) ... ok
+test_agrupacion2_mu56_y_refuerzo_no_soportado (test_murcia.MurciaAcceptanceTests.test_agrupacion2_mu56_y_refuerzo_no_soportado) ... ok
+test_agrupacion6_ocho_farmacias_24h (test_murcia.MurciaAcceptanceTests.test_agrupacion6_ocho_farmacias_24h) ... ok
+test_localidades_reconstruidas (test_murcia.MurciaAcceptanceTests.test_localidades_reconstruidas) ... ok
+test_mu45_directorio (test_murcia.MurciaAcceptanceTests.test_mu45_directorio) ... ok
+test_mu534_direccion (test_murcia.MurciaAcceptanceTests.test_mu534_direccion) ... ok
+test_source_info (test_murcia.MurciaAcceptanceTests.test_source_info) ... ok
+test_times_exact_por_tipo (test_murcia.MurciaAcceptanceTests.test_times_exact_por_tipo) ... ok
+test_todos_los_turnos_referencian_farmacia (test_murcia.MurciaAcceptanceTests.test_todos_los_turnos_referencian_farmacia) ... ok
+test_column_of (test_murcia.ReconstruccionColumnasTests.test_column_of) ... ok
+test_join_fragment (test_murcia.ReconstruccionColumnasTests.test_join_fragment) ... ok
+
+----------------------------------------------------------------------
+Ran 34 tests in 16.770s
+
+OK
+
+La suite completa pasa (34 pruebas). Regenerar├⌐ ahora ambos JSON y comprobar├⌐ las condiciones sobre los artefactos generados, incluidos IDs frente a `*_v1.json`.
+$ python scripts/run_murcia.py
+Farmacias: 581
+Turnos:    17185
+Warnings:  126
+Salida:    C:\Users\adoni\dev\farmacias-guardia\data\out\murcia_2026.json
+
+Warnings por tipo:
+    33  POBLACION_TRUNCADA_AMBIGUA
+    31  ROTACION_NO_SOPORTADA
+    31  FECHA_FUERA_DE_ANIO
+    23  ANEXO_III_NO_SOPORTADO
+     7  REFUERZO_REGLA_NO_SOPORTADA
+     1  REGLA_24H_NO_SOPORTADA
+
+Turnos del 2026-10-18 (agrupaciones 1, 6 y 18):
+  Agrupaci∩┐╜n 1: 1 turnos
+    [24h       ] 00:00-00:00  AGRUPACION 1 (ALCANTARILLA-SANGONERA LA SECA)  DE BEJAR RIQUELME, ANA  (968801042)
+  Agrupaci∩┐╜n 6: 17 turnos
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SANDOVAL BARNUEVO,EUGENIO  (968211849)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SANCHEZ SANCHEZ,PEDRO  (968293522)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  GUIRAO HERNANDEZ, MARIA Y PEREZ-TEMPLADO LADRON DE GUEVARA, ELENA MARIA DEL MAR  (968252325)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SANCHEZ PUCHE, JAVIER  (968280280)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  MARIN SANCHEZ,JUAN PEDRO Y JOSE LUIS  (968218699)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SANCHEZ PUCHE, DAVID  (968295925)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  BRIONES ORTEGA, GONZALO  (968134219)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SANCHEZ PUCHE, JOSE ANTONIO  (968257209)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  PE∩┐╜ALVER SANCHEZ, BEGO∩┐╜A  (968211535)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  HERNANDEZ RODRIGO, DAVID EMILIO  (968251127)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  TOLEDO ROMERO, CESAR  (968295301)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  HERNANDEZ GONZALEZ, MARIA TERESA  (968231141)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  BRIONES ORTEGA, CARLOS  (968344555)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  MORA FLORES, MARIA TERESA  (968234906)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SERRANO NIETO, ALICIA  (968210480)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  ORTEGA TOMAS, PILAR  (968905566)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  MOLINA MARTINEZ, ANTONIO JUAN  (968346450)
+  Agrupaci∩┐╜n 18: 0 turnos
+
+$ python scripts/run_baleares.py
+Farmacias: 253
+Turnos:    38956
+Warnings:  1
+Salida:    C:\Users\adoni\dev\farmacias-guardia\data\out\baleares_2026.json
+
+Turnos de Palma del 2026-10-18:
+  [diurna  ] 09:00-22:00  ALCOVER CASASNOVAS, R  (971909015)
+  [diurna  ] 09:00-22:00  BENITO BUENO  (971293740)
+  [diurna  ] 09:00-22:00  BENNASER - VERD  (971711511)
+  [diurna  ] 09:00-22:00  BUADES MATEU  (971070635)
+  [diurna  ] 09:00-22:00  FLUXA TORRES  (971474566)
+  [diurna  ] 09:00-22:00  FORNES NADAL  (971298050)
+  [diurna  ] 09:00-22:00  GOMEZ GARCIA  (971458788)
+  [diurna  ] 09:00-22:00  HERNANDEZ FRONTERA  (971666901)
+  [diurna  ] 09:00-22:00  MARIMON SIMO  (971267660)
+  [diurna  ] 09:00-22:00  MUNAR MASOT  (971726817)
+  [diurna  ] 09:00-22:00  PI∩┐╜A - GALLARDO  (971909095)
+  [diurna  ] 09:00-22:00  REAL VICENS  (971272501)
+  [diurna  ] 09:00-22:00  SAGRISTA BUADES, F  (971222202)
+  [diurna  ] 09:00-22:00  SAGRISTA BUADES, G  (971222201)
+  [diurna  ] 09:00-22:00  SAGRISTA-FARRE-MATEMALAS  (971609946)
+  [diurna  ] 09:00-22:00  TINOCO GIL  (645899135)
+  [diurna  ] 09:00-22:00  TORRES CERDO  (971737529)
+  [diurna  ] 09:00-22:00  VAQUER MESTRE  (971291159)
+  [diurna  ] 09:00-22:00  VICENS CALDENTEY, JOAN  (971274756)
+  [nocturna] 22:00-09:00  ALCOVER CASASNOVAS, R  (971909015)
+  [nocturna] 22:00-09:00  GOMEZ GARCIA  (971458788)
+  [nocturna] 22:00-09:00  REAL VICENS  (971272501)
+  total: 22 turnos
+
+Γ£▒ Grep "POBLACION_TRUNCADA_AMBIGUA" in data/out ┬╖ 33 matches
+% Patch 2 files
+
+$ python -m unittest discover -s tests -v
+test_26_pdfs_con_texto_y_uno_sin_texto (test_baleares.BalearesAcceptanceTests.test_26_pdfs_con_texto_y_uno_sin_texto) ... ok
+test_azcarate_hernandez_pinzon_columnas (test_baleares.BalearesAcceptanceTests.test_azcarate_hernandez_pinzon_columnas) ... ok
+test_costa_amengual_duty_phone (test_baleares.BalearesAcceptanceTests.test_costa_amengual_duty_phone) ... ok
+test_exporta_zonas_para_cada_farmacia (test_baleares.BalearesAcceptanceTests.test_exporta_zonas_para_cada_farmacia) ... ok
+test_formentera_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_formentera_2026_01_01) ... ok
+test_ids_palma_2026_01_01_se_conservan (test_baleares.BalearesAcceptanceTests.test_ids_palma_2026_01_01_se_conservan) ... ok
+test_ningun_turno_invertido (test_baleares.BalearesAcceptanceTests.test_ningun_turno_invertido) ... ok
+test_palma_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_palma_2026_01_01) ... ok
+test_riera_oliver_magdalena_columnas (test_baleares.BalearesAcceptanceTests.test_riera_oliver_magdalena_columnas) ... ok
+test_sagrista_farre_columnas (test_baleares.BalearesAcceptanceTests.test_sagrista_farre_columnas) ... ok
+test_sastre_barcelo_columnas (test_baleares.BalearesAcceptanceTests.test_sastre_barcelo_columnas) ... ok
+test_sin_warnings_ambigua (test_baleares.BalearesAcceptanceTests.test_sin_warnings_ambigua) ... ok
+test_columna_direccion_por_bbox (test_baleares.SyntheticLineTests.test_columna_direccion_por_bbox) ... ok
+test_duty_phone_extraido_y_quitado_de_direccion (test_baleares.SyntheticLineTests.test_duty_phone_extraido_y_quitado_de_direccion) ... ok
+test_fin_de_turno_al_dia_siguiente (test_baleares.SyntheticLineTests.test_fin_de_turno_al_dia_siguiente) ... ok
+test_id_estable_entre_dias_y_zonas (test_baleares.SyntheticLineTests.test_id_estable_entre_dias_y_zonas) ... ok
+test_locality_guion_pegado_es_direccion (test_baleares.SyntheticLineTests.test_locality_guion_pegado_es_direccion) ... ok
+test_locality_segun_patron (test_baleares.SyntheticLineTests.test_locality_segun_patron) ... ok
+test_normalize (test_baleares.SyntheticLineTests.test_normalize) ... ok
+test_parse_date_line (test_baleares.SyntheticLineTests.test_parse_date_line) ... ok
+test_parse_shift_header_variantes (test_baleares.SyntheticLineTests.test_parse_shift_header_variantes) ... ok
+test_split_ambiguo_conserva_linea_completa (test_baleares.SyntheticLineTests.test_split_ambiguo_conserva_linea_completa) ... ok
+test_split_standard (test_baleares.SyntheticLineTests.test_split_standard) ... ok
+test_agrupacion1_enero (test_murcia.MurciaAcceptanceTests.test_agrupacion1_enero) ... ok
+test_agrupacion2_mu56_y_refuerzo_no_soportado (test_murcia.MurciaAcceptanceTests.test_agrupacion2_mu56_y_refuerzo_no_soportado) ... ok
+test_agrupacion6_ocho_farmacias_24h (test_murcia.MurciaAcceptanceTests.test_agrupacion6_ocho_farmacias_24h) ... ok
+test_localidades_reconstruidas (test_murcia.MurciaAcceptanceTests.test_localidades_reconstruidas) ... ok
+test_mu45_directorio (test_murcia.MurciaAcceptanceTests.test_mu45_directorio) ... ok
+test_mu534_direccion (test_murcia.MurciaAcceptanceTests.test_mu534_direccion) ... ok
+test_source_info (test_murcia.MurciaAcceptanceTests.test_source_info) ... ok
+test_times_exact_por_tipo (test_murcia.MurciaAcceptanceTests.test_times_exact_por_tipo) ... ok
+test_todos_los_turnos_referencian_farmacia (test_murcia.MurciaAcceptanceTests.test_todos_los_turnos_referencian_farmacia) ... ok
+test_tokens_localidad_pertenecen_al_vocabulario (test_murcia.MurciaAcceptanceTests.test_tokens_localidad_pertenecen_al_vocabulario) ... FAIL
+test_column_of (test_murcia.ReconstruccionColumnasTests.test_column_of) ... ok
+test_join_fragment (test_murcia.ReconstruccionColumnasTests.test_join_fragment) ... ok
+
+======================================================================
+FAIL: test_tokens_localidad_pertenecen_al_vocabulario (test_murcia.MurciaAcceptanceTests.test_tokens_localidad_pertenecen_al_vocabulario)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\adoni\dev\farmacias-guardia\tests\test_murcia.py", line 165, in test_tokens_localidad_pertenecen_al_vocabulario
+    self.assertEqual(unknown, [])
+AssertionError: Lists differ: ['CEUT∩┐╜', 'PATI∩┐╜O', '∩┐╜ORA'] != []
+
+First list contains 3 additional elements.
+First extra element 0:
+'CEUT∩┐╜'
+
+- ['CEUT∩┐╜', 'PATI∩┐╜O', '∩┐╜ORA']
++ []
+
+----------------------------------------------------------------------
+Ran 35 tests in 18.614s
+
+FAILED (failures=1)
+
+Γ£▒ Grep "∩┐╜" in data/out ┬╖ 0 matches
+La comprobaci├│n exhaustiva ha localizado tres glifos inv├ílidos del PDF en localidades (`CEUT∩┐╜`, `PATI∩┐╜O`, `∩┐╜ORA`), no fallos de separaci├│n. Los normalizar├⌐ a las formas inequ├¡vocas del directorio para que el criterio de vocabulario sea verificable tambi├⌐n en el JSON exportado.
+% Patch 2 files
+% Patch 1 file
+
+$ python -m unittest discover -s tests -v
+test_26_pdfs_con_texto_y_uno_sin_texto (test_baleares.BalearesAcceptanceTests.test_26_pdfs_con_texto_y_uno_sin_texto) ... ok
+test_azcarate_hernandez_pinzon_columnas (test_baleares.BalearesAcceptanceTests.test_azcarate_hernandez_pinzon_columnas) ... ok
+test_costa_amengual_duty_phone (test_baleares.BalearesAcceptanceTests.test_costa_amengual_duty_phone) ... ok
+test_exporta_zonas_para_cada_farmacia (test_baleares.BalearesAcceptanceTests.test_exporta_zonas_para_cada_farmacia) ... ok
+test_formentera_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_formentera_2026_01_01) ... ok
+test_ids_palma_2026_01_01_se_conservan (test_baleares.BalearesAcceptanceTests.test_ids_palma_2026_01_01_se_conservan) ... ok
+test_ningun_turno_invertido (test_baleares.BalearesAcceptanceTests.test_ningun_turno_invertido) ... ok
+test_palma_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_palma_2026_01_01) ... ok
+test_riera_oliver_magdalena_columnas (test_baleares.BalearesAcceptanceTests.test_riera_oliver_magdalena_columnas) ... ok
+test_sagrista_farre_columnas (test_baleares.BalearesAcceptanceTests.test_sagrista_farre_columnas) ... ok
+test_sastre_barcelo_columnas (test_baleares.BalearesAcceptanceTests.test_sastre_barcelo_columnas) ... ok
+test_sin_warnings_ambigua (test_baleares.BalearesAcceptanceTests.test_sin_warnings_ambigua) ... ok
+test_columna_direccion_por_bbox (test_baleares.SyntheticLineTests.test_columna_direccion_por_bbox) ... ok
+test_duty_phone_extraido_y_quitado_de_direccion (test_baleares.SyntheticLineTests.test_duty_phone_extraido_y_quitado_de_direccion) ... ok
+test_fin_de_turno_al_dia_siguiente (test_baleares.SyntheticLineTests.test_fin_de_turno_al_dia_siguiente) ... ok
+test_id_estable_entre_dias_y_zonas (test_baleares.SyntheticLineTests.test_id_estable_entre_dias_y_zonas) ... ok
+test_locality_guion_pegado_es_direccion (test_baleares.SyntheticLineTests.test_locality_guion_pegado_es_direccion) ... ok
+test_locality_segun_patron (test_baleares.SyntheticLineTests.test_locality_segun_patron) ... ok
+test_normalize (test_baleares.SyntheticLineTests.test_normalize) ... ok
+test_parse_date_line (test_baleares.SyntheticLineTests.test_parse_date_line) ... ok
+test_parse_shift_header_variantes (test_baleares.SyntheticLineTests.test_parse_shift_header_variantes) ... ok
+test_split_ambiguo_conserva_linea_completa (test_baleares.SyntheticLineTests.test_split_ambiguo_conserva_linea_completa) ... ok
+test_split_standard (test_baleares.SyntheticLineTests.test_split_standard) ... ok
+test_agrupacion1_enero (test_murcia.MurciaAcceptanceTests.test_agrupacion1_enero) ... ok
+test_agrupacion2_mu56_y_refuerzo_no_soportado (test_murcia.MurciaAcceptanceTests.test_agrupacion2_mu56_y_refuerzo_no_soportado) ... ok
+test_agrupacion6_ocho_farmacias_24h (test_murcia.MurciaAcceptanceTests.test_agrupacion6_ocho_farmacias_24h) ... ok
+test_localidades_reconstruidas (test_murcia.MurciaAcceptanceTests.test_localidades_reconstruidas) ... ok
+test_mu45_directorio (test_murcia.MurciaAcceptanceTests.test_mu45_directorio) ... ok
+test_mu534_direccion (test_murcia.MurciaAcceptanceTests.test_mu534_direccion) ... ok
+test_source_info (test_murcia.MurciaAcceptanceTests.test_source_info) ... ok
+test_times_exact_por_tipo (test_murcia.MurciaAcceptanceTests.test_times_exact_por_tipo) ... ok
+test_todos_los_turnos_referencian_farmacia (test_murcia.MurciaAcceptanceTests.test_todos_los_turnos_referencian_farmacia) ... ok
+test_tokens_localidad_pertenecen_al_vocabulario (test_murcia.MurciaAcceptanceTests.test_tokens_localidad_pertenecen_al_vocabulario) ... ok
+test_column_of (test_murcia.ReconstruccionColumnasTests.test_column_of) ... ok
+test_join_fragment (test_murcia.ReconstruccionColumnasTests.test_join_fragment) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 18.314s
+
+OK
+
+$ python scripts/run_murcia.py
+Farmacias: 581
+Turnos:    17185
+Warnings:  96
+Salida:    C:\Users\adoni\dev\farmacias-guardia\data\out\murcia_2026.json
+
+Warnings por tipo:
+    31  ROTACION_NO_SOPORTADA
+    31  FECHA_FUERA_DE_ANIO
+    23  ANEXO_III_NO_SOPORTADO
+     7  REFUERZO_REGLA_NO_SOPORTADA
+     3  POBLACION_TRUNCADA_AMBIGUA
+     1  REGLA_24H_NO_SOPORTADA
+
+Turnos del 2026-10-18 (agrupaciones 1, 6 y 18):
+  Agrupaci∩┐╜n 1: 1 turnos
+    [24h       ] 00:00-00:00  AGRUPACION 1 (ALCANTARILLA-SANGONERA LA SECA)  DE BEJAR RIQUELME, ANA  (968801042)
+  Agrupaci∩┐╜n 6: 17 turnos
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SANDOVAL BARNUEVO,EUGENIO  (968211849)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SANCHEZ SANCHEZ,PEDRO  (968293522)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  GUIRAO HERNANDEZ, MARIA Y PEREZ-TEMPLADO LADRON DE GUEVARA, ELENA MARIA DEL MAR  (968252325)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SANCHEZ PUCHE, JAVIER  (968280280)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  MARIN SANCHEZ,JUAN PEDRO Y JOSE LUIS  (968218699)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SANCHEZ PUCHE, DAVID  (968295925)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  BRIONES ORTEGA, GONZALO  (968134219)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SANCHEZ PUCHE, JOSE ANTONIO  (968257209)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  PE∩┐╜ALVER SANCHEZ, BEGO∩┐╜A  (968211535)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  HERNANDEZ RODRIGO, DAVID EMILIO  (968251127)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  TOLEDO ROMERO, CESAR  (968295301)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  HERNANDEZ GONZALEZ, MARIA TERESA  (968231141)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  BRIONES ORTEGA, CARLOS  (968344555)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  MORA FLORES, MARIA TERESA  (968234906)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SERRANO NIETO, ALICIA  (968210480)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  ORTEGA TOMAS, PILAR  (968905566)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  MOLINA MARTINEZ, ANTONIO JUAN  (968346450)
+  Agrupaci∩┐╜n 18: 0 turnos
+
+$ python scripts/run_baleares.py
+Farmacias: 253
+Turnos:    38956
+Warnings:  1
+Salida:    C:\Users\adoni\dev\farmacias-guardia\data\out\baleares_2026.json
+
+Turnos de Palma del 2026-10-18:
+  [diurna  ] 09:00-22:00  ALCOVER CASASNOVAS, R  (971909015)
+  [diurna  ] 09:00-22:00  BENITO BUENO  (971293740)
+  [diurna  ] 09:00-22:00  BENNASER - VERD  (971711511)
+  [diurna  ] 09:00-22:00  BUADES MATEU  (971070635)
+  [diurna  ] 09:00-22:00  FLUXA TORRES  (971474566)
+  [diurna  ] 09:00-22:00  FORNES NADAL  (971298050)
+  [diurna  ] 09:00-22:00  GOMEZ GARCIA  (971458788)
+  [diurna  ] 09:00-22:00  HERNANDEZ FRONTERA  (971666901)
+  [diurna  ] 09:00-22:00  MARIMON SIMO  (971267660)
+  [diurna  ] 09:00-22:00  MUNAR MASOT  (971726817)
+  [diurna  ] 09:00-22:00  PI∩┐╜A - GALLARDO  (971909095)
+  [diurna  ] 09:00-22:00  REAL VICENS  (971272501)
+  [diurna  ] 09:00-22:00  SAGRISTA BUADES, F  (971222202)
+  [diurna  ] 09:00-22:00  SAGRISTA BUADES, G  (971222201)
+  [diurna  ] 09:00-22:00  SAGRISTA-FARRE-MATEMALAS  (971609946)
+  [diurna  ] 09:00-22:00  TINOCO GIL  (645899135)
+  [diurna  ] 09:00-22:00  TORRES CERDO  (971737529)
+  [diurna  ] 09:00-22:00  VAQUER MESTRE  (971291159)
+  [diurna  ] 09:00-22:00  VICENS CALDENTEY, JOAN  (971274756)
+  [nocturna] 22:00-09:00  ALCOVER CASASNOVAS, R  (971909015)
+  [nocturna] 22:00-09:00  GOMEZ GARCIA  (971458788)
+  [nocturna] 22:00-09:00  REAL VICENS  (971272501)
+  total: 22 turnos
+
+$ python -c "import json; from pathlib import Path; out=Path('data/out'); b=json.load((out/'baleares_2026.json').open(encoding='utf-8')); bv1=json.load((out/'baleares_2026_v1.json').open(encoding='utf-8')); m=json.load((out/'murcia_2026.json').open(encoding='utf-8')); mv1=json.load((out/'murcia_2026_v1.json').open(encoding='utf-8')); assert {p['id'] for p in b['pharmacies']} == {p['id'] for p in bv1['pharmacies']}; assert {p['id'] for p in m['pharmacies']} == {p['id'] for p in mv1['pharmacies']}; assert all(p['zones'] for p in b['pharmacies']); assert 'PALMA' in next(p['zones'] for p in b['pharmacies'] if p['holder'] == 'ALCOVER CASASNOVAS, R'); loc={p['id']:p['locality'] for p in m['pharmacies']}; assert loc['MU:460'] == 'LOS NAREJOS (LOS ALCAZARES)'; assert loc['MU:66'].startswith('DOLORES') and 'TORRE PACHECO' in loc['MU:66']; assert not any(value and any(token in value for token in ('LOSALCAZARES','TORREPACHECO','DESEGURA','DECOTILLAS','ALMENDRIC OS')) for value in loc.values()); print('Validacion de JSON: OK')"
+Validacion de JSON: OK
+
+# Todos
+[Γ£ô] Revisar TAREA_02b, SPEC y la implementaci├│n existente
+[Γ£ô] Implementar localidades y sus pruebas siguiendo convenciones
+[Γ£ô] Ejecutar tests y regenerar data/out; corregir incidencias
+
+Implementada la tarea 02b.
+
+- Murcia: vocabulario INE, reconstrucci├│n de fragmentos, completado seguro, correcci├│n de glifos y pruebas de localidades.
+- Baleares: saneamiento conservador de localidades y exportaci├│n de `zones`.
+- Regenerados `data/out/baleares_2026.json` y `data/out/murcia_2026.json`.
+- Validada conservaci├│n de IDs frente a `*_v1.json`.
+
+**Archivos tocados**
+- `ingesta/parsers/murcia.py`
+- `ingesta/parsers/baleares.py`
+- `ingesta/export.py`
+- `tests/test_murcia.py`
+- `tests/test_baleares.py`
+- `data/out/baleares_2026.json`
+- `data/out/murcia_2026.json`
+
+**Comandos ejecutados**
+- `python -m unittest discover -s tests -v`
+- `python scripts/run_baleares.py`
+- `python scripts/run_murcia.py`
+- Validaci├│n JSON de IDs, zonas y localidades con `python -c ...`
+
+**Resultado de tests**
+- `35` pruebas ejecutadas, todas correctas (`OK`).

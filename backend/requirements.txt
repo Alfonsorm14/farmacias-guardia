@@ -1,0 +1,8 @@
+fastapi>=0.115.0
+uvicorn>=0.30.0
+sqlalchemy>=2.0.0,<3.0.0
+httpx>=0.27.0
+pytest>=8.0.0
+# Justificación tzdata: En sistemas Windows, la librería estándar zoneinfo requiere tzdata
+# para disponer de la base de datos de zonas horarias IANA (Europe/Madrid).
+tzdata>=2026.1

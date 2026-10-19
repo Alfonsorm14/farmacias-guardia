@@ -1,0 +1,308 @@
+
+> build ┬╖ gpt-5.6-terra
+
+Revisar├⌐ la especificaci├│n, los datos y el c├│digo sin modificar archivos. Ejecutar├⌐ la bater├¡a de tests y contrastar├⌐ cada condici├│n directamente contra la base SQLite y el informe de geocodificaci├│n.
+# Todos
+[ΓÇó] Leer especificaci├│n y criterios de aceptaci├│n
+[ ] Ejecutar tests y consultar datos geogr├íficos
+[ ] Auditar c├│digo contra trampas y emitir hallazgos
+
+ΓåÆ Read docs/SPEC.md
+ΓåÆ Read docs/TAREA_03c_puntos_falsos.md
+ΓåÆ Read tmp/geocode_report.txt
+Γ£▒ Glob "**/*" in . ┬╖ 100 matches
+
+# Todos
+[Γ£ô] Leer especificaci├│n y criterios de aceptaci├│n
+[ΓÇó] Ejecutar tests y consultar datos geogr├íficos
+[ ] Auditar c├│digo contra trampas y emitir hallazgos
+
+ΓåÆ Read backend/geocode.py
+ΓåÆ Read backend/importer.py
+ΓåÆ Read backend/tests/conftest.py
+ΓåÆ Read backend/tests/test_api.py
+Γ£▒ Grep "39\.5696|2\.6502|37\.9886|-1\.1365|37\.6056|-0\.9863|37\.6459222|-0\.7174696|37\.6712|-1\.6988|test|TEST|fallback|respaldo|centroid|centroide" in . ┬╖ 100 matches
+Los criterios exigen tres comprobaciones independientes: la base real, el informe y los tests. He detectado que las pruebas de API inyectan coordenadas sint├⌐ticas en una base temporal, por lo que contrastar├⌐ sus resultados con consultas directas a `data/guardias.db`.
+
+$ & ".\.venv\Scripts\python.exe" -c "import sqlite3; c=sqlite3.connect('data/guardias.db'); print('tables=', c.execute(\"select name from sqlite_master where type='table' order by name\").fetchall()); print('pharmacies_schema=', c.execute(\"pragma table_info(pharmacies)\").fetchall()); print('cache_schema=', c.execute(\"pragma table_info(geocode_cache)\").fetchall())"
+pharmacies : El t∩┐╜rmino 'pharmacies' no se reconoce como nombre de un cmdlet, funci∩┐╜n, archivo de script o programa 
+ejecutable. Compruebe si escribi∩┐╜ correctamente el nombre o, si incluy∩┐╜ una ruta de acceso, compruebe que dicha ruta 
+es correcta e int∩┐╜ntelo de nuevo.
+En l∩┐╜nea: 1 Car∩┐╜cter: 258
++ ... pharmacies_schema=', c.execute(\"pragma table_info(pharmacies)\").fet ...
++                                                        ~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (pharmacies:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+$ & ".\.venv\Scripts\python.exe" -m pytest backend/tests -v
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-9.1.1, pluggy-1.7.0 -- C:\Users\adoni\dev\farmacias-guardia\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\adoni\dev\farmacias-guardia
+plugins: anyio-4.15.1
+collecting ... collected 14 items
+
+backend/tests/test_api.py::test_health PASSED                            [  7%]
+backend/tests/test_api.py::test_palma_nocturnas PASSED                   [ 14%]
+backend/tests/test_api.py::test_palma_diurnas PASSED                     [ 21%]
+backend/tests/test_api.py::test_alcantarilla_inexact PASSED              [ 28%]
+backend/tests/test_api.py::test_burgos_sin_cobertura PASSED              [ 35%]
+backend/tests/test_api.py::test_mazarron_sin_turnos_esta_fecha PASSED    [ 42%]
+backend/tests/test_api.py::test_dst_cambio_hora_12h PASSED               [ 50%]
+backend/tests/test_api.py::test_importador_idempotente PASSED            [ 57%]
+backend/tests/test_api.py::test_farmacia_detalle_y_fuentes PASSED        [ 64%]
+backend/tests/test_api.py::test_limpieza_api_claves_sin_tildes_y_sin_duplicados PASSED [ 71%]
+backend/tests/test_api.py::test_normalizacion_direcciones PASSED         [ 78%]
+backend/tests/test_api.py::test_no_farmacias_con_coordenadas_de_test_conftest PASSED [ 85%]
+backend/tests/test_api.py::test_los_belones_mu302_cerca_de_su_nucleo PASSED [ 92%]
+backend/tests/test_api.py::test_api_ubicacion_aproximada_flag PASSED     [100%]
+
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\adoni\dev\farmacias-guardia\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 14 passed, 1 warning in 13.96s ========================
+
+$ & ".\.venv\Scripts\python.exe" -m unittest discover -s tests -v
+test_26_pdfs_con_texto_y_uno_sin_texto (test_baleares.BalearesAcceptanceTests.test_26_pdfs_con_texto_y_uno_sin_texto) ... ok
+test_azcarate_hernandez_pinzon_columnas (test_baleares.BalearesAcceptanceTests.test_azcarate_hernandez_pinzon_columnas) ... ok
+test_costa_amengual_duty_phone (test_baleares.BalearesAcceptanceTests.test_costa_amengual_duty_phone) ... ok
+test_exporta_zonas_para_cada_farmacia (test_baleares.BalearesAcceptanceTests.test_exporta_zonas_para_cada_farmacia) ... ok
+test_formentera_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_formentera_2026_01_01) ... ok
+test_ids_palma_2026_01_01_se_conservan (test_baleares.BalearesAcceptanceTests.test_ids_palma_2026_01_01_se_conservan) ... ok
+test_ningun_turno_invertido (test_baleares.BalearesAcceptanceTests.test_ningun_turno_invertido) ... ok
+test_palma_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_palma_2026_01_01) ... ok
+test_riera_oliver_magdalena_columnas (test_baleares.BalearesAcceptanceTests.test_riera_oliver_magdalena_columnas) ... ok
+test_sagrista_farre_columnas (test_baleares.BalearesAcceptanceTests.test_sagrista_farre_columnas) ... ok
+test_sastre_barcelo_columnas (test_baleares.BalearesAcceptanceTests.test_sastre_barcelo_columnas) ... ok
+test_sin_warnings_ambigua (test_baleares.BalearesAcceptanceTests.test_sin_warnings_ambigua) ... ok
+test_columna_direccion_por_bbox (test_baleares.SyntheticLineTests.test_columna_direccion_por_bbox) ... ok
+test_duty_phone_extraido_y_quitado_de_direccion (test_baleares.SyntheticLineTests.test_duty_phone_extraido_y_quitado_de_direccion) ... ok
+test_fin_de_turno_al_dia_siguiente (test_baleares.SyntheticLineTests.test_fin_de_turno_al_dia_siguiente) ... ok
+test_id_estable_entre_dias_y_zonas (test_baleares.SyntheticLineTests.test_id_estable_entre_dias_y_zonas) ... ok
+test_locality_guion_pegado_es_direccion (test_baleares.SyntheticLineTests.test_locality_guion_pegado_es_direccion) ... ok
+test_locality_segun_patron (test_baleares.SyntheticLineTests.test_locality_segun_patron) ... ok
+test_normalize (test_baleares.SyntheticLineTests.test_normalize) ... ok
+test_parse_date_line (test_baleares.SyntheticLineTests.test_parse_date_line) ... ok
+test_parse_shift_header_variantes (test_baleares.SyntheticLineTests.test_parse_shift_header_variantes) ... ok
+test_split_ambiguo_conserva_linea_completa (test_baleares.SyntheticLineTests.test_split_ambiguo_conserva_linea_completa) ... ok
+test_split_standard (test_baleares.SyntheticLineTests.test_split_standard) ... ok
+test_agrupacion1_enero (test_murcia.MurciaAcceptanceTests.test_agrupacion1_enero) ... ok
+test_agrupacion2_mu56_y_refuerzo_no_soportado (test_murcia.MurciaAcceptanceTests.test_agrupacion2_mu56_y_refuerzo_no_soportado) ... ok
+test_agrupacion6_ocho_farmacias_24h (test_murcia.MurciaAcceptanceTests.test_agrupacion6_ocho_farmacias_24h) ... ok
+test_localidades_reconstruidas (test_murcia.MurciaAcceptanceTests.test_localidades_reconstruidas) ... ok
+test_mu45_directorio (test_murcia.MurciaAcceptanceTests.test_mu45_directorio) ... ok
+test_mu534_direccion (test_murcia.MurciaAcceptanceTests.test_mu534_direccion) ... ok
+test_source_info (test_murcia.MurciaAcceptanceTests.test_source_info) ... ok
+test_times_exact_por_tipo (test_murcia.MurciaAcceptanceTests.test_times_exact_por_tipo) ... ok
+test_todos_los_turnos_referencian_farmacia (test_murcia.MurciaAcceptanceTests.test_todos_los_turnos_referencian_farmacia) ... ok
+test_tokens_localidad_pertenecen_al_vocabulario (test_murcia.MurciaAcceptanceTests.test_tokens_localidad_pertenecen_al_vocabulario) ... ok
+test_column_of (test_murcia.ReconstruccionColumnasTests.test_column_of) ... ok
+test_join_fragment (test_murcia.ReconstruccionColumnasTests.test_join_fragment) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 19.785s
+
+OK
+
+$ & ".\.venv\Scripts\python.exe" -c 'import sqlite3; c=sqlite3.connect("data/guardias.db"); print(c.execute("select name from sqlite_master where type=''table'' order by name").fetchall()); print(c.execute("pragma table_info(pharmacies)").fetchall()); print(c.execute("pragma table_info(geocode_cache)").fetchall())'
+File "<string>", line 1
+    import sqlite3; c=sqlite3.connect(data/guardias.db); print(c.execute(select
+                                                                        ^
+SyntaxError: '(' was never closed
+
+$ & ".\.venv\Scripts\python.exe" -c 'import sqlite3; c=sqlite3.connect("data/guardias.db"); q="select id,holder,address,locality,lat,lon,geo_precision from pharmacies where abs(lat-39.5696)<0.00001 and abs(lon-2.6502)<0.00001"; r=c.execute(q).fetchall(); print("palma_test_count=",len(r)); print(*r,sep="\n"); q="select id,lat,lon,geo_precision from pharmacies where id=''MU:302''"; print("MU302=",c.execute(q).fetchone())'
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+NameError: name 'data' is not defined
+
+$ & ".\.venv\Scripts\python.exe" -c 'import sqlite3; c=sqlite3.connect("data/guardias.db"); q="select round(lat,5),round(lon,5),count(*),group_concat(id),count(distinct lower(trim(address))) from pharmacies where lat is not null and lon is not null group by round(lat,5),round(lon,5) having count(*)>2 order by count(*) desc"; r=c.execute(q).fetchall(); print("clusters_gt2=",len(r)); print(*r,sep="\n")'
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+NameError: name 'data' is not defined
+
+$ & ".\.venv\Scripts\python.exe" -c "import sqlite3; c=sqlite3.connect(`"data/guardias.db`" ); print(c.execute(`"pragma table_info(pharmacies)`").fetchall())"
+File "<string>", line 1
+    import sqlite3; c=sqlite3.connect(data/guardias.db ); print(c.execute(pragma
+                                                                         ^
+SyntaxError: '(' was never closed
+
+$ 'import sqlite3; c=sqlite3.connect("data/guardias.db"); q="select id,holder,address,locality,lat,lon,geo_precision from pharmacies where abs(lat-39.5696)<0.00001 and abs(lon-2.6502)<0.00001"; r=c.execute(q).fetchall(); print("palma_test_count=",len(r)); print(*r,sep="\n"); print("MU302=",c.execute("select id,lat,lon,geo_precision from pharmacies where id=''MU:302''").fetchone())' | & ".\.venv\Scripts\python.exe" -
+palma_test_count= 0
+
+MU302= ('MU:302', 37.62263037035343, -0.7752320457539124, 'portal')
+
+$ 'import sqlite3; c=sqlite3.connect("data/guardias.db"); print("tables=",c.execute("select name from sqlite_master where type=''table'' order by name").fetchall()); print("pharmacies_schema=",c.execute("pragma table_info(pharmacies)").fetchall()); print("cache_schema=",c.execute("pragma table_info(geocode_cache)").fetchall())' | & ".\.venv\Scripts\python.exe" -
+tables= [('geocode_cache',), ('pharmacies',), ('shifts',), ('sources',)]
+pharmacies_schema= [(0, 'id', 'VARCHAR(64)', 1, None, 1), (1, 'region', 'VARCHAR(10)', 1, None, 0), (2, 'holder', 'VARCHAR(255)', 1, None, 0), (3, 'address', 'VARCHAR(255)', 1, None, 0), (4, 'locality', 'VARCHAR(255)', 0, None, 0), (5, 'postal_code', 'VARCHAR(20)', 0, None, 0), (6, 'phone', 'VARCHAR(50)', 0, None, 0), (7, 'duty_phone', 'VARCHAR(50)', 0, None, 0), (8, 'source_id', 'VARCHAR(64)', 1, None, 0), (9, 'lat', 'FLOAT', 0, None, 0), (10, 'lon', 'FLOAT', 0, None, 0), (11, 'geo_source', 'VARCHAR(64)', 0, None, 0), (12, 'geo_precision', 'VARCHAR(32)', 0, None, 0), (13, 'geo_query', 'TEXT', 0, None, 0), (14, 'zones', 'TEXT', 0, None, 0)]
+cache_schema= [(0, 'query', 'VARCHAR(500)', 1, None, 1), (1, 'lat', 'FLOAT', 0, None, 0), (2, 'lon', 'FLOAT', 0, None, 0), (3, 'precision', 'VARCHAR(32)', 0, None, 0), (4, 'provider', 'VARCHAR(64)', 0, None, 0), (5, 'raw_json', 'TEXT', 0, None, 0), (6, 'created_at', 'DATETIME', 1, None, 0)]
+
+$ 'import sqlite3; c=sqlite3.connect("data/guardias.db"); q="select round(lat,5),round(lon,5),count(*),group_concat(id),count(distinct lower(trim(address))) from pharmacies where lat is not null and lon is not null group by round(lat,5),round(lon,5) having count(*)>2 order by count(*) desc"; r=c.execute(q).fetchall(); print("clusters_gt2=",len(r)); print(*r,sep="\n")' | & ".\.venv\Scripts\python.exe" -
+clusters_gt2= 0
+
+ΓåÆ Read backend/api.py
+ΓåÆ Read backend/geocode.py [offset=1320, limit=80]
+
+$ 'import sqlite3,math; c=sqlite3.connect("data/guardias.db"); coords=[(39.5696,2.6502),(37.969,-1.217),(37.598,-1.314),(39.5740,2.6626),(39.5701,2.6512),(39.5685,2.6491)]; r=[]; [r.extend(c.execute("select id,lat,lon from pharmacies where abs(lat-?)<0.00001 and abs(lon-?)<0.00001",x).fetchall()) for x in coords]; print("all_conftest_coordinates_matches=",len(r)); print(*r,sep="\n"); p=c.execute("select lat,lon from pharmacies where id=''MU:302''").fetchone(); lat,lon=p; a,b=math.radians(lat),math.radians(37.62474); da=math.radians(37.62474-lat); db=math.radians(-.77618-lon); d=6371*2*math.atan2(math.sqrt(math.sin(da/2)**2+math.cos(a)*math.cos(b)*math.sin(db/2)**2),math.sqrt(1-(math.sin(da/2)**2+math.cos(a)*math.cos(b)*math.sin(db/2)**2))); print("MU302_to_Los_Belones_km=",d)' | & ".\.venv\Scripts\python.exe" -
+all_conftest_coordinates_matches= 0
+
+MU302_to_Los_Belones_km= 0.2489937386087416
+
+$ 'import sqlite3; c=sqlite3.connect("data/guardias.db"); print("precision_source_counts="); print(*c.execute("select coalesce(geo_precision,''NULL''),coalesce(geo_source,''NULL''),count(*) from pharmacies group by geo_precision,geo_source order by count(*) desc").fetchall(),sep="\n"); print("muni_centroid_rows="); print(*c.execute("select id,locality,address,lat,lon,geo_source from pharmacies where geo_source in (''muni_centroid'',''centroid'') order by id").fetchall(),sep="\n")' | & ".\.venv\Scripts\python.exe" -
+precision_source_counts=
+('calle', 'nominatim', 323)
+('portal', 'cartociudad', 277)
+('portal', 'nominatim', 87)
+('localidad', 'muni_centroid', 44)
+('calle', 'cartociudad', 36)
+('localidad', 'nucleus_centroid', 33)
+('NULL', 'NULL', 29)
+('localidad', 'centroid', 5)
+muni_centroid_rows=
+('IB:0994e6d014b3', 'LLORET', 'SES PARRES, 10', 39.618902514808745, 2.976269531024715, 'muni_centroid')
+('IB:0e3f3f308171', None, 'CL DEL XORIGUER, 2 L.2', 39.582050550471095, 2.40241678272899, 'muni_centroid')
+('IB:1407d9698887', None, 'VORANOVA, S/N. L. K4 - VORAMAR - ROTONDA 6 (CLUB DE HIELO)', 39.582050550471095, 2.40241678272899, 'muni_centroid')
+('IB:16ebacf02a65', None, 'C/ CESAR PUGET RIQUER, 50, Crta. Es Canar, (CAS CAPIT∩┐╜)', 38.9930374635203, 1.4971238511510945, 'muni_centroid')
+('IB:1fa370e832e7', 'MAO', 'DR. ORFILA, 28', 39.8894922, 4.2662071, 'muni_centroid')
+('IB:27a9401b3047', 'ALCUDIA', "Ctra. d'Art∩┐╜, 135 - Edifici Ed∩┐╜n", 39.84240287192336, 3.1118382267969324, 'muni_centroid')
+('IB:3c2ed099d9a1', 'MAO', 'CM DES CASTELL, 255 259', 39.8894922, 4.2662071, 'muni_centroid')
+('IB:54c88aa935ae', None, 'AV AVINGUDA DE CARLES V, 16 B', 39.40684057562353, 3.0146122713240295, 'muni_centroid')
+('IB:58b66e942c0f', 'LLUCMAJOR', 'FUENTE,6', 39.4501177610277, 2.8512989332176084, 'muni_centroid')
+('IB:5ad4bd21e108', None, 'BARTOMEU ROSSELL∩┐╜ I P∩┐╜RCEL, 25 (Esquina Andrea Doria)', 39.55610471183809, 2.715493125588387, 'muni_centroid')
+('IB:5b84a70432fe', None, 'CRISTOBAL COLOM, 11 CALA MILLOR', 39.640349418447705, 3.3711268171591406, 'muni_centroid')
+('IB:6082622c7920', None, 'CL DR. ORFILA, 4', 39.91863093162068, 4.135397567293108, 'muni_centroid')
+('IB:79dbdfff3f60', None, 'Passeig Mart∩┐╜tim (Edif. TRANSAT)', 38.91366755371108, 1.4191268899616318, 'muni_centroid')
+('IB:874b27557b01', None, 'AVDA. JUAN SERVERA CAMPS, 17 CALA MILLOR', 39.640349418447705, 3.3711268171591406, 'muni_centroid')
+('IB:9f55106b063c', 'BINISSALEM', 'RECH, 5', 39.68451500535924, 2.856820458172576, 'muni_centroid')
+('IB:a0fd54486f5d', 'VILAFRANCA', 'CL BONANY, 11', 39.55702940971091, 3.1173887639284956, 'muni_centroid')
+('IB:a797b7c59845', 'ARTA', 'AVG. DE COSTA I LLOBERA, 47', 39.714629340361796, 3.328689979122674, 'muni_centroid')
+('IB:bad697ee7e98', None, 'AV.ES CANAR EDIF. MAR I HUERTA (ES CANAR)', 38.9930374635203, 1.4971238511510945, 'muni_centroid')
+('IB:cc5bb8d5e927', None, 'CL FALZIA, s/n - URB. PUIG DE ROS', 39.40684057562353, 3.0146122713240295, 'muni_centroid')
+('IB:cfad14f81eee', 'ALCUDIA', 'TEODORO CANET, 12', 39.84240287192336, 3.1118382267969324, 'muni_centroid')
+('IB:da71abaa87c2', None, 'CL - KING CRIMSON, 3 ES PUJOLS', 38.691982612334485, 1.4589464847211429, 'muni_centroid')
+('IB:e2152d874cf9', 'Es Viver', 'Avgda. Pere Matutes Noguera, 40-42', 39.590602, 2.6846642, 'muni_centroid')
+('IB:e7d734c27f39', 'COSTITX', 'PZ DES JARDI, 4', 39.65543074415286, 2.9493190394142306, 'muni_centroid')
+('IB:f3d4fc24defe', 'POLLEN∩┐╜A', 'PASEO LONDRES, 38 EDIF.C. SIVELLA', 39.88672393096556, 3.029507541105678, 'muni_centroid')
+('IB:f3eac441d579', 'INCA', 'CL GRAN VIA COLON, 177-181', 39.71172736298227, 2.942162351293578, 'muni_centroid')
+('IB:fe3c43456f5e', 'ARIANY', 'Cl. San Jose, esq. Menorca', 39.65588426333144, 3.132672068524108, 'muni_centroid')
+('MU:110', 'LORCA', 'CENTRO COMERCIAL SAN DIEGO AV. DE EUROPA (FARMACIA)', 37.6951954, -1.772291, 'muni_centroid')
+('MU:141', 'AGUILAS', 'CONDE DE ARANDA, N∩┐╜ 24', 37.4099628, -1.5804922, 'muni_centroid')
+('MU:150', 'MURCIA', 'LOPEZ PUIGCERVER,39', 38.00095519950216, -1.1771976062034015, 'muni_centroid')
+('MU:196', 'MURCIA', 'RONDA DE GARAY,23 BI.I', 38.00095519950216, -1.1771976062034015, 'muni_centroid')
+('MU:219', 'FUENTE ALAMO', 'C/LEDESMA RAMOS,2', 37.75531332946026, -1.1051341167784812, 'muni_centroid')
+('MU:24', 'CARTAGENA', 'CALLE CARLOS III, S/N Y CALLE RONDA, N∩┐╜ 3', 37.65622304458763, -1.0140226319360255, 'muni_centroid')
+('MU:277', 'CAMPOS DEL RIO', 'CALLE CONSTITUCION, N∩┐╜ 35', 38.0405009, -1.3525268, 'muni_centroid')
+('MU:367', 'PALMAR,EL', 'ORQUIDEAS,1-LOS ROSALES', 37.935173201862426, -1.1661183375347748, 'centroid')
+('MU:381', 'LORCA', 'PLAZA DEL TRABAJO, N∩┐╜ 1, URBANIZACION LA VI∩┐╜A', 37.6951954, -1.772291, 'muni_centroid')
+('MU:388', 'LOS NIETOS-CARTAGENA', 'AVENIDA ESPA∩┐╜A, N∩┐╜2', 37.69410135944244, -1.0934099082418802, 'centroid')
+('MU:390', 'ABANILLA', 'CR.AGOST-ARCHENA,50.(BARINA S)', 38.20216836938528, -1.0420003459270035, 'muni_centroid')
+('MU:402', 'CARTAGENA', 'CL.CARMEN CONDE-URBINCASA, ESQUINA ANTONIO OLIVER', 37.65622304458763, -1.0140226319360255, 'muni_centroid')
+('MU:403', 'LAS PALAS(FUENTE ALAMO)', 'CALLE MAYOR, S/N', 37.66188021027639, -1.1889284976975272, 'centroid')
+('MU:417', 'OJOS', 'AVENIDA DE LOS PINOS, S/N', 38.1481011, -1.342091, 'muni_centroid')
+('MU:430', 'RAMONETE-LORCA', 'CTRA. DE PUNTAS DE CALNEGRE,S/N, RAMONETE', 37.53882270316277, -1.4865702457183898, 'centroid')
+('MU:443', 'AGUILAS', 'CL. J.JIMENEZ RUANO, S/N', 37.4099628, -1.5804922, 'muni_centroid')
+('MU:493', 'MAZARRON', 'CL.CAMINO REAL, N∩┐╜ 31-IFRE-CA∩┐╜ADA DE GALLEGO', 37.5984446, -1.31515, 'muni_centroid')
+('MU:53', 'ABARAN', 'PLAZA JOSE ANTONIO, N∩┐╜ 4', 38.2058512, -1.3971219, 'muni_centroid')
+('MU:533', 'LA APARECIDA (CARTAGENA)', 'CTRA.SAN JAVIER,S/N', 37.66798620314217, -0.9545766927039617, 'centroid')
+('MU:534', 'ALCANTARILLA', 'CALLE MEDICO PEDRO NOGUEROLES, ESQUINA CALLE ANDORRA', 37.98142882709649, -1.2222072701778264, 'muni_centroid')
+('MU:563', 'SAN PEDRO DEL PINATAR', 'AVDA. DEL SALADERO N∩┐╜7. EL MOJON', 37.8314949, -0.7854862, 'muni_centroid')
+('MU:598', 'MOLINA DE SEGURA', 'AVENIDA PICOS DE EUROPA, URBANIZACION LA ALCAYNA, CENTRO COMERCIAL MERCADONA, 16, 17', 38.0572339, -1.2095298, 'muni_centroid')
+('MU:96', 'CEHEGIN', 'CL.CAMINO VERDE, N∩┐╜1', 38.0925078, -1.7987525, 'muni_centroid')
+
+$ 'import sqlite3; c=sqlite3.connect("data/guardias.db"); q="select p.id,p.locality,p.address,p.lat,p.lon,p.geo_precision,p.geo_source,g.query from pharmacies p join geocode_cache g on abs(p.lat-g.lat)<0.00000001 and abs(p.lon-g.lon)<0.00000001 where g.query like ''muni_centroid:%'' order by p.id"; r=c.execute(q).fetchall(); print("pharmacies_at_cached_muni_centroids=",len(r)); print(*r,sep="\n"); print("cached_muni_centroids=",c.execute("select query,lat,lon from geocode_cache where query like ''muni_centroid:%'' order by query").fetchall())' | & ".\.venv\Scripts\python.exe" -
+pharmacies_at_cached_muni_centroids= 46
+('IB:0994e6d014b3', 'LLORET', 'SES PARRES, 10', 39.618902514808745, 2.976269531024715, 'localidad', 'muni_centroid', 'muni_centroid:lloret:04')
+('IB:0e3f3f308171', None, 'CL DEL XORIGUER, 2 L.2', 39.582050550471095, 2.40241678272899, 'localidad', 'muni_centroid', 'muni_centroid:andratx:04')
+('IB:1407d9698887', None, 'VORANOVA, S/N. L. K4 - VORAMAR - ROTONDA 6 (CLUB DE HIELO)', 39.582050550471095, 2.40241678272899, 'localidad', 'muni_centroid', 'muni_centroid:andratx:04')
+('IB:16ebacf02a65', None, 'C/ CESAR PUGET RIQUER, 50, Crta. Es Canar, (CAS CAPIT∩┐╜)', 38.9930374635203, 1.4971238511510945, 'localidad', 'muni_centroid', 'muni_centroid:santaeularia:04')
+('IB:1fa370e832e7', 'MAO', 'DR. ORFILA, 28', 39.8894922, 4.2662071, 'localidad', 'muni_centroid', 'muni_centroid:maomahon:04')
+('IB:27a9401b3047', 'ALCUDIA', "Ctra. d'Art∩┐╜, 135 - Edifici Ed∩┐╜n", 39.84240287192336, 3.1118382267969324, 'localidad', 'muni_centroid', 'muni_centroid:alcudia:04')
+('IB:3c2ed099d9a1', 'MAO', 'CM DES CASTELL, 255 259', 39.8894922, 4.2662071, 'localidad', 'muni_centroid', 'muni_centroid:maomahon:04')
+('IB:54c88aa935ae', None, 'AV AVINGUDA DE CARLES V, 16 B', 39.40684057562353, 3.0146122713240295, 'localidad', 'muni_centroid', 'muni_centroid:campos:04')
+('IB:58b66e942c0f', 'LLUCMAJOR', 'FUENTE,6', 39.4501177610277, 2.8512989332176084, 'localidad', 'muni_centroid', 'muni_centroid:llucmajor:04')
+('IB:5ad4bd21e108', None, 'BARTOMEU ROSSELL∩┐╜ I P∩┐╜RCEL, 25 (Esquina Andrea Doria)', 39.55610471183809, 2.715493125588387, 'localidad', 'muni_centroid', 'muni_centroid:palma:04')
+('IB:5b84a70432fe', None, 'CRISTOBAL COLOM, 11 CALA MILLOR', 39.640349418447705, 3.3711268171591406, 'localidad', 'muni_centroid', 'muni_centroid:sonservera:04')
+('IB:6082622c7920', None, 'CL DR. ORFILA, 4', 39.91863093162068, 4.135397567293108, 'localidad', 'muni_centroid', 'muni_centroid:alaior:04')
+('IB:79dbdfff3f60', None, 'Passeig Mart∩┐╜tim (Edif. TRANSAT)', 38.91366755371108, 1.4191268899616318, 'localidad', 'muni_centroid', 'muni_centroid:eivissa:04')
+('IB:874b27557b01', None, 'AVDA. JUAN SERVERA CAMPS, 17 CALA MILLOR', 39.640349418447705, 3.3711268171591406, 'localidad', 'muni_centroid', 'muni_centroid:sonservera:04')
+('IB:9f55106b063c', 'BINISSALEM', 'RECH, 5', 39.68451500535924, 2.856820458172576, 'localidad', 'muni_centroid', 'muni_centroid:binissalem:04')
+('IB:a0fd54486f5d', 'VILAFRANCA', 'CL BONANY, 11', 39.55702940971091, 3.1173887639284956, 'localidad', 'muni_centroid', 'muni_centroid:vilafranca:04')
+('IB:a797b7c59845', 'ARTA', 'AVG. DE COSTA I LLOBERA, 47', 39.714629340361796, 3.328689979122674, 'localidad', 'muni_centroid', 'muni_centroid:arta:04')
+('IB:bad697ee7e98', None, 'AV.ES CANAR EDIF. MAR I HUERTA (ES CANAR)', 38.9930374635203, 1.4971238511510945, 'localidad', 'muni_centroid', 'muni_centroid:santaeularia:04')
+('IB:cc5bb8d5e927', None, 'CL FALZIA, s/n - URB. PUIG DE ROS', 39.40684057562353, 3.0146122713240295, 'localidad', 'muni_centroid', 'muni_centroid:campos:04')
+('IB:cfad14f81eee', 'ALCUDIA', 'TEODORO CANET, 12', 39.84240287192336, 3.1118382267969324, 'localidad', 'muni_centroid', 'muni_centroid:alcudia:04')
+('IB:da71abaa87c2', None, 'CL - KING CRIMSON, 3 ES PUJOLS', 38.691982612334485, 1.4589464847211429, 'localidad', 'muni_centroid', 'muni_centroid:formentera:04')
+('IB:e2152d874cf9', 'Es Viver', 'Avgda. Pere Matutes Noguera, 40-42', 39.590602, 2.6846642, 'localidad', 'muni_centroid', 'muni_centroid:esviver:04')
+('IB:e7d734c27f39', 'COSTITX', 'PZ DES JARDI, 4', 39.65543074415286, 2.9493190394142306, 'localidad', 'muni_centroid', 'muni_centroid:costitx:04')
+('IB:f3d4fc24defe', 'POLLEN∩┐╜A', 'PASEO LONDRES, 38 EDIF.C. SIVELLA', 39.88672393096556, 3.029507541105678, 'localidad', 'muni_centroid', 'muni_centroid:pollenca:04')
+('IB:f3eac441d579', 'INCA', 'CL GRAN VIA COLON, 177-181', 39.71172736298227, 2.942162351293578, 'localidad', 'muni_centroid', 'muni_centroid:inca:04')
+('IB:fe3c43456f5e', 'ARIANY', 'Cl. San Jose, esq. Menorca', 39.65588426333144, 3.132672068524108, 'localidad', 'muni_centroid', 'muni_centroid:ariany:04')
+('MU:110', 'LORCA', 'CENTRO COMERCIAL SAN DIEGO AV. DE EUROPA (FARMACIA)', 37.6951954, -1.772291, 'localidad', 'muni_centroid', 'muni_centroid:lorca:14')
+('MU:141', 'AGUILAS', 'CONDE DE ARANDA, N∩┐╜ 24', 37.4099628, -1.5804922, 'localidad', 'muni_centroid', 'muni_centroid:aguilas:14')
+('MU:150', 'MURCIA', 'LOPEZ PUIGCERVER,39', 38.00095519950216, -1.1771976062034015, 'localidad', 'muni_centroid', 'muni_centroid:murcia:14')
+('MU:150', 'MURCIA', 'LOPEZ PUIGCERVER,39', 38.00095519950216, -1.1771976062034015, 'localidad', 'muni_centroid', 'muni_centroid:alhamademurcia:14')
+('MU:196', 'MURCIA', 'RONDA DE GARAY,23 BI.I', 38.00095519950216, -1.1771976062034015, 'localidad', 'muni_centroid', 'muni_centroid:murcia:14')
+('MU:196', 'MURCIA', 'RONDA DE GARAY,23 BI.I', 38.00095519950216, -1.1771976062034015, 'localidad', 'muni_centroid', 'muni_centroid:alhamademurcia:14')
+('MU:219', 'FUENTE ALAMO', 'C/LEDESMA RAMOS,2', 37.75531332946026, -1.1051341167784812, 'localidad', 'muni_centroid', 'muni_centroid:fuentealamo:14')
+('MU:24', 'CARTAGENA', 'CALLE CARLOS III, S/N Y CALLE RONDA, N∩┐╜ 3', 37.65622304458763, -1.0140226319360255, 'localidad', 'muni_centroid', 'muni_centroid:cartagena:14')
+('MU:277', 'CAMPOS DEL RIO', 'CALLE CONSTITUCION, N∩┐╜ 35', 38.0405009, -1.3525268, 'localidad', 'muni_centroid', 'muni_centroid:camposdelrio:14')
+('MU:381', 'LORCA', 'PLAZA DEL TRABAJO, N∩┐╜ 1, URBANIZACION LA VI∩┐╜A', 37.6951954, -1.772291, 'localidad', 'muni_centroid', 'muni_centroid:lorca:14')
+('MU:390', 'ABANILLA', 'CR.AGOST-ARCHENA,50.(BARINA S)', 38.20216836938528, -1.0420003459270035, 'localidad', 'muni_centroid', 'muni_centroid:abanilla:14')
+('MU:402', 'CARTAGENA', 'CL.CARMEN CONDE-URBINCASA, ESQUINA ANTONIO OLIVER', 37.65622304458763, -1.0140226319360255, 'localidad', 'muni_centroid', 'muni_centroid:cartagena:14')
+('MU:417', 'OJOS', 'AVENIDA DE LOS PINOS, S/N', 38.1481011, -1.342091, 'localidad', 'muni_centroid', 'muni_centroid:ojos:14')
+('MU:443', 'AGUILAS', 'CL. J.JIMENEZ RUANO, S/N', 37.4099628, -1.5804922, 'localidad', 'muni_centroid', 'muni_centroid:aguilas:14')
+('MU:493', 'MAZARRON', 'CL.CAMINO REAL, N∩┐╜ 31-IFRE-CA∩┐╜ADA DE GALLEGO', 37.5984446, -1.31515, 'localidad', 'muni_centroid', 'muni_centroid:mazarron:14')
+('MU:53', 'ABARAN', 'PLAZA JOSE ANTONIO, N∩┐╜ 4', 38.2058512, -1.3971219, 'localidad', 'muni_centroid', 'muni_centroid:abaran:14')
+('MU:534', 'ALCANTARILLA', 'CALLE MEDICO PEDRO NOGUEROLES, ESQUINA CALLE ANDORRA', 37.98142882709649, -1.2222072701778264, 'localidad', 'muni_centroid', 'muni_centroid:alcantarilla:14')
+('MU:563', 'SAN PEDRO DEL PINATAR', 'AVDA. DEL SALADERO N∩┐╜7. EL MOJON', 37.8314949, -0.7854862, 'localidad', 'muni_centroid', 'muni_centroid:sanpedrodelpinatar:14')
+('MU:598', 'MOLINA DE SEGURA', 'AVENIDA PICOS DE EUROPA, URBANIZACION LA ALCAYNA, CENTRO COMERCIAL MERCADONA, 16, 17', 38.0572339, -1.2095298, 'localidad', 'muni_centroid', 'muni_centroid:molinadesegura:14')
+('MU:96', 'CEHEGIN', 'CL.CAMINO VERDE, N∩┐╜1', 38.0925078, -1.7987525, 'localidad', 'muni_centroid', 'muni_centroid:cehegin:14')
+cached_muni_centroids= [('muni_centroid:abanilla:14', 38.20216836938528, -1.0420003459270035), ('muni_centroid:abaran:14', 38.2058512, -1.3971219), ('muni_centroid:aguilas:14', 37.4099628, -1.5804922), ('muni_centroid:alaior:04', 39.91863093162068, 4.135397567293108), ('muni_centroid:alcantarilla:14', 37.98142882709649, -1.2222072701778264), ('muni_centroid:alcudia:04', 39.84240287192336, 3.1118382267969324), ('muni_centroid:alhamademurcia:14', 38.00095519950216, -1.1771976062034015), ('muni_centroid:andratx:04', 39.582050550471095, 2.40241678272899), ('muni_centroid:ariany:04', 39.65588426333144, 3.132672068524108), ('muni_centroid:arta:04', 39.714629340361796, 3.328689979122674), ('muni_centroid:binissalem:04', 39.68451500535924, 2.856820458172576), ('muni_centroid:campos:04', 39.40684057562353, 3.0146122713240295), ('muni_centroid:camposdelrio:14', 38.0405009, -1.3525268), ('muni_centroid:caravacadelacruz:14', 38.1046979, -1.861118), ('muni_centroid:cartagena:14', 37.65622304458763, -1.0140226319360255), ('muni_centroid:cehegin:14', 38.0925078, -1.7987525), ('muni_centroid:ciutadellademenorca:04', 39.994754568689416, 3.893941964267227), ('muni_centroid:costitx:04', 39.65543074415286, 2.9493190394142306), ('muni_centroid:eivissa:04', 38.91366755371108, 1.4191268899616318), ('muni_centroid:esviver:04', 39.590602, 2.6846642), ('muni_centroid:formentera:04', 38.691982612334485, 1.4589464847211429), ('muni_centroid:fuentealamo:14', 37.75531332946026, -1.1051341167784812), ('muni_centroid:inca:04', 39.71172736298227, 2.942162351293578), ('muni_centroid:launion:14', 37.6096293, -0.8735876), ('muni_centroid:lloret:04', 39.618902514808745, 2.976269531024715), ('muni_centroid:llucmajor:04', 39.4501177610277, 2.8512989332176084), ('muni_centroid:lorca:14', 37.6951954, -1.772291), ('muni_centroid:losalcazares:14', 37.754302098439894, -0.8390274988423709), ('muni_centroid:maomahon:04', 39.8894922, 4.2662071), ('muni_centroid:mazarron:14', 37.5984446, -1.31515), ('muni_centroid:molinadesegura:14', 38.0572339, -1.2095298), ('muni_centroid:mula:14', 38.0418669, -1.4906872), ('muni_centroid:murcia:14', 38.00095519950216, -1.1771976062034015), ('muni_centroid:muro:04', 39.757900313963695, 3.0855939278637208), ('muni_centroid:ojos:14', 38.1481011, -1.342091), ('muni_centroid:palma:04', 39.55610471183809, 2.715493125588387), ('muni_centroid:pollenca:04', 39.88672393096556, 3.029507541105678), ('muni_centroid:puertolumbreras:14', 37.563808591923916, -1.8067910465725823), ('muni_centroid:sanjavier:14', 37.8059567, -0.8345537), ('muni_centroid:sanpedrodelpinatar:14', 37.8314949, -0.7854862), ('muni_centroid:santaeularia:04', 38.9930374635203, 1.4971238511510945), ('muni_centroid:santomera:14', 38.06001899999549, -1.0470695999953068), ('muni_centroid:sonservera:04', 39.640349418447705, 3.3711268171591406), ('muni_centroid:vilafranca:04', 39.55702940971091, 3.1173887639284956)]
+
+$ 'import sqlite3; c=sqlite3.connect("data/guardias.db"); q="select p.id,p.locality,p.address,p.lat,p.lon,p.geo_source,p.geo_query,group_concat(g.query) from pharmacies p left join geocode_cache g on abs(p.lat-g.lat)<0.00000001 and abs(p.lon-g.lon)<0.00000001 where p.geo_source=''centroid'' group by p.id order by p.id"; print(*c.execute(q).fetchall(),sep="\n")' | & ".\.venv\Scripts\python.exe" -
+('MU:367', 'PALMAR,EL', 'ORQUIDEAS,1-LOS ROSALES', 37.935173201862426, -1.1661183375347748, 'centroid', 'ORQUIDEAS, 1, El Palmar (Murcia, Regi∩┐╜n de Murcia)', 'nucleus:elpalmar:murcia:14')
+('MU:388', 'LOS NIETOS-CARTAGENA', 'AVENIDA ESPA∩┐╜A, N∩┐╜2', 37.69410135944244, -1.0934099082418802, 'centroid', 'AVENIDA ESPA∩┐╜A, 2, Los Nietos (Cartagena, Regi∩┐╜n de Murcia)', 'nucleus:losnietos:cartagena:14')
+('MU:403', 'LAS PALAS(FUENTE ALAMO)', 'CALLE MAYOR, S/N', 37.66188021027639, -1.1889284976975272, 'centroid', 'CALLE MAYOR, Las Palas (Fuente ∩┐╜lamo, Regi∩┐╜n de Murcia)', 'nucleus:laspalas:fuentealamo:14')
+('MU:430', 'RAMONETE-LORCA', 'CTRA. DE PUNTAS DE CALNEGRE,S/N, RAMONETE', 37.53882270316277, -1.4865702457183898, 'centroid', 'CARRETERA DE PUNTAS DE CALNEGRE, RAMONETE, Ramonete (Lorca, Regi∩┐╜n de Murcia)', 'nucleus:ramonete:lorca:14')
+('MU:533', 'LA APARECIDA (CARTAGENA)', 'CTRA.SAN JAVIER,S/N', 37.66798620314217, -0.9545766927039617, 'centroid', 'CARRETERA SAN JAVIER, La Aparecida (Cartagena, Regi∩┐╜n de Murcia)', 'nucleus:laaparecida:cartagena:14')
+
+La verificaci├│n directa confirma 0 coincidencias con las seis coordenadas de `conftest.py`, MU:302 a 0,249 km de Los Belones y ning├║n grupo de m├ís de dos coordenadas redondeadas a cinco decimales. Sin embargo, la base conserva centroides municipales para al menos dos farmacias de Cala Millor, una pedan├¡a de Son Servera.
+# Todos
+[Γ£ô] Leer especificaci├│n y criterios de aceptaci├│n
+[Γ£ô] Ejecutar tests y consultar datos geogr├íficos
+[ΓÇó] Auditar c├│digo contra trampas y emitir hallazgos
+
+# Todos
+[Γ£ô] Leer especificaci├│n y criterios de aceptaci├│n
+[Γ£ô] Ejecutar tests y consultar datos geogr├íficos
+[Γ£ô] Auditar c├│digo contra trampas y emitir hallazgos
+
+| Criterio | Cumple | Evidencia |
+|---|---:|---|
+| 0 en `(39.5696, 2.6502)` | S├¡ | Consulta directa a `data/guardias.db`: 0. Informe: l├¡nea 35, 0. |
+| Ninguna coordenada de `conftest.py` | S├¡ | Consulta de las 6 coordenadas: 0 coincidencias. Test dedicado pasa. |
+| MU:302 a menos de 5 km de Los Belones | S├¡ | Distancia calculada: 0,249 km. Test pasa. |
+| 0 pedan├¡as en centroide municipal | **No** | `IB:5b84a70432fe` e `IB:874b27557b01`, ambas con direcci├│n Cala Millor, usan exactamente `muni_centroid:sonservera:04`. Tambi├⌐n `MU:493` menciona Ca├▒ada de Gallego y usa el centroide de Mazarr├│n. |
+| Sin grupos de m├ís de 2 en mismo punto | S├¡ | Consulta agrupada por `(round(lat,5), round(lon,5))`: 0 grupos `> 2`. |
+| Informe: precisiones, NULL y puntos compartidos | S├¡ | `tmp/geocode_report.txt` contiene desglose, 29 NULL listados y 30 pares compartidos, todos de 2 farmacias. |
+| `ubicacion_aproximada` para precisi├│n localidad | S├¡ | Implementado en `backend/api.py:139,303,481`; test pasa. |
+| `pytest backend/tests` verde | S├¡ | 14 passed. |
+| `python -m unittest discover -s tests -v` verde | S├¡ | 35 tests, OK. |
+| Sin coordenadas fijas fuera de BBOX | **No** | `backend/geocode.py:1079-1082` contiene rangos fijos de centroides/test; `:1189` contiene las coordenadas de Palma. Contradice la regla estricta de la tarea. |
+
+**Defectos**
+1. Bloqueante: existen pedan├¡as ubicadas en el centroide del municipio. Casos demostrados: `IB:5b84a70432fe` y `IB:874b27557b01` (Cala Millor, centroide Son Servera); `MU:493` (Ca├▒ada de Gallego, centroide Mazarr├│n).
+2. Alta: `backend/geocode.py:903-906` puede sustituir el centroide del n├║cleo no resuelto por el del municipio y, si la direcci├│n queda fuera de tolerancia, devolverlo como `geo_source="centroid"` en `:938-947`. Incumple la regla de devolver `NULL` para una pedan├¡a no situable.
+3. Media: `backend/geocode.py:1079-1082` conserva constantes de coordenadas prohibidas. No son respaldo de geocodificaci├│n, pero s├¡ incumplen literalmente la restricci├│n.
+4. Media: los tests de API se ejecutan sobre una BD temporal con coordenadas inyectadas en `backend/tests/conftest.py:36-90`; no validan la calidad geogr├ífica real. Los dos tests nuevos s├¡ consultan correctamente `data/guardias.db`.
+
+Archivos modificados manualmente: ninguno. La ejecuci├│n de `pytest` regenera su BD temporal `tmp/test_suite.db`.
+
+Comandos ejecutados:
+- `.venv\Scripts\python.exe -m pytest backend/tests -v`
+- `.venv\Scripts\python.exe -m unittest discover -s tests -v`
+- Consultas SQLite directas sobre `data/guardias.db`
+
+Resultado: tests verdes, pero la aceptaci├│n global **no cumple** por pedan├¡as en centroides municipales.

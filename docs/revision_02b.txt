@@ -1,0 +1,598 @@
+
+> build ┬╖ gpt-5.6-terra
+
+Revisar├⌐ la especificaci├│n y la tarea, ejecutar├⌐ la bater├¡a relevante y contrastar├⌐ los resultados con las fuentes de datos, sin modificar archivos.
+ΓåÆ Read docs/TAREA_02b_localidades.md
+ΓåÆ Read docs/SPEC.md
+Γ£▒ Glob "**/*" in . ┬╖ 100 matches
+
+$ git status --short; git diff --stat; git diff -- docs/SPEC.md docs/TAREA_02b_localidades.md
+fatal: not a git repository (or any of the parent directories): .git
+warning: Not a git repository. Use --no-index to compare two paths outside a working tree
+usage: git diff --no-index [<options>] <path> <path>
+
+Diff output format options
+    -p, --patch           generate patch
+    -s, --no-patch        suppress diff output
+    -u                    generate patch
+    -U, --unified[=<n>]   generate diffs with <n> lines context
+    -W, --[no-]function-context
+                          generate diffs with <n> lines context
+    --raw                 generate the diff in raw format
+    --patch-with-raw      synonym for '-p --raw'
+    --patch-with-stat     synonym for '-p --stat'
+    --numstat             machine friendly --stat
+    --shortstat           output only the last line of --stat
+    -X, --dirstat[=<param1>,<param2>...]
+                          output the distribution of relative amount of changes for each sub-directory
+    --cumulative          synonym for --dirstat=cumulative
+    --dirstat-by-file[=<param1>,<param2>...]
+                          synonym for --dirstat=files,<param1>,<param2>...
+    --check               warn if changes introduce conflict markers or whitespace errors
+    --summary             condensed summary such as creations, renames and mode changes
+    --name-only           show only names of changed files
+    --name-status         show only names and status of changed files
+    --stat[=<width>[,<name-width>[,<count>]]]
+                          generate diffstat
+    --stat-width <width>  generate diffstat with a given width
+    --stat-name-width <width>
+                          generate diffstat with a given name width
+    --stat-graph-width <width>
+                          generate diffstat with a given graph width
+    --stat-count <count>  generate diffstat with limited lines
+    --[no-]compact-summary
+                          generate compact summary in diffstat
+    --binary              output a binary diff that can be applied
+    --[no-]full-index     show full pre- and post-image object names on the "index" lines
+    --[no-]color[=<when>] show colored diff
+    --ws-error-highlight <kind>
+                          highlight whitespace errors in the 'context', 'old' or 'new' lines in the diff
+    -z                    do not munge pathnames and use NULs as output field terminators in --raw or --numstat
+    --[no-]abbrev[=<n>]   use <n> digits to display object names
+    --src-prefix <prefix> show the given source prefix instead of "a/"
+    --dst-prefix <prefix> show the given destination prefix instead of "b/"
+    --line-prefix <prefix>
+                          prepend an additional prefix to every line of output
+    --no-prefix           do not show any source or destination prefix
+    --default-prefix      use default prefixes a/ and b/
+    --inter-hunk-context <n>
+                          show context between diff hunks up to the specified number of lines
+    --output-indicator-new <char>
+                          specify the character to indicate a new line instead of '+'
+    --output-indicator-old <char>
+                          specify the character to indicate an old line instead of '-'
+    --output-indicator-context <char>
+                          specify the character to indicate a context instead of ' '
+
+Diff rename options
+    -B, --break-rewrites[=<n>[/<m>]]
+                          break complete rewrite changes into pairs of delete and create
+    -M, --find-renames[=<n>]
+                          detect renames
+    -D, --irreversible-delete
+                          omit the preimage for deletes
+    -C, --find-copies[=<n>]
+                          detect copies
+    --[no-]find-copies-harder
+                          use unmodified files as source to find copies
+    --no-renames          disable rename detection
+    --[no-]rename-empty   use empty blobs as rename source
+    --[no-]follow         continue listing the history of a file beyond renames
+    -l <n>                prevent rename/copy detection if the number of rename/copy targets exceeds given limit
+
+Diff algorithm options
+    --minimal             produce the smallest possible diff
+    -w, --ignore-all-space
+                          ignore whitespace when comparing lines
+    -b, --ignore-space-change
+                          ignore changes in amount of whitespace
+    --ignore-space-at-eol ignore changes in whitespace at EOL
+    --ignore-cr-at-eol    ignore carrier-return at the end of line
+    --ignore-blank-lines  ignore changes whose lines are all blank
+    -I, --[no-]ignore-matching-lines <regex>
+                          ignore changes whose all lines match <regex>
+    --[no-]indent-heuristic
+                          heuristic to shift diff hunk boundaries for easy reading
+    --patience            generate diff using the "patience diff" algorithm
+    --histogram           generate diff using the "histogram diff" algorithm
+    --diff-algorithm <algorithm>
+                          choose a diff algorithm
+    --anchored <text>     generate diff using the "anchored diff" algorithm
+    --word-diff[=<mode>]  show word diff, using <mode> to delimit changed words
+    --word-diff-regex <regex>
+                          use <regex> to decide what a word is
+    --color-words[=<regex>]
+                          equivalent to --word-diff=color --word-diff-regex=<regex>
+    --[no-]color-moved[=<mode>]
+                          moved lines of code are colored differently
+    --[no-]color-moved-ws <mode>
+                          how white spaces are ignored in --color-moved
+
+Other diff options
+    --[no-]relative[=<prefix>]
+                          when run from subdir, exclude changes outside and show relative paths
+    -a, --[no-]text       treat all files as text
+    -R                    swap two inputs, reverse the diff
+    --[no-]exit-code      exit with 1 if there were differences, 0 otherwise
+    --[no-]quiet          disable all output of the program
+    --[no-]ext-diff       allow an external diff helper to be executed
+    --[no-]textconv       run external text conversion filters when comparing binary files
+    --ignore-submodules[=<when>]
+                          ignore changes to submodules in the diff generation
+    --submodule[=<format>]
+                          specify how differences in submodules are shown
+    --ita-invisible-in-index
+                          hide 'git add -N' entries from the index
+    --ita-visible-in-index
+                          treat 'git add -N' entries as real in the index
+    -S <string>           look for differences that change the number of occurrences of the specified string
+    -G <regex>            look for differences that change the number of occurrences of the specified regex
+    --pickaxe-all         show all changes in the changeset with -S or -G
+    --pickaxe-regex       treat <string> in -S as extended POSIX regular expression
+    -O <file>             control the order in which files appear in the output
+    --rotate-to <path>    show the change in the specified path first
+    --skip-to <path>      skip the output to the specified path
+    --find-object <object-id>
+                          look for differences that change the number of occurrences of the specified object
+    --diff-filter [(A|C|D|M|R|T|U|X|B)...[*]]
+                          select files by diff type
+    --output <file>       output to a specific file
+
+warning: in the working copy of 'docs/SPEC.md', LF will be replaced by CRLF the next time Git touches it
+diff --git a/docs/SPEC.md b/docs/TAREA_02b_localidades.md
+index f2c03d9..75e16e1 100644
+--- a/docs/SPEC.md
++++ b/docs/TAREA_02b_localidades.md
+@@ -1,63 +1,37 @@
+-# Farmacias de guardia ΓÇö Especificaci├│n de ingesta (v0.1)
+-
+-Arquitecto y revisor: Claude. Implementaci├│n: OpenCode. Est├índares: ver AGENTS.md.
+-
+-## Objetivo
+-Convertir las fuentes OFICIALES de cada comunidad aut├│noma en un modelo de datos com├║n,
+-que luego servir├í un backend (FastAPI + PostgreSQL/PostGIS, fase posterior) a la app Flutter.
+-
+-## Restricciones t├⌐cnicas
+-- Python 3.10, solo librer├¡a est├índar. Para PDF: `pdftotext -layout` (poppler-utils) v├¡a subprocess.
+-  Cualquier dependencia nueva debe justificarse en la respuesta.
+-- Paquete `ingesta/`. Un m├│dulo por fuente en `ingesta/parsers/<fuente>.py`.
+-- Tests con `unittest` en `tests/`, ejecutables con `python -m unittest discover -s tests -v`.
+-- Zona horaria: Europe/Madrid (Canarias: Atlantic/Canary). Usar `zoneinfo`.
+-
+-## Modelo de datos (ingesta/model.py) ΓÇö CONTRATO, no cambiar sin aprobaci├│n
+-```python
+-@dataclass(frozen=True)
+-class Pharmacy:
+-    id: str              # estable y reproducible: "<fuente>:<clave>"; ver cada parser
+-    region: str          # c├│digo INE de CCAA, p.ej. "04" Baleares, "14" Murcia
+-    holder: str          # titular/nombre tal como aparece en la fuente (normalizar espacios)
+-    address: str         # direcci├│n tal como aparece, sin el tel├⌐fono
+-    locality: str | None # localidad si se puede extraer con seguridad; si no, None
+-    postal_code: str | None
+-    phone: str | None    # tel├⌐fono de la farmacia, solo d├¡gitos (9 d├¡gitos Espa├▒a)
+-    duty_phone: str | None  # tel├⌐fono espec├¡fico de guardia si la fuente lo da aparte
+-
+-@dataclass(frozen=True)
+-class DutyShift:
+-    pharmacy_id: str
+-    zone: str            # zona/agrupaci├│n de guardia tal como la nombra la fuente
+-    start: datetime      # aware, Europe/Madrid
+-    end: datetime        # aware; si end <= start en reloj, es del d├¡a siguiente
+-    kind: str            # "diurna" | "nocturna" | "24h" | "localizada" | "refuerzo"
+-    raw_label: str       # texto literal de la cabecera de turno en la fuente
+-
+-@dataclass(frozen=True)
+-class SourceInfo:
+-    source_id: str       # p.ej. "IB-CAIB-2026"
+-    publisher: str
+-    url: str
+-    license: str         # p.ej. "CC BY-SA (aviso legal caib.es)"
+-    retrieved_at: datetime
+-
+-@dataclass
+-class ParseResult:
+-    source: SourceInfo
+-    pharmacies: dict[str, Pharmacy]
+-    shifts: list[DutyShift]
+-    warnings: list[str]  # todo lo que no se pudo interpretar, con fichero y p├ígina
+-```
+-- `ingesta/export.py`: `to_json(result) -> dict` serializable (fechas ISO 8601 con offset).
+-
+-## Reglas de calidad
+-- Nunca inventar datos: si un campo no se puede extraer con seguridad, None + warning.
+-- Nunca descartar en silencio una l├¡nea que parezca farmacia: warning con fichero, p├ígina y l├¡nea.
+-- Fuentes escaneadas (sin texto): warning "SIN_TEXTO" y se omite el fichero.
+-
+-## Decisiones de producto (Alfonso, 18/10/2026)
+-- No se extrapolan reglas de rotaci├│n descritas en texto. Solo se publican turnos que la fuente
+-  asigna expl├¡citamente a una farmacia y un d├¡a. Las zonas sin cuadrante expl├¡cito quedan sin cubrir
+-  (la app mostrar├í "sin datos oficiales para esta fecha") hasta disponer del cuadrante oficial.
++# Tarea 02b ΓÇö Correcci├│n de localidades (ingesta Baleares y Murcia)
++
++Ejecutor: OpenCode. Revisi├│n de Claude: la geocodificaci├│n falla o cae a "localidad" por defectos en
++`locality` que vienen de la ingesta.
++
++## Murcia (`ingesta/parsers/murcia.py`, `_join_fragment`)
++Palabras mal unidas al reconstruir celdas partidas en varias l├¡neas. Ejemplos reales:
++`LOSALCAZARES`, `TORREPACHECO`, `MOLINA DESEGURA`, `LASTORRES DECOTILLAS`, `ALMENDRIC OS-LORCA`,
++`DOLORES-TORRE PACHEC`, `LOS NAREJOS (LOSALCAZARES)`.
++Soluci├│n exigida: decidir si dos fragmentos se unen con o sin espacio usando un vocabulario de referencia:
++1. Los 45 municipios oficiales de la Regi├│n de Murcia (lista INE, provincia 30). Incluye la lista como
++   constante en el c├│digo, con un comentario que cite la fuente (URL del INE consultada).
++2. Las palabras que aparecen enteras (sin partir) en cualquier parte del Anexo II.
++Regla: unir sin espacio solo si la palabra resultante est├í en el vocabulario o si el primer fragmento
++termina en guion; en cualquier otro caso, con espacio. Si el ├║ltimo fragmento queda truncado
++("TORRE PACHEC"), completar solo si hay un ├║nico municipio/palabra del vocabulario que lo empiece; si no, warning.
++Adem├ís: si la localidad lleva el municipio entre par├⌐ntesis ("LA PUEBLA (CARTAGENA)"), conservarla tal cual.
++
++## Baleares (`ingesta/parsers/baleares.py`)
++1. `locality` es None para la mayor├¡a de farmacias porque la direcci├│n no termina en "- LOCALIDAD".
++   NO inventar: dejar `locality` como est├í, pero a├▒adir al JSON exportado de cada farmacia la lista
++   `zones` (zonas de guardia distintas en las que aparece). Esto requiere ampliar `export.py` con un
++   campo nuevo y opcional `zones` en las farmacias (cambio de contrato aprobado por Claude; no tocar model.py:
++   calcularlo en export a partir de los turnos).
++2. Localidades basura: `Frente Ed.Portals Plaza. PORTALS NOUS`, `CALA LLITERAS (CALA RATJADA`,
++   `URB. MAIORIS`. Regla: si el tramo final tras " - " contiene un punto seguido de espacio, quedarse con el
++   texto posterior al ├║ltimo ". "; cerrar par├⌐ntesis desequilibrados; no tratar como localidad prefijos
++   "URB." (dejarlo en la direcci├│n y locality None).
++
++## Criterios de aceptaci├│n
++- Murcia: ninguna localidad del JSON contiene LOSALCAZARES, TORREPACHECO, DESEGURA, DECOTILLAS,
++  ALMENDRIC OS; test que recorra todas las localidades y compruebe que cada token est├í en el vocabulario
++  o es una palabra corta conocida (DE, LA, LOS, EL, LAS, DEL), listando los que no.
++- MU:460 locality "LOS NAREJOS (LOS ALCAZARES)"; MU:66 locality comienza por "DOLORES" y contiene "TORRE PACHECO".
++- Baleares: cada farmacia del JSON trae `zones` no vac├¡o; Palma: la de ALCOVER CASASNOVAS incluye "PALMA".
++- Los ids de farmacia no cambian (comparar con data/out/*.json previos: copia antes a *_v1.json).
++- Todos los tests pasan; regenerar data/out/baleares_2026.json y murcia_2026.json.
+warning: in the working copy of 'docs/TAREA_02b_localidades.md', LF will be replaced by CRLF the next time Git touches it
+
+# Todos
+[ΓÇó] Inspeccionar implementaci├│n, tests y salidas de la tarea 02b
+[ ] Ejecutar tests y contrastar cada criterio contra JSON/PDF/base
+[ ] Detectar atajos o rebajas de criterios y emitir informe
+
+ΓåÆ Read ingesta/export.py
+ΓåÆ Read tests/test_baleares.py
+ΓåÆ Read tests/test_murcia.py
+ΓåÆ Read ingesta/parsers/baleares.py
+ΓåÆ Read ingesta/parsers/murcia.py
+
+$ .\.venv\Scripts\python.exe -c "import json; from pathlib import Path
+for name in ('murcia_2026','baleares_2026'):
+ d=json.loads(Path('data/out/'+name+'.json').read_text(encoding='utf-8')); ps=d['pharmacies']; print(name, len(ps), len(d['shifts'])); print('keys', sorted(ps[0] if isinstance(ps,list) else next(iter(ps.values())).keys()))
+for name in ('murcia_2026','baleares_2026'):
+ a=json.loads(Path('data/out/'+name+'_v1.json').read_text(encoding='utf-8')); b=json.loads(Path('data/out/'+name+'.json').read_text(encoding='utf-8')); get=lambda d: {x['id'] for x in d['pharmacies']} if isinstance(d['pharmacies'],list) else set(d['pharmacies']); print(name, 'ids', len(get(a)),len(get(b)),'same',get(a)==get(b))"
+murcia_2026 581 17185
+keys ['address', 'duty_phone', 'holder', 'id', 'locality', 'phone', 'postal_code', 'region', 'zones']
+baleares_2026 253 38956
+keys ['address', 'duty_phone', 'holder', 'id', 'locality', 'phone', 'postal_code', 'region', 'zones']
+murcia_2026 ids 581 581 same True
+baleares_2026 ids 253 253 same True
+
+$ .\.venv\Scripts\python.exe -m unittest discover -s tests -v
+test_26_pdfs_con_texto_y_uno_sin_texto (test_baleares.BalearesAcceptanceTests.test_26_pdfs_con_texto_y_uno_sin_texto) ... ok
+test_azcarate_hernandez_pinzon_columnas (test_baleares.BalearesAcceptanceTests.test_azcarate_hernandez_pinzon_columnas) ... ok
+test_costa_amengual_duty_phone (test_baleares.BalearesAcceptanceTests.test_costa_amengual_duty_phone) ... ok
+test_exporta_zonas_para_cada_farmacia (test_baleares.BalearesAcceptanceTests.test_exporta_zonas_para_cada_farmacia) ... ok
+test_formentera_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_formentera_2026_01_01) ... ok
+test_ids_palma_2026_01_01_se_conservan (test_baleares.BalearesAcceptanceTests.test_ids_palma_2026_01_01_se_conservan) ... ok
+test_ningun_turno_invertido (test_baleares.BalearesAcceptanceTests.test_ningun_turno_invertido) ... ok
+test_palma_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_palma_2026_01_01) ... ok
+test_riera_oliver_magdalena_columnas (test_baleares.BalearesAcceptanceTests.test_riera_oliver_magdalena_columnas) ... ok
+test_sagrista_farre_columnas (test_baleares.BalearesAcceptanceTests.test_sagrista_farre_columnas) ... ok
+test_sastre_barcelo_columnas (test_baleares.BalearesAcceptanceTests.test_sastre_barcelo_columnas) ... ok
+test_sin_warnings_ambigua (test_baleares.BalearesAcceptanceTests.test_sin_warnings_ambigua) ... ok
+test_columna_direccion_por_bbox (test_baleares.SyntheticLineTests.test_columna_direccion_por_bbox) ... ok
+test_duty_phone_extraido_y_quitado_de_direccion (test_baleares.SyntheticLineTests.test_duty_phone_extraido_y_quitado_de_direccion) ... ok
+test_fin_de_turno_al_dia_siguiente (test_baleares.SyntheticLineTests.test_fin_de_turno_al_dia_siguiente) ... ok
+test_id_estable_entre_dias_y_zonas (test_baleares.SyntheticLineTests.test_id_estable_entre_dias_y_zonas) ... ok
+test_locality_guion_pegado_es_direccion (test_baleares.SyntheticLineTests.test_locality_guion_pegado_es_direccion) ... ok
+test_locality_segun_patron (test_baleares.SyntheticLineTests.test_locality_segun_patron) ... ok
+test_normalize (test_baleares.SyntheticLineTests.test_normalize) ... ok
+test_parse_date_line (test_baleares.SyntheticLineTests.test_parse_date_line) ... ok
+test_parse_shift_header_variantes (test_baleares.SyntheticLineTests.test_parse_shift_header_variantes) ... ok
+test_split_ambiguo_conserva_linea_completa (test_baleares.SyntheticLineTests.test_split_ambiguo_conserva_linea_completa) ... ok
+test_split_standard (test_baleares.SyntheticLineTests.test_split_standard) ... ok
+test_agrupacion1_enero (test_murcia.MurciaAcceptanceTests.test_agrupacion1_enero) ... ok
+test_agrupacion2_mu56_y_refuerzo_no_soportado (test_murcia.MurciaAcceptanceTests.test_agrupacion2_mu56_y_refuerzo_no_soportado) ... ok
+test_agrupacion6_ocho_farmacias_24h (test_murcia.MurciaAcceptanceTests.test_agrupacion6_ocho_farmacias_24h) ... ok
+test_localidades_reconstruidas (test_murcia.MurciaAcceptanceTests.test_localidades_reconstruidas) ... ok
+test_mu45_directorio (test_murcia.MurciaAcceptanceTests.test_mu45_directorio) ... ok
+test_mu534_direccion (test_murcia.MurciaAcceptanceTests.test_mu534_direccion) ... ok
+test_source_info (test_murcia.MurciaAcceptanceTests.test_source_info) ... ok
+test_times_exact_por_tipo (test_murcia.MurciaAcceptanceTests.test_times_exact_por_tipo) ... ok
+test_todos_los_turnos_referencian_farmacia (test_murcia.MurciaAcceptanceTests.test_todos_los_turnos_referencian_farmacia) ... ok
+test_tokens_localidad_pertenecen_al_vocabulario (test_murcia.MurciaAcceptanceTests.test_tokens_localidad_pertenecen_al_vocabulario) ... ok
+test_column_of (test_murcia.ReconstruccionColumnasTests.test_column_of) ... ok
+test_join_fragment (test_murcia.ReconstruccionColumnasTests.test_join_fragment) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 19.047s
+
+OK
+
+La bater├¡a de ingesta pasa (35 pruebas). Los JSON contienen 581 farmacias de Murcia y 253 de Baleares, con conjuntos de IDs id├⌐nticos a las copias `_v1`; ahora contrasto las salidas regeneradas con el parseo y reviso las reglas frente al Anexo II.
+# Todos
+[Γ£ô] Inspeccionar implementaci├│n, tests y salidas de la tarea 02b
+[ΓÇó] Ejecutar tests y contrastar cada criterio contra JSON/PDF/base
+[ ] Detectar atajos o rebajas de criterios y emitir informe
+
+Γ£▒ Grep "MU:460|MU:66|LOSALCAZARES|TORREPACHECO|ALMENDRIC OS|ALCOVER CASASNOVAS|\["zones"\]|zones" in . ┬╖ 64 matches
+
+$ .\.venv\Scripts\python.exe -c "import json, re; from pathlib import Path
+p=json.loads(Path('data/out/murcia_2026.json').read_text(encoding='utf-8'))['pharmacies']; bad=('LOSALCAZARES','TORREPACHECO','DESEGURA','DECOTILLAS','ALMENDRIC OS'); found=[(x['id'],x['locality']) for x in p if x['locality'] and any(s in x['locality'] for s in bad)]; byid={x['id']:x for x in p}; print('malformed=',found); print('MU:460=',byid['MU:460']['locality']); print('MU:66=',byid['MU:66']['locality']); print('nonempty_zones=',sum(bool(x.get('zones')) for x in p),'of',len(p)); print('warnings=',len(json.loads(Path('data/out/murcia_2026.json').read_text(encoding='utf-8'))['warnings']))"
+malformed= []
+MU:460= LOS NAREJOS (LOS ALCAZARES)
+MU:66= DOLORES-TORRE PACHECO
+nonempty_zones= 287 of 581
+warnings= 96
+
+$ .\.venv\Scripts\python.exe -c "import json; from pathlib import Path
+p=json.loads(Path('data/out/baleares_2026.json').read_text(encoding='utf-8'))['pharmacies']; al=[(x['id'],x['zones']) for x in p if x['holder']=='ALCOVER CASASNOVAS, R']; missing=[x['id'] for x in p if not x.get('zones')]; print('missing_zones=',missing); print('alcover=',al); print('counts=',len(p),sum(bool(x.get('zones')) for x in p)); print('special=',[(x['holder'],x['address'],x['locality']) for x in p if x['locality'] in ('PORTALS NOUS','CALA LLITERAS (CALA RATJADA)') or x['address'].endswith('URB. MAIORIS')])"
+missing_zones= []
+alcover= [('IB:0efd04c9a719', ['ANDRATX', 'CALVI∩┐╜', 'CAMPOS-SES SALINES-FELANITX-SANTANY∩┐╜-LLUCMAJOR', 'LLUCMAJOR-ALGAIDA', 'MARRATX∩┐╜-BUNYOLA-SANTA EUG∩┐╜NIA-SANTA MARIA', 'PALMA', 'PLATJA DE PALMA'])]
+counts= 253 253
+special= [('VILANOVA MURET', 'Ctra. Andratx,30', 'PORTALS NOUS'), ('COMAS PONS', 'C/ IMPERIAL, 2 , LOCAL - 2 - URB. MAIORIS', None), ('GARCIA BARTOLOME, SONIA', 'AV, CALA AGULLA, 96', 'CALA LLITERAS (CALA RATJADA)')]
+
+$ pdftotext -layout "data\raw\murcia\2026\BORM_2025_6468.pdf" - | rg -n -i "LOS NAREJOS|DOLORES.*TORRE|ALMENDRIC"
+rg : El t∩┐╜rmino 'rg' no se reconoce como nombre de un cmdlet, funci∩┐╜n, archivo de script o programa ejecutable. 
+Compruebe si escribi∩┐╜ correctamente el nombre o, si incluy∩┐╜ una ruta de acceso, compruebe que dicha ruta es correcta e 
+int∩┐╜ntelo de nuevo.
+En l∩┐╜nea: 1 Car∩┐╜cter: 65
++ ... text -layout "data\raw\murcia\2026\BORM_2025_6468.pdf" - | rg -n -i " ...
++                                                                ~~
+    + CategoryInfo          : ObjectNotFound: (rg:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+$ .\.venv\Scripts\python.exe -c "import json; from pathlib import Path
+from ingesta.export import to_json
+from ingesta.parsers.murcia import parse
+from ingesta.parsers.baleares import parse_dir
+base=Path('.'); jobs=[('murcia_2026',parse(str(base/'data/raw/murcia/2026/BORM_2025_6468.pdf'))),('baleares_2026',parse_dir(str(base/'data/raw/baleares/2026')))]
+for name,result in jobs:
+ actual=json.loads((base/'data/out'/f'{name}.json').read_text(encoding='utf-8')); fresh=to_json(result); actual['source']['retrieved_at']=fresh['source']['retrieved_at']; print(name, 'matches_current_parse=', actual==fresh, 'warnings=',len(fresh['warnings']))"
+murcia_2026 matches_current_parse= True warnings= 96
+baleares_2026 matches_current_parse= True warnings= 1
+
+$ .\.venv\Scripts\python.exe -c "from ingesta.parsers.murcia import MURCIA_MUNICIPALITIES; print('municipios=',len(MURCIA_MUNICIPALITIES)); print('unicos=',len(set(MURCIA_MUNICIPALITIES))); print('referencia=',MURCIA_MUNICIPALITIES)"
+municipios= 45
+unicos= 45
+referencia= ('ABANILLA', 'ABARAN', 'AGUILAS', 'ALBUDEITE', 'ALCANTARILLA', 'LOS ALCAZARES', 'ALEDO', 'ALGUAZAS', 'ALHAMA DE MURCIA', 'ARCHENA', 'BENIEL', 'BLANCA', 'BULLAS', 'CALASPARRA', 'CAMPOS DEL RIO', 'CARAVACA DE LA CRUZ', 'CARTAGENA', 'CEHEGIN', 'CEUTI', 'CIEZA', 'FORTUNA', 'FUENTE ALAMO DE MURCIA', 'JUMILLA', 'LIBRILLA', 'LORCA', 'LORQUI', 'MAZARRON', 'MOLINA DE SEGURA', 'MORATALLA', 'MULA', 'MURCIA', 'OJOS', 'PLIEGO', 'PUERTO LUMBRERAS', 'RICOTE', 'SAN JAVIER', 'SAN PEDRO DEL PINATAR', 'SANTOMERA', 'TORRE PACHECO', 'LAS TORRES DE COTILLAS', 'TOTANA', 'ULEA', 'LA UNION', 'VILLANUEVA DEL RIO SEGURA', 'YECLA')
+
+$ .\.venv\Scripts\python.exe -c "import json; from pathlib import Path
+for n in ('murcia_2026','baleares_2026'):
+ a=json.loads(Path('data/out/'+n+'_v1.json').read_text(encoding='utf-8')); b=json.loads(Path('data/out/'+n+'.json').read_text(encoding='utf-8')); by=lambda x:{p['id']:p for p in x['pharmacies']}; old,new=by(a),by(b); changed=[i for i in old if old[i]!=new[i]]; print(n,'same_ids=',set(old)==set(new),'changed_records=',len(changed),'added=',len(set(new)-set(old)),'removed=',len(set(old)-set(new)))"
+murcia_2026 same_ids= True changed_records= 581 added= 0 removed= 0
+baleares_2026 same_ids= True changed_records= 253 added= 0 removed= 0
+
+$ pdftotext -layout "data\raw\murcia\2026\BORM_2025_6468.pdf" - | findstr /N /I /C:"LOS NAREJOS" /C:"DOLORES-TORRE" /C:"ALMENDRIC"
+1435:                        Lumbreras (5 farmacias) y la Diputaci??n de Almendricos (1
+1443:                 - Almendricos: Farmacia en servicio permanente de urgencia, en
+3040:                                                             OASIS, LOS NAREJOS
+3482:         29          MARTINEZ GARCIA,       198   968440071    CALLE CORTADA, S/N    ALMENDRIC     30893
+8088:             Almendricos:
+
+$ .\.venv\Scripts\pytest.exe backend/tests -q
+...........                                                              [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\adoni\dev\farmacias-guardia\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+11 passed, 1 warning in 14.62s
+
+La comparaci├│n completa confirma que ambos JSON son exactamente la serializaci├│n del parser actual. Los 45 municipios exigidos est├ín presentes y son ├║nicos; no aparecen condiciones por `MU:460`, `MU:66` ni por ALCOVER en el parser. He identificado una desviaci├│n de la regla de completado de fragmentos que no aflora en los datos actuales.
+$ .\.venv\Scripts\python.exe -c "from ingesta.parsers.murcia import _complete_locality, _REFERENCE_WORDS, _anexo2_vocabulary
+print(_complete_locality('EJEMP', frozenset({'EJEMPLO'})))
+print(_complete_locality('EJEMP', _REFERENCE_WORDS))"
+('EJEMPLO', False)
+('EJEMP', False)
+
+$ .\.venv\Scripts\python.exe -c "import json; from pathlib import Path
+for n in ('murcia_2026','baleares_2026'):
+ a={p['id']:p for p in json.loads(Path('data/out/'+n+'_v1.json').read_text(encoding='utf-8'))['pharmacies']}; b={p['id']:p for p in json.loads(Path('data/out/'+n+'.json').read_text(encoding='utf-8'))['pharmacies']}; fields={k:sum(a[i].get(k)!=b[i].get(k) for i in a) for k in next(iter(a.values()))}; print(n,fields)"
+murcia_2026 {'id': 0, 'region': 0, 'holder': 7, 'address': 95, 'locality': 27, 'postal_code': 0, 'phone': 0, 'duty_phone': 0}
+baleares_2026 {'id': 0, 'region': 0, 'holder': 0, 'address': 2, 'locality': 14, 'postal_code': 0, 'phone': 0, 'duty_phone': 0}
+
+$ pdftotext -bbox-layout "data\raw\murcia\2026\BORM_2025_6468.pdf" - | findstr /N /I /C:"NAREJOS" /C:"TORRE" /C:"ALMENDRIC"
+2741:          <word xMin="276.922200" yMin="685.329900" xMax="314.938200" yMax="701.709900">Latorre</word>
+3637:          <word xMin="285.293400" yMin="543.085400" xMax="323.309400" yMax="559.465400">Latorre</word>
+4511:          <word xMin="284.902200" yMin="487.585400" xMax="319.570200" yMax="503.965400">Torres</word>
+4754:          <word xMin="306.010200" yMin="156.489900" xMax="344.014200" yMax="172.869900">Torres.</word>
+7984:          <word xMin="187.570200" yMin="101.953400" xMax="233.566200" yMax="119.137400">(TORRE</word>
+8133:          <word xMin="465.000600" yMin="400.525400" xMax="493.668600" yMax="416.905400">Torre</word>
+8338:          <word xMin="393.340200" yMin="685.465300" xMax="421.998600" yMax="701.845300">Torre</word>
+8362:          <word xMin="119.110200" yMin="745.165300" xMax="151.750200" yMax="761.545300">-Torre</word>
+10106:          <word xMin="405.912600" yMin="390.985400" xMax="471.957000" yMax="407.365400">Almendricos</word>
+10158:          <word xMin="126.190200" yMin="501.385400" xMax="195.538200" yMax="517.765400">Almendricos:</word>
+11626:          <word xMin="256.234200" yMin="602.049900" xMax="314.914200" yMax="618.429900">Torregrosa</word>
+11633:          <word xMin="186.862200" yMin="615.849900" xMax="245.542200" yMax="632.229900">Torregrosa</word>
+11635:          <word xMin="332.878200" yMin="615.849900" xMax="391.558200" yMax="632.229900">Torregrosa</word>
+11764:          <word xMin="265.503000" yMin="115.089900" xMax="327.478200" yMax="131.469900">Torregrosa:</word>
+11779:          <word xMin="190.668600" yMin="142.689900" xMax="249.339000" yMax="159.069900">Torregrosa</word>
+11781:          <word xMin="344.268600" yMin="142.689900" xMax="406.284600" yMax="159.069900">Torregrosa:</word>
+12727:          <word xMin="318.984600" yMin="560.829900" xMax="378.324600" yMax="577.209900">(Torrealta).</word>
+12997:          <word xMin="225.670200" yMin="382.153400" xMax="279.670200" yMax="399.337400">(TORRES</word>
+18548:          <word xMin="122.844560" yMin="212.657956" xMax="180.735023" yMax="223.768510">TORREGROSA</word>
+21259:          <word xMin="122.847815" yMin="190.431848" xMax="161.315565" yMax="201.541310">LATORRE</word>
+21488:          <word xMin="317.980074" yMin="744.848448" xMax="346.512628" yMax="755.957910">TORRE</word>
+22510:          <word xMin="419.182977" yMin="500.300916" xMax="470.768506" yMax="511.411470">TORREAGUE</word>
+22549:          <word xMin="419.182977" yMin="538.856816" xMax="470.768506" yMax="549.967370">TORREAGUE</word>
+23050:          <word xMin="122.843746" yMin="113.217216" xMax="180.791186" yMax="124.327770">TORREGROSA</word>
+23061:          <word xMin="122.844560" yMin="141.920973" xMax="184.856916" yMax="153.031527">TORRES,MARIA</word>
+25894:          <word xMin="419.174837" yMin="710.340173" xMax="453.151156" yMax="721.450727">TORRES</word>
+25908:          <word xMin="419.182977" yMin="748.896173" xMax="453.159295" yMax="760.006727">TORRES</word>
+26303:          <word xMin="419.174837" yMin="193.379856" xMax="453.151156" yMax="204.490410">TORRES</word>
+26957:          <word xMin="318.015888" yMin="279.855456" xMax="348.825902" yMax="290.966010">TORRE,</word>
+32152:          <word xMin="165.455366" yMin="478.075616" xMax="201.736819" yMax="489.186170">TORRES,</word>
+32259:          <word xMin="173.586826" yMin="582.847813" xMax="209.816186" yMax="593.958367">TORRES,</word>
+32450:          <word xMin="419.182977" yMin="277.462873" xMax="457.675145" yMax="288.573427">NAREJOS</word>
+32982:          <word xMin="318.015888" yMin="286.823413" xMax="356.508057" yMax="297.933967">NAREJOS</word>
+33024:          <word xMin="366.057436" yMin="382.169953" xMax="404.573209" yMax="393.280507">NAREJOS</word>
+33182:          <word xMin="352.971982" yMin="96.062256" xMax="381.481745" yMax="107.172810">TORRE</word>
+33447:          <word xMin="361.595307" yMin="305.613916" xMax="390.144140" yMax="316.724470">TORRE</word>
+33694:          <word xMin="130.496598" yMin="666.262556" xMax="180.345950" yMax="677.373110">HENAREJOS</word>
+35453:          <word xMin="419.182977" yMin="601.905856" xMax="447.730182" yMax="613.016410">TORRE</word>
+35459:          <word xMin="419.158558" yMin="621.187016" xMax="447.705763" yMax="632.297570">TORRE</word>
+35465:          <word xMin="419.182977" yMin="640.456876" xMax="447.730182" yMax="651.567430">TORRE</word>
+35850:          <word xMin="419.182977" yMin="707.173016" xMax="447.730182" yMax="718.283570">TORRE</word>
+35934:          <word xMin="122.845600" yMin="88.119016" xMax="180.793040" yMax="99.229570">TORREGROSA</word>
+36562:          <word xMin="419.182977" yMin="107.396916" xMax="447.730182" yMax="118.507470">TORRE</word>
+36568:          <word xMin="419.182977" yMin="126.674916" xMax="447.730182" yMax="137.785470">TORRE</word>
+36620:          <word xMin="419.182977" yMin="203.289276" xMax="447.730182" yMax="214.399830">TORRE</word>
+36637:          <word xMin="419.182977" yMin="241.302516" xMax="447.730182" yMax="252.413070">TORRE</word>
+36657:          <word xMin="419.182977" yMin="279.365956" xMax="450.395901" yMax="290.476510">(TORRE</word>
+36945:          <word xMin="318.015888" yMin="643.681316" xMax="383.294666" yMax="654.791870">EDF.TORREMAR</word>
+38686:          <word xMin="419.182977" yMin="748.458676" xMax="470.350130" yMax="759.569230">TORRECILLA</word>
+40034:          <word xMin="419.055999" yMin="719.755976" xMax="467.008011" yMax="730.866530">ALMENDRIC</word>
+40920:          <word xMin="136.409203" yMin="481.022916" xMax="164.897803" yMax="492.133470">TORRE</word>
+40931:          <word xMin="170.418080" yMin="499.809113" xMax="201.215884" yMax="510.919667">TORRE,</word>
+42763:          <word xMin="122.844560" yMin="576.924073" xMax="214.774016" yMax="588.034627">TORREGROSA,RAFAEL</word>
+42782:          <word xMin="122.856769" yMin="625.332516" xMax="180.746418" yMax="636.443070">TORREGROSA</word>
+42790:          <word xMin="161.446613" yMin="644.118713" xMax="219.373704" yMax="655.229267">TORREGROSA</word>
+43367:          <word xMin="122.864909" yMin="107.396916" xMax="156.803785" yMax="118.507470">TORRES</word>
+43377:          <word xMin="122.844560" yMin="126.183113" xMax="159.078803" yMax="137.293667">TORRES,</word>
+45506:          <word xMin="318.015888" yMin="209.337573" xMax="401.443533" yMax="220.448127">MURCIA-ALTORREAL</word>
+45641:          <word xMin="419.182977" yMin="171.270316" xMax="468.087322" yMax="182.380870">TORREALTA</word>
+45780:          <word xMin="419.115418" yMin="409.942176" xMax="453.077085" yMax="421.052730">TORRES</word>
+45851:          <word xMin="419.066581" yMin="448.016716" xMax="453.042899" yMax="459.127270">TORRES</word>
+45861:          <word xMin="419.182977" yMin="476.650176" xMax="453.105574" yMax="487.760730">TORRES</word>
+45899:          <word xMin="419.035650" yMin="514.716476" xMax="453.011968" yMax="525.827030">TORRES</word>
+46062:          <word xMin="419.182977" yMin="552.729916" xMax="453.105574" yMax="563.840470">TORRES</word>
+46079:          <word xMin="419.182977" yMin="600.153796" xMax="453.105574" yMax="611.264350">TORRES</word>
+54045:          <word xMin="271.918612" yMin="204.559908" xMax="329.910141" yMax="219.847362">Torregrosa,</word>
+59259:          <word xMin="281.173368" yMin="228.559500" xMax="316.534728" yMax="245.267100">Torres</word>
+59418:          <word xMin="229.967328" yMin="413.199900" xMax="289.834392" yMax="429.907500">Torregrosa</word>
+71421:          <word xMin="385.865860" yMin="358.042900" xMax="421.202740" yMax="374.750500">Torres</word>
+71426:          <word xMin="385.865860" yMin="372.608600" xMax="421.202740" yMax="389.316200">Torres</word>
+71431:          <word xMin="385.865860" yMin="387.174200" xMax="421.202740" yMax="403.881800">Torres</word>
+71436:          <word xMin="385.865860" yMin="401.800900" xMax="421.202740" yMax="418.508500">Torres</word>
+71441:          <word xMin="385.865860" yMin="416.366500" xMax="421.202740" yMax="433.074100">Torres</word>
+71446:          <word xMin="385.865860" yMin="430.932100" xMax="421.202740" yMax="447.639700">Torres</word>
+71451:          <word xMin="385.865860" yMin="445.558900" xMax="421.202740" yMax="462.266500">Torres</word>
+71498:          <word xMin="385.865860" yMin="562.206100" xMax="421.202740" yMax="578.913700">Torres</word>
+71503:          <word xMin="385.865860" yMin="576.832900" xMax="421.202740" yMax="593.540500">Torres</word>
+71508:          <word xMin="385.865860" yMin="591.398500" xMax="421.202740" yMax="608.106100">Torres</word>
+71513:          <word xMin="385.865860" yMin="605.964000" xMax="421.202740" yMax="622.671600">Torres</word>
+71518:          <word xMin="385.865860" yMin="620.529700" xMax="421.202740" yMax="637.237300">Torres</word>
+71523:          <word xMin="385.865860" yMin="635.156600" xMax="421.202740" yMax="651.864200">Torres</word>
+71528:          <word xMin="385.865860" yMin="649.722200" xMax="421.202740" yMax="666.429800">Torres</word>
+71740:          <word xMin="317.915400" yMin="237.674900" xMax="353.276760" yMax="254.382500">Torres</word>
+71807:          <word xMin="332.848200" yMin="336.145700" xMax="368.209560" yMax="352.853300">Torres</word>
+77284:          <word xMin="273.366696" yMin="729.894100" xMax="366.537576" yMax="746.601700">Ferrer-Henarejos</word>
+77608:          <word xMin="271.530696" yMin="103.389700" xMax="364.701576" yMax="120.097300">Ferrer-Henarejos</word>
+77651:          <word xMin="271.530696" yMin="229.829000" xMax="364.701576" yMax="246.536600">Ferrer-Henarejos</word>
+77694:          <word xMin="271.530696" yMin="356.329300" xMax="364.701576" yMax="373.036900">Ferrer-Henarejos</word>
+77737:          <word xMin="271.530696" yMin="482.829700" xMax="364.701576" yMax="499.537300">Ferrer-Henarejos</word>
+77824:          <word xMin="271.530696" yMin="735.769300" xMax="364.701576" yMax="752.476900">Ferrer-Henarejos</word>
+78179:          <word xMin="271.530696" yMin="166.609400" xMax="364.701576" yMax="183.317000">Ferrer-Henarejos</word>
+78222:          <word xMin="271.530696" yMin="293.109700" xMax="364.701576" yMax="309.817300">Ferrer-Henarejos</word>
+78265:          <word xMin="271.530696" yMin="419.548900" xMax="364.701576" yMax="436.256500">Ferrer-Henarejos</word>
+78308:          <word xMin="271.530696" yMin="546.049300" xMax="364.701576" yMax="562.756900">Ferrer-Henarejos</word>
+78351:          <word xMin="271.530696" yMin="672.549700" xMax="364.701576" yMax="689.257300">Ferrer-Henarejos</word>
+78706:          <word xMin="271.530696" yMin="103.389700" xMax="364.701576" yMax="120.097300">Ferrer-Henarejos</word>
+78718:          <word xMin="271.530696" yMin="134.968900" xMax="364.701576" yMax="151.676500">Ferrer-Henarejos</word>
+78748:          <word xMin="271.530696" yMin="229.829000" xMax="364.701576" yMax="246.536600">Ferrer-Henarejos</word>
+78791:          <word xMin="271.530696" yMin="356.329300" xMax="364.701576" yMax="373.036900">Ferrer-Henarejos</word>
+78834:          <word xMin="271.530696" yMin="482.829700" xMax="364.701576" yMax="499.537300">Ferrer-Henarejos</word>
+78877:          <word xMin="271.530696" yMin="609.269000" xMax="364.701576" yMax="625.976600">Ferrer-Henarejos</word>
+78920:          <word xMin="271.530696" yMin="735.769300" xMax="364.701576" yMax="752.476900">Ferrer-Henarejos</word>
+79275:          <word xMin="271.530696" yMin="166.609400" xMax="364.701576" yMax="183.317000">Ferrer-Henarejos</word>
+79362:          <word xMin="271.530696" yMin="419.548900" xMax="364.701576" yMax="436.256500">Ferrer-Henarejos</word>
+79405:          <word xMin="271.530696" yMin="546.049300" xMax="364.701576" yMax="562.756900">Ferrer-Henarejos</word>
+79448:          <word xMin="271.530696" yMin="672.549700" xMax="364.701576" yMax="689.257300">Ferrer-Henarejos</word>
+79803:          <word xMin="271.530696" yMin="103.389700" xMax="364.701576" yMax="120.097300">Ferrer-Henarejos</word>
+79846:          <word xMin="271.530696" yMin="229.829000" xMax="364.701576" yMax="246.536600">Ferrer-Henarejos</word>
+79889:          <word xMin="271.530696" yMin="356.329300" xMax="364.701576" yMax="373.036900">Ferrer-Henarejos</word>
+79932:          <word xMin="271.530696" yMin="482.829700" xMax="364.701576" yMax="499.537300">Ferrer-Henarejos</word>
+79975:          <word xMin="271.530696" yMin="609.269000" xMax="364.701576" yMax="625.976600">Ferrer-Henarejos</word>
+80018:          <word xMin="271.530696" yMin="735.769300" xMax="364.701576" yMax="752.476900">Ferrer-Henarejos</word>
+80373:          <word xMin="271.530696" yMin="166.609400" xMax="364.701576" yMax="183.317000">Ferrer-Henarejos</word>
+80416:          <word xMin="271.530696" yMin="293.109700" xMax="364.701576" yMax="309.817300">Ferrer-Henarejos</word>
+80459:          <word xMin="271.530696" yMin="419.548900" xMax="364.701576" yMax="436.256500">Ferrer-Henarejos</word>
+80502:          <word xMin="271.530696" yMin="546.049300" xMax="364.701576" yMax="562.756900">Ferrer-Henarejos</word>
+80545:          <word xMin="271.530696" yMin="672.549700" xMax="364.701576" yMax="689.257300">Ferrer-Henarejos</word>
+80900:          <word xMin="271.530696" yMin="103.389700" xMax="364.701576" yMax="120.097300">Ferrer-Henarejos</word>
+80943:          <word xMin="271.530696" yMin="229.829000" xMax="364.701576" yMax="246.536600">Ferrer-Henarejos</word>
+80984:          <word xMin="271.530696" yMin="356.329300" xMax="364.701576" yMax="373.036900">Ferrer-Henarejos</word>
+81027:          <word xMin="271.530696" yMin="482.829700" xMax="364.701576" yMax="499.537300">Ferrer-Henarejos</word>
+81072:          <word xMin="271.530696" yMin="609.269000" xMax="364.701576" yMax="625.976600">Ferrer-Henarejos</word>
+81115:          <word xMin="271.530696" yMin="735.769300" xMax="364.701576" yMax="752.476900">Ferrer-Henarejos</word>
+81470:          <word xMin="271.530696" yMin="166.609400" xMax="364.701576" yMax="183.317000">Ferrer-Henarejos</word>
+81513:          <word xMin="271.530696" yMin="293.109700" xMax="364.701576" yMax="309.817300">Ferrer-Henarejos</word>
+81556:          <word xMin="271.530696" yMin="419.548900" xMax="364.701576" yMax="436.256500">Ferrer-Henarejos</word>
+81600:          <word xMin="271.530696" yMin="546.049300" xMax="364.701576" yMax="562.756900">Ferrer-Henarejos</word>
+81643:          <word xMin="271.530696" yMin="672.549700" xMax="364.701576" yMax="689.257300">Ferrer-Henarejos</word>
+81776:          <word xMin="273.366696" yMin="103.389700" xMax="366.537576" yMax="120.097300">Ferrer-Henarejos</word>
+83024:          <word xMin="190.374600" yMin="534.032160" xMax="237.290520" yMax="551.559840">(TORRE</word>
+83536:          <word xMin="214.511980" yMin="529.219200" xMax="317.893468" yMax="545.926800">G??mez-Torregrosa</word>
+91489:          <word xMin="100.900200" yMin="285.998260" xMax="179.113800" yMax="303.525940">Almendricos:</word>
+92629:          <word xMin="257.094940" yMin="187.172500" xMax="286.336300" yMax="203.880100">Torre</word>
+92632:          <word xMin="378.846220" yMin="187.172500" xMax="408.087580" yMax="203.880100">Torre</word>
+92741:          <word xMin="257.094940" yMin="534.972100" xMax="286.336300" yMax="551.679700">Torre</word>
+92744:          <word xMin="378.846220" yMin="534.972100" xMax="408.087580" yMax="551.679700">Torre</word>
+92748:          <word xMin="257.094940" yMin="550.822800" xMax="286.336300" yMax="567.530400">Torre</word>
+92751:          <word xMin="378.846220" yMin="550.822800" xMax="408.087580" yMax="567.530400">Torre</word>
+92755:          <word xMin="257.094940" yMin="566.612500" xMax="286.336300" yMax="583.320100">Torre</word>
+92758:          <word xMin="378.846220" yMin="566.612500" xMax="408.087580" yMax="583.320100">Torre</word>
+92762:          <word xMin="257.094940" yMin="582.402100" xMax="286.336300" yMax="599.109700">Torre</word>
+92765:          <word xMin="378.846220" yMin="582.402100" xMax="408.087580" yMax="599.109700">Torre</word>
+92769:          <word xMin="257.094940" yMin="598.252900" xMax="286.336300" yMax="614.960500">Torre</word>
+92772:          <word xMin="378.846220" yMin="598.252900" xMax="408.087580" yMax="614.960500">Torre</word>
+92776:          <word xMin="257.094940" yMin="614.042500" xMax="286.336300" yMax="630.750100">Torre</word>
+92779:          <word xMin="378.846220" yMin="614.042500" xMax="408.087580" yMax="630.750100">Torre</word>
+92783:          <word xMin="257.094940" yMin="629.832100" xMax="286.336300" yMax="646.539700">Torre</word>
+92786:          <word xMin="378.846220" yMin="629.832100" xMax="408.087580" yMax="646.539700">Torre</word>
+95307:          <word xMin="238.017576" yMin="357.360000" xMax="297.861384" yMax="374.067600">Torregrosa</word>
+95309:          <word xMin="386.985720" yMin="357.360000" xMax="446.839320" yMax="374.067600">Torregrosa</word>
+95328:          <word xMin="238.017576" yMin="420.579600" xMax="273.369144" yMax="437.287200">Torres</word>
+95330:          <word xMin="354.997704" yMin="420.579600" xMax="390.359064" yMax="437.287200">Torres</word>
+95340:          <word xMin="308.750088" yMin="452.220000" xMax="368.603688" yMax="468.927600">Torregrosa</word>
+95377:          <word xMin="238.017576" yMin="547.079900" xMax="297.861384" yMax="563.787500">Torregrosa</word>
+95379:          <word xMin="386.985720" yMin="547.079900" xMax="446.839320" yMax="563.787500">Torregrosa</word>
+95398:          <word xMin="238.017576" yMin="610.299600" xMax="273.369144" yMax="627.007200">Torres</word>
+95400:          <word xMin="354.997704" yMin="610.299600" xMax="390.359064" yMax="627.007200">Torres</word>
+95410:          <word xMin="308.750088" yMin="641.940000" xMax="368.603688" yMax="658.647600">Torregrosa</word>
+95447:          <word xMin="238.017576" yMin="736.799900" xMax="297.861384" yMax="753.507500">Torregrosa</word>
+95449:          <word xMin="386.985720" yMin="736.799900" xMax="446.839320" yMax="753.507500">Torregrosa</word>
+95528:          <word xMin="238.017576" yMin="103.389700" xMax="273.369144" yMax="120.097300">Torres</word>
+95530:          <word xMin="354.997704" yMin="103.389700" xMax="390.359064" yMax="120.097300">Torres</word>
+95779:          <word xMin="232.631976" yMin="249.412800" xMax="292.475784" yMax="266.120400">Torregrosa</word>
+95781:          <word xMin="381.600120" yMin="249.412800" xMax="441.453720" yMax="266.120400">Torregrosa</word>
+95804:          <word xMin="232.631976" yMin="307.736600" xMax="267.983544" yMax="324.444200">Torres</word>
+95806:          <word xMin="349.612104" yMin="307.736600" xMax="384.973464" yMax="324.444200">Torres</word>
+95816:          <word xMin="303.364488" yMin="336.929000" xMax="363.218088" yMax="353.636600">Torregrosa</word>
+95833:          <word xMin="232.631976" yMin="380.687000" xMax="267.983544" yMax="397.394600">Torres</word>
+95835:          <word xMin="349.612104" yMin="380.687000" xMax="384.973464" yMax="397.394600">Torres</word>
+95886:          <word xMin="303.364488" yMin="511.960900" xMax="363.218088" yMax="528.668500">Torregrosa</word>
+95889:          <word xMin="232.631976" yMin="526.526500" xMax="292.475784" yMax="543.234100">Torregrosa</word>
+95891:          <word xMin="381.600120" yMin="526.526500" xMax="441.453720" yMax="543.234100">Torregrosa</word>
+95919:          <word xMin="232.631976" yMin="599.477000" xMax="292.475784" yMax="616.184600">Torregrosa</word>
+95921:          <word xMin="381.600120" yMin="599.477000" xMax="441.453720" yMax="616.184600">Torregrosa</word>
+98216:          <word xMin="249.200140" yMin="143.708260" xMax="300.204220" yMax="161.235940">TORRES</word>
+
+# Todos
+[Γ£ô] Inspeccionar implementaci├│n, tests y salidas de la tarea 02b
+[Γ£ô] Ejecutar tests y contrastar cada criterio contra JSON/PDF/base
+[Γ£ô] Detectar atajos o rebajas de criterios y emitir informe
+
+**Resultado:** los criterios de aceptaci├│n actuales pasan, con un defecto de cumplimiento prospectivo en la regla de completado de Murcia.
+
+| Criterio | Cumple | Evidencia |
+|---|---|---|
+| Murcia sin localidades mal unidas y tokens v├ílidos | S├¡ | `murcia_2026.json`: ning├║n caso con los cinco fragmentos prohibidos. Tests `test_localidades_reconstruidas` y `test_tokens_localidad_pertenecen_al_vocabulario` pasan. |
+| `MU:460` y `MU:66` | S├¡ | JSON: `MU:460 = LOS NAREJOS (LOS ALCAZARES)`; `MU:66 = DOLORES-TORRE PACHECO`. |
+| Baleares exporta `zones`; ALCOVER incluye PALMA | S├¡ | 253/253 farmacias tienen `zones` no vac├¡o. `IB:0efd04c9a719` incluye `PALMA`. |
+| IDs no cambian | S├¡ | Murcia: 581/581 id├⌐nticos a `_v1`; Baleares: 253/253 id├⌐nticos. |
+| JSON regenerados | S├¡ | Ambos JSON coinciden exactamente con la serializaci├│n del parser actual, salvo el instante din├ímico `retrieved_at`. |
+| Todos los tests | S├¡ | `unittest`: 35 OK. `pytest backend/tests`: 11 OK, con un aviso de deprecaci├│n externo. |
+
+**Defectos**
+1. Media: Murcia no aplica el vocabulario completo del Anexo II al completar el ├║ltimo fragmento. `_parse_anexo2` construye `vocabulary` incluyendo todas las palabras completas del Anexo II, pero llama a `_complete_locality(..., _REFERENCE_WORDS)` en `ingesta/parsers/murcia.py:365`. Esto incumple la regla exigida para truncados que solo puedan resolverse mediante una palabra completa del Anexo II. Adem├ís, `_complete_locality` no emite aviso si no encuentra ninguna coincidencia ├║nica (`ingesta/parsers/murcia.py:289-298`). Los datos actuales no activan el fallo.
+
+No se detectaron filtros espec├¡ficos para `MU:460`, `MU:66` o ALCOVER, ni datos inventados para satisfacer las comprobaciones.
+
+Archivos tocados: ninguno.
+
+Comandos ejecutados: `python -m unittest discover -s tests -v`, `pytest backend/tests -q`, comparaciones JSON/parseo e inspecciones de PDF/JSON.

@@ -1,0 +1,3453 @@
+
+> build ┬╖ deepseek-v4.1-flash-free
+
+ΓåÆ Read docs/SPEC.md
+ΓåÆ Read docs/TAREA_02_murcia.md
+
+$ Get-ChildItem -Recurse -File | Where-Object { $_.FullName -notmatch '\\\.git\\' -and $_.FullName -notmatch '\\tmp\\' } | Select-Object -ExpandProperty FullName
+C:\Users\adoni\dev\farmacias-guardia\.gitignore
+C:\Users\adoni\dev\farmacias-guardia\AGENTS.md
+C:\Users\adoni\dev\farmacias-guardia\data\out\baleares_2026.json
+C:\Users\adoni\dev\farmacias-guardia\data\out\baleares_2026_v1.json
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Alaior.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Alc_dia.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Andratx.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Binissalem.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Calvi_.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Campos.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Capdepera.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Ciutadella.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Eivissa.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Felanitx.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Formentera.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Inca.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\index.html
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Llucmajor.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Manacor.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Marratx_.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Ma_.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Muro.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Palma.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Platja_de_Palma.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Pollen_a.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Santa_Eul_ria.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Sant_Antoni.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Sa_Pobla.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Sineu.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Son_Servera.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\S_ller.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\baleares\2026\Vilafranca.pdf
+C:\Users\adoni\dev\farmacias-guardia\data\raw\murcia\2026\BORM_2025_6468.pdf
+C:\Users\adoni\dev\farmacias-guardia\docs\log_tarea01.txt
+C:\Users\adoni\dev\farmacias-guardia\docs\log_tarea01b.txt
+C:\Users\adoni\dev\farmacias-guardia\docs\log_tarea02.txt
+C:\Users\adoni\dev\farmacias-guardia\docs\SPEC.md
+C:\Users\adoni\dev\farmacias-guardia\docs\TAREA_01b_baleares_columnas.md
+C:\Users\adoni\dev\farmacias-guardia\docs\TAREA_01_baleares.md
+C:\Users\adoni\dev\farmacias-guardia\docs\TAREA_02_murcia.md
+C:\Users\adoni\dev\farmacias-guardia\ingesta\export.py
+C:\Users\adoni\dev\farmacias-guardia\ingesta\model.py
+C:\Users\adoni\dev\farmacias-guardia\ingesta\__init__.py
+C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\__init__.py
+C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\__pycache__\baleares.cpython-312.pyc
+C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\__pycache__\__init__.cpython-312.pyc
+C:\Users\adoni\dev\farmacias-guardia\ingesta\__pycache__\export.cpython-312.pyc
+C:\Users\adoni\dev\farmacias-guardia\ingesta\__pycache__\model.cpython-312.pyc
+C:\Users\adoni\dev\farmacias-guardia\ingesta\__pycache__\__init__.cpython-312.pyc
+C:\Users\adoni\dev\farmacias-guardia\scripts\run_baleares.py
+C:\Users\adoni\dev\farmacias-guardia\tests\test_baleares.py
+C:\Users\adoni\dev\farmacias-guardia\tests\__pycache__\test_baleares.cpython-312.pyc
+
+ΓåÆ Read scripts/run_baleares.py
+ΓåÆ Read ingesta/model.py
+ΓåÆ Read ingesta/export.py
+ΓåÆ Read tests/test_baleares.py
+ΓåÆ Read ingesta/parsers/baleares.py
+ΓåÆ Read docs/log_tarea02.txt
+
+$ pdftotext -v 2>&1; python --version; if (Test-Path tmp) { "tmp exists" } else { "no tmp" }
+pdftotext : pdftotext version 25.07.0
+En l∩┐╜nea: 1 Car∩┐╜cter: 1
++ pdftotext -v 2>&1; python --version; if (Test-Path tmp) { "tmp exists ...
++ ~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (pdftotext version 25.07.0:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Copyright 2005-2025 The Poppler Developers - http://poppler.freedesktop.org
+Copyright 1996-2011, 2022 Glyph & Cog, LLC
+Python 3.12.10
+tmp exists
+
+ΓåÆ Read docs/TAREA_01b_baleares_columnas.md
+ΓåÆ Read .gitignore
+
+$ pdftotext -layout -enc UTF-8 "data\raw\murcia\2026\BORM_2025_6468.pdf" "tmp\murcia_layout.txt"; if ($?) { (Get-Item tmp\murcia_layout.txt).Length }
+523489
+
+$ Select-String -Path tmp\murcia_layout.txt -Pattern "NPE:|P.gina|ANEXO" -Encoding UTF8 | Select-Object -First 40 | ForEach-Object { "$($_.LineNumber): $($_.Line)" }
+1:                                N∩┐╜mero 301           Mi∩┐╜rcoles, 31 de diciembre de 2025                P∩┐╜gina 36751
+39:                 31 de diciembre de 2026, contenido en los anexos a la presente Orden.
+55: NPE: A-311225-6468
+56:                               N∩┐╜mero 301        Mi∩┐╜rcoles, 31 de diciembre de 2025       P∩┐╜gina 36752
+61:                                                ANEXO I
+83:                           zona farmac∩┐╜utica 1 del ANEXO II, excepto las que se
+100:                         especificado en ANEXO III.
+105: NPE: A-311225-6468
+106:                               N∩┐╜mero 301       Mi∩┐╜rcoles, 31 de diciembre de 2025     P∩┐╜gina 36753
+132:                         farmac∩┐╜utica dos del ANEXO II (TOTAL 1)
+142:                         seg∩┐╜n cuadrante especificado en el Anexo III.
+153:                         farmac∩┐╜utica tres del ANEXO II (TOTAL: 2)
+158:                         especificado en ANEXO III.
+161: NPE: A-311225-6468
+162:                                N∩┐╜mero 301      Mi∩┐╜rcoles, 31 de diciembre de 2025     P∩┐╜gina 36754
+180:                         zona farmac∩┐╜utica cuatro del ANEXO II (TOTAL: 3)
+188:                           cuadrante especificado en ANEXO III
+214:                         zona farmac∩┐╜utica 5 del ANEXO II, excepto las que se excluyen
+219: NPE: A-311225-6468
+220:                              N∩┐╜mero 301       Mi∩┐╜rcoles, 31 de diciembre de 2025     P∩┐╜gina 36755
+234:                       por d∩┐╜as, seg∩┐╜n cuadrante especificado en ANEXO III.
+276: NPE: A-311225-6468
+277:                            N∩┐╜mero 301      Mi∩┐╜rcoles, 31 de diciembre de 2025     P∩┐╜gina 36756
+334: NPE: A-311225-6468
+335:                              N∩┐╜mero 301      Mi∩┐╜rcoles, 31 de diciembre de 2025   P∩┐╜gina 36757
+392: NPE: A-311225-6468
+393:                              N∩┐╜mero 301        Mi∩┐╜rcoles, 31 de diciembre de 2025       P∩┐╜gina 36758
+445:                         zonas farmac∩┐╜uticas 6 y 7 del Anexo II que realizan ampliaci∩┐╜n
+450: NPE: A-311225-6468
+451:                             N∩┐╜mero 301       Mi∩┐╜rcoles, 31 de diciembre de 2025      P∩┐╜gina 36759
+508: NPE: A-311225-6468
+509:                              N∩┐╜mero 301      Mi∩┐╜rcoles, 31 de diciembre de 2025      P∩┐╜gina 36760
+532:                      especificado en el Anexo III. Refuerzo adicional de 9 a 22 horas,
+533:                      seg∩┐╜n cuadrante especificado en el Anexo III.
+560:                         zonas farmac∩┐╜uticas 8 y 11 del Anexo II (Total 30)
+565: NPE: A-311225-6468
+566:                               N∩┐╜mero 301       Mi∩┐╜rcoles, 31 de diciembre de 2025      P∩┐╜gina 36761
+581:                         d∩┐╜as, seg∩┐╜n cuadrante especificado en el Anexo III.
+623: NPE: A-311225-6468
+624:                               N∩┐╜mero 301       Mi∩┐╜rcoles, 31 de diciembre de 2025       P∩┐╜gina 36762
+
+$ (Get-Content tmp\murcia_layout.txt -Encoding UTF8 | Measure-Object -Line).Lines; (Get-Content tmp\murcia_layout.txt -Encoding UTF8 -Raw).Split([char]12).Count
+7459
+156
+
+Γ£▒ Grep "ANEXO (I|II|III)" in tmp/murcia_layout.txt ┬╖ 42 matches
+Γ£▒ Grep "ZONA\s+NOMBRE" in tmp/murcia_layout.txt ┬╖ 1 match
+ΓåÆ Read tmp/murcia_layout.txt [offset=2040, limit=180]
+Γ£▒ Grep "NOMBRE|TLFNO|C\.P\." in tmp/murcia_layout.txt ┬╖ 2 matches
+Γ£▒ Grep "TURNOS DE URGENCIA|REFUERZOS|Todos los d|REFUERZO" in tmp/murcia_layout.txt ┬╖ 17 matches
+ΓåÆ Read tmp/murcia_layout.txt [limit=200, offset=3869]
+Γ£▒ Grep "^\s*AGRUPACION" in tmp/murcia_layout.txt ┬╖ 85 matches
+Γ£▒ Grep "AGRUPACION 15|AGRUPACION 17|AGRUPACION 24|AGRUPACION 36|AGRUPACION 46|AGRUPACION 47" in tmp/murcia_layout.txt ┬╖ 4 matches
+ΓåÆ Read tmp/murcia_layout.txt [offset=8990]
+ΓåÆ Read tmp/murcia_layout.txt [limit=280, offset=4300]
+ΓåÆ Read tmp/murcia_layout.txt [limit=140, offset=7210]
+Γ£▒ Grep "localizad|horario m|sistema" in tmp/murcia_layout.txt ┬╖ 100 matches
+ΓåÆ Read tmp/murcia_layout.txt [limit=240, offset=60]
+
+$ python -c "import io; lines=open('tmp/murcia_layout.txt',encoding='utf-8').read().split('\n'); [print(i, repr(lines[i-1])) for i in (2041,2042,2043,2050,2051,2052,2053,2054,2119,2120)]"
+2041 '         ZONA        NOMBRE                N∩┐╜ F   N∩┐╜ TLFNO    DIRECCION              POBLACI∩┐╜N    C.P.'
+2042 '         1           RUBIO FERNANDEZ,      45     968802950   CL. MAYOR, 87          ALCANTARIL   30820'
+2043 '                     MARIA                                                           LA'
+2050 '         1           CABALLERO CASTILLO,   534    968808997   CALLE MEDICO           ALCANTARIL   30820'
+2051 '                     FERNANDO JOSE Y                          PEDRO                  LA'
+2052 '                     CABALLERO CASTILLO                       NOGUEROLES,'
+2053 '                     ALBERTO                                  ESQUINA CALLE'
+2054 '                                                              ANDORRA'
+2119 '                                                              CL.RICARDO PEREZ'
+2120 '         5           ORTEGA CARRE∩┐╜O,        524   968662346   VILLA DE BULLAS,S/N    MULA         30170'
+
+$ python -c "
+lines=open('tmp/murcia_layout.txt',encoding='utf-8').read().split('\n')
+h=lines[2040]
+print('HDR', [ (w, h.index(w)) for w in ['ZONA','NOMBRE','N','F','TLFNO','DIRECCION','POBLACI','C.P.'] ])
+for i in (2042,2043,2050,2051,2052,2053,2054,2119,2120):
+    l=lines[i-1]
+    print(i, len(l), [ (j,c) for j,c in enumerate(l) if c!=' ' and (j==0 or l[j-1]==' ') ])
+"
+HDR [('ZONA', 9), ('NOMBRE', 21), ('N', 11), ('F', 46), ('TLFNO', 53), ('DIRECCION', 62), ('POBLACI', 85), ('C.P.', 98)]
+2042 103 [(9, '1'), (21, 'R'), (27, 'F'), (43, '4'), (50, '9'), (62, 'C'), (66, 'M'), (73, '8'), (85, 'A'), (98, '3')]
+2043 87 [(21, 'M'), (85, 'L')]
+2050 103 [(9, '1'), (21, 'C'), (31, 'C'), (43, '5'), (50, '9'), (62, 'C'), (68, 'M'), (85, 'A'), (98, '3')]
+2051 87 [(21, 'F'), (30, 'J'), (35, 'Y'), (62, 'P'), (85, 'L')]
+2052 73 [(21, 'C'), (31, 'C'), (62, 'N')]
+2053 75 [(21, 'A'), (62, 'E'), (70, 'C')]
+2054 69 [(62, 'A')]
+2119 78 [(62, 'C'), (73, 'P')]
+2120 103 [(9, '5'), (21, 'O'), (28, 'C'), (44, '5'), (50, '9'), (62, 'V'), (68, 'D'), (71, 'B'), (85, 'M'), (98, '3')]
+
+$ python -c "
+import re
+lines=open('tmp/murcia_layout.txt',encoding='utf-8').read().split('\n')
+start=2041; end=3870
+from collections import Counter
+first=Counter(); zona=Counter(); phone=Counter(); name=Counter()
+for l in lines[start:end]:
+    m=re.search(r'(?<!\d)(\d{9})(?!\d)', l)
+    if not m: continue
+    first[l.index(l.lstrip())]+=1
+    phone[m.start()]+=1
+    # token after 3+ spaces following holder region
+print('first', first.most_common(6))
+print('phone', phone.most_common(8))
+"
+first [(9, 581)]
+phone [(50, 377), (51, 134), (49, 42), (52, 28)]
+
+$ python -c "
+import re
+from collections import Counter
+lines=open('tmp/murcia_layout.txt',encoding='utf-8').read().split('\n')
+start=2041; end=3870
+cols=[Counter() for _ in range(8)]
+for l in lines[start:end]:
+    if not re.search(r'(?<!\d)\d{9}(?!\d)', l): continue
+    if l.index(l.lstrip())!=9: continue
+    pieces=[(m.start(),m.group()) for m in re.finditer(r'\S+(?:\s\S+)*?(?=\s{2,}|\$)', l)]
+    # simpler: split runs separated by 2+ spaces
+    toks=[m.group().strip() for m in re.finditer(r'\S(?:.*?\S)?(?=\s{2,}|\$)', l)]
+    starts=[m.start() for m in re.finditer(r'\S(?:.*?\S)?(?=\s{2,}|\$)', l)]
+    for i,s in enumerate(starts[:8]):
+        cols[i][s]+=1
+for i,c in enumerate(cols):
+    print(i, c.most_common(4))
+"
+0 [(9, 581)]
+1 [(21, 397), (44, 101), (45, 56), (43, 27)]
+2 [(44, 249), (50, 125), (45, 78), (51, 50)]
+3 [(50, 249), (62, 100), (51, 78), (63, 75)]
+4 [(62, 173), (63, 154), (85, 97), (86, 52)]
+5 [(85, 171), (86, 152), (87, 51), (83, 23)]
+6 []
+7 []
+
+ΓåÆ Read tmp/murcia_layout.txt [limit=45, offset=4270]
+
+$ python -c "
+import re
+lines=open('tmp/murcia_layout.txt',encoding='utf-8').read().split('\n')
+# Anexo I region roughly lines 61..2039
+region=lines[60:2039]
+heads=[]
+for i,l in enumerate(region):
+    m=re.match(r'\s*AGRUPACION FARMACEUTICA (\d+)\s*\$?', l)
+    if m: heads.append((i,int(m.group(1))))
+heads.append((len(region),0))
+for (i,n),(j,_) in zip(heads,heads[1:]):
+    block='\n'.join(region[i:j])
+    loc = 'localizado fuera del horario m' in block
+    print(n, 'LOCALIZADA' if loc else '-')
+"
+Traceback (most recent call last):
+  File "<string>", line 8, in <module>
+  File "C:\Users\adoni\AppData\Local\Programs\Python\Python312\Lib\re\__init__.py", line 167, in match
+    return _compile(pattern, flags).match(string)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adoni\AppData\Local\Programs\Python\Python312\Lib\re\__init__.py", line 307, in _compile
+    p = _compiler.compile(pattern, flags)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adoni\AppData\Local\Programs\Python\Python312\Lib\re\_compiler.py", line 750, in compile
+    p = _parser.parse(p, flags)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adoni\AppData\Local\Programs\Python\Python312\Lib\re\_parser.py", line 979, in parse
+    p = _parse_sub(source, state, flags & SRE_FLAG_VERBOSE, 0)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adoni\AppData\Local\Programs\Python\Python312\Lib\re\_parser.py", line 460, in _parse_sub
+    itemsappend(_parse(source, state, verbose, nested + 1,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adoni\AppData\Local\Programs\Python\Python312\Lib\re\_parser.py", line 544, in _parse
+    code = _escape(source, this, state)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adoni\AppData\Local\Programs\Python\Python312\Lib\re\_parser.py", line 443, in _escape
+    raise source.error("bad escape %s" % escape, len(escape))
+re.error: bad escape \T at position 35
+
+ΓåÉ Write tmp/analyze.py
+Wrote file successfully.
+
+$ python tmp\analyze.py
+1 -
+2 -
+3 -
+4 -
+5 LOCALIZADA
+6 LOCALIZADA
+
+$ python -c "
+import re
+lines=open('tmp/murcia_layout.txt',encoding='utf-8').read().split('\n')
+for i in range(239,537):
+    if 'localizad' in lines[i]:
+        print(i+1, lines[i])
+"
+(no output)
+
+ΓåÉ Write tmp/analyze.py
+Wrote file successfully.
+
+$ python tmp\analyze.py
+1 -
+2 -
+3 -
+4 -
+5 LOCALIZADA
+6 -
+7 -
+8 -
+9 -
+10 -
+11 -
+12 -
+13 -
+14 -
+15 -
+16 -
+17 -
+18 LOCALIZADA
+20 -
+21 -
+22 -
+23 -
+24 -
+25 LOCALIZADA
+26 LOCALIZADA
+27 -
+28 -
+29 -
+30 LOCALIZADA
+31 -
+32 LOCALIZADA
+33 -
+34 -
+35 -
+36 -
+37 LOCALIZADA
+38 -
+39 -
+40 -
+41 -
+42 LOCALIZADA
+43 -
+44 -
+45 -
+
+$ python -c "
+lines=open('tmp/murcia_layout.txt',encoding='utf-8').read().split('\n')
+h=lines[2040]
+for w in ['ZONA','NOMBRE','F','TLFNO','DIRECCION','POBLACI','C.P.']:
+    print(w, h.find(w))
+print(repr(h))
+"
+ZONA 9
+NOMBRE 21
+F 46
+TLFNO 53
+DIRECCION 62
+POBLACI 85
+C.P. 98
+'         ZONA        NOMBRE                N∩┐╜ F   N∩┐╜ TLFNO    DIRECCION              POBLACI∩┐╜N    C.P.'
+
+ΓåÉ Write tmp/analyze2.py
+Wrote file successfully.
+
+$ python tmp\analyze2.py
+4296 '(Rotaci∩┐╜n por d∩┐╜as, distinguiendo los laborables y los festivos, seg∩┐╜n el'
+4312 'TURNOS DE URGENCIA 24 HORAS'
+4313 'Todos los d∩┐╜as del a∩┐╜o (incluidos domingos y festivos)'
+4317 'REFUERZOS DE 9-22 HORAS'
+4318 'Todos los d∩┐╜as de lunes a s∩┐╜bado (excluidos festivos):'
+4369 '(Rotaci∩┐╜n por semanas, de manera sucesiva en el orden expuesto, en'
+4417 '(Rotaci∩┐╜n por semanas, de manera sucesiva en el orden expuesto hasta'
+4455 '(Rotaci∩┐╜n por d∩┐╜as, de manera sucesiva seg∩┐╜n el orden expuesto, en'
+4459 'Albudeite y Pliego:'
+4461 'Turno de urgencia permanente, localizada fuera del horario m∩┐╜nimo.'
+4475 'TURNOS DE URGENCIA 24 HORAS'
+4476 'Todos los d∩┐╜as del a∩┐╜o (incluidos domingos y festivos)'
+4487 'REFUERZOS DE 9-22 HORAS'
+4488 'Todos los d∩┐╜as del a∩┐╜o (incluidos domingos y festivos):'
+4500 'Todos los d∩┐╜as de lunes a s∩┐╜bado (excluidos festivos):'
+4528 'OTROS REFUERZOS:'
+4997 'Rotaci∩┐╜n por d∩┐╜as entre todas las farmacias existentes en la agrupaci∩┐╜n'
+5016 'Todos los d∩┐╜as del a∩┐╜o (incluidos domingos y festivos):'
+5029 'Todos los d∩┐╜as del a∩┐╜o (incluidos domingos y festivos):'
+5033 'Todos los d∩┐╜as de lunes a s∩┐╜bado (excluidos festivos):'
+5118 '(Rotaci∩┐╜n por d∩┐╜as, realizando el turno del domingo la farmacia a la que'
+5556 'Rotaci∩┐╜n sucesiva seg∩┐╜n el orden expuesto, rotaci∩┐╜n en los d∩┐╜as festivos y'
+5570 'Todos los d∩┐╜as del a∩┐╜o, incluidos domingos y festivos:'
+5728 'Rotaci∩┐╜n por semanas por el orden expuesto, en sistema localizado fuera'
+5740 'Todos los d∩┐╜as del a∩┐╜o, incluidos domingos y festivos:'
+6183 '(Rotaci∩┐╜n'
+6194 '(Rotaci∩┐╜n por d∩┐╜as, distinguiendo un turno para laborables y otro para'
+6204 'Rotaci∩┐╜n por semanas completas entre las dos farmacias de El Algar, con'
+6271 'Rotaci∩┐╜n por semanas completas entre las dos farmacias sitas en El Algar'
+6779 'Rotaci∩┐╜n por d∩┐╜as, hasta 31/12/2026. Turno doble del 29/06/2026 al'
+7215 'Rotaci∩┐╜n por d∩┐╜as, seg∩┐╜n el orden expuesto, con salto de una farmacia'
+7223 'Mazarr∩┐╜n (casco)'
+7265 'Rotaci∩┐╜n por semanas, seg∩┐╜n el orden expuesto, en sistema localizado'
+7268 'Puerto de Mazarr∩┐╜n (refuerzo diurno de 9 a 22 horas, excepto cuando'
+7312 'Rotaci∩┐╜n por d∩┐╜as, de modo sucesivo seg∩┐╜n el orden expuesto, hasta'
+7317 'Turno de urgencia diurna localizada, todos los domingos y festivos del'
+7323 'Turno de urgencia diurna localizada todos los s∩┐╜bados y festivos (no'
+7331 'Turno de urgencia diurna localizada los siguientes d∩┐╜as: 3-1, 17-1, 31-1,'
+7339 'Turno de urgencia diurna localizada: 15-7 (MU-584-F, Isabel Tovar'
+7346 'Casco urbano:'
+7389 'Rotaci∩┐╜n por d∩┐╜as por el orden expuesto, realizando el turno del domingo'
+7402 'Turno de refuerzo fines de semana, algunos laborables y festivos, de'
+7838 'Rotaci∩┐╜n por semanas, de modo sucesivo seg∩┐╜n el orden expuesto, en'
+7883 'Rotaci∩┐╜n por d∩┐╜as, de modo sucesivo seg∩┐╜n el orden expuesto hasta'
+7891 'Casco urbano:'
+7932 'Rotaci∩┐╜n por d∩┐╜as, de modo sucesivo seg∩┐╜n orden expuesto, hasta'
+7948 'Todos los d∩┐╜as del a∩┐╜o, incluidos domingos y festivos:'
+8040 'Rotaci∩┐╜n por semanas, de modo sucesivo seg∩┐╜n el orden expuesto, en'
+8085 'Rotaci∩┐╜n por d∩┐╜as, de modo sucesivo seg∩┐╜n el orden expuesto hasta'
+8090 'Turno de urgencia permanente localizado fuera del horario m∩┐╜nimo.'
+8135 'Rotaci∩┐╜n por d∩┐╜as, de modo sucesivo seg∩┐╜n el orden expuesto, librando'
+8181 'Rotaci∩┐╜n por d∩┐╜as de lunes a jueves, correspondiendo el turno de viernes'
+8220 'Rotaci∩┐╜n por semanas, por orden sucesivo expuesto con salto el ∩┐╜ltimo'
+8267 'Rotaci∩┐╜n por d∩┐╜as, de modo sucesivo seg∩┐╜n el orden expuesto hasta'
+8313 'Rotaci∩┐╜n por semanas seg∩┐╜n el orden expuesto, en sistema localizado'
+8359 'Rotaci∩┐╜n por d∩┐╜as, en sistema localizado fuera del horario m∩┐╜nimo, seg∩┐╜n'
+8405 'Rotaci∩┐╜n por semanas de modo sucesivo seg∩┐╜n el orden expuesto, hasta'
+8451 'Rotaci∩┐╜n por d∩┐╜as de modo sucesivo seg∩┐╜n el orden expuesto, en sistema'
+8531 'Rotaci∩┐╜n por d∩┐╜as, de modo sucesivo seg∩┐╜n el orden expuesto hasta'
+8577 'Rotaci∩┐╜n por semanas de modo sucesivo seg∩┐╜n el orden expuesto hasta'
+8622 'Rotaci∩┐╜n por semanas de modo sucesivo seg∩┐╜n el orden expuesto.'
+8669 'Rotaci∩┐╜n por semanas de modo sucesivo seg∩┐╜n el orden expuesto, en'
+8717 'Rotaci∩┐╜n por d∩┐╜as, de modo sucesivo seg∩┐╜n el orden expuesto hasta'
+8762 'Rotaci∩┐╜n por semanas de modo sucesivo seg∩┐╜n el orden expuesto hasta'
+8800 'Rotaci∩┐╜n por d∩┐╜as de modo sucesivo seg∩┐╜n el orden expuesto, con fin de'
+8851 'Rotaci∩┐╜n por semanas seg∩┐╜n el orden expuesto de modo sucesivo, en'
+8896 'Rotaci∩┐╜n por semanas seg∩┐╜n el orden expuesto de modo sucesivo, en'
+8900 'REFUERZOS HASTA LAS 22 HORAS:'
+8952 'Rotaci∩┐╜n por semanas de modo sucesivo seg∩┐╜n el orden expuesto hasta'
+8997 'Rotaci∩┐╜n por d∩┐╜as, de modo sucesivo seg∩┐╜n el orden expuesto hasta'
+9042 'Rotaci∩┐╜n por semanas, con r∩┐╜gimen especial para festivos, seg∩┐╜n el'
+
+ΓåÆ Read tmp/murcia_layout.txt [limit=25, offset=5560]
+ΓåÆ Read tmp/murcia_layout.txt [limit=45, offset=5005]
+ΓåÆ Read tmp/murcia_layout.txt [limit=40, offset=8888]
+ΓåÆ Read tmp/murcia_layout.txt [limit=25, offset=5731]
+ΓåÆ Read tmp/murcia_layout.txt [limit=30, offset=7940]
+ΓåÆ Read ingesta/__init__.py
+ΓåÆ Read docs/TAREA_01_baleares.md
+ΓåÆ Read ingesta/parsers/__init__.py
+
+# Todos
+[ΓÇó] Add times_exact field to DutyShift (model.py) and export.py
+[ ] Create ingesta/common.py with shared utils (TZ, pdf_to_text, normalize)
+[ ] Refactor baleares.py to reuse common.py
+[ ] Implement ingesta/parsers/murcia.py parse()
+[ ] Write tests/test_murcia.py
+[ ] Write scripts/run_murcia.py
+[ ] Run unittest discover and run_murcia, fix until acceptance passes
+
+Now I have a good understanding. Let me create the todo list and start implementing.
+ΓåÉ Edit ingesta/model.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\model.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\model.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\model.py
+@@ -27,8 +27,9 @@
+     start: datetime
+     end: datetime
+     kind: str
+     raw_label: str
++    times_exact: bool = True
+ 
+ 
+ @dataclass(frozen=True)
+ class SourceInfo:
+
+
+ΓåÉ Edit ingesta/export.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\export.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\export.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\export.py
+@@ -40,8 +40,9 @@
+         "start": shift.start.isoformat(),
+         "end": shift.end.isoformat(),
+         "kind": shift.kind,
+         "raw_label": shift.raw_label,
++        "times_exact": shift.times_exact,
+     }
+ 
+ 
+ def to_json(result: ParseResult) -> dict:
+
+
+ΓåÉ Write ingesta/common.py
+Wrote file successfully.
+
+Now refactor baleares.py to reuse common.py:
+ΓåÉ Edit ingesta/parsers/baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+@@ -11,17 +11,14 @@
+ 
+ import hashlib
+ import os
+ import re
+-import subprocess
+-import unicodedata
+ import xml.etree.ElementTree as ET
+ from datetime import date, datetime, time, timedelta
+-from zoneinfo import ZoneInfo
+ 
++from ingesta.common import TZ, normalize, pdf_to_text
+ from ingesta.model import DutyShift, ParseResult, Pharmacy, SourceInfo
+ 
+-TZ = ZoneInfo("Europe/Madrid")
+ REGION = "04"
+ SOURCE_ID = "IB-CAIB-2026"
+ PUBLISHER = "Govern de les Illes Balears ΓÇö Servei d'Ordenaci├│ Farmac├¿utica"
+ URL = "https://www.caib.es/sites/ordenaciofarmaceutica/es/guardias_ano_2026/"
+
+
+ΓåÉ Edit ingesta/parsers/baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+@@ -59,15 +59,8 @@
+     "diciembre": 12,
+ }
+ 
+ 
+-def normalize(text: str) -> str:
+-    """May├║sculas, sin acentos y con espacios colapsados."""
+-    decomposed = unicodedata.normalize("NFKD", text)
+-    without_accents = "".join(c for c in decomposed if not unicodedata.combining(c))
+-    return re.sub(r"\s+", " ", without_accents).strip().upper()
+-
+-
+ def pharmacy_id(holder: str, address: str, phone: str | None) -> str:
+     """Identificador estable y reproducible de farmacia."""
+     key = "|".join([normalize(holder), normalize(address), phone or ""])
+     digest = hashlib.sha1(key.encode("utf-8")).hexdigest()[:12]
+
+
+ΓåÉ Edit ingesta/parsers/baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+@@ -253,21 +253,8 @@
+             merged.append(raw)
+     return merged
+ 
+ 
+-def _pdf_to_text(path: str) -> str | None:
+-    """Extrae texto con pdftotext -layout. None si no hay texto (escaneado)."""
+-    proc = subprocess.run(
+-        ["pdftotext", "-layout", path, "-"],
+-        capture_output=True,
+-        check=False,
+-    )
+-    text = proc.stdout.decode("utf-8", errors="replace")
+-    if not text.strip():
+-        return None
+-    return text
+-
+-
+ def _pdf_bbox_pages(
+     path: str,
+ ) -> list[list[list[tuple[float, float, str]]]] | None:
+     """Palabras con coordenadas por p├ígina (pdftotext -bbox-layout).
+
+
+$ Select-String -Path ingesta\parsers\baleares.py -Pattern "_pdf_to_text|subprocess|xml.etree|_XHTML_NS" -Encoding UTF8 | ForEach-Object { "$($_.LineNumber): $($_.Line)" }
+15: import xml.etree.ElementTree as ET
+34: _XHTML_NS = "{http://www.w3.org/1999/xhtml}"
+265:     el XHTML se lee con xml.etree de la stdlib.
+267:     proc = subprocess.run(
+281:     for page in root.iter(_XHTML_NS + "page"):
+283:         for word in page.iter(_XHTML_NS + "word"):
+366:     text = _pdf_to_text(path)
+
+ΓåÉ Edit ingesta/parsers/baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+@@ -11,8 +11,9 @@
+ 
+ import hashlib
+ import os
+ import re
++import subprocess
+ import xml.etree.ElementTree as ET
+ from datetime import date, datetime, time, timedelta
+ 
+ from ingesta.common import TZ, normalize, pdf_to_text
+
+
+ΓåÉ Edit ingesta/parsers/baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+@@ -363,9 +363,9 @@
+ 
+ 
+ def _parse_file(path: str, source: SourceInfo) -> ParseResult:
+     filename = os.path.basename(path)
+-    text = _pdf_to_text(path)
++    text = pdf_to_text(path)
+     if text is None:
+         return ParseResult(source, {}, [], [f"{filename}: SIN_TEXTO"])
+ 
+     pharmacies: dict[str, Pharmacy] = {}
+
+
+ΓåÉ Write tmp/analyze3.py
+Wrote file successfully.
+
+$ python tmp\analyze3.py
+WRAP? 3918 'NPE: A-311225-6468'
+WRAP? 3973 'NPE: A-311225-6468'
+WRAP? 4028 'NPE: A-311225-6468'
+WRAP? 4083 'NPE: A-311225-6468'
+WRAP? 4138 'NPE: A-311225-6468'
+WRAP? 4193 'NPE: A-311225-6468'
+WRAP? 4248 'NPE: A-311225-6468'
+WRAP? 4356 'NPE: A-311225-6468'
+WRAP? 4411 'NPE: A-311225-6468'
+WRAP? 4581 'NPE: A-311225-6468'
+WRAP? 4636 'NPE: A-311225-6468'
+WRAP? 4691 'NPE: A-311225-6468'
+WRAP? 4746 'NPE: A-311225-6468'
+WRAP? 4801 'NPE: A-311225-6468'
+WRAP? 4856 'NPE: A-311225-6468'
+WRAP? 4911 'NPE: A-311225-6468'
+WRAP? 4966 'NPE: A-311225-6468'
+WRAP? 5133 'NPE: A-311225-6468'
+WRAP? 5188 'NPE: A-311225-6468'
+WRAP? 5243 'NPE: A-311225-6468'
+WRAP? 5298 'NPE: A-311225-6468'
+WRAP? 5353 'NPE: A-311225-6468'
+WRAP? 5408 'NPE: A-311225-6468'
+WRAP? 5463 'NPE: A-311225-6468'
+WRAP? 5518 'NPE: A-311225-6468'
+WRAP? 5798 'NPE: A-311225-6468'
+WRAP? 5853 'NPE: A-311225-6468'
+WRAP? 5908 'NPE: A-311225-6468'
+WRAP? 5963 'NPE: A-311225-6468'
+WRAP? 6018 'NPE: A-311225-6468'
+WRAP? 6073 'NPE: A-311225-6468'
+WRAP? 6128 'NPE: A-311225-6468'
+WRAP? 6242 'NPE: A-311225-6468'
+WRAP? 6297 'NPE: A-311225-6468'
+WRAP? 6352 'NPE: A-311225-6468'
+WRAP? 6407 'NPE: A-311225-6468'
+WRAP? 6462 'NPE: A-311225-6468'
+WRAP? 6517 'NPE: A-311225-6468'
+WRAP? 6572 'NPE: A-311225-6468'
+WRAP? 6627 'NPE: A-311225-6468'
+WRAP? 6682 'NPE: A-311225-6468'
+WRAP? 6737 'NPE: A-311225-6468'
+WRAP? 6792 'NPE: A-311225-6468'
+WRAP? 6843 'NPE: A-311225-6468'
+WRAP? 6894 'NPE: A-311225-6468'
+WRAP? 6945 'NPE: A-311225-6468'
+WRAP? 6996 'NPE: A-311225-6468'
+WRAP? 7047 'NPE: A-311225-6468'
+WRAP? 7098 'NPE: A-311225-6468'
+WRAP? 7149 'NPE: A-311225-6468'
+WRAP? 7200 'NPE: A-311225-6468'
+WRAP? 7253 'NPE: A-311225-6468'
+WRAP? 7306 'NPE: A-311225-6468'
+WRAP? 7362 'NPE: A-311225-6468'
+WRAP? 7416 'NPE: A-311225-6468'
+WRAP? 7471 'NPE: A-311225-6468'
+WRAP? 7526 'NPE: A-311225-6468'
+WRAP? 7581 'NPE: A-311225-6468'
+WRAP? 7636 'NPE: A-311225-6468'
+WRAP? 7691 'NPE: A-311225-6468'
+WRAP? 7746 'NPE: A-311225-6468'
+WRAP? 7801 'NPE: A-311225-6468'
+WRAP? 7855 'NPE: A-311225-6468'
+WRAP? 7907 'NPE: A-311225-6468'
+WRAP? 8017 'NPE: A-311225-6468'
+WRAP? 8069 'NPE: A-311225-6468'
+WRAP? 8122 'NPE: A-311225-6468'
+WRAP? 8175 'NPE: A-311225-6468'
+WRAP? 8279 'NPE: A-311225-6468'
+WRAP? 8331 'NPE: A-311225-6468'
+WRAP? 8383 'NPE: A-311225-6468'
+WRAP? 8435 'NPE: A-311225-6468'
+WRAP? 8487 'NPE: A-311225-6468'
+WRAP? 8497 'Cambios de verano, por vacaciones:'
+WRAP? 8542 'NPE: A-311225-6468'
+WRAP? 8596 'NPE: A-311225-6468'
+WRAP? 8650 'NPE: A-311225-6468'
+WRAP? 8685 'Fern∩┐╜ndez Franco Fern∩┐╜ndez Franco- Fern∩┐╜ndez'
+WRAP? 8697 'Fern∩┐╜ndez Franco Fern∩┐╜ndez Franco- Fern∩┐╜ndez'
+WRAP? 8704 'NPE: A-311225-6468'
+WRAP? 8756 'NPE: A-311225-6468'
+WRAP? 8864 'NPE: A-311225-6468'
+WRAP? 8920 'NPE: A-311225-6468'
+WRAP? 8975 'NPE: A-311225-6468'
+WRAP? 9030 'NPE: A-311225-6468'
+
+ΓåÆ Read tmp/murcia_layout.txt [limit=45, offset=8672]
+ΓåÆ Read tmp/murcia_layout.txt [limit=30, offset=8483]
+Now let me write the Murcia parser:
+
+ΓåÉ Write ingesta/parsers/murcia.py
+Wrote file successfully.
+
+ΓåÉ Edit ingesta/parsers/murcia.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+@@ -30,13 +30,11 @@
+ URL = "https://www.borm.es/services/anuncio/ano/2025/numero/6468/pdf?id=840645"
+ LICENSE = "Acto administrativo publicado en diario oficial (art. 13 TRLPI)"
+ 
+ YEAR = 2026
+-_ALL_DAYS = (
+-    date(YEAR, 1, 1),
+-    [date(YEAR, 1, 1) + timedelta(days=i) for i in range(365)],
+-)
+-_YEAR_DAYS = _ALL_DAYS[1]
++_YEAR_DAYS = [
++    date(YEAR, 1, 1) + timedelta(days=i) for i in range(365)
++]
+ 
+ _PAGE_HEADER_RE = re.compile(r"N[u├║]mero\s+301\b.*?P[a├í]gina\s+(\d+)")
+ _FOOTER_RE = re.compile(r"^\s*(NPE:|D\.L\.)")
+ _AGRUPACION_I_RE = re.compile(
+
+
+ΓåÉ Write tmp/run_parse.py
+Wrote file successfully.
+
+$ python tmp\run_parse.py
+elapsed 0.9
+pharmacies 557
+shifts 16699
+warnings 603
+MU:45 Pharmacy(id='MU:45', region='14', holder='RUBIO FERNANDEZ, MARIA', address='CL. MAYOR, 87', locality='ALCANTARIL LA', postal_code='30820', phone='968802950', duty_phone=None)
+MU:534 Pharmacy(id='MU:534', region='14', holder='CABALLERO CASTILLO, FERNANDO JOSE Y CABALLERO CASTILLO ALBERTO', address='CALLE MEDICO PEDRO NOGUEROLES, ESQUINA CALLE ANDORRA', locality='ALCANTARIL LA', postal_code='30820', phone='968808997', duty_phone=None)
+2026-01-01 ['MU:431'] expect MU:431
+2026-01-03 ['MU:46'] expect MU:46
+agr6 MU:12 365
+agr6 MU:94 365
+agr6 MU:178 365
+agr6 MU:180 365
+agr6 MU:257 365
+agr6 MU:312 365
+agr6 MU:376 365
+agr6 MU:393 365
+agr2 MU:56 24h 365
+agr2 refuerzos 365
+shift sin farmacia 0
+[('ANEXO_III_FARMACIA_DESCONOCIDA', 486), ('ROTACION_NO_SOPORTADA', 34), ('TELEFONO_INVALIDO', 28), ('FARMACIA_DUPLICADA', 24), ('ANEXO_III_NO_SOPORTADO', 23), ('REFUERZO_REGLA_NO_SOPORTADA', 7), ('REGLA_24H_NO_SOPORTADA', 1)]
+W BORM_2025_6468.pdf p36791: TELEFONO_INVALIDO MU:1: 9682129476
+W BORM_2025_6468.pdf p36795: TELEFONO_INVALIDO MU:16: 3968301880
+W BORM_2025_6468.pdf p36795: FARMACIA_DUPLICADA MU:16
+W BORM_2025_6468.pdf p36795: TELEFONO_INVALIDO MU:29: 0968865927
+W BORM_2025_6468.pdf p36795: FARMACIA_DUPLICADA MU:29
+W BORM_2025_6468.pdf p36795: TELEFONO_INVALIDO MU:39: 7968302171
+W BORM_2025_6468.pdf p36795: FARMACIA_DUPLICADA MU:39
+W BORM_2025_6468.pdf p36795: TELEFONO_INVALIDO MU:24: 6968831094
+W BORM_2025_6468.pdf p36795: TELEFONO_INVALIDO MU:21: 1968850015
+W BORM_2025_6468.pdf p36795: FARMACIA_DUPLICADA MU:21
+W BORM_2025_6468.pdf p36795: TELEFONO_INVALIDO MU:28: 2968203203
+W BORM_2025_6468.pdf p36795: FARMACIA_DUPLICADA MU:28
+W BORM_2025_6468.pdf p36795: TELEFONO_INVALIDO MU:55: 2968900166
+W BORM_2025_6468.pdf p36795: TELEFONO_INVALIDO MU:59: 2868789998
+W BORM_2025_6468.pdf p36795: TELEFONO_INVALIDO MU:15: 3968865266
+
+ΓåÉ Write tmp/analyze4.py
+Wrote file successfully.
+
+$ python tmp\analyze4.py 2>&1 | Select-Object -First 90
+'         ZONA        NOMBRE                N∩┐╜ F   N∩┐╜ TLFNO    DIRECCION              POBLACI∩┐╜N    C.P.'
+bounds [9, 20, 43, 48, 61, 84, 97, 1000000000]
+rows 581
+single poblacion max len 12 [(5, 55), (6, 83), (7, 41), (8, 26), (9, 89), (10, 15), (11, 29), (12, 26)]
+multi count 209
+ALCANTARILLA | ['ALCANTARIL', 'LA']
+ALCANTARILLA | ['ALCANTARIL', 'LA']
+SANGONERALA SECA | ['SANGONERA', 'LA SECA']
+ALCANTARILLA | ['ALCANTARIL', 'LA']
+ALCANTARILLA | ['ALCANTARIL', 'LA']
+ALCANTARILLA | ['ALCANTARIL', 'LA']
+ALCANTARILLA | ['ALCANTARIL', 'LA']
+ALCANTARILLA | ['ALCANTARIL', 'LA']
+ALCANTARILLA | ['ALCANTARIL', 'LA']
+ALCANTARILLA | ['ALCANTARIL', 'LA']
+ALCANTARILLA | ['ALCANTARIL', 'LA']
+ALCANTARILLA | ['ALCANTARIL', 'LA']
+ALCANTARILLA | ['ALCANTARIL', 'LA']
+ALCANTARILLA | ['ALCANTARIL', 'LA']
+ALHAMA DEMURCIA | ['ALHAMA DE', 'MURCIA']
+ALHAMA DEMURCIA | ['ALHAMA DE', 'MURCIA']
+ALHAMA DEMURCIA | ['ALHAMA DE', 'MURCIA']
+ALHAMA DEMURCIA | ['ALHAMA DE', 'MURCIA']
+ALHAMA DEMURCIA | ['ALHAMA DE', 'MURCIA']
+ALHAMA DEMURCIA | ['ALHAMA DE', 'MURCIA']
+ALHAMA DEMURCIA | ['ALHAMA DE', 'MURCIA']
+BENIEL025 | ['BENIEL', '025']
+FUENTELIBRILLA | ['FUENTE', 'LIBRILLA']
+CAMPOS DELRIO | ['CAMPOS DEL', 'RIO']
+SANTIAGO YZARAICHE | ['SANTIAGO Y', 'ZARAICHE']
+MURCIA2025        P | ['MURCIA', '2025        P']
+MURCIA   3002025 | ['MURCIA   300', '2025']
+MURCIA   30025 | ['MURCIA   30', '025']
+LOSDOLORES(MURCIA) | ['LOS', 'DOLORES', '(MURCIA)']
+LOSDOLORES(MURCIA) | ['LOS', 'DOLORES', '(MURCIA)']
+MURCIA025 | ['MURCIA', '025']
+TORREAGUERA | ['TORREAGUE', 'RA']
+TORREAGUERA | ['TORREAGUE', 'RA']
+SAN JOSE DELA VEGA | ['SAN JOSE DE', 'LA VEGA']
+ALQUERIAS025 | ['ALQUERIAS', '025']
+JAVALINUEVO | ['JAVALI', 'NUEVO']
+RINCON DESECA | ['RINCON DE', 'SECA']
+JAVALINUEVO | ['JAVALI', 'NUEVO']
+PUEBLA DESOTO | ['PUEBLA DE', 'SOTO']
+EL PUNTAL(ESPINARDO) | ['EL PUNTAL', '(ESPINARDO)']
+NONDUERMAS | ['NONDUERMA', 'S']
+JAVALINUEVO | ['JAVALI', 'NUEVO']
+RINCON DEBENISCORNIA | ['RINCON DE', 'BENISCORNI', 'A']
+LA RAYA(MURCIA) | ['LA RAYA', '(MURCIA)']
+SANGONERALA VERDE | ['SANGONERA', 'LA VERDE']
+GARRES,LOS2025 | ['GARRES,LOS', '2025']
+SANGONERALA VERDE | ['SANGONERA', 'LA VERDE']
+SANTOANGEL | ['SANTO', 'ANGEL']
+SANGONERALA VERDE | ['SANGONERA', 'LA VERDE']
+MONTEAGUDO | ['MONTEAGUD', 'O']
+MONTEAGUDO | ['MONTEAGUD', 'O']
+CABEZO DETORRES | ['CABEZO DE', 'TORRES']
+LLANO DEBRUJAS | ['LLANO DE', 'BRUJAS']
+CABEZO DETORRES | ['CABEZO DE', 'TORRES']
+SANTA CRUZ2025 | ['SANTA CRUZ', '2025']
+CABEZO DETORRES | ['CABEZO DE', 'TORRES']
+ELESPARRAGAL | ['EL', 'ESPARRAGA', 'L']
+PUENTETOCINOS | ['PUENTE', 'TOCINOS']
+PUENTETOCINOS | ['PUENTE', 'TOCINOS']
+MARTINEZDELPUERTO,LOS | ['MARTINEZ', 'DEL', 'PUERTO,', 'LOS']
+
+$ python -c "
+lines=open('tmp/murcia_layout.txt',encoding='utf-8').read().split('\n')
+import re
+for i in range(2040,3868):
+    l=lines[i]
+    if re.search(r'\bSANTO\b|\bANGEL\b|\bTORREAGUE|\bJAVALI|\bMONTEAGUD|\bPUENTE\b|\bTOCINOS\b', l):
+        print(i+1, repr(l))
+" 2>&1 | Select-Object -First 40
+2097 '                     GREGORIO ANGEL                           FUERTES, N∩┐╜ 48         MURCIA'
+2149 '                     ANGELES                                  MIGUEL ANGEL'
+2231 '         6           ORTS LLOPIS, LUIS       210   968258523   CALLE ANGEL           MURCIA   30003'
+2300 '         6           MARTINEZ                6     968211828   CL.SARGENTO ANGEL      MURCIA   30009'
+2301 '                     LOPEZ,MIGUEL ANGEL                        TORNEL, N∩┐╜ 2, BARRIO'
+2335 '         6           BELMONTE GUILLEN,       160   968219401   PLAZA SANTO            MURCIA   30008'
+2486 '         8           PE∩┐╜ALVER CASTELLON,    43    968820080   CALLE MANUEL          TORREAGUE     30579'
+2490 '         8           SALINAS HERNANDEZ,     253   868078159   CTRA.DE               TORREAGUE     30579'
+2531 '         9           AHMAD AL-RAUI, JAMIL   156   968801439   REAL,36                JAVALI         30832'
+2533 '         9           SOLANA MORENO,         265   968801756   SANTA ELENA,2          JAVALI VIEJO   30831'
+2544 '         9           ARANGO GUZMAN,         343   968801475   CONSTITUCION, 7        JAVALI         30832'
+2577 '         9           BEJAR CASTRO, MARIA    520   968892112   CARRETERA DE           JAVALI         30832'
+2624 '         10          CARCELES ALVAREZ,       297   968840602   AVENIDA JUAN           SANTO        30151'
+2625 '                     JOAQUIN                                   CARLOS I, S/N          ANGEL'
+2633 '                     ANGEL'
+2657 '         11          MARTINEZ PEDRE∩┐╜O,       292   968301081   MAYOR,125-PUENTE       MURCIA       30006'
+2658 '                     REMEDIOS Y                                TOCINOS'
+2660 '         11          GONZALEZ CUELLO,        129   968850488   CARRETERA DE           MONTEAGUD    30160'
+2662 '         11          PARDO LEON, CARMEN      350   968850499   CALLE                  MONTEAGUD    30160'
+2687 '         11          CARAZO FERNANDEZ,        163   968301880   MAYOR,104 - PUENTE     MURCIA       30006'
+2688 '                     ANTONIO Y CARAZO                           TOCINOS'
+2701 '         11          GARCIA MARIN, JOSEFA     282   968203203   CALLE MAYOR, N∩┐╜ 43     PUENTE       30006'
+2702 '                                                                                       TOCINOS'
+2705 '         11          AGUILERA MUSSO,          592   868789998   CALLE CARRIL DE LA     PUENTE       30006'
+2706 '                     BELEN                                      TORRE, N∩┐╜ 14           TOCINOS'
+2744 '         14          CELDRAN                  326   968089012   ANGEL BRUNA,5          CARTAGENA    30203'
+2779 '                     ANGEL                                     C/ULLOA'
+2873 '                                                               ANGEL BRUNA, N∩┐╜ 11,'
+2989 '                     ANGEL                                    CL.CALDERON DE LA'
+2996 '                     MIGUEL ANGEL                             ESPA∩┐╜OLA,63'
+3129 '         19          CASTRILLO PUENTE,     577   968145403   CALLE ALBAHACA, 6,      CABO DE       30370'
+3172 '                     MONTEAGUDO,                              GENERAL CASS0LA'
+3366 '                                                               ESQUINA SANTO'
+3393 '                     CANALES,ROSA MARIA                        HUERTAS, PUENTE'
+3830 '                     ANGEL FRANCISCO                          N∩┐╜ 2'
+
+ΓåÉ Write tmp/analyze5.py
+Wrote file successfully.
+
+$ python tmp\analyze5.py 2>&1 | Select-Object -First 120
+page 1 maxfrag 10
+    ['ALCANTARIL', 'LA'] [10, 2]
+    ['ALCANTARIL', 'LA'] [10, 2]
+    ['SANGONERA', 'LA SECA'] [9, 7]
+    ['ALCANTARIL', 'LA'] [10, 2]
+    ['ALCANTARIL', 'LA'] [10, 2]
+    ['ALCANTARIL', 'LA'] [10, 2]
+    ['ALCANTARIL', 'LA'] [10, 2]
+    ['ALCANTARIL', 'LA'] [10, 2]
+    ['ALCANTARIL', 'LA'] [10, 2]
+    ['ALCANTARIL', 'LA'] [10, 2]
+    ['ALCANTARIL', 'LA'] [10, 2]
+    ['ALCANTARIL', 'LA'] [10, 2]
+    ['ALCANTARIL', 'LA'] [10, 2]
+    ['ALCANTARIL', 'LA'] [10, 2]
+    ['ALHAMA DE', 'MURCIA'] [9, 6]
+    ['ALHAMA DE', 'MURCIA'] [9, 6]
+    ['ALHAMA DE', 'MURCIA'] [9, 6]
+    ['ALHAMA DE', 'MURCIA'] [9, 6]
+    ['ALHAMA DE', 'MURCIA'] [9, 6]
+    ['ALHAMA DE', 'MURCIA'] [9, 6]
+    ['ALHAMA DE', 'MURCIA'] [9, 6]
+page 36788 maxfrag 10
+    ['FUENTE', 'LIBRILLA'] [6, 8]
+    ['CAMPOS DEL', 'RIO'] [10, 3]
+    ['SANTIAGO Y', 'ZARAICHE'] [10, 8]
+page 36791 maxfrag 8
+    ['LOS', 'DOLORES', '(MURCIA)'] [3, 7, 8]
+    ['LOS', 'DOLORES', '(MURCIA)'] [3, 7, 8]
+page 36792 maxfrag 11
+    ['TORREAGUE', 'RA'] [9, 2]
+    ['TORREAGUE', 'RA'] [9, 2]
+    ['SAN JOSE DE', 'LA VEGA'] [11, 7]
+page 36793 maxfrag 12
+    ['JAVALI', 'NUEVO'] [6, 5]
+    ['RINCON DE', 'SECA'] [9, 4]
+    ['JAVALI', 'NUEVO'] [6, 5]
+    ['PUEBLA DE', 'SOTO'] [9, 4]
+    ['EL PUNTAL', '(ESPINARDO)'] [9, 11]
+    ['NONDUERMA', 'S'] [9, 1]
+    ['JAVALI', 'NUEVO'] [6, 5]
+    ['RINCON DE', 'BENISCORNI', 'A'] [9, 10, 1]
+    ['LA RAYA', '(MURCIA)'] [7, 8]
+    ['SANGONERA', 'LA VERDE'] [9, 8]
+page 36794 maxfrag 10
+    ['SANGONERA', 'LA VERDE'] [9, 8]
+    ['SANTO', 'ANGEL'] [5, 5]
+    ['SANGONERA', 'LA VERDE'] [9, 8]
+    ['MONTEAGUD', 'O'] [9, 1]
+    ['MONTEAGUD', 'O'] [9, 1]
+    ['CABEZO DE', 'TORRES'] [9, 6]
+    ['LLANO DE', 'BRUJAS'] [8, 6]
+    ['CABEZO DE', 'TORRES'] [9, 6]
+page 36795 maxfrag 10
+    ['CABEZO DE', 'TORRES'] [9, 6]
+    ['EL', 'ESPARRAGA', 'L'] [2, 9, 1]
+    ['PUENTE', 'TOCINOS'] [6, 7]
+    ['PUENTE', 'TOCINOS'] [6, 7]
+    ['MARTINEZ', 'DEL', 'PUERTO,', 'LOS'] [8, 3, 7, 3]
+    ['VISTA', 'ALEGRE', '(CARTAGENA', ')'] [5, 6, 10, 1]
+page 36796 maxfrag 10
+    ['LOS', 'BARREROS', '(CARTAGENA', ')'] [3, 8, 10, 1]
+    ['DOLORES', 'LOS', '(CARTAGENA', ')'] [7, 3, 10, 1]
+    ['MIRANDA(CA', 'RTAGENA)'] [10, 8]
+    ['LA PUEBLA', '(CARTAGENA', ')'] [9, 10, 1]
+    ['BOHIO, EL', '(CARTAGENA', ')'] [9, 10, 1]
+    ['DOLORES', 'LOS', '(CARTAGENA', ')'] [7, 3, 10, 1]
+page 36797 maxfrag 10
+    ['DOLORES', 'LOS', '(CARTAGENA', ')'] [7, 3, 10, 1]
+    ['LO', 'CAMPANO', '(CARTAGENA', ')'] [2, 7, 10, 1]
+    ['LOS MATEOS', '(CARTAGENA', ')'] [10, 10, 1]
+page 36798 maxfrag 12
+    ['DOLORES', 'LOS', '(CARTAGENA', ')'] [7, 3, 10, 1]
+    ['LA', 'APARECIDA', '(CARTAGENA', ')'] [2, 9, 10, 1]
+    ['ALUMBRES', '(CARTAGENA', ')'] [8, 10, 1]
+    ['LOS', 'BARREROS', '(CARTAGENA', ')'] [3, 8, 10, 1]
+    ['LOS', 'DOLORES', '(CARTAGENA', ')'] [3, 7, 10, 1]
+    ['CANTERAS-', 'CARTAGENA'] [9, 9]
+    ['MARFAGONE', 'S-', 'CARTAGENA'] [9, 2, 9]
+    ['CANTERAS-', 'CARTAGENA'] [9, 9]
+    ['EL MIRADOR', '(SAN JAVIER)'] [10, 12]
+    ['SANTIAGO', 'DE LA', 'RIBERA'] [8, 5, 6]
+page 36799 maxfrag 10
+    ['ANTIAGO', 'E LA', 'IBERA'] [7, 4, 5]
+    ['ANTIAGO', 'E LA', 'IBERA'] [7, 4, 5]
+    ['ANTIAGO', 'E LA', 'IBERA'] [7, 4, 5]
+    ['ANTIAGO', 'E LA', 'IBERA'] [7, 4, 5]
+    ['OS', 'AREJOS', 'LOS', 'LCAZARES)'] [2, 6, 3, 9]
+    ['LCAZARES,', 'OS'] [9, 2]
+    ['LCAZARES,', 'OS'] [9, 2]
+    ['LCAZARES,', 'OS'] [9, 2]
+    ['LCAZARES,', 'OS'] [9, 2]
+    ['LCAZARES,', 'OS'] [9, 2]
+    ['OS', 'ELONES(CA', 'TAGENA)'] [2, 9, 7]
+    ['OS NIETOS-', 'ARTAGENA'] [10, 8]
+    ['SLAS', 'ENORES-', 'ARTAGENA'] [4, 7, 8]
+    ['OS', 'RRUTIAS', 'CARTAGENA'] [2, 7, 9]
+    ['OS', 'ELONES', 'CARTAGENA'] [2, 6, 9]
+    ['LANO DEL', 'EAL-', 'ARTAGENA'] [8, 4, 8]
+    ['A MANGA', 'EL MAR', 'ENOR'] [7, 6, 4]
+    ['A MANGA', 'EL MAR', 'ENOR'] [7, 6, 4]
+    ['LAYA', 'ONDA', '(CARTAGENA', ')'] [4, 4, 10, 1]
+page 36800 maxfrag 11
+    ['LA MANGA', 'DEL MAR', 'MENOR'] [8, 7, 5]
+    ['CABO DE', 'PALOS'] [7, 5]
+    ['LA MANGA', 'DEL MAR', 'MENOR'] [8, 7, 5]
+    ['CABO DE', 'PALOS', '(CARTAGENA', ')'] [7, 5, 10, 1]
+    ['LA MANGA', 'DEL MAR', 'MENOR'] [8, 7, 5]
+    ['LA MANGA', 'DEL MAR', 'MENOR'] [8, 7, 5]
+    ['LA MANGA', 'DEL MAR', 'MENOR'] [8, 7, 5]
+    ['LA MANGA', 'DEL MAR', 'MENOR'] [8, 7, 5]
+    ['CABO DE', 'PALOS'] [7, 5]
+    ['LA MANGA', 'DEL MAR', 'MENOR'] [8, 7, 5]
+    ['LA MANGA', 'DEL MAR', 'MENOR'] [8, 7, 5]
+    ['LA MANGA', 'DEL MAR', 'MENOR'] [8, 7, 5]
+    ['LA MANGA', 'DEL MAR', 'MENOR'] [8, 7, 5]
+    ['SAN PEDRO', 'DEL PINATAR'] [9, 11]
+    ['SAN PEDRO', 'DEL PINATAR'] [9, 11]
+    ['SAN PEDRO', 'DEL PINATAR'] [9, 11]
+    ['SAN PEDRO', 'DEL PINATAR'] [9, 11]
+
+ΓåÉ Write tmp/bbox.py
+Wrote file successfully.
+
+$ python tmp\bbox.py
+pages 155
+HEADER on pdf page 37
+ALCANTARILLA on pdf page 37
+MIRANDA on pdf page 44
+MIRANDA on pdf page 46
+
+ΓåÉ Write tmp/bbox2.py
+Wrote file successfully.
+
+$ python -m tmp.bbox2 2>&1 | Select-Object -First 60
+pages 155
+HEADER on pdf page 37
+ALCANTARILLA on pdf page 37
+MIRANDA on pdf page 44
+MIRANDA on pdf page 46
+=== pdf page 37
+4 [(87, 109, 'ZONA')]
+20 [(123, 172, 'CABALLERO'), (174, 216, 'CASTILLO,')]
+22 [(123, 172, 'CABALLERO'), (174, 213, 'CASTILLO')]
+41 [(419, 469, 'ALCANTARIL')]
+43 [(419, 469, 'ALCANTARIL')]
+45 [(419, 471, 'SANGONERA')]
+47 [(419, 469, 'ALCANTARIL')]
+49 [(419, 469, 'ALCANTARIL')]
+78 [(419, 469, 'ALCANTARIL')]
+80 [(419, 469, 'ALCANTARIL')]
+82 [(419, 469, 'ALCANTARIL')]
+175 [(318, 378, 'NOGUEROLES,')]
+177 [(318, 359, 'ANDORRA')]
+202 [(419, 469, 'ALCANTARIL')]
+205 [(419, 469, 'ALCANTARIL')]
+207 [(419, 469, 'ALCANTARIL')]
+209 [(419, 469, 'ALCANTARIL')]
+214 [(419, 469, 'ALCANTARIL')]
+217 [(419, 469, 'ALCANTARIL')]
+220 [(419, 453, 'ALHAMA'), (455, 466, 'DE')]
+222 [(419, 453, 'ALHAMA'), (455, 466, 'DE')]
+230 [(419, 453, 'ALHAMA'), (455, 466, 'DE')]
+232 [(419, 453, 'ALHAMA'), (455, 466, 'DE')]
+272 [(419, 453, 'ALHAMA'), (455, 466, 'DE')]
+274 [(419, 453, 'ALHAMA'), (455, 466, 'DE')]
+276 [(419, 453, 'ALHAMA'), (455, 466, 'DE')]
+=== pdf page 44
+77 [(123, 160, 'MIRANDA'), (163, 198, 'TERRER,')]
+=== pdf page 46
+114 [(419, 471, 'MIRANDA(CA')]
+
+$ pdftotext -f 37 -l 37 -enc UTF-8 "data\raw\murcia\2026\BORM_2025_6468.pdf" - 2>$null | Select-String -Pattern "ALCANTARIL|SANGONERA|ALHAMA|RUBIO|MARIA" -Context 0,1 | Select-Object -First 40
+> RUBIO FERNANDEZ,
+> MARIA
+  DELGADO ALCAZAR,
+> GARCIA,MARIA JOSEFA
+  DE BEJAR RIQUELME,
+> ALCANTARIL
+  LA
+> ALCANTARIL
+  LA
+> SANGONERA
+  LA SECA
+> ALCANTARIL
+  LA
+> ALCANTARIL
+  LA
+> HERVAS LOPEZ, MARIA
+  VICTORIA
+> MARIA DEL CARMEN Y
+  MORENO HERNANDEZ,
+> ALCANTARIL
+  LA
+> ALCANTARIL
+  LA
+> ALCANTARIL
+  LA
+> MARIA JOSEFA
+  
+> PEREZ LOPEZ, MARIA
+  LUISA
+> MARIA SOLEDAD
+  SERRANO
+> MARIA
+  SANCHEZ HERNANDEZ,
+> MARIA ISABEL
+  GOMEZ
+> MARIA
+  LOPEZ MARTINEZMENA,BENJAMIN
+> MARIA
+  MARIN RIVES, FATIMA
+> ALCANTARIL
+  LA
+> ALCANTARIL
+  LA
+> ALCANTARIL
+  LA
+> ALCANTARIL
+  LA
+> ALCANTARIL
+  LA
+> ALCANTARIL
+  LA
+> ALHAMA DE
+  MURCIA
+> ALHAMA DE
+  MURCIA
+> ALHAMA DE
+  MURCIA
+> ALHAMA DE
+  MURCIA
+> ALHAMA DE
+  MURCIA
+> ALHAMA DE
+  MURCIA
+> ALHAMA DE
+  MURCIA
+
+ΓåÉ Write tmp/bbox3.py
+Wrote file successfully.
+
+$ python -m tmp.bbox3 2>&1 | Select-Object -Last 40
+pages 155
+HEADER on pdf page 37
+ALCANTARILLA on pdf page 37
+MIRANDA on pdf page 44
+MIRANDA on pdf page 46
+[(122.84, 148.62, 'RUBIO'), (150.95, 203.0, 'FERNANDEZ,')]
+[(122.85, 171.77, 'CABALLERO'), (174.11, 215.78, 'CASTILLO,')]
+[(122.84, 171.76, 'CABALLERO'), (174.06, 213.46, 'CASTILLO')]
+[(419.16, 469.38, 'ALCANTARIL')]
+[(419.18, 469.42, 'ALCANTARIL')]
+[(419.18, 471.26, 'SANGONERA')]
+[(419.13, 469.34, 'ALCANTARIL')]
+[(419.18, 469.42, 'ALCANTARIL')]
+[(419.18, 469.42, 'ALCANTARIL')]
+[(419.16, 469.38, 'ALCANTARIL')]
+[(419.18, 469.42, 'ALCANTARIL')]
+[(419.18, 469.42, 'ALCANTARIL')]
+[(419.18, 469.42, 'ALCANTARIL')]
+[(419.15, 469.36, 'ALCANTARIL')]
+[(419.18, 469.42, 'ALCANTARIL')]
+[(419.18, 469.42, 'ALCANTARIL')]
+[(419.18, 469.42, 'ALCANTARIL')]
+[(419.18, 452.69, 'ALHAMA'), (454.97, 466.29, 'DE')]
+[(419.21, 452.7, 'ALHAMA'), (454.97, 466.28, 'DE')]
+[(419.18, 452.69, 'ALHAMA'), (454.97, 466.29, 'DE')]
+[(419.18, 452.69, 'ALHAMA'), (454.97, 466.29, 'DE')]
+[(317.98, 343.77, 'CALLE'), (346.03, 378.63, 'FUENTE'), (380.97, 396.8, 'DEL')]
+[(419.18, 452.67, 'ALHAMA'), (454.93, 466.24, 'DE')]
+[(419.18, 452.69, 'ALHAMA'), (454.97, 466.29, 'DE')]
+[(419.18, 452.69, 'ALHAMA'), (454.97, 466.29, 'DE')]
+---- page 38
+[(122.84, 150.89, 'PRIOR,'), (153.15, 179.01, 'MARIA')]
+[(419.18, 454.5, 'CAMPOS'), (456.78, 472.63, 'DEL')]
+[(419.18, 433.69, 'RIO')]
+[(419.18, 461.31, 'SANTIAGO'), (463.6, 469.03, 'Y')]
+[(419.18, 460.34, 'ZARAICHE')]
+
+ΓåÉ Write tmp/bbox4.py
+Wrote file successfully.
+
+$ python -m tmp.bbox4 2>&1 | Select-Object -Last 15
+pages 155
+HEADER on pdf page 37
+ALCANTARILLA on pdf page 37
+MIRANDA on pdf page 44
+MIRANDA on pdf page 46
+[(122.84, 148.62, 'RUBIO'), (150.95, 203.0, 'FERNANDEZ,')]
+
+ΓåÉ Write tmp/bbox5.py
+Wrote file successfully.
+
+$ python -m tmp.bbox5 2>&1 | Select-Object -Last 15
+MIRANDA on pdf page 44
+MIRANDA on pdf page 46
+num rows page37 285
+0 [(176.5, 212.3, 'N∩┐╜mero'), (215.5, 232.7, '301')]
+1 [(272.0, 317.2, 'Mi∩┐╜rcoles,'), (320.4, 331.8, '31'), (335.0, 346.0, 'de'), (349.2, 393.3, 'diciembre'), (396.5, 407.5, 'de'), (410.6, 433.5, '2025')]
+2 [(491.0, 521.0, 'P∩┐╜gina'), (524.2, 552.8, '36787')]
+3 [(266.7, 317.4, 'ANEXO'), (321.4, 329.4, 'II')]
+4 [(86.6, 109.2, 'ZONA')]
+5 [(122.9, 158.6, 'NOMBRE')]
+6 [(231.3, 240.1, 'N∩┐╜'), (242.4, 247.3, 'F')]
+7 [(260.2, 269.0, 'N∩┐╜'), (271.3, 298.1, 'TLFNO')]
+8 [(318.0, 363.7, 'DIRECCION')]
+9 [(419.1, 466.7, 'POBLACI∩┐╜N')]
+10 [(484.2, 496.9, 'C.P.')]
+11 [(86.6, 91.1, '1')]
+
+ΓåÉ Write tmp/bbox6.py
+Wrote file successfully.
+
+$ python -m tmp.bbox6 2>&1 | Select-Object -Last 25
+2 [(86.6, 109.2, 'ZONA'), (122.9, 158.6, 'NOMBRE'), (231.3, 240.1, 'N∩┐╜'), (242.4, 247.3, 'F'), (260.2, 269.0, 'N∩┐╜'), (271.3, 298.1, 'TLFNO'), (318.0, 363.7, 'DIRECCION'), (419.1, 466.7, 'POBLACI∩┐╜N'), (484.2, 496.9, 'C.P.')]
+3 [(86.6, 91.1, '1'), (122.8, 148.6, 'RUBIO'), (150.9, 203.0, 'FERNANDEZ,'), (231.2, 240.3, '45'), (260.2, 300.9, '968802950'), (318.0, 330.6, 'CL.'), (332.9, 365.1, 'MAYOR,'), (367.4, 376.4, '87'), (419.2, 469.4, 'ALCANTARIL'), (484.2, 504.9, '30820')]
+11 [(86.6, 91.1, '1'), (122.9, 171.8, 'CABALLERO'), (174.1, 215.8, 'CASTILLO,'), (231.2, 244.8, '534'), (260.2, 301.0, '968808997'), (318.1, 343.9, 'CALLE'), (346.2, 378.8, 'MEDICO'), (419.2, 469.4, 'ALCANTARIL'), (484.2, 504.9, '30820')]
+13 [(122.8, 171.8, 'CABALLERO'), (174.1, 213.5, 'CASTILLO'), (318.0, 377.8, 'NOGUEROLES,')]
+45 [(86.6, 91.1, '2'), (122.9, 167.6, 'CORBALAN'), (170.0, 199.4, 'TUTAU,'), (231.2, 244.8, '365'), (260.2, 301.0, '968630855'), (318.0, 343.8, 'CALLE'), (346.1, 370.5, 'ISAAC'), (419.2, 452.7, 'ALHAMA'), (455.0, 466.3, 'DE'), (484.2, 504.9, '30840')]
+47 [(86.6, 91.1, '2'), (122.8, 163.1, 'SERRANO'), (231.2, 240.3, '56'), (260.2, 300.9, '968630047'), (318.0, 330.7, 'CL.'), (333.0, 354.2, 'JUAN'), (356.5, 390.1, 'CARLOS'), (392.3, 405.9, 'I,50'), (419.2, 452.7, 'ALHAMA'), (455.0, 466.3, 'DE'), (484.2, 504.9, '30840')]
+50 [(86.6, 91.1, '2'), (122.8, 161.7, 'SANCHEZ'), (164.0, 217.0, 'HERNANDEZ,'), (231.2, 240.3, '58'), (260.2, 300.9, '968630161'), (318.0, 343.8, 'PLAZA'), (419.2, 452.7, 'ALHAMA'), (455.0, 466.3, 'DE'), (484.2, 504.9, '30840')]
+52 [(86.6, 91.1, '2'), (122.8, 152.7, 'GOMEZ'), (231.2, 244.8, '509'), (260.2, 301.0, '968632202'), (318.0, 353.8, 'AVENIDA'), (356.1, 367.4, 'DE'), (419.2, 452.7, 'ALHAMA'), (455.0, 466.3, 'DE'), (484.2, 504.9, '30840')]
+55 [(86.6, 91.1, '2'), (122.9, 149.5, 'LOPEZ'), (151.8, 196.2, 'MARTINEZ-'), (231.2, 240.3, '57'), (260.2, 300.9, '968630012'), (318.0, 364.6, 'VERGARA,1'), (419.2, 452.7, 'ALHAMA'), (454.9, 466.2, 'DE'), (484.2, 504.9, '30840')]
+57 [(86.6, 91.1, '2'), (122.8, 172.7, 'FERNANDEZ'), (174.9, 219.8, 'CASTELLO,'), (231.2, 244.8, '437'), (260.2, 301.0, '968636368'), (318.0, 353.8, 'AVENIDA'), (356.1, 393.2, 'ANTONIO'), (419.2, 452.7, 'ALHAMA'), (455.0, 466.3, 'DE'), (484.2, 504.9, '30840')]
+59 [(86.6, 91.1, '2'), (122.9, 173.5, 'MONTALBAN'), (175.8, 205.7, 'SOLER,'), (231.2, 244.8, '594'), (260.2, 300.9, '868719838'), (318.0, 343.8, 'CALLE'), (346.0, 378.6, 'FUENTE'), (381.0, 396.8, 'DEL'), (419.2, 452.7, 'ALHAMA'), (455.0, 466.3, 'DE'), (484.2, 504.9, '30840')]
+
+ΓåÉ Write tmp/bbox7.py
+Wrote file successfully.
+
+$ python -m tmp.bbox7 2>&1 | Select-Object -Last 30
+range None 1
+CROSS nombre (215.5, 232.7, '301')
+CROSS tlfn (272.0, 317.2, 'Mi∩┐╜rcoles,')
+CROSS direccion (396.5, 407.5, 'de')
+CROSS nombre (220.5, 307.7, 'Comunidad')
+CROSS numero (241.5, 278.6, 'Otras')
+CROSS tlfn (282.8, 370.1, 'disposiciones')
+CROSS nombre (192.8, 223.8, 'Salud')
+CROSS nombre (216.4, 269.6, 'Consejer∩┐╜a')
+CROSS tlfn (287.5, 318.8, 'Salud,')
+CROSS direccion (388.8, 430.0, 'aprueba')
+CROSS poblacion (469.6, 481.8, 'de')
+CROSS nombre (209.8, 222.1, 'de')
+CROSS numero (225.6, 266.2, 'Oficinas')
+CROSS tlfn (285.4, 331.9, 'Farmacia')
+CROSS poblacion (458.9, 481.8, 'para')
+CROSS nombre (209.9, 275.9, 'comprendido')
+CROSS tlfn (279.1, 306.1, 'entre')
+CROSS poblacion (431.9, 481.9, 'diciembre')
+CROSS nombre (216.5, 224.3, 'la')
+{'zone': 121.5407, 'nombre': 307.6802, 'numero': 304.7906, 'tlfn': 370.0757, 'direccion': 481.8566, 'poblacion': 481.9457, 'cp': 552.7762}
+crossings 121
+
+ΓåÉ Write tmp/bbox8.py
+Wrote file successfully.
+
+$ python -m tmp.bbox8 2>&1 | Select-Object -Last 35
+range 36 59
+CROSS zone (86.6, 109.2, 'ZONA')
+CROSS direccion (369.5, 400.9, 'COLON,')
+CROSS direccion (391.9, 401.8, 'LA')
+CROSS direccion (386.5, 404.6, 'LUIS')
+CROSS direccion (386.8, 404.9, 'CON')
+CROSS direccion (385.9, 401.7, 'S/N,')
+CROSS direccion (392.3, 405.9, 'I,50')
+CROSS direccion (395.8, 400.3, '4')
+CROSS direccion (389.2, 400.6, '29,')
+CROSS zone (66.4, 121.5, 'A-311225-6468')
+CROSS direccion (356.2, 403.3, 'BULLAS,S/N')
+CROSS direccion (369.7, 405.1, 'VI∩┐╜EGLA')
+CROSS direccion (363.7, 401.8, 'VILLACIS,')
+CROSS direccion (393.4, 402.5, '18')
+CROSS direccion (366.4, 403.6, 'ANTONIO')
+CROSS direccion (395.8, 404.8, '35')
+CROSS direccion (369.2, 406.0, 'WALKER,')
+CROSS direccion (397.0, 401.6, '2')
+CROSS direccion (396.3, 407.6, 'DE')
+CROSS direccion (346.2, 400.1, 'SANTOMERA,')
+CROSS direccion (365.1, 404.9, 'NORTE,12')
+CROSS direccion (396.4, 405.2, 'N∩┐╜')
+CROSS direccion (358.3, 405.5, 'CLEMARES,')
+CROSS direccion (365.9, 404.5, 'JOAQUIN,')
+{'zone': 121.5407, 'nombre': 219.903592, 'numero': 247.347881, 'tlfn': 303.170886, 'direccion': 408.052888, 'poblacion': 473.092362, 'cp': 504.889709}
+crossings 306
+
+$ python -c "
+import tmp.bbox8 as m
+" 2>&1 | Out-Null; python - <<'PY'
+import importlib, tmp.bbox6 as b
+pgs = b.bbox_pages("data/raw/murcia/2026/BORM_2025_6468.pdf")
+BOUNDS=[0,115,222,250,310,414,476,10**9]
+NAMES=['zone','nombre','numero','tlfn','direccion','poblacion','cp']
+start=end=None
+for i,page in enumerate(pgs):
+    for row in page:
+        w=[x[2] for x in row]
+        if 'ZONA' in w and 'NOMBRE' in w: start=i
+        if w==['ANEXO','III']: end=i
+    if start is not None and end is not None: break
+maxx={n:0 for n in NAMES}; cross=0
+for page in pgs[start:end]:
+    for row in page:
+        w=[x[2] for x in row]
+        if 'P├ígina' in w or 'N├║mero' in w or 'ANEXO' in w or any(t.startswith('NPE') for t in w) or 'A-311225-6468' in w: continue
+        for x,xm,t in row:
+            for k in range(len(BOUNDS)-1):
+                if BOUNDS[k]<=x<BOUNDS[k+1]:
+                    maxx[NAMES[k]]=max(maxx[NAMES[k]],xm)
+                    if xm>=BOUNDS[k+1] and k<len(BOUNDS)-2:
+                        cross+=1
+                        if cross<15: print('CROSS',NAMES[k],(round(x,1),round(xm,1),t))
+                    break
+print(maxx); print('crossings',cross)
+PY
+En l∩┐╜nea: 3 Car∩┐╜cter: 30
++ " 2>&1 | Out-Null; python - <<'PY'
++                              ~
+Falta la especificaci∩┐╜n de archivo despu∩┐╜s del operador de redirecci∩┐╜n.
+En l∩┐╜nea: 3 Car∩┐╜cter: 29
++ " 2>&1 | Out-Null; python - <<'PY'
++                             ~
+El operador '<' est∩┐╜ reservado para uso futuro.
+En l∩┐╜nea: 3 Car∩┐╜cter: 30
++ " 2>&1 | Out-Null; python - <<'PY'
++                              ~
+El operador '<' est∩┐╜ reservado para uso futuro.
+En l∩┐╜nea: 6 Car∩┐╜cter: 10
++ BOUNDS=[0,115,222,250,310,414,476,10**9]
++          ~
+Falta un argumento en la lista de par∩┐╜metros.
+En l∩┐╜nea: 7 Car∩┐╜cter: 14
++ NAMES=['zone','nombre','numero','tlfn','direccion','poblacion','cp']
++              ~
+Falta un argumento en la lista de par∩┐╜metros.
+En l∩┐╜nea: 9 Car∩┐╜cter: 4
++ for i,page in enumerate(pgs):
++    ~
+Falta el par∩┐╜ntesis de apertura '(' despu∩┐╜s de la palabra clave 'for'.
+En l∩┐╜nea: 9 Car∩┐╜cter: 6
++ for i,page in enumerate(pgs):
++      ~
+Falta un argumento en la lista de par∩┐╜metros.
+En l∩┐╜nea: 10 Car∩┐╜cter: 8
++     for row in page:
++        ~
+Falta el par∩┐╜ntesis de apertura '(' despu∩┐╜s de la palabra clave 'for'.
+En l∩┐╜nea: 12 Car∩┐╜cter: 11
++         if 'ZONA' in w and 'NOMBRE' in w: start=i
++           ~
+Falta '(' despu∩┐╜s de 'if' en la instrucci∩┐╜n if.
+En l∩┐╜nea: 12 Car∩┐╜cter: 19
++         if 'ZONA' in w and 'NOMBRE' in w: start=i
++                   ~~
+Token 'in' inesperado en la expresi∩┐╜n o la instrucci∩┐╜n.
+No se notificaron todos los errores de an∩┐╜lisis. Corrija los errores notificados e int∩┐╜ntelo de nuevo.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : MissingFileSpecification
+
+ΓåÉ Write tmp/bbox9.py
+Wrote file successfully.
+
+## Objective
+- Implement docs/TAREA_02_murcia.md (Murcia BORM 2025-6468 parser, region "14") following docs/SPEC.md and AGENTS.md, reusing existing ingesta code.
+- Get `python -m unittest discover -s tests -v` and `scripts/run_murcia.py` green against all acceptance criteria, then output the AGENTS.md-mandated final summary.
+
+## Important Details
+- Environment: Windows; use `python` (Python 3.12.10), never `python3`. `pdftotext` v25.07.0 available. All temp/inspection files must live in `tmp/` inside the project.
+- Read `pdftotext` output as UTF-8 (`decode("utf-8", errors="replace")`).
+- Source: `data/raw/murcia/2026/BORM_2025_6468.pdf` (155 pages, has text).
+- SourceInfo: source_id `"MU-BORM-2026"`, publisher `"Consejer├¡a de Salud de la Regi├│n de Murcia (BORM n┬║ 301, 31/12/2025)"`, url `"https://www.borm.es/services/anuncio/ano/2025/numero/6468/pdf?id=840645"`, license `"Acto administrativo publicado en diario oficial (art. 13 TRLPI)"`.
+- Approved contract change: append `times_exact: bool = True` to `DutyShift` (True = exact hours in source; False = day only).
+- Pharmacy id = `"MU:" + str(int(numero))` (e.g. `MU:431`); duplicate numero with differing data -> warning.
+- Anexo II header: `ZONA  NOMBRE  N┬║ F  N┬║ TLFNO  DIRECCION  POBLACI├ôN  C.P.` (appears only once, layout line 2041). Rows start when ZONA column has a value; cells wrap across lines; rows can split across page breaks.
+- Anexo III has 3 documented formats: (1) daily rows `01/01/2026  431  Nombre` -> kind `"24h"` (or `"localizada"` if agrupaci├│n flagged in Anexo I); (2) fixed lists under `TURNOS DE URGENCIA 24 HORAS / Todos los d├¡as del a├▒o` with `- MU-056-F, Nombre` -> 365 24h shifts each; (3) `REFUERZOS DE 9-22 HORAS` + `Todos los d├¡as del a├▒o` -> 365 refuerzo shifts (09:00-22:00); any other rule -> warning, no shifts. Unsupported blocks -> warning with agrupaci├│n + first lines.
+- Zone naming: base `"AGRUPACION <N> (<NAME>)"`; subzone suffix `" - <subzone>"` e.g. `"AGRUPACION 18 (MAZARRON) - Mazarr├│n (casco)"`.
+- Agrupaciones flagged "sistema localizado fuera del horario m├¡nimo" in Anexo I: {5, 18, 25, 26, 30, 32, 37, 42} (agrupaci├│n 19 heading not found; default non-localizada).
+- Acceptance criteria: (1) MU:45 = RUBIO FERNANDEZ, MARIA / 968802950 / CL. MAYOR, 87 / ALCANTARILLA / 30820; (2) MU:534 address "CALLE MEDICO PEDRO NOGUEROLES, ESQUINA CALLE ANDORRA"; (3) Agrupaci├│n 1: 2026-01-01 -> MU:431, 2026-01-03 -> MU:46; (4) Agrupaci├│n 6: 8 farmacias (MU:12, 94, 178, 180, 257, 312, 376, 393) 24h every day; (5) Agrupaci├│n 2: MU:56 24h every day, weekday refuerzos -> warning not shifts; (6) every Anexo III shift references an Anexo II pharmacy else warning.
+
+## Work State
+### Completed
+- `ingesta/model.py`: added `times_exact: bool = True` to `DutyShift`.
+- `ingesta/export.py`: added `"times_exact": shift.times_exact` in `_shift_to_dict`.
+- Created `ingesta/common.py` with `TZ = ZoneInfo("Europe/Madrid")`, `pdf_to_text(path)` (subprocess `pdftotext -layout path -`, UTF-8), `normalize(text)`, `digits_only(text)`.
+- `ingesta/parsers/baleares.py`: imports `TZ, normalize, pdf_to_text` from `ingesta.common`, removed local `normalize`/`_pdf_to_text`; kept `import subprocess` (used by `_pdf_bbox_pages`). Not re-tested yet.
+- Created `ingesta/parsers/murcia.py` with full `parse(pdf_path, retrieved_at=None)`, Anexo I/II/III handling, helper regexes, `_bounds_from_header`, `_parse_block`, `_looks_like_subzone`, etc.
+- Verified via `tmp/run_parse.py`: elapsed 0.9s, 557 pharmacies, 16699 shifts, 603 warnings.
+- Verified passing: MU:45 holder/address/phone correct; MU:534 address correct; Agrupaci├│n 1 2026-01-01->MU:431 and 2026-01-03->MU:46; Agrupaci├│n 6 all 8 farmacias = 365 24h each; MU:56 = 365 24h; zero shifts referencing unknown pharmacy.
+- Note: `tmp/run_parse.py` used `.startswith("AGRUPACION 2")` which also matches 20-29; the "agr2 refuerzos 365" reading is likely that test-script artifact, not a parser bug (warning `REFUERZO_REGLA_NO_SOPORTADA` is emitted).
+
+### Active
+- Fixing Anexo II column parsing: `pdftotext -layout` character columns shift per page, so the fixed bounds `[9, 20, 43, 48, 61, 84, 97]` corrupt some pages (first chars cut, phones of 10 digits, etc.). Result: MU:45 locality = `'ALCANTARIL LA'` (must be `'ALCANTARILLA'`); 28 `TELEFONO_INVALIDO`, 24 `FARMACIA_DUPLICADA`, 486 `ANEXO_III_FARMACIA_DESCONOCIDA`.
+- Confirmed via `tmp/bbox.py` / `tmp/bbox3.py` that `pdftotext -bbox-layout` absolute x (points) IS stable across pages (population column xMin=419 on pages 37 and 46); plan is to parse Anexo II from bbox coordinates instead of char slicing.
+- Unresolved: cell reconstruction space-vs-nospace. `ALCANTARIL`+`LA` -> `ALCANTARILLA` (no space) but `ALHAMA DE`+`MURCIA`, `SANGONERA`+`LA SECA`, `JAVALI`+`NUEVO`, `SANTO`+`ANGEL` need spaces. xMax heuristic ambiguous (ALCANTARIL xMaxΓëê469, SANGONERAΓëê471, ALHAMA DEΓëê466; column right WΓëê471).
+
+### Blocked
+- (none hard-blocking; open design decision on locality word-break join and choice of bbox vs per-page char bounds.)
+
+## Next Move
+1. Rewrite Anexo II parsing to use `pdftotext -bbox-layout` word coordinates (group visual rows by y, assign cells by per-page column x derived from the x of header/anchor words), and decide the fragment-join rule so MU:45 locality becomes exactly `ALCANTARILLA` and MU:534 address stays exact; re-run `python tmp/run_parse.py` to re-check warnings and criteria.
+2. After Anexo II is stable: write `tests/test_murcia.py` (real-PDF acceptance tests + synthetic line cases), write `scripts/run_murcia.py` (writes `data/out/murcia_2026.json`, prints counts and 2026-10-18 shifts for agrupaciones 1, 6, 18), then run `python -m unittest discover -s tests -v` (incl. Baleares) and `python scripts/run_murcia.py`, fix until all acceptance criteria pass, and finish with the AGENTS.md summary.
+
+## Relevant Files
+- `docs/TAREA_02_murcia.md`: task spec + acceptance criteria.
+- `docs/SPEC.md`: data model contract (Do not change without approval).
+- `AGENTS.md`: standards + required final summary format.
+- `ingesta/model.py`: `Pharmacy`, `DutyShift` (now with `times_exact`), `SourceInfo`, `ParseResult`.
+- `ingesta/export.py`: `to_json` (now emits `times_exact`).
+- `ingesta/common.py`: new shared `TZ`, `pdf_to_text`, `normalize`, `digits_only`.
+- `ingesta/parsers/baleares.py`: refactored to use `common`; `parse_dir`; tests import `_extract_locality`, `normalize`, `make_shift`, etc.
+- `ingesta/parsers/murcia.py`: new parser (`parse`).
+- `tests/test_baleares.py`: must keep passing (imports from `ingesta.parsers.baleares`).
+- `tests/test_murcia.py`: not yet created.
+- `scripts/run_baleares.py`: reference for `scripts/run_murcia.py` style.
+- `scripts/run_murcia.py`: not yet created.
+- `data/raw/murcia/2026/BORM_2025_6468.pdf`: source PDF.
+- `tmp/murcia_layout.txt`: extracted text (9039+ lines; grep/read line numbers align).
+- `tmp/analyze.py`, `tmp/analyze2.py`, `tmp/analyze3.py`, `tmp/analyze4.py`, `tmp/analyze5.py`, `tmp/run_parse.py`, `tmp/bbox.py`, `tmp/bbox2.py`, `tmp/bbox3.py`: inspection scripts (bbox.py exposes `pages(path)` using XHTML namespace `http://www.w3.org/1999/xhtml`).
+Continue if you have next steps, or stop and ask for clarification if you are unsure how to proceed.
+$ python -m tmp.bbox9 2>&1 | Select-Object -Last 20
+{'zone': 109.227009, 'nombre': 219.903592, 'numero': 247.347881, 'tlfn': 303.170886, 'direccion': 408.052888, 'poblacion': 473.092362, 'cp': 504.889709}
+crossings 0
+
+ΓåÆ Read ingesta/parsers/murcia.py
+Γ£▒ Grep "_pdf_bbox_pages|bbox|subprocess|ElementTree|NS =" in ingesta/parsers/baleares.py ┬╖ 15 matches
+ΓåÆ Read ingesta/parsers/baleares.py [offset=255, limit=90]
+ΓåÆ Read ingesta/common.py
+
+$ rg -n "_pdf_bbox_pages|_XHTML_NS|_page_column_x|_resolve_ambiguous|import subprocess|ElementTree|_COLUMN_GAP|_PHONE_RE" ingesta/parsers/baleares.py tests/
+rg : El t∩┐╜rmino 'rg' no se reconoce como nombre de un cmdlet, funci∩┐╜n, archivo de script o programa ejecutable. 
+Compruebe si escribi∩┐╜ correctamente el nombre o, si incluy∩┐╜ una ruta de acceso, compruebe que dicha ruta es correcta e 
+int∩┐╜ntelo de nuevo.
+En l∩┐╜nea: 1 Car∩┐╜cter: 1
++ rg -n "_pdf_bbox_pages|_XHTML_NS|_page_column_x|_resolve_ambiguous|im ...
++ ~~
+    + CategoryInfo          : ObjectNotFound: (rg:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+Γ£▒ Grep "_pdf_bbox_pages|_XHTML_NS|_page_column_x|_resolve_ambiguous|import subprocess|ElementTree|_COLUMN_GAP|_PHONE_RE" 80 matches
+Now I'll move the bbox helper into `common.py` and reuse it from both parsers.
+
+ΓåÉ Edit ingesta/common.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\common.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\common.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\common.py
+@@ -8,13 +8,16 @@
+ 
+ import re
+ import subprocess
+ import unicodedata
++import xml.etree.ElementTree as ET
+ from zoneinfo import ZoneInfo
+ 
+ TZ = ZoneInfo("Europe/Madrid")
+ 
++_XHTML_NS = "{http://www.w3.org/1999/xhtml}"
+ 
++
+ def pdf_to_text(path: str) -> str | None:
+     """Extrae texto con `pdftotext -layout`. None si no hay texto (escaneado).
+ 
+     La salida se lee como UTF-8 (con reemplazo de bytes inv├ílidos).
+
+
+ΓåÉ Edit ingesta/common.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\common.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\common.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\common.py
+@@ -44,4 +44,55 @@
+ 
+ def digits_only(text: str) -> str:
+     """Devuelve solo los d├¡gitos de un texto."""
+     return re.sub(r"\D", "", text)
++
++
++def pdf_bbox_pages(
++    path: str,
++) -> list[list[list[tuple[float, float, str]]]] | None:
++    """Palabras con coordenadas por p├ígina (pdftotext -bbox-layout).
++
++    Devuelve una lista de p├íginas; cada p├ígina es una lista de filas (l├¡neas
++    visuales) y cada fila, una lista de (xMin, xMax, texto) ordenada por xMin.
++    None si no hay texto o no se puede interpretar. Sin dependencias nuevas:
++    el XHTML se lee con xml.etree de la stdlib.
++    """
++    proc = subprocess.run(
++        ["pdftotext", "-bbox-layout", path, "-"],
++        capture_output=True,
++        check=False,
++    )
++    data = proc.stdout.decode("utf-8", errors="replace")
++    if not data.strip():
++        return None
++    try:
++        root = ET.fromstring(data)
++    except ET.ParseError:
++        return None
++
++    pages: list[list[list[tuple[float, float, str]]]] = []
++    for page in root.iter(_XHTML_NS + "page"):
++        words: list[tuple[float, float, float, str]] = []
++        for word in page.iter(_XHTML_NS + "word"):
++            text = (word.text or "").strip()
++            if not text:
++                continue
++            words.append(
++                (
++                    float(word.get("yMin", "0")),
++                    float(word.get("xMin", "0")),
++                    float(word.get("xMax", "0")),
++                    text,
++                )
++            )
++        words.sort()
++        rows: list[list] = []
++        for ymin, xmin, xmax, text in words:
++            if rows and abs(ymin - rows[-1][0]) < 3.0:
++                rows[-1][1].append((xmin, xmax, text))
++            else:
++                rows.append([ymin, [(xmin, xmax, text)]])
++        for row in rows:
++            row[1].sort()
++        pages.append([row[1] for row in rows])
++    return pages
+
+
+Now update baleares to reuse it:
+ΓåÆ Read ingesta/parsers/baleares.py [limit=45, offset=1]
+
+ΓåÉ Edit ingesta/parsers/baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+@@ -11,13 +11,11 @@
+ 
+ import hashlib
+ import os
+ import re
+-import subprocess
+-import xml.etree.ElementTree as ET
+ from datetime import date, datetime, time, timedelta
+ 
+-from ingesta.common import TZ, normalize, pdf_to_text
++from ingesta.common import TZ, normalize, pdf_bbox_pages, pdf_to_text
+ from ingesta.model import DutyShift, ParseResult, Pharmacy, SourceInfo
+ 
+ REGION = "04"
+ SOURCE_ID = "IB-CAIB-2026"
+
+
+Γ£ù Edit ingesta/parsers/baleares.py failed
+Error: No changes to apply: oldString and newString are identical.
+
+ΓåÉ Edit ingesta/parsers/baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+@@ -257,54 +257,13 @@
+     path: str,
+ ) -> list[list[list[tuple[float, float, str]]]] | None:
+     """Palabras con coordenadas por p├ígina (pdftotext -bbox-layout).
+ 
+-    Devuelve una lista de p├íginas; cada p├ígina es una lista de filas (l├¡neas
+-    visuales) y cada fila, una lista de (xMin, xMax, texto) ordenada por xMin.
+-    None si no hay texto o no se puede interpretar. Sin dependencias nuevas:
+-    el XHTML se lee con xml.etree de la stdlib.
++    Delega en `ingesta.common.pdf_bbox_pages` para compartir la extracci├│n.
+     """
+-    proc = subprocess.run(
+-        ["pdftotext", "-bbox-layout", path, "-"],
+-        capture_output=True,
+-        check=False,
+-    )
+-    data = proc.stdout.decode("utf-8", errors="replace")
+-    if not data.strip():
+-        return None
+-    try:
+-        root = ET.fromstring(data)
+-    except ET.ParseError:
+-        return None
++    return pdf_bbox_pages(path)
+ 
+-    pages: list[list[list[tuple[float, float, str]]]] = []
+-    for page in root.iter(_XHTML_NS + "page"):
+-        words: list[tuple[float, float, float, str]] = []
+-        for word in page.iter(_XHTML_NS + "word"):
+-            text = (word.text or "").strip()
+-            if not text:
+-                continue
+-            words.append(
+-                (
+-                    float(word.get("yMin", "0")),
+-                    float(word.get("xMin", "0")),
+-                    float(word.get("xMax", "0")),
+-                    text,
+-                )
+-            )
+-        words.sort()
+-        rows: list[list] = []
+-        for ymin, xmin, xmax, text in words:
+-            if rows and abs(ymin - rows[-1][0]) < 3.0:
+-                rows[-1][1].append((xmin, xmax, text))
+-            else:
+-                rows.append([ymin, [(xmin, xmax, text)]])
+-        for row in rows:
+-            row[1].sort()
+-        pages.append([row[1] for row in rows])
+-    return pages
+ 
+-
+ def _page_column_x(rows: list[list[tuple[float, float, str]]]) -> float | None:
+     """Calcula la X de inicio de la columna de direcci├│n de una p├ígina.
+ 
+     Usa la primera palabra tras el hueco amplio de cada l├¡nea de farmacia y
+
+
+ΓåÉ Edit ingesta/parsers/baleares.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\baleares.py
+@@ -29,9 +29,8 @@
+     r"^\d{2}/\d{2}/\d{4} - \d{2}/\d{2}/\d{4}\s+P.gina\s+\d+\s+de\s+\d+$"
+ )
+ _PHONE_RE = re.compile(r"(?<!\d)(\d{9})(?!\d)")
+ _SPLIT_RE = re.compile(r"(?<=\S)(\s{2,})(?=\S)")
+-_XHTML_NS = "{http://www.w3.org/1999/xhtml}"
+ # Hueco (pt) que como m├¡nimo separa las columnas titular/direcci├│n en el PDF;
+ # una palabra normal va precedida de ~2,5 pt (un espacio), as├¡ que 2+ espacios
+ # equivalen a un hueco amplio.
+ _COLUMN_GAP = 4.5
+
+
+Now rewrite the Anexo II parser in `murcia.py` to use bbox coordinates.
+ΓåÉ Edit ingesta/parsers/murcia.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+@@ -46,9 +46,26 @@
+ _ITEM_RE = re.compile(r"^(?:[-ΓÇó]\s*)?MU\s*-?\s*(\d+)\b")
+ _LOCALIZADA_RE = re.compile(
+     r"localizad\w*\s+fuera\s+del\s+horario\s+m", re.IGNORECASE
+ )
+-_DEFAULT_BOUNDS = [9, 20, 42, 48, 61, 84, 97, 10 ** 9]
++# L├¡mites (xMin, en pt) de las columnas del Anexo II, derivados de la posici├│n
++# de la cabecera (ZONA/NOMBRE/N┬║ F/N┬║ TLFNO/DIRECCION/POBLACI├ôN/C.P.) y
++# verificados sobre todo el bolet├¡n: son estables en todas las p├íginas.
++_II_BOUNDS = [0.0, 115.0, 222.0, 250.0, 310.0, 414.0, 476.0, 10 ** 9]
++_II_COLUMNS = (
++    "zone",
++    "nombre",
++    "numero",
++    "tlfn",
++    "direccion",
++    "poblacion",
++    "cp",
++)
++# Palabras que nunca cierran una celda: si el fragmento termina en una de
++# ellas, el siguiente fragmento empieza palabra nueva (lleva espacio).
++_II_CONNECTORS = {
++    "DE", "DEL", "LA", "LAS", "LOS", "EL", "LO", "Y", "E", "SAN", "SANTA",
++}
+ 
+ 
+ def _collapse(text: str) -> str:
+     return re.sub(r"\s+", " ", text).strip()
+
+
+ΓåÉ Edit ingesta/parsers/murcia.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+@@ -143,8 +143,32 @@
+         10 ** 9,
+     ]
+ 
+ 
++def _bounds_from_header(line: str) -> list[int]:
++    """Calcula los l├¡mites de columna del Anexo II a partir de su cabecera."""
++    try:
++        zona = line.index("ZONA")
++        nombre = line.index("NOMBRE")
++        tlf = line.index("TLFNO")
++        direccion = line.index("DIRECCION")
++        poblacion = line.index("POBLACI")
++        cp = line.index("C.P.")
++        degree = line.index("┬║", nombre)
++    except ValueError:
++        return list(_DEFAULT_BOUNDS)
++    return [
++        zona,
++        nombre - 1,
++        degree - 1,
++        (degree + tlf) // 2,
++        direccion - 1,
++        poblacion - 1,
++        cp - 1,
++        10 ** 9,
++    ]
++
++
+ def _clean_lines(text: str) -> list[tuple[int, str]]:
+     """Elimina cabecera/pie de p├ígina y devuelve (p├ígina, l├¡nea) por l├¡nea."""
+     out: list[tuple[int, str]] = []
+     page = 1
+
+
+ΓåÆ Read ingesta/parsers/murcia.py [limit=70, offset=108]
+
+ΓåÉ Edit ingesta/parsers/murcia.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+@@ -119,56 +119,8 @@
+         return "pending_ref"
+     return None
+ 
+ 
+-def _bounds_from_header(line: str) -> list[int]:
+-    """Calcula los l├¡mites de columna del Anexo II a partir de su cabecera."""
+-    try:
+-        zona = line.index("ZONA")
+-        nombre = line.index("NOMBRE")
+-        tlf = line.index("TLFNO")
+-        direccion = line.index("DIRECCION")
+-        poblacion = line.index("POBLACI")
+-        cp = line.index("C.P.")
+-        degree = line.index("┬║", nombre)
+-    except ValueError:
+-        return list(_DEFAULT_BOUNDS)
+-    return [
+-        zona,
+-        nombre - 1,
+-        degree - 1,
+-        (degree + tlf) // 2,
+-        direccion - 1,
+-        poblacion - 1,
+-        cp - 1,
+-        10 ** 9,
+-    ]
+-
+-
+-def _bounds_from_header(line: str) -> list[int]:
+-    """Calcula los l├¡mites de columna del Anexo II a partir de su cabecera."""
+-    try:
+-        zona = line.index("ZONA")
+-        nombre = line.index("NOMBRE")
+-        tlf = line.index("TLFNO")
+-        direccion = line.index("DIRECCION")
+-        poblacion = line.index("POBLACI")
+-        cp = line.index("C.P.")
+-        degree = line.index("┬║", nombre)
+-    except ValueError:
+-        return list(_DEFAULT_BOUNDS)
+-    return [
+-        zona,
+-        nombre - 1,
+-        degree - 1,
+-        (degree + tlf) // 2,
+-        direccion - 1,
+-        poblacion - 1,
+-        cp - 1,
+-        10 ** 9,
+-    ]
+-
+-
+ def _clean_lines(text: str) -> list[tuple[int, str]]:
+     """Elimina cabecera/pie de p├ígina y devuelve (p├ígina, l├¡nea) por l├¡nea."""
+     out: list[tuple[int, str]] = []
+     page = 1
+
+
+Now replace `_parse_anexo2` with the bbox-based version:
+ΓåÆ Read ingesta/parsers/murcia.py [limit=115, offset=180]
+
+ΓåÉ Edit ingesta/parsers/murcia.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+@@ -198,52 +198,106 @@
+     flush()
+     return localizada
+ 
+ 
++def _column_of(x: float) -> int:
++    """├ìndice de la columna del Anexo II a la que pertenece una xMin (pt)."""
++    for index in range(len(_II_BOUNDS) - 1):
++        if _II_BOUNDS[index] <= x < _II_BOUNDS[index + 1]:
++            return index
++    return len(_II_BOUNDS) - 2
++
++
++def _join_fragment(current: str, fragment: str) -> str:
++    """Une un fragmento de celda respetando los saltos de l├¡nea del PDF.
++
++    El bolet├¡n corta las palabras al llegar al ancho de columna, as├¡ que dos
++    fragmentos consecutivos pueden ser la misma palabra (`ALCANTARIL`+`LA`) o
++    dos palabras distintas (`ALHAMA DE`+`MURCIA`). Se decide por la ├║ltima
++    palabra del fragmento previo y la primera del nuevo.
++    """
++    if not current:
++        return fragment
++    if not fragment:
++        return current
++    if current.count("(") > current.count(")"):
++        return current + fragment
++    last = current.split()[-1]
++    first = fragment.split()[0]
++    if last.upper() not in _II_CONNECTORS and " " not in fragment and len(
++        first
++    ) <= 2 and len(last) >= 7:
++        return current + fragment
++    return current + " " + fragment
++
++
++def _anexo2_page_range(
++    pages: list[list[list[tuple[float, float, str]]]],
++) -> tuple[int, int] | None:
++    """Rango de p├íginas del Anexo II (cabecera ZONA/NOMBRE hasta ANEXO III)."""
++    start = end = None
++    for position, rows in enumerate(pages):
++        for words in rows:
++            texts = [word[2] for word in words]
++            if "ZONA" in texts and "NOMBRE" in texts:
++                start = position
++            if texts == ["ANEXO", "III"] and start is not None:
++                end = position
++                break
++        if end is not None:
++            break
++    if start is None:
++        return None
++    return start, end if end is not None else len(pages)
++
++
+ def _parse_anexo2(
+-    lines: list[tuple[int, str]],
++    pages: list[list[list[tuple[float, float, str]]]],
+     filename: str,
+     pharmacies: dict[str, Pharmacy],
+     warnings: list[str],
+ ) -> None:
+-    """Parsea la tabla multil├¡nea del Anexo II usando columnas fijas."""
+-    bounds = list(_DEFAULT_BOUNDS)
++    """Parsea la tabla multil├¡nea del Anexo II usando coordenadas (bbox)."""
++    span = _anexo2_page_range(pages)
++    if span is None:
++        return
++    start, end = span
+     seen: dict[str, tuple[str, str, str | None]] = {}
+     buffers: dict[str, list[str]] | None = None
+-    row_page = 1
++    page_number = start + 1
+ 
+     def flush() -> None:
+         nonlocal buffers
+         if buffers is None:
+             return
+-        numero = _collapse(" ".join(buffers["numero"]))
+-        if not re.fullmatch(r"\d+", numero):
++        numero = digits_only("".join(buffers["numero"]))
++        if not numero:
+             warnings.append(
+-                f"{filename} p{row_page}: FILA_SIN_NUMERO: "
++                f"{filename} p{page_number}: FILA_SIN_NUMERO: "
+                 f"{_collapse(' '.join(buffers['nombre']))}"
+             )
+             buffers = None
+             return
+         pharmacy_id = "MU:" + str(int(numero))
+         holder = _collapse(" ".join(buffers["nombre"]))
+         address = _collapse(" ".join(buffers["direccion"]))
+         locality = _collapse(" ".join(buffers["poblacion"])) or None
+-        postal_code = _collapse(" ".join(buffers["cp"])) or None
+-        phone = digits_only(" ".join(buffers["tlfn"]))
++        postal_code = digits_only("".join(buffers["cp"])) or None
++        phone = digits_only("".join(buffers["tlfn"]))
+         if phone and len(phone) != 9:
+             warnings.append(
+-                f"{filename} p{row_page}: TELEFONO_INVALIDO {pharmacy_id}: "
+-                f"{phone}"
++                f"{filename} p{page_number}: TELEFONO_INVALIDO "
++                f"{pharmacy_id}: {phone}"
+             )
+             phone = None
+         if not holder:
+             warnings.append(
+-                f"{filename} p{row_page}: FARMACIA_SIN_NOMBRE: {pharmacy_id}"
++                f"{filename} p{page_number}: FARMACIA_SIN_NOMBRE: {pharmacy_id}"
+             )
+         signature = (normalize(holder), normalize(address), phone)
+         if pharmacy_id in seen and seen[pharmacy_id] != signature:
+             warnings.append(
+-                f"{filename} p{row_page}: FARMACIA_DUPLICADA {pharmacy_id}"
++                f"{filename} p{page_number}: FARMACIA_DUPLICADA {pharmacy_id}"
+             )
+         seen[pharmacy_id] = signature
+         pharmacies[pharmacy_id] = Pharmacy(
+             id=pharmacy_id,
+@@ -256,39 +310,41 @@
+             duty_phone=None,
+         )
+         buffers = None
+ 
+-    for page, raw in lines:
+-        stripped = raw.strip()
+-        if not stripped:
+-            continue
+-        if "ZONA" in raw and "NOMBRE" in raw and "C.P." in raw:
+-            bounds = _bounds_from_header(raw)
+-            continue
+-        zone_slice = raw[bounds[0]:bounds[1]].strip()
+-        if re.fullmatch(r"\d+", zone_slice):
+-            flush()
+-            buffers = {
+-                "nombre": [],
+-                "numero": [],
+-                "tlfn": [],
+-                "direccion": [],
+-                "poblacion": [],
+-                "cp": [],
+-            }
+-            row_page = page
+-        if buffers is None:
+-            warnings.append(
+-                f"{filename} p{page}: ANEXO_II_LINEA_NO_RECONOCIDA: "
+-                f"{stripped}"
+-            )
+-            continue
+-        buffers["nombre"].append(raw[bounds[1]:bounds[2]])
+-        buffers["numero"].append(raw[bounds[2]:bounds[3]])
+-        buffers["tlfn"].append(raw[bounds[3]:bounds[4]])
+-        buffers["direccion"].append(raw[bounds[4]:bounds[5]])
+-        buffers["poblacion"].append(raw[bounds[5]:bounds[6]])
+-        buffers["cp"].append(raw[bounds[6]:])
++    for position in range(start, end):
++        page_number = position + 1
++        for words in pages[position]:
++            texts = [word[2] for word in words]
++            if (
++                "P├ígina" in texts
++                or "N├║mero" in texts
++                or "A-311225-6468" in texts
++                or (texts and texts[0].startswith("NPE"))
++                or ("ZONA" in texts and "NOMBRE" in texts)
++                or texts == ["ANEXO", "II"]
++            ):
++                continue
++            cells: list[list[str]] = [[] for _ in _II_COLUMNS]
++            for xmin, _xmax, text in words:
++                cells[_column_of(xmin)].append(text)
++            zone_text = " ".join(cells[0]).strip()
++            if re.fullmatch(r"\d+", zone_text):
++                flush()
++                buffers = {name: [] for name in _II_COLUMNS}
++            if buffers is None:
++                continue
++            for name, values in zip(_II_COLUMNS[1:], cells[1:]):
++                fragment = " ".join(values)
++                if fragment:
++                    buffers[name].append(
++                        _join_fragment(
++                            buffers[name][-1] if False else "", fragment
++                        )
++                        if False
++                        else fragment
++                    )
++        # (los fragmentos se unen al final para respetar los conectores)
+     flush()
+ 
+ 
+ def _parse_date_row(
+
+
+ΓåÆ Read ingesta/parsers/murcia.py [limit=160, offset=200]
+
+ΓåÉ Edit ingesta/parsers/murcia.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+@@ -264,26 +264,35 @@
+     seen: dict[str, tuple[str, str, str | None]] = {}
+     buffers: dict[str, list[str]] | None = None
+     page_number = start + 1
+ 
++    def cell(name: str) -> str:
++        fragments = buffers[name] if buffers else []
++        if name in ("numero", "tlfn", "cp"):
++            return "".join(fragments)
++        text = ""
++        for fragment in fragments:
++            text = _join_fragment(text, fragment)
++        return text
++
+     def flush() -> None:
+         nonlocal buffers
+         if buffers is None:
+             return
+-        numero = digits_only("".join(buffers["numero"]))
++        numero = digits_only(cell("numero"))
+         if not numero:
+             warnings.append(
+                 f"{filename} p{page_number}: FILA_SIN_NUMERO: "
+-                f"{_collapse(' '.join(buffers['nombre']))}"
++                f"{_collapse(cell('nombre'))}"
+             )
+             buffers = None
+             return
+         pharmacy_id = "MU:" + str(int(numero))
+-        holder = _collapse(" ".join(buffers["nombre"]))
+-        address = _collapse(" ".join(buffers["direccion"]))
+-        locality = _collapse(" ".join(buffers["poblacion"])) or None
+-        postal_code = digits_only("".join(buffers["cp"])) or None
+-        phone = digits_only("".join(buffers["tlfn"]))
++        holder = _collapse(cell("nombre"))
++        address = _collapse(cell("direccion"))
++        locality = _collapse(cell("poblacion")) or None
++        postal_code = digits_only(cell("cp")) or None
++        phone = digits_only(cell("tlfn"))
+         if phone and len(phone) != 9:
+             warnings.append(
+                 f"{filename} p{page_number}: TELEFONO_INVALIDO "
+                 f"{pharmacy_id}: {phone}"
+@@ -326,25 +335,17 @@
+                 continue
+             cells: list[list[str]] = [[] for _ in _II_COLUMNS]
+             for xmin, _xmax, text in words:
+                 cells[_column_of(xmin)].append(text)
+-            zone_text = " ".join(cells[0]).strip()
+-            if re.fullmatch(r"\d+", zone_text):
++            if re.fullmatch(r"\d+", " ".join(cells[0]).strip()):
+                 flush()
+                 buffers = {name: [] for name in _II_COLUMNS}
+             if buffers is None:
+                 continue
+             for name, values in zip(_II_COLUMNS[1:], cells[1:]):
+                 fragment = " ".join(values)
+                 if fragment:
+-                    buffers[name].append(
+-                        _join_fragment(
+-                            buffers[name][-1] if False else "", fragment
+-                        )
+-                        if False
+-                        else fragment
+-                    )
+-        # (los fragmentos se unen al final para respetar los conectores)
++                    buffers[name].append(fragment)
+     flush()
+ 
+ 
+ def _parse_date_row(
+
+
+ΓåÆ Read ingesta/parsers/murcia.py [limit=70, offset=665]
+
+ΓåÉ Edit ingesta/parsers/murcia.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+@@ -683,24 +683,23 @@
+             return position
+     return -1
+ 
+ idx1 = find_heading("ANEXO I")
+-idx2 = find_heading("ANEXO II")
+ idx3 = find_heading("ANEXO III")
+ 
+-anexo1_end = idx2 if idx2 != -1 else len(lines)
+-anexo2_end = idx3 if idx3 != -1 else len(lines)
++anexo1_end = find_heading("ANEXO II")
++if anexo1_end == -1:
++    anexo1_end = len(lines)
+ localizada = _parse_anexo1(
+     lines[idx1 + 1:anexo1_end] if idx1 != -1 else []
+ )
+ 
+ pharmacies: dict[str, Pharmacy] = {}
+-_parse_anexo2(
+-    lines[idx2 + 1:anexo2_end] if idx2 != -1 else [],
+-    filename,
+-    pharmacies,
+-    warnings,
+-)
++bbox_pages = pdf_bbox_pages(pdf_path)
++if bbox_pages is not None:
++    _parse_anexo2(bbox_pages, filename, pharmacies, warnings)
++else:
++    warnings.append(f"{filename}: ANEXO_II_SIN_COORDENADAS")
+ 
+ shifts: list[DutyShift] = []
+ if idx3 != -1:
+     shifts = _parse_anexo3(
+
+
+ΓåÉ Edit ingesta/parsers/murcia.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+@@ -18,9 +18,15 @@
+ import os
+ import re
+ from datetime import date, datetime, time, timedelta
+ 
+-from ingesta.common import TZ, digits_only, normalize, pdf_to_text
++from ingesta.common import (
++    TZ,
++    digits_only,
++    normalize,
++    pdf_bbox_pages,
++    pdf_to_text,
++)
+ from ingesta.model import DutyShift, ParseResult, Pharmacy, SourceInfo
+ 
+ REGION = "14"
+ SOURCE_ID = "MU-BORM-2026"
+
+
+Γ£▒ Grep "_DEFAULT_BOUNDS|_bounds_from_header|ANEXO_II_LINEA_NO_RECONOCIDA|idx2" in ingesta/parsers/murcia.py ┬╖ 0 matches
+ΓåÆ Read tmp/run_parse.py
+
+$ python -m tmp.run_parse 2>&1 | Select-Object -Last 45
+elapsed 2.4
+pharmacies 581
+shifts 17185
+warnings 67
+MU:45 Pharmacy(id='MU:45', region='14', holder='RUBIO FERNANDEZ, MARIA', address='CL. MAYOR, 87', locality='ALCANTARILLA', postal_code='30820', phone='968802950', duty_phone=None)
+MU:534 Pharmacy(id='MU:534', region='14', holder='CABALLERO CASTILLO, FERNANDO JOSE Y CABALLERO CASTILLO ALBERTO', address='CALLE MEDICO PEDRO NOGUEROLES, ESQUINA CALLE ANDORRA', locality='ALCANTARILLA', postal_code='30820', phone='968808997', duty_phone=None)
+2026-01-01 ['MU:431'] expect MU:431
+2026-01-03 ['MU:46'] expect MU:46
+agr6 MU:12 365
+agr6 MU:94 365
+agr6 MU:178 365
+agr6 MU:180 365
+agr6 MU:257 365
+agr6 MU:312 365
+agr6 MU:376 365
+agr6 MU:393 365
+agr2 MU:56 24h 365
+agr2 refuerzos 365
+shift sin farmacia 0
+[('ROTACION_NO_SOPORTADA', 32), ('ANEXO_III_NO_SOPORTADO', 23), ('REFUERZO_REGLA_NO_SOPORTADA', 7), ('TELEFONO_INVALIDO', 4), ('REGLA_24H_NO_SOPORTADA', 1)]
+W BORM_2025_6468.pdf p41: TELEFONO_INVALIDO MU:1: 9682129476
+W BORM_2025_6468.pdf p46: TELEFONO_INVALIDO MU:402: 9685108059
+W BORM_2025_6468.pdf p53: TELEFONO_INVALIDO MU:419: 9684828407
+W BORM_2025_6468.pdf p54: TELEFONO_INVALIDO MU:318: 9684997386
+W BORM_2025_6468.pdf p36818: REFUERZO_REGLA_NO_SOPORTADA AGRUPACION 2: Todos los d∩┐╜as de lunes a s∩┐╜bado (excluidos festivos):
+W BORM_2025_6468.pdf p36819: ROTACION_NO_SOPORTADA AGRUPACION 3 [AGRUPACION 3 (LIBRILLA)]: (Rotaci∩┐╜n por semanas, de manera sucesiva en el orden expuesto, en
+W BORM_2025_6468.pdf p36820: ROTACION_NO_SOPORTADA AGRUPACION 4 [AGRUPACION 4 (BENIEL)]: (Rotaci∩┐╜n por semanas, de manera sucesiva en el orden expuesto hasta
+W BORM_2025_6468.pdf p36820: ROTACION_NO_SOPORTADA AGRUPACION 5 [AGRUPACION 5 (MULA)]: (Rotaci∩┐╜n por d∩┐╜as, de manera sucesiva seg∩┐╜n el orden expuesto, en
+W BORM_2025_6468.pdf p36820: ANEXO_III_NO_SOPORTADO AGRUPACION 5: Albudeite y Pliego:
+W BORM_2025_6468.pdf p36820: ANEXO_III_NO_SOPORTADO AGRUPACION 5: Turno de urgencia permanente, localizada fuera del horario m∩┐╜nimo.
+W BORM_2025_6468.pdf p36821: REFUERZO_REGLA_NO_SOPORTADA AGRUPACION 6: Todos los d∩┐╜as de lunes a s∩┐╜bado (excluidos festivos):
+W BORM_2025_6468.pdf p36822: ANEXO_III_NO_SOPORTADO AGRUPACION 6: OTROS REFUERZOS:
+W BORM_2025_6468.pdf p36830: REFUERZO_REGLA_NO_SOPORTADA AGRUPACION 7: por las oficinas de farmacia de ampliaci∩┐╜n de horario, M∩┐╜dulo II:
+W BORM_2025_6468.pdf p36831: REFUERZO_REGLA_NO_SOPORTADA AGRUPACION 8: Todos los d∩┐╜as de lunes a s∩┐╜bado (excluidos festivos):
+W BORM_2025_6468.pdf p36831: ANEXO_III_NO_SOPORTADO AGRUPACION 8: Otros refuerzos:
+
+ΓåÉ Write tmp/bbox10.py
+Wrote file successfully.
+
+$ python -m tmp.bbox10 2>&1 | Select-Object -Last 40
+---- physical page 41
+[(86.6, 91.1, '6'), (122.9, 164.0, 'MONTOYA'), (166.3, 210.3, 'MARTINEZ,'), (231.2, 235.8, '1'), (260.2, 303.2, '968212947,'), (318.0, 343.8, 'PLAZA'), (346.1, 373.3, 'SANTA'), (419.2, 451.3, 'MURCIA'), (484.2, 504.9, '30003')]
+---- physical page 46
+[(86.6, 95.7, '14'), (122.9, 159.5, 'MORENO'), (161.8, 216.2, 'BEJAR,MARIA'), (231.2, 244.8, '402'), (260.2, 303.2, '968510805,'), (318.0, 365.9, 'CL.CARMEN'), (368.2, 400.4, 'CONDE-'), (419.2, 469.9, 'CARTAGENA'), (484.2, 504.9, '30204')]
+---- physical page 53
+[(86.6, 95.7, '26'), (122.8, 136.0, 'GIL'), (138.2, 174.0, 'BARNES,'), (176.2, 208.9, 'BLANCA'), (231.2, 244.7, '490'), (260.1, 300.8, '968447326'), (317.9, 346.0, 'PASEO'), (348.2, 392.1, 'ESTACION,'), (394.4, 398.9, '1'), (419.0, 454.3, 'AGUILAS'), (484.2, 504.9, '30880')]
+[(122.8, 167.7, 'LAMBERTO'), (170.0, 175.4, 'Y'), (177.7, 202.2, 'HUGO'), (318.0, 375.5, 'DEMOCRACIA,'), (377.9, 386.7, 'N∩┐╜'), (389.0, 393.5, '1')]
+[(86.6, 95.7, '27'), (122.9, 150.0, 'PEREZ'), (152.3, 188.2, 'ACOSTA,'), (190.4, 216.3, 'MARIA'), (231.2, 244.8, '419'), (260.2, 303.2, '968482840,'), (318.0, 350.6, 'CAMINO'), (352.9, 364.2, 'DE'), (366.5, 376.5, 'LA'), (419.2, 447.2, 'LORCA'), (484.2, 504.9, '30813')]
+---- physical page 54
+[(86.6, 95.7, '28'), (122.8, 171.7, 'RODRIGUEZ'), (174.0, 213.0, 'MORENO,'), (231.2, 244.8, '318'), (260.2, 303.2, '968499738,'), (318.0, 343.8, 'CALLE'), (346.1, 381.1, 'SASTRA,'), (383.3, 392.2, 'N∩┐╜'), (394.5, 401.3, '2,'), (419.2, 458.1, 'ZARCILLA'), (460.4, 471.7, 'DE'), (484.2, 504.9, '30810')]
+[(86.6, 95.7, '29'), (122.8, 164.4, 'MARTINEZ'), (166.7, 209.4, 'SERRANO,'), (231.2, 244.8, '126'), (260.2, 300.9, '968402011'), (318.0, 343.8, 'CALLE'), (346.0, 378.2, 'MAYOR,'), (380.5, 389.4, 'N∩┐╜'), (391.6, 396.1, '1'), (419.1, 453.1, 'PUERTO'), (484.2, 504.9, '30890')]
+
+ΓåÉ Write tmp/bbox11.py
+Wrote file successfully.
+
+$ python -m tmp.bbox11 2>&1 | Select-Object -Last 40
+[(318.0, 'JOSE'), (341.6, 'MARIA')]
+[(318.0, 'PARRAGA')]
+[(86.6, '7'), (122.9, 'ALEMAN'), (158.6, 'ALEMAN,'), (231.2, '26'), (260.2, '968350225'), (318.0, 'PRINCESA,17'), (419.1, 'MURCIA'), (484.2, '30002')]
+[(122.8, 'FRANCISCO')]
+[(86.6, '7'), (122.9, 'SANCHEZ'), (164.1, 'DIAZ,MARIA'), (231.2, '386'), (260.2, '968267384'), (318.0, 'PASEO'), (348.4, 'DE'), (419.2, 'MURCIA'), (484.2, '30010')]
+[(122.8, 'DOLORES'), (318.0, 'FLORENCIA,'), (369.2, 'N∩┐╜'), (380.4, '22')]
+[(86.6, '7'), (122.8, 'MOLINA'), (156.3, 'MARTINEZ,'), (231.2, '502'), (260.2, '968346450'), (318.0, 'PASEO'), (348.4, 'DE'), (419.2, 'MURCIA'), (484.2, '30010')]
+[(122.8, 'ANTONIO'), (162.2, 'JUAN'), (318.0, 'FLORENCIA,'), (369.2, 'N∩┐╜'), (380.4, '54,')]
+[(318.0, 'RONDA'), (349.7, 'SUR')]
+[(86.6, '7'), (122.9, 'CUESTA'), (158.2, 'GARCIA'), (191.8, 'DE'), (231.2, '336'), (260.2, '968253573'), (318.0, 'AVENIDA'), (356.0, 'DEL'), (419.2, 'MURCIA'), (484.2, '30012')]
+[(122.8, 'LEONARDO,MARIA'), (318.0, 'PROGRESO,'), (369.6, 'N∩┐╜'), (380.8, '60,')]
+[(122.8, 'ROCIO'), (151.9, 'Y'), (159.6, 'LAJARIN'), (318.0, 'ESQUINA'), (356.9, 'CON'), (377.4, 'CALLE')]
+[(122.8, 'CUESTA,'), (160.5, 'MARTA'), (318.0, 'SIERRA'), (350.7, 'ESPU∩┐╜A,')]
+[(318.0, 'BARRIO'), (351.5, 'DEL')]
+[(318.0, 'PROGRESO')]
+[(86.6, '7'), (122.8, 'ORTIZ'), (231.2, '349'), (260.2, '968254124'), (318.0, 'CALLE'), (346.1, 'SENDA'), (376.5, 'ALTA'), (419.2, 'ALJUCER'), (484.2, '30152')]
+[(122.8, 'ALEMAN,FRANCISCO'), (208.9, 'Y'), (318.0, 'DE'), (331.6, 'RESIDENCIAL')]
+[(122.8, 'ORTIZ'), (149.5, 'PUJALTE,'), (318.0, 'ALJUCER,'), (359.7, 'S/N')]
+[(122.8, 'FRANCISCO'), (173.1, 'JOSE')]
+[(86.6, '7'), (122.8, 'GIMENEZ'), (231.2, '378'), (260.2, '968347045'), (318.1, 'ESQ.CALLES'), (371.1, 'JOSE'), (419.2, 'MURCIA'), (484.2, '30012')]
+[(122.8, 'MARTINEZ,MARIA'), (195.0, 'JOSE'), (318.0, 'MORENO'), (357.0, 'Y'), (364.6, 'LORQUI')]
+[(86.6, '7'), (122.8, 'HERNANDEZ'), (175.8, 'EGEA,'), (231.2, '155'), (260.2, '968269538'), (318.0, 'CL.'), (333.0, 'VEREDA,'), (371.0, '40'), (419.2, 'ALJUCER'), (484.2, '30152')]
+[(122.8, 'ENRIQUE')]
+[(86.6, '7'), (122.9, 'SANCHEZ'), (164.1, 'PUCHE,'), (197.2, 'JOSE'), (231.2, '393'), (260.2, '968257209'), (318.0, 'MIGUEL'), (419.2, 'MURCIA'), (484.2, '30011')]
+[(122.8, 'ANTONIO'), (318.0, 'HERNANDEZ,S/N')]
+[(86.6, '7'), (122.9, 'CASANUEVA'), (175.4, 'LUIS,'), (231.2, '170'), (260.2, '968251684'), (318.0, 'CARTAGENA,73-A'), (419.1, 'MURCIA'), (484.2, '30002')]
+[(122.8, 'ALICIA')]
+[(86.6, '7'), (122.9, 'SERNA'), (153.2, 'FUENTES,JUAN,'), (231.2, '23'), (260.2, '968254550'), (318.0, 'CALLE'), (346.0, 'VICENTE'), (419.2, 'MURCIA'), (484.2, '30011')]
+[(122.8, 'HEREDEROS'), (318.0, 'ALEIXANDRE,')]
+[(318.0, 'EDIFICIO'), (355.6, 'SANTA')]
+[(318.0, 'ROSA'), (343.4, 'II,'), (352.4, 'N∩┐╜'), (363.5, '9,'), (372.6, 'BAJO')]
+[(86.6, '7'), (122.8, 'ORTEGA'), (159.6, 'TOMAS,'), (193.2, 'PILAR'), (231.3, '348'), (260.2, '968905566'), (318.0, 'CALLE'), (346.1, 'PALOMA,'), (384.6, 'N∩┐╜'), (395.7, '1,'), (419.2, 'MURCIA'), (484.2, '30010')]
+[(318.0, 'ESQUINA'), (356.9, 'CON')]
+[(318.0, 'AVENIDA'), (356.1, 'CIUDAD'), (389.6, 'DE')]
+[(318.0, 'ALMERIA')]
+[(86.6, '7'), (122.8, 'GNECCO'), (160.8, 'LORENTE,'), (231.2, '173'), (260.2, '968343271'), (318.0, 'TORRE'), (348.8, 'DE'), (362.3, 'ROMO,'), (392.3, '24'), (419.1, 'MURCIA'), (484.2, '30002')]
+[(122.8, 'JESUS')]
+[(86.6, '7'), (122.8, 'BRIONES'), (161.8, 'ORTEGA,'), (231.2, '217'), (260.2, '968344555'), (318.0, 'AVENIDA'), (356.0, 'GENERAL'), (419.2, 'MURCIA'), (484.2, '30010')]
+[(122.8, 'CARLOS'), (318.0, 'ORTIN,'), (347.9, 'EDIFICO'), (383.3, 'ELVIS')]
+[(45.4, 'NPE:'), (66.4, 'A-311225-6468')]
+
+$ python -c "import sys; sys.argv=['x']; from tmp.bbox6 import bbox_pages; pgs=bbox_pages('data/raw/murcia/2026/BORM_2025_6468.pdf'); [print([(round(w[0],1),w[2]) for w in r]) for r in pgs[40][:35]]" 2>&1 | Select-Object -Last 40
+[(176.5, 'N∩┐╜mero'), (215.5, '301'), (272.0, 'Mi∩┐╜rcoles,'), (320.4, '31'), (335.0, 'de'), (349.2, 'diciembre'), (396.5, 'de'), (410.6, '2025'), (491.0, 'P∩┐╜gina'), (524.2, '36791')]
+[(122.8, 'LOPEZ,'), (154.1, 'DANIEL'), (318.0, 'LEVANTE,'), (359.7, 'N∩┐╜'), (370.9, '5')]
+[(86.6, '6'), (122.8, 'ZARAGOZA'), (231.2, '128'), (260.2, '968216363'), (318.0, 'VINADEL,9'), (419.2, 'MURCIA'), (484.2, '30004')]
+[(122.8, 'FERNANDEZ,'), (177.2, 'MARIA')]
+[(122.8, 'PILAR')]
+[(86.6, '6'), (122.8, 'GARCIA'), (156.3, 'SIMON,'), (231.2, '17'), (260.2, '968248104'), (318.0, 'MARIANO'), (358.2, 'VERGARA,'), (419.2, 'MURCIA'), (484.2, '30003')]
+[(122.8, 'FRANCISCO'), (173.1, 'JAVIER'), (318.0, 'N∩┐╜'), (329.2, '8')]
+[(86.6, '6'), (122.9, 'GOMEZ'), (155.0, 'ROS,'), (177.2, 'MARIA'), (231.2, '235'), (260.2, '968231591'), (318.0, 'AV.SANTIAGO,1'), (419.2, 'MURCIA'), (484.2, '30007')]
+[(122.8, 'DEL'), (141.0, 'MAR'), (318.0, 'PUEBLO'), (353.3, 'NUEVO')]
+[(86.6, '6'), (122.9, 'ABADIA'), (155.0, 'PEREZ,'), (231.2, '459'), (260.2, '968296376'), (318.0, 'CARRIL'), (350.1, 'DE'), (363.7, 'LAS'), (419.2, 'MURCIA'), (484.2, '30009')]
+[(122.8, 'SALVADOR'), (318.0, 'PALMERAS,'), (367.0, 'N∩┐╜'), (378.1, '23'), (389.4, '-'), (394.4, 'LA')]
+[(318.0, 'ALBATALIA')]
+[(86.6, '6'), (122.8, 'LATORRE'), (163.6, 'TORA,'), (190.9, 'MARIA'), (231.2, '220'), (260.2, '968234034'), (318.0, 'CTRA.ALICANTE,'), (386.9, 'N∩┐╜'), (398.0, '19'), (419.1, 'MURCIA'), (484.2, '30007')]
+[(122.8, 'MERCEDES')]
+[(86.6, '6'), (122.9, 'MONTOYA'), (166.3, 'MARTINEZ,'), (231.2, '1'), (260.2, '968212947,'), (318.0, 'PLAZA'), (346.1, 'SANTA'), (419.2, 'MURCIA'), (484.2, '30003')]
+[(122.8, 'CRISTINA'), (163.2, 'ISABEL'), (260.2, '6'), (318.0, 'EULALIA,'), (356.1, 'N∩┐╜'), (367.2, '7')]
+[(86.6, '7'), (122.9, 'GARCIA-LAX'), (174.5, 'ESPINOSA,'), (231.2, '20'), (260.2, '968263865'), (318.0, 'AUROROS,3'), (419.2, 'MURCIA'), (484.2, '30002')]
+[(122.8, 'ENCARNACION')]
+[(86.6, '7'), (122.9, 'VALVERDE'), (168.6, 'VALVERDE,'), (231.2, '240'), (260.2, '968216260'), (318.0, 'CL.CARTAGENA,'), (385.9, 'N∩┐╜'), (397.0, '17'), (419.1, 'MURCIA'), (484.2, '30002')]
+[(122.8, 'CRISTINA'), (163.2, 'NIEVES')]
+[(86.6, '7'), (122.9, 'MECA'), (148.7, 'POMARES,MA.'), (231.2, '392'), (260.2, '968260521'), (318.0, 'PINTOR'), (351.0, 'ALMELA'), (419.2, 'MURCIA'), (484.2, '30011')]
+[(122.8, 'CARMEN,'), (162.6, 'LOPEZ'), (318.0, 'COSTA,S/N')]
+[(122.8, 'MECA,MA.CARMEN'), (200.9, 'Y')]
+[(122.8, 'LOPEZ'), (151.8, 'MECA'), (177.6, 'ALBERTO')]
+[(86.6, '7'), (122.8, 'MERO∩┐╜O'), (161.8, 'ROSIQUE,'), (231.2, '200'), (260.2, '968260290'), (318.0, 'CL.MAYOR,'), (365.1, 'N∩┐╜'), (376.2, '35'), (419.1, 'LOS'), (484.2, '30011')]
+[(122.8, 'SANTIAGO'), (419.2, 'DOLORES')]
+[(419.2, '(MURCIA)')]
+[(86.6, '7'), (122.8, 'FERNANDEZ'), (231.2, '175'), (260.2, '968212021'), (318.0, 'CALLE'), (346.0, 'ANTONIO'), (419.2, 'LOS'), (484.2, '30011')]
+[(122.8, 'LLORET,MARIA'), (185.0, 'ROSA'), (210.3, 'Y'), (318.0, 'MACHADO,'), (364.3, 'N∩┐╜'), (375.4, '7'), (382.3, 'B'), (419.2, 'DOLORES')]
+[(122.8, 'CAMACHO'), (166.8, 'FERNANDEZ,'), (419.2, '(MURCIA)')]
+[(122.8, 'JOSE'), (146.4, 'ANTONIO')]
+[(86.6, '7'), (122.9, 'LOPEZ'), (151.9, 'CREMADES,'), (231.2, '16'), (260.2, '968251008'), (318.0, 'FLORIDABLANCA,'), (390.4, '71'), (419.1, 'MURCIA'), (484.2, '30002')]
+[(122.8, 'JOSE'), (146.4, 'JOAQUIN')]
+[(86.6, '7'), (122.8, 'HERNANDEZ'), (175.8, 'REX,'), (231.2, '263'), (260.2, '968255392'), (318.0, 'CALLE'), (346.0, 'INDUSTRIA,'), (394.5, 'N∩┐╜'), (419.2, 'MURCIA'), (484.2, '30002')]
+[(122.8, 'MERCEDES'), (318.0, '8'), (324.9, 'Y'), (332.5, 'PLAZA'), (360.6, 'PINTOR')]
+
+$ python -c "
+import io
+lines=open('tmp/murcia_layout.txt',encoding='utf-8',errors='replace').read().split('\n')
+for i,l in enumerate(lines):
+    if 'MONTOYA MARTINEZ' in l or 'CRISTINA ISABEL' in l:
+        for j in range(i-1,i+8):
+            print(repr(lines[j]))
+        print('---')
+" 2>&1 | Select-Object -Last 40
+'                     MERCEDES'
+'         6           MONTOYA MARTINEZ,      1     968212947,   PLAZA SANTA            MURCIA     30003'
+'                     CRISTINA ISABEL              6            EULALIA, N∩┐╜ 7'
+'         7           GARCIA-LAX ESPINOSA,   20    968263865    AUROROS,3              MURCIA     30002'
+'                     ENCARNACION'
+'         7           VALVERDE VALVERDE,     240   968216260    CL.CARTAGENA, N∩┐╜ 17    MURCIA     30002'
+'                     CRISTINA NIEVES'
+'         7           MECA POMARES,MA.       392   968260521    PINTOR ALMELA          MURCIA     30011'
+'                     CARMEN, LOPEZ                             COSTA,S/N'
+---
+'         6           MONTOYA MARTINEZ,      1     968212947,   PLAZA SANTA            MURCIA     30003'
+'                     CRISTINA ISABEL              6            EULALIA, N∩┐╜ 7'
+'         7           GARCIA-LAX ESPINOSA,   20    968263865    AUROROS,3              MURCIA     30002'
+'                     ENCARNACION'
+'         7           VALVERDE VALVERDE,     240   968216260    CL.CARTAGENA, N∩┐╜ 17    MURCIA     30002'
+'                     CRISTINA NIEVES'
+'         7           MECA POMARES,MA.       392   968260521    PINTOR ALMELA          MURCIA     30011'
+'                     CARMEN, LOPEZ                             COSTA,S/N'
+'                     MECA,MA.CARMEN Y'
+---
+
+$ python -c "
+import re
+t=open('docs/SPEC.md',encoding='utf-8',errors='replace').read()
+for m in re.finditer(r'.{0,120}(tel|phone|d├¡gito|digito|9).{0,120}', t, re.I):
+    print(m.group(0).strip()[:240]); print('...')
+" 2>&1 | Select-Object -Last 40
+address: str         # direcci∩┐╜n tal como aparece, sin el tel∩┐╜fono
+...
+phone: str | None    # tel∩┐╜fono de la farmacia, solo d∩┐╜gitos (9 d∩┐╜gitos Espa∩┐╜a)
+...
+duty_phone: str | None  # tel∩┐╜fono espec∩┐╜fico de guardia si la fuente lo da aparte
+...
+
+$ python -c "
+import re
+t=open('docs/TAREA_02_murcia.md',encoding='utf-8',errors='replace').read()
+for m in re.finditer(r'.{0,140}(tel|phone|d├¡gito|digito|warning|tel[e├⌐]fono).{0,160}', t, re.I):
+    print('>>',m.group(0).strip()[:300])
+" 2>&1 | Select-Object -Last 50
+>> Reconstruir: holder, numero (N∩┐╜ F), phone (9 d∩┐╜gitos), address, locality (POBLACI∩┐╜N unida), postal_code.
+>> distintos -> warning.
+>> warning "REFUERZO_REGLA_NO_SOPORTADA" con agrupaci∩┐╜n y texto literal.
+>> Cualquier bloque de Anexo III que no encaje -> warning con agrupaci∩┐╜n y primeras l∩┐╜neas.
+>> lugar de "24h" (asociar por n∩┐╜mero de agrupaci∩┐╜n; si no se puede asociar con seguridad, "24h" + warning).
+>> - `scripts/run_murcia.py` -> `data/out/murcia_2026.json` + resumen (farmacias, turnos, warnings por tipo,
+>> - Directorio: MU:45 = RUBIO FERNANDEZ, MARIA; tel 968802950; CL. MAYOR, 87; ALCANTARILLA; 30820.
+>> - Agrupaci∩┐╜n 2: MU:56 24h todos los d∩┐╜as; los refuerzos de lunes a s∩┐╜bado generan warning, no turnos.
+>> - Todo turno del Anexo III referencia una farmacia existente del Anexo II (si no, warning).
+
+$ python -c "
+lines=open('tmp/murcia_layout.txt',encoding='utf-8',errors='replace').read().split('\n')
+for i,l in enumerate(lines):
+    if '968510805' in l or '968482840' in l or '968499738' in l:
+        for j in range(i,i+3):
+            print(repr(lines[j]))
+        print('---')
+" 2>&1 | Select-Object -Last 30
+'         14          MORENO BEJAR,MARIA     402   968510805,   CL.CARMEN CONDE-       CARTAGENA    30204'
+'                     CECILIA                      9            URBINCASA, ESQUINA'
+'                                                               ANTONIO OLIVER'
+---
+'         27          PEREZ ACOSTA, MARIA    419   968482840,   CAMINO DE LA           LORCA         30813'
+'                     ANTONIA                      7            MONJA, S/N- PURIAS'
+'         27          GARCIA LEON,JOAQUIN    507   968466819    ALAMEDA DE             LORCA         30800'
+---
+'         28          RODRIGUEZ MORENO,      318   968499738,   CALLE SASTRA, N∩┐╜ 2,   ZARCILLA DE   30810'
+'                     JOSEFA ELOISA                6            ESQUINA CALLE         RAMOS-'
+'                                                               LARGA-ZARCILLA DE     LORCA'
+---
+
+ΓåÆ Read docs/TAREA_02_murcia.md
+
+ΓåÉ Edit ingesta/parsers/murcia.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+@@ -296,15 +296,18 @@
+ holder = _collapse(cell("nombre"))
+ address = _collapse(cell("direccion"))
+ locality = _collapse(cell("poblacion")) or None
+ postal_code = digits_only(cell("cp")) or None
+-phone = digits_only(cell("tlfn"))
+-if phone and len(phone) != 9:
++phone = None
++raw_phone = digits_only(cell("tlfn"))
++match_phone = re.search(r"\d{9}", raw_phone)
++if match_phone:
++    phone = match_phone.group(0)
++elif raw_phone:
+     warnings.append(
+         f"{filename} p{page_number}: TELEFONO_INVALIDO "
+-        f"{pharmacy_id}: {phone}"
++        f"{pharmacy_id}: {raw_phone}"
+     )
+-    phone = None
+ if not holder:
+     warnings.append(
+         f"{filename} p{page_number}: FARMACIA_SIN_NOMBRE: {pharmacy_id}"
+     )
+
+
+ΓåÉ Write tmp/verify.py
+Wrote file successfully.
+
+$ python -m tmp.verify 2>&1 | Select-Object -Last 90
+MU:38 ALCAZAR MORENO, CRISTOBAL Y ALCAZAR MARQUEZ, ANTONIO
+   MU:42 PEREZ ANDUJAR, ROCIO Y PEREZ ANDUJAR, EVA
+   MU:49 GARCIA VILLALBA, MANUEL Y MONTALVO GOMEZ, MARIA PILAR
+   MU:51 PACHECO ATIENZA, ARSENIO Y PACHECO LOPEZ, ARSENIO
+   MU:60 LAMAS PE∩┐╜A, MAGIN FRANCISCO Y LAMAS PE∩┐╜A, ASIS FRANCISCO
+   MU:62 FIGUEROA SORIANO, SALVADOR, HEREDEROS Y FIGUEROA MORALES, MERCEDES
+   MU:65 SANCHEZ CARRASCOSA,SALVAD OR, SANCHEZ- CARRASCOSA SANCHEZ,CARMEN, SANCHEZ- CARRASCOSA SANCHEZ,SALVADOR
+   MU:67 SANCHEZ- CARRASCOSA SUAREZ, JAVIER Y SANCHEZ GARCIA-PAGAN, ANA
+   MU:72 SANCHEZ-PE∩┐╜UELA TOMAS, JUAN BAUTISTA, Y SANCHEZ- PE∩┐╜UELA LEJARRAGA, MARIA DEL MAR
+   MU:101 PEREZ BELDA, PASCUALA MARIA Y MENDOZA PEREZ, MARIA ISABEL
+   MU:102 AZORIN PI∩┐╜OL, AURORA Y GOMEZ AZORIN, BEATRIZ
+   MU:121 PEIRO BERENGUER, RAFAEL, Y PRADERA BLANCO, MARIA EMILIA
+   MU:131 GALLEGO MARTINEZ, MARIA DEL CARMEN Y MU∩┐╜OZ-CRUZADO BARBA, JOAQUIN
+   MU:136 MU∩┐╜OZ YAGO, FRANCISCO Y MU∩┐╜OZ BA∩┐╜ON, FRANCISCO
+   MU:141 SANTAMARIA CAS, ALEJANDRO Y SANTAMARIA LOPEZ, MARIA JOSE
+   MU:142 ELIO LUCAS, PATRICIA Y RODRIGUEZ LUCAS, PEDRO JESUS
+   MU:147 DE TORRE SOLER, VICTORIA SUSANA Y LLORET DE TORRE, MARTA
+   MU:152 LOPEZ PUERTA, ELENA JUANA Y CASTA∩┐╜O BAHLSEN, DULCE NOMBRE DE MARIA
+   MU:163 CARAZO FERNANDEZ, ANTONIO Y CARAZO GIL, MARIA DE LOS DESAMPARADOS
+   MU:165 SOTO FERNANDEZ, MATILDE PILAR Y SORIA SOTO, PILAR
+   MU:168 MARTINEZ LOPEZ, LUCIA, MARTINEZ LOPEZ, CARLOS GUILLERMO
+   MU:169 GALINDO GARCIA,MARIA JOSE Y SABATER GALINDO, MARTA
+   MU:174 PALAU GUDIOL,MERCEDES Y POLO PALAU, GUILLERMO
+   MU:175 FERNANDEZ LLORET,MARIA ROSA Y CAMACHO FERNANDEZ, JOSE ANTONIO
+   MU:178 GUIRAO HERNANDEZ, MARIA Y PEREZ- TEMPLADO LADRON DE GUEVARA, ELENA MARIA DEL MAR
+   MU:190 SANCHEZ ABAD,ANTONIO VICENTE Y SANCHEZ RECIO, ANTONIO
+   MU:193 ARCAS LOPEZ, DOMINGO Y ARCAS CASTI∩┐╜EIRAS, IGNACIO
+   MU:194 VILLALBA PEREZ,ANTONIO MANUEL Y VILLALBA LOPEZ, TERESA
+   MU:198 MARTINEZ GARCIA, JUAN BARTOLOME Y MARTINEZ DIAZ, CARLOS
+   MU:202 TORNERO GOMEZ,GLORIA Y GOMEZ TORNERO, NATALIA
+   MU:214 SELMA FERRANDEZ, MARIA ANDREA Y MURCIA SELMA, FRANCISCO JAVIER
+   MU:228 TORREGROSA TOMAS,ROCIO Y FALOMIR TORREGROSA MERITXELL ROCIO
+   MU:229 SORIANO SANCHEZ, DIEGO JESUS Y SORIANO GARCIA, ALBERTO
+   MU:230 ALVAREZ-GOMEZ GONZALEZ, ADELA Y MARIA CARIDAD
+   MU:233 PEREZ MORENO, ALFREDO Y PEREZ MORENO, ROSENDO JOSE
+   MU:249 SOLA MENDEZ,CARMEN Y SEGARRA SOLA, ISABEL ROCIO
+   MU:252 BERNABE ORTU∩┐╜O, FRANCISCO, BERNABE RUIZ, NURIA Y FRANCISCO JAVIER
+   MU:253 SALINAS HERNANDEZ, MARIA DEL CARMEN Y ALEJANDRO
+   MU:270 ANUNCI GELABERT, JOSE LUIS Y ANUNCI DIAZ, JOSE LUIS
+   MU:272 SOLER SEGARRA,MANUEL, SOLER TENORIO, JOSE RAMON
+   MU:276 LAJARIN BARQUERO, JUAN PEDRO Y LAJARIN CUESTA, M∩┐╜ ROCIO
+   MU:277 HERNANDEZ REX, PEDRO Y HERNANDEZ ORTU∩┐╜O, INES FUENSANTA
+   MU:284 PEREZ PIERNAS, MA. CARMEN Y NAVARRO PEREZ, ANA DEL CARMEN
+   MU:294 JARA PEREZ, EZEQUIEL RAMON Y JARA CASCALES, ISABEL
+   MU:301 CARDENAS RUEDA, VICTORIA Y GARCIA CARDENAS, MARIA VICTORIA
+   MU:303 CERDAN GOMEZ,FRANCISCA Y TORREGROSA CERDAN, PEDRO
+   MU:305 ARANAGA LARRINAGA, MARINA Y PEREZ PLAZA, MARIA DOLORES
+   MU:308 MARTINEZ CACHA, FRANCISCO Y MARTINEZ BERTRAND, EDUARDO
+   MU:315 MUNUERA GONZALEZ, JUANA Y MARTINEZ MONTEAGUDO, ENRIQUE JOSE
+   MU:321 CELDRAN POYATO,MARIA CARMEN Y FARINOS CELDRAN, IGNACIO
+   MU:331 MAURANDI GUILLEN,MARIA DOLORES Y BERNAL MAURANDI, MARIA DOLORES
+   MU:336 CUESTA GARCIA DE LEONARDO,MARIA ROCIO Y LAJARIN CUESTA, MARTA
+   MU:349 ORTIZ ALEMAN,FRANCISCO Y ORTIZ PUJALTE, FRANCISCO JOSE
+   MU:352 GARRE RODENAS, LOURDES MARIA Y MOLES CUEVAS, JOSE MANUEL
+   MU:359 AVILES INGLES, ESTHER Y SAEZ ALMAGRO, ANTONIO
+   MU:364 CONESA MARTINEZ, ANA MARIA Y CALATRAVA TORRES, MANUEL
+   MU:371 MU∩┐╜OZ SORIANO, FRANCISCO Y MU∩┐╜OZ ORTEGA, BEGO∩┐╜A
+   MU:373 GOMEZ MELGAREJO, MARIA LOURDES Y GOMEZ MELGAREJO, CRISTINA DEL ORO
+   MU:377 DE BENAVIDES GIMENEZ, MARIA MAGDALENA Y MARIA PAULA
+   MU:389 FERNANDEZ FRANCO, LEANDRO, FERNANDEZ FRANCO, CARLOS CEFERINO Y FERNANDEZ FRANCO, FRANCISCO JAVIER
+   MU:392 MECA POMARES,MA. CARMEN, LOPEZ MECA,MA.CARMEN Y LOPEZ MECA ALBERTO
+   MU:394 PINTADO ARMERO, MARIA LEONOR Y ALEO PINTADO, FRANCISCO
+   MU:399 MAURANDI GUILLEN, ANTONIA MARIA Y HERNANDEZ MAURANDI, IRENE
+   MU:400 MOLINA MU∩┐╜OZ, EUSTOQUIO Y MOLINA VIDAL, LUIS
+   MU:424 ALGUACIL PARDO, CRISTINA SANTISIMA TRINIDAD
+   MU:429 CESPEDES RIVAS, MARIA JOSE Y ZARAUZ CESPEDES, JOSE MARIA
+   MU:431 HERNANDEZ ROS, MARIA DEL CARMEN Y MORENO HERNANDEZ, FRANCISCO JESUS
+   MU:433 MARTINEZ GARCIA,JOSE ANTONIO Y MARTINEZ CACERES, ALICIA
+   MU:447 GARCIA CABRERA, ANA MARIA Y GARCIA GARCIA, JUAN FRANCISCO
+   MU:449 LOPEZ COLLADOS,ANTONIA Y HERVAS LOPEZ, MARIA VICTORIA
+   MU:462 URIBE NAVARRO,MARIA JOSE Y ESPALLARDO URIBE, ANA MARIA
+   MU:464 VIDAL PEREZ, FRANCISCO JAIME, HITA JIMENEZ, MARIA INMACULADA
+   MU:478 CARCELES LEGAZ, ISABEL Y BERMEJO CARCELES, NOELIA
+   MU:500 CARRILERO GALERA,ANTONIO Y CARRILERO ALCARAZ, ROBERTO
+   MU:512 COSTA CASTILLO, FRANCISCO JOSE, COSTA MULA, FRANCISCO JOSE Y ALBERTO
+   MU:516 ALEMAN MARIN, CARMEN MARIA Y ALEMAN MARIN, ANA CRISTINA
+   MU:522 NAVARRO MARTINEZ, FRANCISCO LUIS Y NAVARRO PEREZ- ONTIVEROS, MARIA
+   MU:527 DE CLAVER MU∩┐╜OZ, ANA VICTORIA Y LOPEZ ILLAN FRANCISCO
+   MU:534 CABALLERO CASTILLO, FERNANDO JOSE Y CABALLERO CASTILLO ALBERTO
+   MU:536 MORENO ABELLAN,FRANCISCO Y MORENO HERNANDEZ, MARIA DEL CARMEN
+   MU:545 PEREZ FERRER, BELEN Y HENAREJOS PEREZ, ANGELA
+   MU:554 CASTEJON MARTINEZ, OLIMPIA Y CASTILLO CASTEJON, MARIA LUISA
+   MU:558 TORRES TOMAS, EMILIA MARIA Y LOPEZ TORRES, PEDRO LUIS
+   MU:561 SATURNO DE LA VILLA, JAVIER Y AGUDO BARRIUSO, MARTA
+   MU:567 CASTILLO GARZON, PURIFICACION Y MARTINEZ CASTILLO, LUIS ALBERTO
+   MU:574 VASCONEZ PEREZ, GLADYS ELIZABETH Y VICTORIA ANDRES, MARIA SALOME
+   MU:582 ZARAUZ GARCIA, JOSE Y ZARAUZ CESPEDES, IGNACIO
+--- telefonos no nulos 581
+--- cp no nulos 581
+--- address vacias 0
+
+ΓåÉ Edit ingesta/parsers/murcia.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+@@ -228,12 +228,14 @@
+     if current.count("(") > current.count(")"):
+         return current + fragment
+     last = current.split()[-1]
+     first = fragment.split()[0]
+-    if last.upper() not in _II_CONNECTORS and " " not in fragment and len(
+-        first
+-    ) <= 2 and len(last) >= 7:
++    if last.upper() in _II_CONNECTORS:
++        return current + " " + fragment
++    if last.endswith("-"):
+         return current + fragment
++    if " " not in fragment and len(first) <= 2 and len(last) >= 5:
++        return current + fragment
+     return current + " " + fragment
+ 
+ 
+ def _anexo2_page_range(
+
+
+$ python -m tmp.verify 2>&1 | Select-Object -First 120
+elapsed 2.3
+pharmacies 581 shifts 17185 warnings 63
+MU:45 Pharmacy(id='MU:45', region='14', holder='RUBIO FERNANDEZ, MARIA', address='CL. MAYOR, 87', locality='ALCANTARILLA', postal_code='30820', phone='968802950', duty_phone=None)
+MU:534 addr CALLE MEDICO PEDRO NOGUEROLES, ESQUINA CALLE ANDORRA
+2026-01-01 ['MU:431'] expect MU:431
+2026-01-03 ['MU:46'] expect MU:46
+agr6 MU:12 365
+agr6 MU:94 365
+agr6 MU:178 365
+agr6 MU:180 365
+agr6 MU:257 365
+agr6 MU:312 365
+agr6 MU:376 365
+agr6 MU:393 365
+agr2 MU:56 24h 365
+agr2 refuerzos (deben ser 0) 0
+shifts sin farmacia 0
+warnings por tipo [('ROTACION_NO_SOPORTADA', 32), ('ANEXO_III_NO_SOPORTADO', 23), ('REFUERZO_REGLA_NO_SOPORTADA', 7), ('REGLA_24H_NO_SOPORTADA', 1)]
+--- localidades distintas (158)
+   ABANILLA
+   ABARAN
+   AGUILAS
+   ALBERCA,LA
+   ALBUDEITE
+   ALCANTARILLA
+   ALCAZARES, LOS
+   ALEDO
+   ALGAR,EL
+   ALGEZARES
+   ALGUAZAS
+   ALHAMA DE MURCIA
+   ALJORRA,LA
+   ALJUCER
+   ALMENDRIC OS-LORCA
+   ALMUDEMA,LA
+   ALQUERIAS
+   ALUMBRES (CARTAGENA)
+   ARCHENA
+   ARCHIVEL (CARAVACA)
+   BALSAPINTADA
+   BALSICAS (TORREPACHECO)
+   BARQUEROS
+   BARRANDA
+   BENIAJAN
+   BENIEL
+   BENIZAR-MORATALLA
+   BLANCA
+   BOHIO, EL (CARTAGENA)
+   BOLNUEVO (MAZARRON)
+   BULLAS
+   CABEZO DE TORRES
+   CABO DE PALOS
+   CABO DE PALOS (CARTAGENA)
+   CALABARDIN A (AGUILAS)
+   CALASPARRA
+   CAMPOS DEL RIO
+   CANARA-CEHEGIN
+   CANTERAS-CARTAGENA
+   CARAVACA DE LA CRUZ
+   CARTAGENA
+   CEHEGIN
+   CEUT∩┐╜
+   CHURRA
+   CIEZA
+   COBATILLAS
+   CORVERA
+   CUEVAS DEL REYLLO
+   DOLORES LOS (CARTAGENA)
+   DOLORES-TORRE PACHEC
+   EL ALBUJON
+   EL ESPARRAGAL
+   EL FENAZAR (MOLINA DESEGURA
+   EL MIRADOR (SAN JAVIER)
+   EL PARETON - TOTANA
+   EL PUNTAL (ESPINARDO)
+   EL RANERO
+   ERA ALTA
+   ESPINARDO
+   FORTUNA
+   FUENTE ALAMO
+   FUENTE LIBRILLA
+   GARRES,LOS
+   GUADALUPE
+   HOYA DEL CAMPO (ABARAN)
+   HOYA,LA-LORCA
+   ISLA PLANA
+   ISLAS MENORES-CARTAGENA
+   JAVALI NUEVO
+   JAVALI VIEJO
+   JUMILLA
+   LA APARECIDA (CARTAGENA)
+   LA AZOHIA (CARTAGENA)
+   LA FLORIDA (LASTORRES DECOTILLAS)
+   LA HOYA -LORCA
+   LA MANGA DEL MAR MENOR
+   LA PALMA-CARTAGENA
+   LA PUEBLA (CARTAGENA)
+   LA RAYA (MURCIA)
+   LAS PALAS(FUENTE ALAMO)
+   LIBRILLA
+   LLANO DE BRUJAS
+   LLANO DE MOLINA S.
+   LLANO DEL BEAL-CARTAGENA
+   LO CAMPANO (CARTAGENA)
+   LO PAGAN
+   LOBOSILLO
+   LORCA
+   LORQUI
+   LOS BARREROS (CARTAGENA)
+   LOS BELONES (CARTAGENA)
+   LOS BELONES(CARTAGENA)
+   LOS DOLORES (CARTAGENA)
+   LOS DOLORES (MURCIA)
+   LOS MATEOS (CARTAGENA)
+   LOS NAREJOS (LOSALCAZARES)
+   LOS NIETOS-CARTAGENA
+   LOS RAMOS
+   LOS URRUTIAS (CARTAGENA)
+   MARCHENA-LORCA
+   MARFAGONES-CARTAGENA
+
+ΓåÉ Edit ingesta/parsers/murcia.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+@@ -232,8 +232,10 @@
+ if last.upper() in _II_CONNECTORS:
+     return current + " " + fragment
+ if last.endswith("-"):
+     return current + fragment
++if len(first) <= 1 and len(last) >= 5:
++    return current + fragment
+ if " " not in fragment and len(first) <= 2 and len(last) >= 5:
+     return current + fragment
+ return current + " " + fragment
+ 
+
+
+$ python -m tmp.verify 2>&1 | Select-Object -First 22
+elapsed 2.4
+pharmacies 581 shifts 17185 warnings 63
+MU:45 Pharmacy(id='MU:45', region='14', holder='RUBIO FERNANDEZ, MARIA', address='CL. MAYOR, 87', locality='ALCANTARILLA', postal_code='30820', phone='968802950', duty_phone=None)
+MU:534 addr CALLE MEDICO PEDRO NOGUEROLES, ESQUINA CALLE ANDORRA
+2026-01-01 ['MU:431'] expect MU:431
+2026-01-03 ['MU:46'] expect MU:46
+agr6 MU:12 365
+agr6 MU:94 365
+agr6 MU:178 365
+agr6 MU:180 365
+agr6 MU:257 365
+agr6 MU:312 365
+agr6 MU:376 365
+agr6 MU:393 365
+agr2 MU:56 24h 365
+agr2 refuerzos (deben ser 0) 0
+shifts sin farmacia 0
+warnings por tipo [('ROTACION_NO_SOPORTADA', 32), ('ANEXO_III_NO_SOPORTADO', 23), ('REFUERZO_REGLA_NO_SOPORTADA', 7), ('REGLA_24H_NO_SOPORTADA', 1)]
+--- localidades distintas (158)
+   ABANILLA
+   ABARAN
+   AGUILAS
+
+$ python -m unittest discover -s tests -v 2>&1 | Select-Object -Last 60
+python : test_26_pdfs_con_texto_y_uno_sin_texto 
+(test_baleares.BalearesAcceptanceTests.test_26_pdfs_con_texto_y_uno_sin_texto) ... ok
+En l∩┐╜nea: 1 Car∩┐╜cter: 1
++ python -m unittest discover -s tests -v 2>&1 | Select-Object -Last 60
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_26_pdfs_co...n_texto) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_azcarate_hernandez_pinzon_columnas 
+(test_baleares.BalearesAcceptanceTests.test_azcarate_hernandez_pinzon_columnas) ... ok
+test_costa_amengual_duty_phone (test_baleares.BalearesAcceptanceTests.test_costa_amengual_duty_phone) ... ok
+test_formentera_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_formentera_2026_01_01) ... ok
+test_ids_palma_2026_01_01_salvo_sagrista 
+(test_baleares.BalearesAcceptanceTests.test_ids_palma_2026_01_01_salvo_sagrista) ... ok
+test_ningun_turno_invertido (test_baleares.BalearesAcceptanceTests.test_ningun_turno_invertido) ... ok
+test_palma_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_palma_2026_01_01) ... ok
+test_riera_oliver_magdalena_columnas (test_baleares.BalearesAcceptanceTests.test_riera_oliver_magdalena_columnas) ... 
+ok
+test_sagrista_farre_columnas (test_baleares.BalearesAcceptanceTests.test_sagrista_farre_columnas) ... ok
+test_sastre_barcelo_columnas (test_baleares.BalearesAcceptanceTests.test_sastre_barcelo_columnas) ... ok
+test_sin_warnings_ambigua (test_baleares.BalearesAcceptanceTests.test_sin_warnings_ambigua) ... ok
+test_columna_direccion_por_bbox (test_baleares.SyntheticLineTests.test_columna_direccion_por_bbox) ... ok
+test_duty_phone_extraido_y_quitado_de_direccion 
+(test_baleares.SyntheticLineTests.test_duty_phone_extraido_y_quitado_de_direccion) ... ok
+test_fin_de_turno_al_dia_siguiente (test_baleares.SyntheticLineTests.test_fin_de_turno_al_dia_siguiente) ... ok
+test_id_estable_entre_dias_y_zonas (test_baleares.SyntheticLineTests.test_id_estable_entre_dias_y_zonas) ... ok
+test_locality_guion_pegado_es_direccion (test_baleares.SyntheticLineTests.test_locality_guion_pegado_es_direccion) ... 
+ok
+test_locality_segun_patron (test_baleares.SyntheticLineTests.test_locality_segun_patron) ... ok
+test_normalize (test_baleares.SyntheticLineTests.test_normalize) ... ok
+test_parse_date_line (test_baleares.SyntheticLineTests.test_parse_date_line) ... ok
+test_parse_shift_header_variantes (test_baleares.SyntheticLineTests.test_parse_shift_header_variantes) ... ok
+test_split_ambiguo_conserva_linea_completa 
+(test_baleares.SyntheticLineTests.test_split_ambiguo_conserva_linea_completa) ... ok
+test_split_standard (test_baleares.SyntheticLineTests.test_split_standard) ... ok
+----------------------------------------------------------------------
+Ran 22 tests in 14.438s
+OK
+
+ΓåÆ Read tests/test_baleares.py [limit=60]
+ΓåÆ Read tests/test_baleares.py [limit=80, offset=60]
+ΓåÆ Read tests/test_baleares.py [limit=120, offset=213]
+ΓåÆ Read scripts/run_baleares.py
+ΓåÆ Read ingesta/export.py
+
+ΓåÉ Write tmp/zones.py
+Wrote file successfully.
+
+$ python -m tmp.zones 2>&1 | Select-Object -Last 40
+n zones 47
+ZONE 'AGRUPACION 1 (ALCANTARILLA-SANGONERA LA SECA)'
+ZONE 'AGRUPACION 18 (MAZARRON) - Mazarr∩┐╜n (casco)'
+ZONE 'AGRUPACION 2 (ALHAMA DE MURCIA)'
+ZONE 'AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)'
+dia 2026-10-18 agr 1 1 [('AGRUPACION 1 (ALCANTARILLA-SANGONERA LA SECA)', 'MU:44', '24h')]
+dia 2026-10-18 agr 6 17 [('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:10', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:12', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:161', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:178', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:180', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:187', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:212', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:217', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:257', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:264', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:271', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:312', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:348', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:376', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:393', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:502', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:94', '24h')]
+dia 2026-10-18 agr 18 0 []
+kinds Counter({'24h': 8197, 'refuerzo': 7665, 'localizada': 1323})
+times_exact False 9520 True 7665
+
+ΓåÉ Write tmp/agr18.py
+Wrote file successfully.
+
+$ python -m tmp.agr18 2>&1 | Select-Object -Last 40
+shifts agr18 62 Counter({'AGRUPACION 18 (MAZARRON) - Mazarr∩┐╜n (casco)': 62})
+first days [datetime.date(2026, 1, 1), datetime.date(2026, 1, 2), datetime.date(2026, 1, 3), datetime.date(2026, 1, 4), datetime.date(2026, 1, 5), datetime.date(2026, 1, 6), datetime.date(2026, 1, 7), datetime.date(2026, 1, 8), datetime.date(2026, 1, 9), datetime.date(2026, 1, 10)] last [datetime.date(2026, 1, 27), datetime.date(2026, 1, 28), datetime.date(2026, 1, 29), datetime.date(2026, 1, 30), datetime.date(2026, 1, 31)]
+warnings agr18 2
+   BORM_2025_6468.pdf p36872: ROTACION_NO_SOPORTADA AGRUPACION 18 [AGRUPACION 18 (MAZARRON) - Mazarr∩┐╜n (casco)]: Rotaci∩┐╜n por semanas, seg∩┐╜n el orden expuesto, en sistema localizado
+   BORM_2025_6468.pdf p36873: REGLA_24H_NO_SOPORTADA AGRUPACION 18: Rotaci∩┐╜n por d∩┐╜as, de modo sucesivo seg∩┐╜n el orden expuesto, hasta
+
+$ python -c "
+lines=open('tmp/murcia_layout.txt',encoding='utf-8',errors='replace').read().split('\n')
+idx=[i for i,l in enumerate(lines) if l.strip()=='AGRUPACION 18']
+print('idx', idx)
+if idx:
+    i=idx[0]
+    for j in range(i-2, i+90):
+        print(j, repr(lines[j]))
+" 2>&1 | Select-Object -Last 100
+idx [1090, 7219]
+1088 ''
+1089 ''
+1090 '                                           AGRUPACION 18'
+1091 '                                            (MAZARRON)'
+1092 ''
+1093 '                     A) Horario M∩┐╜nimo: horario m∩┐╜nimo especial autorizado por'
+1094 '                        Resoluci∩┐╜n de la Consejer∩┐╜a de Salud.'
+1095 ''
+1096 ''
+1097 '                     B) Oficinas de Farmacia con ampliaci∩┐╜n de horario:'
+1098 ''
+1099 '                 - MU-584-F, Isabel Tovar Zapata, M∩┐╜dulo I'
+1100 ''
+1101 '                     C) Oficinas de Farmacia participantes: las que figuran en la zona'
+1102 '                         farmac∩┐╜utica 21 del ANEXO II, (TOTAL:15)'
+1103 ''
+1104 '                     D) Turno: Se distingue el Puerto de Mazarr∩┐╜n (zona de playa, 8'
+1105 '                         farmacias) Mazarr∩┐╜n (zona de interior, 3 farmacias) y refuerzo'
+1106 '                         (Isla Plana, Camposol, Ca∩┐╜ada Gallego y La Azoh∩┐╜a)'
+1107 ''
+1108 '                       -Mazarr∩┐╜n (interior): una oficina de farmacia de urgencia cada d∩┐╜a,'
+1109 '                       en servicio contin∩┐╜o 24 horas, en sistema localizado fuera del'
+1110 '                       horario m∩┐╜nimo. Rotaci∩┐╜n por semanas, seg∩┐╜n cuadrante'
+1111 '                       especificado en el Anexo III.'
+1112 ''
+1113 '                       -Puerto de Mazarr∩┐╜n (playa): una oficina de farmacia de urgencia'
+1114 '                       cada d∩┐╜a, en turno diurno, y en servicio contin∩┐╜o 24 horas'
+1115 '                       ∩┐╜nicamente en el caso y durante el tiempo en que exista servicio'
+1116 '                       m∩┐╜dico de urgencia en Puerto de Mazarr∩┐╜n. Rotaci∩┐╜n por d∩┐╜as,'
+1117 '                       seg∩┐╜n cuadrante especificado en el Anexo III.'
+1118 ''
+1119 '                       -Isla Plana, La Azoh∩┐╜a, Ca∩┐╜ada Gallego y Camposol: servicio de'
+1120 '                       urgencia diurna localizada, seg∩┐╜n cuadrante especificado en el'
+1121 '                       Anexo III.'
+1122 ''
+1123 ''
+1124 ''
+1125 ''
+1126 'NPE: A-311225-6468'
+1127 '\x0c                              N∩┐╜mero 301       Mi∩┐╜rcoles, 31 de diciembre de 2025        P∩┐╜gina 36771'
+1128 ''
+1129 ''
+1130 ''
+1131 ''
+1132 '                                  AGRUPACI∩┐╜N FARMAC∩┐╜UTICA 19'
+1133 '                                (TORRE PACHECO-POZO ESTRECHO'
+1134 ''
+1135 '                     A) Horario M∩┐╜nimo: el fijado por Orden de 6 de octubre de'
+1136 '                     1.998.'
+1137 ''
+1138 ''
+1139 '                     B) Oficinas de Farmacia con ampliaci∩┐╜n de horario:'
+1140 ''
+1141 '                 - MU-360-F, Jos∩┐╜ Daniel Pe∩┐╜alver Castell∩┐╜n, M∩┐╜dulo I.'
+1142 '                 - MU-593-F, Emilio La orden Nu∩┐╜ez, M∩┐╜dulo I.'
+1143 ''
+1144 '                     C) Oficinas de Farmacia excluidas:'
+1145 ''
+1146 '                 - MU-066-F, Mart∩┐╜nez Beltr∩┐╜n-Mart∩┐╜nez Beltr∩┐╜n (Dolores de Pacheco)'
+1147 '                 - MU-249-F, Sola M∩┐╜ndez-Segarra Sola (El Albuj∩┐╜n)'
+1148 '                 - MU-360-F, Jos∩┐╜ Daniel Pe∩┐╜alver Castell∩┐╜n (Rold∩┐╜n)'
+1149 '                 - MU-469-F, Patricia S∩┐╜nchez Hern∩┐╜ndez (Balsicas)'
+1150 '                 - MU-593-F, Emilio Laorden N∩┐╜∩┐╜ez (Rold∩┐╜n)'
+1151 ''
+1152 '                     D) Oficinas de Farmacia participantes: las que figuran en la'
+1153 '                        zona farmac∩┐╜utica 22 del ANEXO II, excepto las que se'
+1154 '                        excluyen en el apartado anterior. (TOTAL: 10 , oficinas en Torre'
+1155 '                        Pacheco 7, 2 en Pozo Estrecho y 1 en la Palma)'
+1156 ''
+1157 ''
+1158 '                     E) Vacaciones:'
+1159 ''
+1160 '                 - MU-125-F, Jos∩┐╜ Mart∩┐╜nez Garc∩┐╜a (del 16 al 31 de julio y del 16 al'
+1161 '                   31 de agosto de 2026).'
+1162 '                 - MU-171-F, Marina Ram∩┐╜n Mero∩┐╜o (del 16 al 31 de julio y del 16 al'
+1163 '                   31 de agosto de 2026).'
+1164 '                 - MU-221-F, Julia Mar∩┐╜a Ramos Cerezo (del 1 al 15 de julio y del 1 al'
+1165 '                   15 de agosto de 2026).'
+1166 '                 - MU-346-F, Mar∩┐╜a Luisa Mero∩┐╜o Garc∩┐╜a (del 16 al 31 de julio y del'
+1167 '                   16 al 31 de agosto de 2026).'
+1168 '                 - MU-428-F, Octavio Llamas Blaya (del 1 al 15 de julio y del 1 al 15'
+1169 '                   de agosto de 2026).'
+1170 '                 - MU-527-F, Claver Mu∩┐╜oz-L∩┐╜pez Ill∩┐╜n (del 16 al 31 de julio y del 16'
+1171 '                   al 31 de agosto de 2026).'
+1172 '                 - MU-549-F, Mar∩┐╜a Dolores Mar∩┐╜n Saura (del 1 al 15 de julio y del 1'
+1173 '                   al 15 de agosto de 2026).'
+1174 ''
+1175 '                     F) Turno: Se distingue el casco urbano de Torre Pacheco (7'
+1176 '                        farmacias), las de las Pedan∩┐╜as que se encuentran en la'
+1177 '                        agrupaci∩┐╜n (3 farmacias).'
+1178 ''
+1179 '                 -Torre Pacheco: una oficina de farmacia de urgencia cada d∩┐╜a, en'
+
+$ python -c "
+lines=open('tmp/murcia_layout.txt',encoding='utf-8',errors='replace').read().split('\n')
+i=7219
+for j in range(i-3, i+120):
+    print(j, repr(lines[j]))
+" 2>&1 | Select-Object -Last 130
+7216 '             m∩┐╜nimo, y con respeto a las vacaciones autorizadas. En caso de renuncia'
+7217 '             a vacaciones se anular∩┐╜n los cambios hechos por vacaciones.'
+7218 ''
+7219 '                                           AGRUPACION 18'
+7220 '                                            (MAZARRON)'
+7221 ''
+7222 '             Mazarr∩┐╜n (casco)'
+7223 ''
+7224 '               01/01/2026      474       Manuel Suarez Ortega'
+7225 '               02/01/2026      496       Mercedes Garc∩┐╜a Moreno'
+7226 '               03/01/2026      505       Jos∩┐╜ Luis P∩┐╜rez Madrid'
+7227 '               04/01/2026      505       Jos∩┐╜ Luis P∩┐╜rez Madrid'
+7228 '               05/01/2026      513       Cristina Ernestina Mar∩┐╜n Galindo'
+7229 '               06/01/2026      529       Mario P∩┐╜rez Pardo'
+7230 '               07/01/2026      127       Manuel Hummer Navarro'
+7231 '               08/01/2026      456       Maria Nieves Fuentes Flores'
+7232 '               09/01/2026      474       Manuel Suarez Ortega'
+7233 '               10/01/2026      496       Mercedes Garc∩┐╜a Moreno'
+7234 '               11/01/2026      496       Mercedes Garc∩┐╜a Moreno'
+7235 '               12/01/2026      505       Jos∩┐╜ Luis P∩┐╜rez Madrid'
+7236 '               13/01/2026      513       Cristina Ernestina Mar∩┐╜n Galindo'
+7237 '               14/01/2026      529       Mario P∩┐╜rez Pardo'
+7238 '               15/01/2026      127       Manuel Hummer Navarro'
+7239 '               16/01/2026      456       Maria Nieves Fuentes Flores'
+7240 '               17/01/2026      474       Manuel Suarez Ortega'
+7241 '               18/01/2026      474       Manuel Suarez Ortega'
+7242 '               19/01/2026      496       Mercedes Garc∩┐╜a Moreno'
+7243 '               20/01/2026      505       Jos∩┐╜ Luis P∩┐╜rez Madrid'
+7244 '               21/01/2026      513       Cristina Ernestina Mar∩┐╜n Galindo'
+7245 '               22/01/2026      529       Mario P∩┐╜rez Pardo'
+7246 '               23/01/2026      127       Manuel Hummer Navarro'
+7247 '               24/01/2026      456       Maria Nieves Fuentes Flores'
+7248 '               25/01/2026      456       Maria Nieves Fuentes Flores'
+7249 '               26/01/2026      474       Manuel Suarez Ortega'
+7250 ''
+7251 ''
+7252 'NPE: A-311225-6468'
+7253 '\x0c                            N∩┐╜mero 301         Mi∩┐╜rcoles, 31 de diciembre de 2025   P∩┐╜gina 36872'
+7254 ''
+7255 ''
+7256 ''
+7257 ''
+7258 '               27/01/2026      496       Mercedes Garc∩┐╜a Moreno'
+7259 '               28/01/2026      505       Jos∩┐╜ Luis P∩┐╜rez Madrid'
+7260 '               29/01/2026      513       Cristina Ernestina Mar∩┐╜n Galindo'
+7261 '               30/01/2026      529       Mario P∩┐╜rez Pardo'
+7262 '               31/01/2026      127       Manuel Hummer Navarro'
+7263 ''
+7264 '             Rotaci∩┐╜n por semanas, seg∩┐╜n el orden expuesto, en sistema localizado'
+7265 '             fuera del horario m∩┐╜nimo, hasta 31/12/2026.'
+7266 ''
+7267 '             Puerto de Mazarr∩┐╜n (refuerzo diurno de 9 a 22 horas, excepto cuando'
+7268 '             exista servicio m∩┐╜dico de urgencia de 24 horas en Puerto de Mazarr∩┐╜n, en'
+7269 '             que el turno ser∩┐╜ de 24 horas.'
+7270 ''
+7271 '               01/01/2026      474       Manuel Suarez Ortega'
+7272 '               02/01/2026      496       Mercedes Garc∩┐╜a Moreno'
+7273 '               03/01/2026      505       Jos∩┐╜ Luis P∩┐╜rez Madrid'
+7274 '               04/01/2026      505       Jos∩┐╜ Luis P∩┐╜rez Madrid'
+7275 '               05/01/2026      513       Cristina Ernestina Mar∩┐╜n Galindo'
+7276 '               06/01/2026      529       Mario P∩┐╜rez Pardo'
+7277 '               07/01/2026      127       Manuel Hummer Navarro'
+7278 '               08/01/2026      456       Maria Nieves Fuentes Flores'
+7279 '               09/01/2026      474       Manuel Suarez Ortega'
+7280 '               10/01/2026      496       Mercedes Garc∩┐╜a Moreno'
+7281 '               11/01/2026      496       Mercedes Garc∩┐╜a Moreno'
+7282 '               12/01/2026      505       Jos∩┐╜ Luis P∩┐╜rez Madrid'
+7283 '               13/01/2026      513       Cristina Ernestina Mar∩┐╜n Galindo'
+7284 '               14/01/2026      529       Mario P∩┐╜rez Pardo'
+7285 '               15/01/2026      127       Manuel Hummer Navarro'
+7286 '               16/01/2026      456       Maria Nieves Fuentes Flores'
+7287 '               17/01/2026      474       Manuel Suarez Ortega'
+7288 '               18/01/2026      474       Manuel Suarez Ortega'
+7289 '               19/01/2026      496       Mercedes Garc∩┐╜a Moreno'
+7290 '               20/01/2026      505       Jos∩┐╜ Luis P∩┐╜rez Madrid'
+7291 '               21/01/2026      513       Cristina Ernestina Mar∩┐╜n Galindo'
+7292 '               22/01/2026      529       Mario P∩┐╜rez Pardo'
+7293 '               23/01/2026      127       Manuel Hummer Navarro'
+7294 '               24/01/2026      456       Maria Nieves Fuentes Flores'
+7295 '               25/01/2026      456       Maria Nieves Fuentes Flores'
+7296 '               26/01/2026      474       Manuel Suarez Ortega'
+7297 '               27/01/2026      496       Mercedes Garc∩┐╜a Moreno'
+7298 '               28/01/2026      505       Jos∩┐╜ Luis P∩┐╜rez Madrid'
+7299 '               29/01/2026      513       Cristina Ernestina Mar∩┐╜n Galindo'
+7300 '               30/01/2026      529       Mario P∩┐╜rez Pardo'
+7301 '               31/01/2026      127       Manuel Hummer Navarro'
+7302 ''
+7303 ''
+7304 ''
+7305 'NPE: A-311225-6468'
+7306 '\x0c                           N∩┐╜mero 301        Mi∩┐╜rcoles, 31 de diciembre de 2025       P∩┐╜gina 36873'
+7307 ''
+7308 ''
+7309 ''
+7310 ''
+7311 '             Rotaci∩┐╜n por d∩┐╜as, de modo sucesivo seg∩┐╜n el orden expuesto, hasta'
+7312 '             31/12/2026, con turno doble de s∩┐╜bado y domingo.'
+7313 ''
+7314 '             Isla Plana:'
+7315 ''
+7316 '             Turno de urgencia diurna localizada, todos los domingos y festivos del'
+7317 '             a∩┐╜o 2026, excepto 1 de enero y 25 de diciembre (MU-433-F Mart∩┐╜nez'
+7318 '             Garc∩┐╜a-Mart∩┐╜nez C∩┐╜ceres, C/ Mayor, 52, Isla Plana, Tfno. 968152281).'
+7319 ''
+7320 '             La Azoh∩┐╜a:'
+7321 ''
+7322 '             Turno de urgencia diurna localizada todos los s∩┐╜bados y festivos (no'
+7323 '             domingos) del a∩┐╜o 2026, excepto el 1-1, 6-1, 1-11 y 25-12; y turno de'
+7324 '             urgencia diurna localizada los domingos de julio, agosto, y hasta el 11 de'
+7325 '             septiembre (MU-498-F, Caridad Serrano Ciller, Ctra. La Azoh∩┐╜a, s/n,'
+7326 '             Urbanizaci∩┐╜n Acuario, Avda. Central, La Azoh∩┐╜a, Tfno. 968150202)'
+7327 ''
+7328 '             Ifre-Ca∩┐╜ada Gallego'
+7329 ''
+7330 '             Turno de urgencia diurna localizada los siguientes d∩┐╜as: 3-1, 17-1, 31-1,'
+7331 '             14-2, 28-2, 14-3, 28-3, 4-4, 18-4, 2-5, 16-5, 30-5, 9-6, 20-6, 4-7, 18-7, 1-'
+7332 '             8, 29-8, 12-9, 26-9, 12-10, 24-10, 7-11, 21-11, 7-12, 19-12 (MU-493-F,'
+7333 '             Carmen Collado Mart∩┐╜nez, Calle Camino Real, n∩┐╜ 31, Ifre Ca∩┐╜ada Gallego,'
+7334 '             Tfno. 968158856)'
+7335 ''
+7336 '             Camposol:'
+7337 ''
+7338 '             Turno de urgencia diurna localizada: 15-7 (MU-584-F, Isabel Tovar'
+
+ΓåÆ Read ingesta/parsers/murcia.py [limit=40, offset=600]
+
+ΓåÉ Edit ingesta/parsers/murcia.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+@@ -606,9 +606,9 @@
+ if not first.isupper():
+     return False
+ seen = 0
+ j = index + 1
+-while j < len(block) and seen < 3:
++while j < len(block) and seen < 6:
+     candidate = block[j][1].strip()
+     if not candidate:
+         j += 1
+         continue
+
+
+$ python -m tmp.zones 2>&1 | Select-Object -Last 20
+n zones 47
+ZONE 'AGRUPACION 1 (ALCANTARILLA-SANGONERA LA SECA)'
+ZONE 'AGRUPACION 18 (MAZARRON) - Mazarr∩┐╜n (casco)'
+ZONE 'AGRUPACION 2 (ALHAMA DE MURCIA)'
+ZONE 'AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)'
+dia 2026-10-18 agr 1 1 [('AGRUPACION 1 (ALCANTARILLA-SANGONERA LA SECA)', 'MU:44', '24h')]
+dia 2026-10-18 agr 6 17 [('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:10', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:12', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:161', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:178', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:180', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:187', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:212', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:217', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:257', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:264', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:271', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:312', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:348', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:376', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:393', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:502', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:94', '24h')]
+dia 2026-10-18 agr 18 0 []
+kinds Counter({'24h': 8197, 'refuerzo': 7665, 'localizada': 1323})
+times_exact False 9520 True 7665
+
+ΓåÉ Edit ingesta/parsers/murcia.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+@@ -615,11 +615,9 @@
+     if _DATE_ROW_RE.match(candidate):
+         return True
+     if _AGRUPACION_III_RE.match(candidate):
+         return False
+-    if _classify_header(normalize(candidate)) or _is_rotation(
+-        normalize(candidate)
+-    ):
++    if _is_rotation(normalize(candidate)):
+         return False
+     seen += 1
+     j += 1
+ return False
+
+
+$ python -m tmp.zones 2>&1 | Select-Object -Last 20
+n zones 48
+ZONE 'AGRUPACION 1 (ALCANTARILLA-SANGONERA LA SECA)'
+ZONE 'AGRUPACION 18 (MAZARRON) - Mazarr∩┐╜n (casco)'
+ZONE 'AGRUPACION 18 (MAZARRON) - Puerto de Mazarr∩┐╜n'
+ZONE 'AGRUPACION 2 (ALHAMA DE MURCIA)'
+ZONE 'AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)'
+dia 2026-10-18 agr 1 1 [('AGRUPACION 1 (ALCANTARILLA-SANGONERA LA SECA)', 'MU:44', '24h')]
+dia 2026-10-18 agr 6 17 [('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:10', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:12', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:161', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:178', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:180', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:187', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:212', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:217', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:257', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:264', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:271', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:312', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:348', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:376', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:393', '24h'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:502', 'refuerzo'), ('AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)', 'MU:94', '24h')]
+dia 2026-10-18 agr 18 0 []
+kinds Counter({'24h': 8197, 'refuerzo': 7665, 'localizada': 1323})
+times_exact False 9520 True 7665
+
+$ python -m tmp.verify 2>&1 | Select-Object -First 22
+elapsed 2.3
+pharmacies 581 shifts 17185 warnings 62
+MU:45 Pharmacy(id='MU:45', region='14', holder='RUBIO FERNANDEZ, MARIA', address='CL. MAYOR, 87', locality='ALCANTARILLA', postal_code='30820', phone='968802950', duty_phone=None)
+MU:534 addr CALLE MEDICO PEDRO NOGUEROLES, ESQUINA CALLE ANDORRA
+2026-01-01 ['MU:431'] expect MU:431
+2026-01-03 ['MU:46'] expect MU:46
+agr6 MU:12 365
+agr6 MU:94 365
+agr6 MU:178 365
+agr6 MU:180 365
+agr6 MU:257 365
+agr6 MU:312 365
+agr6 MU:376 365
+agr6 MU:393 365
+agr2 MU:56 24h 365
+agr2 refuerzos (deben ser 0) 0
+shifts sin farmacia 0
+warnings por tipo [('ROTACION_NO_SOPORTADA', 31), ('ANEXO_III_NO_SOPORTADO', 23), ('REFUERZO_REGLA_NO_SOPORTADA', 7), ('REGLA_24H_NO_SOPORTADA', 1)]
+--- localidades distintas (158)
+   ABANILLA
+   ABARAN
+   AGUILAS
+
+ΓåÉ Write tests/test_murcia.py
+Wrote file successfully.
+
+ΓåÉ Edit tests/test_murcia.py
+Index: C:\Users\adoni\dev\farmacias-guardia\tests\test_murcia.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\tests\test_murcia.py
++++ C:\Users\adoni\dev\farmacias-guardia\tests\test_murcia.py
+@@ -26,10 +26,10 @@
+     BASE_DIR, "data", "raw", "murcia", "2026", "BORM_2025_6468.pdf"
+ )
+ 
+ 
+-def _zone(shi_zone: str, number: int) -> bool:
+-    return bool(re.fullmatch(rf"AGRUPACION {number} \([^)]*\)( - .*)?", shi_zone))
++def _zone(name: str, number: int) -> bool:
++    return bool(re.fullmatch(rf"AGRUPACION {number} \([^)]*\)( - .*)?", name))
+ 
+ 
+ class MurciaAcceptanceTests(unittest.TestCase):
+     @classmethod
+
+
+ΓåÉ Write scripts/run_murcia.py
+Wrote file successfully.
+
+$ python -m unittest tests.test_murcia -v 2>&1 | Select-Object -Last 40
+python : test_agrupacion1_enero (tests.test_murcia.MurciaAcceptanceTests.test_agrupacion1_enero) ... ok
+En l∩┐╜nea: 1 Car∩┐╜cter: 1
++ python -m unittest tests.test_murcia -v 2>&1 | Select-Object -Last 40
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_agrupacion...1_enero) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_agrupacion2_mu56_y_refuerzo_no_soportado 
+(tests.test_murcia.MurciaAcceptanceTests.test_agrupacion2_mu56_y_refuerzo_no_soportado) ... ok
+test_agrupacion6_ocho_farmacias_24h (tests.test_murcia.MurciaAcceptanceTests.test_agrupacion6_ocho_farmacias_24h) ... 
+ok
+test_mu45_directorio (tests.test_murcia.MurciaAcceptanceTests.test_mu45_directorio) ... ok
+test_mu534_direccion (tests.test_murcia.MurciaAcceptanceTests.test_mu534_direccion) ... ok
+test_source_info (tests.test_murcia.MurciaAcceptanceTests.test_source_info) ... ok
+test_times_exact_por_tipo (tests.test_murcia.MurciaAcceptanceTests.test_times_exact_por_tipo) ... ok
+test_todos_los_turnos_referencian_farmacia 
+(tests.test_murcia.MurciaAcceptanceTests.test_todos_los_turnos_referencian_farmacia) ... ok
+test_column_of (tests.test_murcia.ReconstruccionColumnasTests.test_column_of) ... ok
+test_join_fragment (tests.test_murcia.ReconstruccionColumnasTests.test_join_fragment) ... ok
+----------------------------------------------------------------------
+Ran 10 tests in 2.304s
+OK
+
+$ python -m unittest discover -s tests -v 2>&1 | Select-Object -Last 12
+test_mu45_directorio (test_murcia.MurciaAcceptanceTests.test_mu45_directorio) ... ok
+test_mu534_direccion (test_murcia.MurciaAcceptanceTests.test_mu534_direccion) ... ok
+test_source_info (test_murcia.MurciaAcceptanceTests.test_source_info) ... ok
+test_times_exact_por_tipo (test_murcia.MurciaAcceptanceTests.test_times_exact_por_tipo) ... ok
+test_todos_los_turnos_referencian_farmacia 
+(test_murcia.MurciaAcceptanceTests.test_todos_los_turnos_referencian_farmacia) ... ok
+test_column_of (test_murcia.ReconstruccionColumnasTests.test_column_of) ... ok
+test_join_fragment (test_murcia.ReconstruccionColumnasTests.test_join_fragment) ... ok
+----------------------------------------------------------------------
+Ran 32 tests in 16.160s
+OK
+
+$ python scripts/run_murcia.py 2>&1 | Select-Object -Last 40
+Farmacias: 581
+Turnos:    17185
+Warnings:  62
+Salida:    C:\Users\adoni\dev\farmacias-guardia\data\out\murcia_2026.json
+
+Warnings por tipo:
+    31  ROTACION_NO_SOPORTADA
+    23  ANEXO_III_NO_SOPORTADO
+     7  REFUERZO_REGLA_NO_SOPORTADA
+     1  REGLA_24H_NO_SOPORTADA
+
+Turnos del 2026-10-18 (agrupaciones 1, 6 y 18):
+  Agrupaci∩┐╜n 1: 1 turnos
+    [24h       ] 00:00-00:00  AGRUPACION 1 (ALCANTARILLA-SANGONERA LA SECA)  DE BEJAR RIQUELME, ANA  (968801042)
+  Agrupaci∩┐╜n 6: 17 turnos
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SANDOVAL BARNUEVO,EUGENIO  (968211849)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SANCHEZ SANCHEZ,PEDRO  (968293522)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  GUIRAO HERNANDEZ, MARIA Y PEREZ-TEMPLADO LADRON DE GUEVARA, ELENA MARIA DEL MAR  (968252325)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SANCHEZ PUCHE, JAVIER  (968280280)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  MARIN SANCHEZ,JUAN PEDRO Y JOSE LUIS  (968218699)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SANCHEZ PUCHE, DAVID  (968295925)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  BRIONES ORTEGA, GONZALO  (968134219)
+    [24h       ] 00:00-00:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SANCHEZ PUCHE, JOSE ANTONIO  (968257209)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  PE∩┐╜ALVER SANCHEZ, BEGO∩┐╜A  (968211535)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  HERNANDEZ RODRIGO, DAVID EMILIO  (968251127)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  TOLEDO ROMERO, CESAR  (968295301)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  HERNANDEZ GONZALEZ, MARIA TERESA  (968231141)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  BRIONES ORTEGA, CARLOS  (968344555)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  MORA FLORES, MARIA TERESA  (968234906)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  SERRANO NIETO, ALICIA  (968210480)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  ORTEGA TOMAS, PILAR  (968905566)
+    [refuerzo  ] 09:00-22:00  AGRUPACION 6 (MURCIA NORTE/MURCIA SUR)  MOLINA MARTINEZ, ANTONIO JUAN  (968346450)
+  Agrupaci∩┐╜n 18: 0 turnos
+
+ΓåÆ Read ingesta/parsers/murcia.py [limit=45, offset=340]
+ΓåÆ Read ingesta/parsers/murcia.py [limit=14, offset=334]
+
+ΓåÉ Edit ingesta/parsers/murcia.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+@@ -334,8 +334,15 @@
+     buffers = None
+ 
+ for position in range(start, end):
+     page_number = position + 1
++    for header in pages[position]:
++        texts = [word[2] for word in header]
++        if "P├ígina" in texts:
++            index = texts.index("P├ígina")
++            if index + 1 < len(texts) and texts[index + 1].isdigit():
++                page_number = int(texts[index + 1])
++            break
+     for words in pages[position]:
+         texts = [word[2] for word in words]
+         if (
+             "P├ígina" in texts
+
+
+$ python -c "
+import sys; sys.path.insert(0,'.')
+from ingesta.parsers.murcia import parse
+r=parse('data/raw/murcia/2026/BORM_2025_6468.pdf')
+for w in r.warnings[:5]: print(w)
+print('total', len(r.warnings))
+" 2>&1 | Select-Object -Last 10
+BORM_2025_6468.pdf p36818: REFUERZO_REGLA_NO_SOPORTADA AGRUPACION 2: Todos los d∩┐╜as de lunes a s∩┐╜bado (excluidos festivos):
+BORM_2025_6468.pdf p36819: ROTACION_NO_SOPORTADA AGRUPACION 3 [AGRUPACION 3 (LIBRILLA)]: (Rotaci∩┐╜n por semanas, de manera sucesiva en el orden expuesto, en
+BORM_2025_6468.pdf p36820: ROTACION_NO_SOPORTADA AGRUPACION 4 [AGRUPACION 4 (BENIEL)]: (Rotaci∩┐╜n por semanas, de manera sucesiva en el orden expuesto hasta
+BORM_2025_6468.pdf p36820: ROTACION_NO_SOPORTADA AGRUPACION 5 [AGRUPACION 5 (MULA)]: (Rotaci∩┐╜n por d∩┐╜as, de manera sucesiva seg∩┐╜n el orden expuesto, en
+BORM_2025_6468.pdf p36820: ANEXO_III_NO_SOPORTADO AGRUPACION 5: Albudeite y Pliego:
+total 62
+
+$ python -m unittest discover -s tests 2>&1 | Select-Object -Last 5
+python : ................................
+En l∩┐╜nea: 1 Car∩┐╜cter: 1
++ python -m unittest discover -s tests 2>&1 | Select-Object -Last 5
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (................................:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+----------------------------------------------------------------------
+Ran 32 tests in 16.126s
+OK
+
+$ python -c "
+import json
+d=json.load(open('data/out/murcia_2026.json',encoding='utf-8'))
+print('keys', sorted(d.keys()))
+print('source', d['source'])
+print('n pharmacies', len(d['pharmacies']), 'n shifts', len(d['shifts']), 'n warnings', len(d['warnings']))
+print('pharmacy sample', d['pharmacies'][44])
+print('shift sample', d['shifts'][0])
+"
+keys ['pharmacies', 'shifts', 'source', 'warnings']
+source {'source_id': 'MU-BORM-2026', 'publisher': 'Consejer∩┐╜a de Salud de la Regi∩┐╜n de Murcia (BORM n∩┐╜ 301, 31/12/2025)', 'url': 'https://www.borm.es/services/anuncio/ano/2025/numero/6468/pdf?id=840645', 'license': 'Acto administrativo publicado en diario oficial (art. 13 TRLPI)', 'retrieved_at': '2026-10-18T14:24:35.348770+02:00'}
+n pharmacies 581 n shifts 17185 n warnings 62
+pharmacy sample {'id': 'MU:139', 'region': '14', 'holder': 'COMPA∩┐╜ CRESPO, PABLO', 'address': 'CALLE ESPA∩┐╜A, N∩┐╜ 2', 'locality': 'YECLA', 'postal_code': '30510', 'phone': '968790157', 'duty_phone': None}
+shift sample {'pharmacy_id': 'MU:60', 'zone': 'AGRUPACION 37 (ARCHENA)', 'start': '2025-01-01T00:00:00+01:00', 'end': '2025-01-02T00:00:00+01:00', 'kind': 'localizada', 'raw_label': 'AGRUPACION 37 (ARCHENA)', 'times_exact': False}
+
+$ python -c "
+import sys; sys.path.insert(0,'.')
+from collections import Counter
+from ingesta.parsers.murcia import parse
+r=parse('data/raw/murcia/2026/BORM_2025_6468.pdf')
+print(Counter(s.start.year for s in r.shifts))
+bad=[s for s in r.shifts if s.start.year!=2026][:5]
+for s in bad: print(s.pharmacy_id, s.zone, s.start, s.kind)
+" 2>&1 | Select-Object -Last 12
+Counter({2026: 17154, 2025: 31})
+MU:60 AGRUPACION 37 (ARCHENA) 2025-01-01 00:00:00+01:00 localizada
+MU:60 AGRUPACION 37 (ARCHENA) 2025-01-02 00:00:00+01:00 localizada
+MU:278 AGRUPACION 37 (ARCHENA) 2025-01-03 00:00:00+01:00 localizada
+MU:278 AGRUPACION 37 (ARCHENA) 2025-01-04 00:00:00+01:00 localizada
+MU:278 AGRUPACION 37 (ARCHENA) 2025-01-05 00:00:00+01:00 localizada
+
+$ python -c "
+lines=open('tmp/murcia_layout.txt',encoding='utf-8',errors='replace').read().split('\n')
+idx=[i for i,l in enumerate(lines) if l.strip()=='AGRUPACION 37']
+print('idx', idx)
+i=idx[-1]
+for j in range(i, i+45):
+    print(j, repr(lines[j]))
+" 2>&1 | Select-Object -Last 50
+idx [1759, 8579]
+8579 '                                          AGRUPACION 37'
+8580 '                                            (ARCHENA)'
+8581 ''
+8582 '              01/01/2025       60       Lamas Pe∩┐╜a-Lamas Pe∩┐╜a'
+8583 '              02/01/2025       60       Lamas Pe∩┐╜a-Lamas Pe∩┐╜a'
+8584 '              03/01/2025      278       Victoriano Jes∩┐╜s L∩┐╜pez Atenza'
+8585 '              04/01/2025      278       Victoriano Jes∩┐╜s L∩┐╜pez Atenza'
+8586 '              05/01/2025      278       Victoriano Jes∩┐╜s L∩┐╜pez Atenza'
+8587 '              06/01/2025      278       Victoriano Jes∩┐╜s L∩┐╜pez Atenza'
+8588 '              07/01/2025      278       Victoriano Jes∩┐╜s L∩┐╜pez Atenza'
+8589 '              08/01/2025      278       Victoriano Jes∩┐╜s L∩┐╜pez Atenza'
+8590 '              09/01/2025      278       Victoriano Jes∩┐╜s L∩┐╜pez Atenza'
+8591 '              10/01/2025       59       Cayetano Fuentes Ayala'
+8592 '              11/01/2025       59       Cayetano Fuentes Ayala'
+8593 '              12/01/2025       59       Cayetano Fuentes Ayala'
+8594 ''
+8595 'NPE: A-311225-6468'
+8596 '\x0c                           N∩┐╜mero 301        Mi∩┐╜rcoles, 31 de diciembre de 2025   P∩┐╜gina 36897'
+8597 ''
+8598 ''
+8599 ''
+8600 ''
+8601 '              13/01/2025       59       Cayetano Fuentes Ayala'
+8602 '              14/01/2025       59       Cayetano Fuentes Ayala'
+8603 '              15/01/2025       59       Cayetano Fuentes Ayala'
+8604 '              16/01/2025       59       Cayetano Fuentes Ayala'
+8605 '              17/01/2025      596       Maria Del Mar S∩┐╜nchez Garc∩┐╜a,'
+8606 '              18/01/2025      596       Maria Del Mar S∩┐╜nchez Garc∩┐╜a,'
+8607 '              19/01/2025      596       Maria Del Mar S∩┐╜nchez Garc∩┐╜a,'
+8608 '              20/01/2025      596       Maria Del Mar S∩┐╜nchez Garc∩┐╜a,'
+8609 '              21/01/2025      596       Maria Del Mar S∩┐╜nchez Garc∩┐╜a,'
+8610 '              22/01/2025      596       Maria Del Mar S∩┐╜nchez Garc∩┐╜a,'
+8611 '              23/01/2025      596       Maria Del Mar S∩┐╜nchez Garc∩┐╜a,'
+8612 '              24/01/2025      450       M∩┐╜ Delia Mart∩┐╜nez Carrillo,'
+8613 '              25/01/2025      450       M∩┐╜ Delia Mart∩┐╜nez Carrillo,'
+8614 '              26/01/2025      450       M∩┐╜ Delia Mart∩┐╜nez Carrillo,'
+8615 '              27/01/2025      450       M∩┐╜ Delia Mart∩┐╜nez Carrillo,'
+8616 '              28/01/2025      450       M∩┐╜ Delia Mart∩┐╜nez Carrillo,'
+8617 '              29/01/2025      450       M∩┐╜ Delia Mart∩┐╜nez Carrillo,'
+8618 '              30/01/2025      450       M∩┐╜ Delia Mart∩┐╜nez Carrillo,'
+8619 '              31/01/2025       60       Lamas Pe∩┐╜a-Lamas Pe∩┐╜a'
+8620 ''
+8621 '             Rotaci∩┐╜n por semanas de modo sucesivo seg∩┐╜n el orden expuesto.'
+8622 '             Sistema localizado fuera del horario m∩┐╜nimo.'
+8623 ''
+
+ΓåÆ Read ingesta/parsers/murcia.py [limit=40, offset=452]
+
+ΓåÉ Edit ingesta/parsers/murcia.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+@@ -464,8 +464,13 @@
+         f"{filename} p{page}: ANEXO_III_FARMACIA_DESCONOCIDA "
+         f"{pharmacy_id} ({zone})"
+     )
+ else:
++    if day.year != YEAR:
++        warnings.append(
++            f"{filename} p{page}: FECHA_FUERA_DE_ANIO "
++            f"AGRUPACION {agr_num}: {stripped}"
++        )
+     zone_dates.setdefault(zone, set()).add(day)
+     shifts.append(
+         _full_day_shift(
+             pharmacy_id, zone, day, zone_kind, zone
+
+
+$ python -m unittest discover -s tests 2>&1 | Select-Object -Last 4; python scripts/run_murcia.py 2>&1 | Select-Object -First 16
+----------------------------------------------------------------------
+Ran 32 tests in 16.376s
+OK
+Farmacias: 581
+Turnos:    17185
+Warnings:  93
+Salida:    C:\Users\adoni\dev\farmacias-guardia\data\out\murcia_2026.json
+
+Warnings por tipo:
+    31  ROTACION_NO_SOPORTADA
+    31  FECHA_FUERA_DE_ANIO
+    23  ANEXO_III_NO_SOPORTADO
+     7  REFUERZO_REGLA_NO_SOPORTADA
+     1  REGLA_24H_NO_SOPORTADA
+
+Turnos del 2026-10-18 (agrupaciones 1, 6 y 18):
+  Agrupaci∩┐╜n 1: 1 turnos
+    [24h       ] 00:00-00:00  AGRUPACION 1 (ALCANTARILLA-SANGONERA LA SECA)  DE BEJAR RIQUELME, ANA  (968801042)
+  Agrupaci∩┐╜n 6: 17 turnos
+
+$ Get-ChildItem -Force | Select-Object Name; Write-Output '---'; if (Test-Path pyproject.toml) { Get-Content pyproject.toml }; if (Test-Path setup.cfg) { Get-Content setup.cfg }; if (Test-Path .flake8) { Get-Content .flake8 }; if (Test-Path .gitignore) { Write-Output 'GITIGNORE'; Get-Content .gitignore }
+Name      
+----      
+data      
+docs      
+ingesta   
+scripts   
+tests     
+tmp       
+.gitignore
+AGENTS.md 
+---
+GITIGNORE
+tmp/
+__pycache__/
+data/out/*_v1.json
+
+$ python -m pyflakes ingesta/parsers/murcia.py ingesta/parsers/baleares.py ingesta/common.py scripts/run_murcia.py tests/test_murcia.py 2>&1; if (-not $?) { python -m py_compile ingesta/parsers/murcia.py ingesta/parsers/baleares.py ingesta/common.py scripts/run_murcia.py tests/test_murcia.py; Write-Output "py_compile OK" }
+python : C:\Users\adoni\AppData\Local\Programs\Python\Python312\python.exe: No module named pyflakes
+En l∩┐╜nea: 1 Car∩┐╜cter: 1
++ python -m pyflakes ingesta/parsers/murcia.py ingesta/parsers/baleares ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C:\Users\adoni\... named pyflakes:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+py_compile OK
+
+ΓåÆ Read ingesta/parsers/murcia.py [limit=70, offset=1]
+
+ΓåÉ Edit ingesta/parsers/murcia.py
+Index: C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+===================================================================
+--- C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
++++ C:\Users\adoni\dev\farmacias-guardia\ingesta\parsers\murcia.py
+@@ -1,8 +1,10 @@
+ """Parser de la fuente de Murcia (BORM n┬║ 301, 31/12/2025) para 2026.
+ 
+-Fuente: `data/raw/murcia/2026/BORM_2025_6468.pdf` (155 p├íginas con texto),
+-extra├¡da con `pdftotext -layout`.
++Fuente: `data/raw/murcia/2026/BORM_2025_6468.pdf` (155 p├íginas con texto).
++El Anexo III se extrae con `pdftotext -layout` y el Anexo II con
++`pdftotext -bbox-layout` (posiciones estables por columna en todas las
++p├íginas, a diferencia del texto con espacios que descuadra columnas).
+ 
+ Estructura del bolet├¡n:
+ - ANEXO I: descripci├│n por agrupaci├│n (contexto). De aqu├¡ solo se extrae si
+   una agrupaci├│n es "sistema localizado fuera del horario m├¡nimo".
+
+
+ΓåÆ Read ingesta/model.py
+
+$ python -m unittest discover -s tests -v 2>&1 | Select-String -Pattern "^(test_|Ran|OK|FAILED)" | Select-Object -Last 40
+test_26_pdfs_con_texto_y_uno_sin_texto (test_baleares.BalearesAcceptanceTests.test_26_pdfs_con_texto_y_uno_sin_texto) 
+... ok
+test_azcarate_hernandez_pinzon_columnas 
+(test_baleares.BalearesAcceptanceTests.test_azcarate_hernandez_pinzon_columnas) ... ok
+test_costa_amengual_duty_phone (test_baleares.BalearesAcceptanceTests.test_costa_amengual_duty_phone) ... ok
+test_formentera_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_formentera_2026_01_01) ... ok
+test_ids_palma_2026_01_01_salvo_sagrista 
+(test_baleares.BalearesAcceptanceTests.test_ids_palma_2026_01_01_salvo_sagrista) ... ok
+test_ningun_turno_invertido (test_baleares.BalearesAcceptanceTests.test_ningun_turno_invertido) ... ok
+test_palma_2026_01_01 (test_baleares.BalearesAcceptanceTests.test_palma_2026_01_01) ... ok
+test_riera_oliver_magdalena_columnas (test_baleares.BalearesAcceptanceTests.test_riera_oliver_magdalena_columnas) ... 
+ok
+test_sagrista_farre_columnas (test_baleares.BalearesAcceptanceTests.test_sagrista_farre_columnas) ... ok
+test_sastre_barcelo_columnas (test_baleares.BalearesAcceptanceTests.test_sastre_barcelo_columnas) ... ok
+test_sin_warnings_ambigua (test_baleares.BalearesAcceptanceTests.test_sin_warnings_ambigua) ... ok
+test_columna_direccion_por_bbox (test_baleares.SyntheticLineTests.test_columna_direccion_por_bbox) ... ok
+test_duty_phone_extraido_y_quitado_de_direccion 
+(test_baleares.SyntheticLineTests.test_duty_phone_extraido_y_quitado_de_direccion) ... ok
+test_fin_de_turno_al_dia_siguiente (test_baleares.SyntheticLineTests.test_fin_de_turno_al_dia_siguiente) ... ok
+test_id_estable_entre_dias_y_zonas (test_baleares.SyntheticLineTests.test_id_estable_entre_dias_y_zonas) ... ok
+test_locality_guion_pegado_es_direccion (test_baleares.SyntheticLineTests.test_locality_guion_pegado_es_direccion) ... 
+ok
+test_locality_segun_patron (test_baleares.SyntheticLineTests.test_locality_segun_patron) ... ok
+test_normalize (test_baleares.SyntheticLineTests.test_normalize) ... ok
+test_parse_date_line (test_baleares.SyntheticLineTests.test_parse_date_line) ... ok
+test_parse_shift_header_variantes (test_baleares.SyntheticLineTests.test_parse_shift_header_variantes) ... ok
+test_split_ambiguo_conserva_linea_completa 
+(test_baleares.SyntheticLineTests.test_split_ambiguo_conserva_linea_completa) ... ok
+test_split_standard (test_baleares.SyntheticLineTests.test_split_standard) ... ok
+test_agrupacion1_enero (test_murcia.MurciaAcceptanceTests.test_agrupacion1_enero) ... ok
+test_agrupacion2_mu56_y_refuerzo_no_soportado 
+(test_murcia.MurciaAcceptanceTests.test_agrupacion2_mu56_y_refuerzo_no_soportado) ... ok
+test_agrupacion6_ocho_farmacias_24h (test_murcia.MurciaAcceptanceTests.test_agrupacion6_ocho_farmacias_24h) ... ok
+test_mu45_directorio (test_murcia.MurciaAcceptanceTests.test_mu45_directorio) ... ok
+test_mu534_direccion (test_murcia.MurciaAcceptanceTests.test_mu534_direccion) ... ok
+test_source_info (test_murcia.MurciaAcceptanceTests.test_source_info) ... ok
+test_times_exact_por_tipo (test_murcia.MurciaAcceptanceTests.test_times_exact_por_tipo) ... ok
+test_todos_los_turnos_referencian_farmacia 
+(test_murcia.MurciaAcceptanceTests.test_todos_los_turnos_referencian_farmacia) ... ok
+test_column_of (test_murcia.ReconstruccionColumnasTests.test_column_of) ... ok
+test_join_fragment (test_murcia.ReconstruccionColumnasTests.test_join_fragment) ... ok
+Ran 32 tests in 16.194s
+OK
+
+He completado la implementaci├│n de la Tarea 02 (parser de Murcia). Resumen final:
+
+## Archivos tocados
+
+**Nuevos**
+- `ingesta/parsers/murcia.py` ΓÇö parser completo (Anexo I/II/III), `parse(pdf_path, retrieved_at=None) -> ParseResult`.
+- `tests/test_murcia.py` ΓÇö 10 tests (8 sobre el PDF real + 2 sint├⌐ticos de reconstrucci├│n de columnas).
+- `scripts/run_murcia.py` ΓÇö genera `data/out/murcia_2026.json` y resumen.
+- `data/out/murcia_2026.json` ΓÇö salida generada.
+
+**Modificados**
+- `ingesta/common.py` ΓÇö a├▒adido `pdf_bbox_pages()` compartido (extra├¡do de Baleares).
+- `ingesta/parsers/baleares.py` ΓÇö reutiliza `pdf_bbox_pages` de `common`; eliminada la copia local y los imports `subprocess`/`ElementTree`.
+- `ingesta/model.py` ΓÇö `times_exact: bool = True` en `DutyShift` (cambio de contrato aprobado).
+- `ingesta/export.py` ΓÇö emite `times_exact` en el JSON.
+
+## Decisiones relevantes
+- **Anexo II por coordenadas (`-bbox-layout`), no por `-layout`**: las posiciones x por columna son estables en todo el bolet├¡n (verifiqu├⌐ **0 cruces de columna** en las 24 p├íginas del Anexo II), mientras que el corte por caracteres del texto con espacios descuadra columnas. Por eso uso l├¡mites fijos derivados de la cabecera en vez de recalcularlos por p├ígina: el recalculo era un parche para el problema que bbox elimina.
+- **Uni├│n de celdas partidas** (`_join_fragment`): conectores (`DE/DEL/LA/LOS/ΓÇª`) y guiones ΓåÆ espacio/pegado; fragmentos cortos tras palabra larga (`ALCANTARIL`+`LA` ΓåÆ `ALCANTARILLA`, `CALABARDIN`+`A (AGUILAS)`).
+- **Tel├⌐fono**: si la celda trae un d├¡gito extra por salto de l├¡nea (`968510805`+`9`), se recupera el primer tramo de 9 d├¡gitos en vez de anularlo.
+- **Anomal├¡a de la fuente**: la agrupaci├│n 37 trae fechas `ΓÇª/2025` (errata del BORM). Se conservan tal cual y se emite `FECHA_FUERA_DE_ANIO` (no se inventan datos).
+
+## Comandos ejecutados
+```
+python -m unittest discover -s tests -v
+python scripts/run_murcia.py
+python -m py_compile <archivos modificados>
+```
+
+## Resultado de los tests
+```
+Ran 32 tests in 16.2s
+OK
+```
+(22 de Baleares + 10 de Murcia; los de Baleares siguen pasando tras el refactor.)
+
+Criterios de aceptaci├│n verificados: MU:45 (`RUBIO FERNANDEZ, MARIA` / `968802950` / `CL. MAYOR, 87` / `ALCANTARILLA` / `30820`); MU:534 direcci├│n completa; Agrup. 1 (01/01ΓåÆMU:431, 03/01ΓåÆMU:46); Agrup. 6 (8 farmacias 24h todos los d├¡as); Agrup. 2 (MU:56 365├ù24h, refuerzos con `REFUERZO_REGLA_NO_SOPORTADA` y 0 turnos); todo turno referencia farmacia del Anexo II.
+
+Salida de `run_murcia.py`: **581 farmacias, 17185 turnos, 93 warnings** (31 rotaci├│n, 31 fecha fuera de a├▒o, 23 bloque no soportado, 7 refuerzo no soportado, 1 regla 24h). Turnos del 2026-10-18: Agrup. 1 ΓåÆ 1; Agrup. 6 ΓåÆ 17 (8├ù24h + 9 refuerzos); Agrup. 18 ΓåÆ 0 (tras enero el cuadrante es por rotaci├│n, no soportada).
