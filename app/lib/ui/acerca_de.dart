@@ -5,7 +5,7 @@ import '../data/repository.dart';
 import '../models.dart';
 import '../tiempo.dart';
 
-const String versionApp = '0.6.3';
+const String versionApp = '0.6.4';
 
 /// Otros datos y servicios que usa la app (atribución obligatoria por sus licencias).
 class _Tercero {
