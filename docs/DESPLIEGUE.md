@@ -4,6 +4,12 @@ La app funciona sin servidor: lleva dentro una instantánea (`app/assets/snapsho
 compila con `--dart-define=SNAPSHOT_URL=https://…/snapshot.json`, al arrancar descarga la más
 reciente y la guarda en el teléfono. Así basta con publicar un fichero estático actualizado cada día.
 
+> **En marcha desde el 20/10/2026:** repositorio público https://github.com/Alfonsorm14/farmacias-guardia
+> (rama `main`), Pages activado, instantánea en https://alfonsorm14.github.io/farmacias-guardia/snapshot.json.
+> El flujo se ejecuta a las 04:17 y 08:47 UTC; si una fuente no responde (Zaragoza no contesta a los
+> servidores de GitHub), se sigue con lo ya guardado. Solo geocodifica farmacias nuevas (`--nuevas`).
+> La APK desde la v0.6.4 se compila con `--dart-define=SNAPSHOT_URL=` esa dirección.
+
 ## Opción A (recomendada): GitHub Actions + GitHub Pages — coste 0 €
 1. Crear un repositorio en GitHub (puede ser privado; Pages en privado exige plan de pago,
    así que lo práctico es un repositorio público: los datos son abiertos y el código no tiene secretos).
