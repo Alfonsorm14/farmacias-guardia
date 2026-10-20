@@ -4,3 +4,4 @@ data/out/*_v1.json
 .venv/
 data/guardias.db
 data/propuestas/
+app/dist/

@@ -326,7 +326,9 @@ def _zone_notice(
     )
     if not with_shifts:
         return None
-    nearest = min(with_shifts, key=lambda pid: nearby[pid][1])
+    # Empate de distancia (misma coordenada aproximada): la de menor id, para que el resultado no
+    # dependa del orden de un set (PYTHONHASHSEED). La app desempata igual (orden de la instantánea).
+    nearest = min(with_shifts, key=lambda pid: (nearby[pid][1], pid))
     zones = select(Shift.zone).where(Shift.pharmacy_id == nearest).distinct()
     rows = db.execute(
         select(Shift.zone, func.min(Shift.start_utc), func.max(Shift.start_utc), func.max(Shift.end_utc))
