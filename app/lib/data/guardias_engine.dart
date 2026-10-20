@@ -225,6 +225,8 @@ class GuardiasEngine {
       for (final ti in _turnosPorFarmacia[idx]!) {
         final t = turnos[ti];
         if (!solapa(t)) continue;
+        // Urgencia diurna sin horario publicado (Murcia): solo en las vistas de día, no en "Ahora".
+        if (instante && t.tipo == TipoTurno.diurna && !t.exacto) continue;
         final clave = instante ? '' : '${t.tipo.index}|${t.inicioMin}';
         final previo = grupos[clave];
         if (previo == null || _puntuacion(idx, t) < _puntuacion(idx, previo)) grupos[clave] = t;

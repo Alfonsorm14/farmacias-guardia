@@ -68,6 +68,16 @@ void main() {
     expect(r.aviso, isNot(contains('hasta el')));
   });
 
+  test('Albudeite: urgencia diurna sin horario publicado, en Hoy pero no en Ahora', () {
+    final hoy = motor.consultar(
+        lat: 38.0289, lon: -1.3851, desde: DateTime.utc(2026, 10, 19, 22), hasta: DateTime.utc(2026, 10, 20, 22), radioKm: 3);
+    final albudeite = hoy.guardias.where((g) => g.farmacia.id == 'MU:383').toList();
+    expect(albudeite, hasLength(1));
+    expect(albudeite.first.turno.horarioConfirmado, isFalse);
+    final ahora = motor.consultar(lat: 38.0289, lon: -1.3851, desde: DateTime.utc(2026, 10, 20, 1), radioKm: 3);
+    expect(ahora.guardias.any((g) => g.farmacia.id == 'MU:383'), isFalse);
+  });
+
   test('Palma: zona con cuadrante anual, sin aviso', () {
     final r = motor.consultar(lat: 39.5696, lon: 2.6502, desde: DateTime.utc(2026, 10, 20, 22));
     expect(r.aviso, isNull);

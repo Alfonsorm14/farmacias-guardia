@@ -414,7 +414,12 @@ def _query_guardias(
     aviso = _zone_notice(db, nearby, start, end, instant) if covered else None
 
     if instant:
-        overlap = (Shift.start_utc <= start, Shift.end_utc > start)
+        # Urgencia diurna sin horario publicado (Murcia): solo en la vista de día, no "ahora".
+        overlap = (
+            Shift.start_utc <= start,
+            Shift.end_utc > start,
+            ~((Shift.kind == "diurna") & (Shift.times_exact.is_(False))),
+        )
     else:
         overlap = (Shift.start_utc < end, Shift.end_utc > start)
     rows = db.execute(

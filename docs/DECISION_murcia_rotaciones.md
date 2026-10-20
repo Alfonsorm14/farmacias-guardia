@@ -1,6 +1,11 @@
-# Decisión pendiente — Murcia: turnos en texto y rotaciones del Anexo III
+# Murcia: turnos en texto y rotaciones del Anexo III
 
-Preparado el 20/10/2026 (madrugada). Nada de esto está activado: la app y la API siguen mostrando
+> **Decidido por Alfonso el 20/10/2026:** A) activar las 10 asignaciones en texto, con las urgencias
+> diurnas sin horario solo en las vistas de día (no en "Ahora"); B) no deducir rotaciones: se mantiene el
+> aviso de zona y se pide el cuadrante anual por la solicitud de acceso. Hecho en el parser
+> (`ingesta/parsers/murcia.py` incorpora `murcia_explicitos.py`), la app y la API.
+
+Preparado el 20/10/2026 (madrugada), antes de la decisión. Texto original: la app y la API mostraban
 solo los turnos que el BORM asigna en cuadrante. Fuente: Orden de la Consejería de Salud de
 29/12/2025, Plan de Urgencias de Oficinas de Farmacia 2026, BORM nº 301 de 31/12/2025
 (NPE A-311225-6468), `data/raw/murcia/2026/BORM_2025_6468.pdf`.

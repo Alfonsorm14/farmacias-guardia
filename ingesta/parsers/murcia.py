@@ -859,6 +859,16 @@ def parse(pdf_path: str, retrieved_at: datetime | None = None) -> ParseResult:
             warnings,
         )
 
+    # Asignaciones que el Anexo III hace en texto, no en cuadrante (urgencias permanentes, domingos
+    # y festivos, listas de fechas): ingesta/parsers/murcia_explicitos.py.
+    from ingesta.parsers.murcia_explicitos import asignaciones
+
+    for asignacion in asignaciones():
+        if asignacion.pharmacy_id not in pharmacies:
+            warnings.append(f"{filename}: ASIGNACION_TEXTO_SIN_FARMACIA: {asignacion.pharmacy_id}")
+            continue
+        shifts.extend(asignacion.duty_shifts())
+
     # El boletín repite alguna fila tras un salto de página (31/12 de Los Alcázares): una vez.
     unique: dict[tuple, DutyShift] = {}
     for shift in shifts:

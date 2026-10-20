@@ -13,6 +13,8 @@ String formatoHorario(Turno t) {
   final ini = enMadrid(t.inicio), fin = enMadrid(t.fin);
   final hora = DateFormat('HH:mm', 'es_ES');
   final dia = DateFormat('EEE d', 'es_ES');
+  // Urgencia diurna cuyo horario no publica la fuente: solo el día.
+  if (t.tipo == TipoTurno.diurna && !t.horarioConfirmado) return '${dia.format(ini)}, horario no publicado';
   final mismoDia = ini.year == fin.year && ini.month == fin.month && ini.day == fin.day;
   if (t.tipo == TipoTurno.veinticuatroHoras || fin.difference(ini).inHours >= 24) {
     return '${dia.format(ini)} ${hora.format(ini)} – ${dia.format(fin)} ${hora.format(fin)}';
@@ -81,7 +83,7 @@ class GuardiaCard extends StatelessWidget {
                   avatar: Icon(activa ? Icons.check_circle : Icons.schedule, size: 18),
                   label: Text('${etiquetaTipo(t.tipo)} · ${formatoHorario(t)}'),
                 ),
-                if (!t.horarioConfirmado)
+                if (!t.horarioConfirmado && t.tipo != TipoTurno.diurna)
                   const Chip(visualDensity: VisualDensity.compact, label: Text('Horario orientativo')),
                 if (f.ubicacionAproximada)
                   const Chip(visualDensity: VisualDensity.compact, label: Text('Ubicación aproximada')),

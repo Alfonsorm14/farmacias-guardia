@@ -1,4 +1,4 @@
-"""Propuesta NO activada: turnos de Murcia deducidos de las reglas de rotación del BORM.
+"""Análisis (NO activado, decisión 20/10/2026: no deducir): turnos de Murcia según las reglas de rotación del BORM.
 
 Genera data/propuestas/murcia_rotaciones_2026.json (mismo formato que data/out; ignorado por git)
 e imprime la tabla por agrupación y una prueba retrospectiva: en las agrupaciones con cuadrante
@@ -20,7 +20,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
 
 from ingesta.common import pdf_to_text  # noqa: E402
-from ingesta.parsers.murcia_explicitos import asignaciones  # noqa: E402
 from ingesta.parsers.murcia_rotacion import (  # noqa: E402
     TZ,
     evaluate_zone,
@@ -34,7 +33,6 @@ PDF = os.path.join(BASE_DIR, "data", "raw", "murcia", "2026", "BORM_2025_6468.pd
 SRC = os.path.join(BASE_DIR, "data", "out", "murcia_2026.json")
 PROP = os.path.join(BASE_DIR, "data", "propuestas")
 OUT = os.path.join(PROP, "murcia_rotaciones_2026.json")
-OUT_EXPLICITOS = os.path.join(PROP, "murcia_explicitos_2026.json")
 
 
 def backtest(by_zone: dict[str, list[dict]], reglas: dict[int, str], vac: dict) -> list[str]:
@@ -138,22 +136,6 @@ def main() -> int:
     }
     with open(OUT, "w", encoding="utf-8") as fh:
         json.dump(out, fh, ensure_ascii=False, indent=1)
-
-    # Asignaciones en texto (permanentes, domingos y festivos, listas de fechas).
-    explicitos = [s for a in asignaciones() for s in a.shifts()]
-    zonas_extra: dict[str, set[str]] = collections.defaultdict(set)
-    for a in asignaciones():
-        zonas_extra[a.pharmacy_id].add(a.zone)
-    farmacias = [
-        {**p, "zones": sorted(set(p["zones"]) | zonas_extra.get(p["id"], set()))} for p in data["pharmacies"]
-    ]
-    with open(OUT_EXPLICITOS, "w", encoding="utf-8") as fh:
-        json.dump({**out, "pharmacies": farmacias, "shifts": data["shifts"] + explicitos,
-                   "warnings": data.get("warnings", []) + [f"PROPUESTA: {len(explicitos)} turnos en texto"]},
-                  fh, ensure_ascii=False, indent=1)
-    print(f"Asignaciones en texto: {len(asignaciones())} farmacias, {len(explicitos)} turnos -> {OUT_EXPLICITOS}")
-    for a in asignaciones():
-        print(f"  {a.pharmacy_id} {a.zone}: {len(a.dias)} días ({a.kind}{', horario publicado' if a.horas else ', horario no publicado'})")
 
     hoy = date(2026, 10, 20)
     print(f"Zonas con solo enero publicado: {len(evaluaciones)}")

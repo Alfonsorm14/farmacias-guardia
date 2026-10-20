@@ -1,10 +1,11 @@
-"""Propuesta (NO activada): asignaciones explícitas de Murcia 2026 que no están en tabla.
+"""Asignaciones explícitas de Murcia 2026 que no están en tabla (activadas el 20/10/2026).
 
 El Anexo III del BORM nº 301 (31/12/2025) asigna algunos turnos en texto, no en cuadrante:
 farmacias de urgencia permanente (Albudeite, Pliego, Almendricos, Aledo, Benizar), domingos y
 festivos (Isla Plana, La Azohía, Calabardina) y listas de fechas (Ifre-Cañada de Gallego,
-Camposol). Son asignaciones explícitas, no deducciones, pero quedaron fuera a la espera de la
-decisión de Alfonso (docs/DECISION_murcia_rotaciones.md).
+Camposol). Son asignaciones explícitas, no deducciones; Alfonso decidió incorporarlas el 20/10/2026
+(docs/DECISION_murcia_rotaciones.md). Las "urgencias diurnas" sin horario publicado se cargan como día
+completo con horario no exacto, y la app y la API no las muestran en "Ahora" (solo en las vistas de día).
 
 Cada asignación lleva la cita literal del boletín (`cita`): los tests comprueban que aparece en
 el PDF, para que un error de transcripción no pase inadvertido.
@@ -18,6 +19,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
 from zoneinfo import ZoneInfo
+
+from ingesta.model import DutyShift
 
 TZ = ZoneInfo("Europe/Madrid")
 YEAR = 2026
@@ -54,6 +57,21 @@ class Asignacion:
     dias: tuple[date, ...]
     cita: str  # texto literal del BORM (espacios normalizados)
     horas: tuple[time, time] | None = None  # None = el boletín no publica el horario
+
+    def duty_shifts(self) -> list[DutyShift]:
+        """Los mismos turnos como objetos del modelo común (para el parser)."""
+        return [
+            DutyShift(
+                pharmacy_id=d["pharmacy_id"],
+                zone=d["zone"],
+                start=datetime.fromisoformat(d["start"]),
+                end=datetime.fromisoformat(d["end"]),
+                kind=d["kind"],
+                raw_label=d["raw_label"],
+                times_exact=d["times_exact"],
+            )
+            for d in self.shifts()
+        ]
 
     def shifts(self) -> list[dict]:
         out = []

@@ -112,6 +112,15 @@ class TestPropuestasMurcia(unittest.TestCase):
         self.assertTrue(all(s["times_exact"] for s in cala.shifts()))
         self.assertEqual(len(FESTIVOS_REGION_2026), 12)
 
+    def test_asignaciones_en_texto_incorporadas_al_parser(self):
+        """Activadas el 20/10/2026: forman parte de data/out/murcia_2026.json."""
+        por_farmacia = collections.Counter(s["pharmacy_id"] for s in self.data["shifts"] if "asignación en texto" in s["raw_label"])
+        self.assertEqual(por_farmacia["MU:383"], 365)  # Albudeite
+        self.assertEqual(por_farmacia["MU:433"], 64)  # Isla Plana
+        self.assertEqual(len(por_farmacia), 10)
+        zonas = {p["id"]: p["zones"] for p in self.data["pharmacies"]}
+        self.assertIn("AGRUPACION 5 (MULA) - Albudeite", zonas["MU:383"])
+
     def test_vacaciones_interpretadas(self):
         self.assertEqual(self.avisos, [])
         self.assertEqual(len(self.vac[5]["MU:524"]), 31)  # Mula: agosto entero
