@@ -49,8 +49,8 @@ jobs:
       - name: Preparar web estática
         run: |
           mkdir -p public
+          cp web/*.html public/
           cp app/assets/snapshot.json public/snapshot.json
-          echo '<!doctype html><meta charset="utf-8"><title>Farmacias de guardia</title><p>Instantánea de datos: <a href="snapshot.json">snapshot.json</a></p>' > public/index.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public

@@ -3,7 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'data/repository.dart';
-import 'ui/home_page.dart';
+import 'ui/bienvenida.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +20,7 @@ class FarmaciasGuardiaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     const verde = Color(0xFF0B8A4A);
     return MaterialApp(
-      title: 'Farmacias de guardia',
+      title: 'Farmacia de guardia cerca',
       debugShowCheckedModeBanner: false,
       locale: const Locale('es', 'ES'),
       supportedLocales: const [Locale('es', 'ES')],
@@ -31,7 +31,7 @@ class FarmaciasGuardiaApp extends StatelessWidget {
       ],
       theme: ThemeData(colorSchemeSeed: verde, useMaterial3: true),
       darkTheme: ThemeData(colorSchemeSeed: verde, brightness: Brightness.dark, useMaterial3: true),
-      home: HomePage(repositorio: repositorio),
+      home: Inicio(repositorio: repositorio),
     );
   }
 }

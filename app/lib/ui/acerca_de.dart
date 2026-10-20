@@ -5,7 +5,9 @@ import '../data/repository.dart';
 import '../models.dart';
 import '../tiempo.dart';
 
-const String versionApp = '0.6.4';
+const String versionApp = '1.0.0';
+
+const String urlPrivacidad = 'https://alfonsorm14.github.io/farmacias-guardia/privacidad.html';
 
 /// Otros datos y servicios que usa la app (atribución obligatoria por sus licencias).
 class _Tercero {
@@ -117,6 +119,12 @@ class _AcercaDePageState extends State<AcercaDePage> {
                   'coordenadas. El último lugar elegido a mano se guarda solo en el teléfono.\n'
                   '• Sin registro, sin publicidad, sin analítica y sin identificadores de seguimiento.',
                 ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.privacy_tip_outlined),
+                title: const Text('Política de privacidad completa'),
+                trailing: const Icon(Icons.open_in_new, size: 18),
+                onTap: () => _abrir(context, urlPrivacidad),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),

@@ -33,6 +33,9 @@ abstract class GuardiasRepository {
   /// Fuentes oficiales de los datos (para la pantalla de atribución).
   Future<List<Fuente>> fuentes();
 
+  /// Estado de los datos por ámbito ("¿Dónde funciona?").
+  Future<List<Cobertura>> cobertura(DateTime ahora);
+
   static GuardiasRepository crear() =>
       apiBase.isEmpty ? SnapshotRepository() : ApiRepository(apiBase);
 }
@@ -136,6 +139,9 @@ class SnapshotRepository implements GuardiasRepository {
   Future<List<Fuente>> fuentes() async => (await _motor()).fuentes;
 
   @override
+  Future<List<Cobertura>> cobertura(DateTime ahora) async => (await _motor()).cobertura(ahora);
+
+  @override
   String get descripcionDatos {
     final e = _engine;
     if (e == null) return 'Datos oficiales incluidos en la app';
@@ -226,6 +232,23 @@ class ApiRepository implements GuardiasRepository {
           descargado: DateTime.tryParse(f['retrieved_at'] as String? ?? '')?.toUtc(),
         ),
     ];
+  }
+
+  @override
+  Future<List<Cobertura>> cobertura(DateTime ahora) async {
+    final uri = Uri.parse(base).replace(path: '/v1/fuentes');
+    final r = await _cliente.get(uri).timeout(const Duration(seconds: 15));
+    if (r.statusCode != 200) throw Exception('Error ${r.statusCode} del servidor');
+    return [
+      for (final f in jsonDecode(utf8.decode(r.bodyBytes)) as List)
+        Cobertura(
+          ambito: (f['ambito'] ?? f['publisher']) as String,
+          hasta: DateTime.tryParse(f['datos_hasta'] as String? ?? '')?.toUtc(),
+          zonas: (f['zonas'] as int?) ?? 0,
+          zonasConTurnos: (f['zonas_con_turnos'] as int?) ?? 0,
+          municipal: f['municipal'] as bool? ?? false,
+        ),
+    ]..sort((a, b) => a.ambito.compareTo(b.ambito));
   }
 
   @override

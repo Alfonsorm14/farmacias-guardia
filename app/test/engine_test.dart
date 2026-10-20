@@ -163,4 +163,31 @@ void main() {
     expect(distanciaKm(39.5696, 2.6502, 39.5696, 2.6502), 0);
     expect(distanciaKm(37.9922, -1.1307, 37.6257, -0.9966), closeTo(42.7, 1.5));
   });
+
+  test('cobertura: ámbitos, hasta cuándo hay turnos y zonas parciales', () {
+    final ahora = DateTime.utc(2026, 10, 20, 10);
+    final c = {for (final x in motor.cobertura(ahora)) x.ambito: x};
+    expect(c.keys, containsAll(['Illes Balears', 'Región de Murcia', 'Navarra', 'Madrid (ciudad)']));
+    final baleares = c['Illes Balears']!;
+    expect(baleares.vigenteEn(ahora), isTrue);
+    expect(baleares.parcial, isFalse);
+    expect(baleares.hasta!.year, 2026);
+    expect(baleares.hasta!.month, 12);
+    // Murcia: en octubre solo las agrupaciones con cuadrante anual (y las asignaciones en texto).
+    final murcia = c['Región de Murcia']!;
+    expect(murcia.vigenteEn(ahora), isTrue);
+    expect(murcia.parcial, isTrue);
+    expect(murcia.zonasConTurnos, greaterThan(5));
+    expect(murcia.zonasConTurnos, lessThan(murcia.zonas));
+    expect(c['Madrid (ciudad)']!.municipal, isTrue);
+    // Los vigentes van primero.
+    final lista = motor.cobertura(ahora);
+    final primeraNoVigente = lista.indexWhere((x) => !x.vigenteEn(ahora));
+    if (primeraNoVigente >= 0) {
+      expect(lista.skip(primeraNoVigente).every((x) => !x.vigenteEn(ahora)), isTrue);
+    }
+    // En 2027 ya no hay nada de Baleares publicado.
+    final despues = {for (final x in motor.cobertura(DateTime.utc(2027, 3, 1))) x.ambito: x};
+    expect(despues['Illes Balears']!.vigenteEn(DateTime.utc(2027, 3, 1)), isFalse);
+  });
 }

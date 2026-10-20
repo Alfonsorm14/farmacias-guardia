@@ -30,7 +30,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
 
 # Fuentes que solo cubren un término municipal: la app no las usa fuera de él.
-from backend.ambito import MUNICIPAL_SOURCES, municipal_polygons  # noqa: E402
+from backend.ambito import MUNICIPAL_SOURCES, SOURCE_AREAS, municipal_polygons  # noqa: E402
 KINDS = {"diurna": "d", "nocturna": "n", "24h": "c", "localizada": "l", "refuerzo": "r"}
 
 
@@ -68,7 +68,9 @@ def export(db_path: str, out_path: str) -> dict[str, int]:
              r["source_id"] in MUNICIPAL_SOURCES,
              # Término municipal (polígonos [anillo exterior, huecos] de [lat, lon]) o null.
              [[[list(pt) for pt in ring] for ring in poly] for poly in municipal_polygons()[r["source_id"]]]
-             if r["source_id"] in municipal_polygons() else None]
+             if r["source_id"] in municipal_polygons() else None,
+             # Ámbito para el usuario ("Illes Balears", "Madrid (ciudad)"...).
+             SOURCE_AREAS.get(r["source_id"], r["publisher"])]
             for r in sources
         ],
         "zones": zones,

@@ -7,6 +7,8 @@ import 'package:farmacias_guardia/data/repository.dart';
 import 'package:farmacias_guardia/data/preferencias.dart';
 import 'package:farmacias_guardia/location.dart';
 import 'package:farmacias_guardia/ui/acerca_de.dart';
+import 'package:farmacias_guardia/ui/bienvenida.dart';
+import 'package:farmacias_guardia/ui/cobertura.dart';
 import 'package:farmacias_guardia/ui/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -144,5 +146,54 @@ void main() {
     final u = await leerUltimoLugar();
     expect(u?.etiqueta, 'Tudela');
     expect(u?.lat, 42.0617);
+  });
+
+  testWidgets('la primera vez se ve la bienvenida con la cobertura; después, directamente la app', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    final ahora = DateTime(2026, 10, 20, 12);
+    Widget inicio() => MaterialApp(
+          locale: const Locale('es', 'ES'),
+          supportedLocales: const [Locale('es', 'ES')],
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          home: Inicio(repositorio: repo, ubicacionInicial: lugaresConDatos.first, reloj: () => ahora),
+        );
+    await tester.pumpWidget(inicio());
+    await tester.pumpAndSettle();
+    expect(find.byType(BienvenidaPage), findsOneWidget);
+    expect(find.text('Illes Balears'), findsOneWidget);
+    expect(find.text('Región de Murcia'), findsOneWidget);
+    expect(find.textContaining('zonas tienen turnos publicados'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('Empezar'), 200, scrollable: find.byType(Scrollable).first);
+    await tester.tap(find.text('Empezar'));
+    await tester.pumpAndSettle();
+    expect(find.byType(HomePage), findsOneWidget);
+    expect((await SharedPreferences.getInstance()).getBool('bienvenida_vista_v1'), isTrue);
+
+    // Segunda vez: sin bienvenida.
+    await tester.pumpWidget(const SizedBox());
+    await tester.pumpWidget(inicio());
+    await tester.pumpAndSettle();
+    expect(find.byType(BienvenidaPage), findsNothing);
+    expect(find.byType(HomePage), findsOneWidget);
+  });
+
+  testWidgets('"¿Dónde funciona?" desde el menú y desde el aviso sin cobertura', (tester) async {
+    await tester.pumpWidget(_app(repo, const Ubicacion(42.3439, -3.6969, 'Burgos'), DateTime(2026, 10, 19, 22)));
+    await tester.pumpAndSettle();
+    await tester.tap(find.widgetWithText(TextButton, '¿Dónde funciona?'));
+    await tester.pumpAndSettle();
+    expect(find.byType(CoberturaPage), findsOneWidget);
+    expect(find.text('Navarra'), findsOneWidget);
+    tester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Más opciones'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('¿Dónde funciona?').last);
+    await tester.pumpAndSettle();
+    expect(find.byType(CoberturaPage), findsOneWidget);
   });
 }

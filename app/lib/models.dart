@@ -52,6 +52,9 @@ class Fuente {
   /// Término municipal de una fuente municipal: polígonos [anillo exterior, huecos...] de [lat, lon].
   final List<List<List<List<double>>>>? termino;
 
+  /// Ámbito para el usuario ("Illes Balears", "Madrid (ciudad)"...).
+  final String? ambito;
+
   const Fuente({
     required this.id,
     required this.editor,
@@ -60,7 +63,35 @@ class Fuente {
     this.municipal = false,
     this.descargado,
     this.termino,
+    this.ambito,
   });
+}
+
+/// Estado de los datos de un ámbito (pantalla "¿Dónde funciona?" y bienvenida).
+class Cobertura {
+  final String ambito;
+
+  /// Último día con turnos publicados (inicio del último turno, UTC).
+  final DateTime? hasta;
+
+  /// Zonas (cuadrantes) del ámbito y cuántas tienen turnos publicados cerca de hoy.
+  final int zonas;
+  final int zonasConTurnos;
+  final bool municipal;
+
+  const Cobertura({
+    required this.ambito,
+    required this.hasta,
+    required this.zonas,
+    required this.zonasConTurnos,
+    this.municipal = false,
+  });
+
+  /// Hay turnos publicados para hoy o más adelante.
+  bool vigenteEn(DateTime ahora) => hasta != null && !hasta!.isBefore(ahora.subtract(const Duration(days: 1)));
+
+  /// Solo una parte de las zonas tiene turnos publicados para estas fechas (Murcia).
+  bool get parcial => zonasConTurnos < zonas;
 }
 
 class Farmacia {

@@ -16,6 +16,15 @@ import math
 from functools import lru_cache
 from pathlib import Path
 
+# Ámbito de cada fuente, tal como se enseña al usuario ("¿Dónde funciona?").
+SOURCE_AREAS: dict[str, str] = {
+    "IB-CAIB-2026": "Illes Balears",
+    "MU-BORM-2026": "Región de Murcia",
+    "NA-DATOSABIERTOS": "Navarra",
+    "MAD-AYTO-DATOSABIERTOS": "Madrid (ciudad)",
+    "ZGZ-AYTO": "Zaragoza (ciudad)",
+}
+
 # Fuentes que solo cubren un término municipal.
 MUNICIPAL_SOURCES: frozenset[str] = frozenset({"MAD-AYTO-DATOSABIERTOS", "ZGZ-AYTO"})
 

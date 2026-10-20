@@ -7,6 +7,7 @@ import '../location.dart';
 import '../models.dart';
 import '../tiempo.dart';
 import 'acerca_de.dart';
+import 'cobertura.dart';
 import 'elegir_lugar.dart';
 import 'guardia_card.dart';
 import 'mapa.dart';
@@ -136,6 +137,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     });
   }
 
+  void _abrirCobertura() {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => CoberturaPage(repositorio: widget.repositorio)));
+  }
+
   void _abrirAcercaDe() {
     Navigator.push(context, MaterialPageRoute(builder: (_) => AcercaDePage(repositorio: widget.repositorio)));
   }
@@ -168,9 +173,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           IconButton(tooltip: 'Elegir fecha', icon: const Icon(Icons.calendar_month_outlined), onPressed: _elegirFecha),
           PopupMenuButton<String>(
             tooltip: 'Más opciones',
-            onSelected: (v) => v == 'lugar' ? _elegirLugar() : _abrirAcercaDe(),
+            onSelected: (v) => switch (v) {
+              'lugar' => _elegirLugar(),
+              'cobertura' => _abrirCobertura(),
+              _ => _abrirAcercaDe(),
+            },
             itemBuilder: (_) => const [
               PopupMenuItem(value: 'lugar', child: Text('Elegir lugar')),
+              PopupMenuItem(value: 'cobertura', child: Text('¿Dónde funciona?')),
               PopupMenuItem(value: 'acerca', child: Text('Fuentes y privacidad')),
             ],
           ),
@@ -268,8 +278,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         final r = snap.data!;
         if (!r.cobertura) {
           return _aviso(Icons.travel_explore, r.mensaje ?? 'Sin datos oficiales para esta zona',
-              'Por ahora la app tiene los turnos oficiales de Baleares, la Región de Murcia, Navarra y las ciudades de Madrid y Zaragoza. '
-                  'Iremos añadiendo comunidades a medida que publiquen sus datos.');
+              'La app solo muestra turnos oficiales publicados. Iremos añadiendo zonas a medida que las '
+                  'administraciones publiquen sus datos.',
+              accion: TextButton.icon(
+                icon: const Icon(Icons.public),
+                label: const Text('¿Dónde funciona?'),
+                onPressed: _abrirCobertura,
+              ));
         }
         if (_verMapa) {
           return MapaGuardias(
@@ -346,7 +361,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     return '${m.day}/${m.month}/${m.year}';
   }
 
-  Widget _aviso(IconData icono, String titulo, String detalle) {
+  Widget _aviso(IconData icono, String titulo, String detalle, {Widget? accion}) {
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -357,6 +372,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           Text(titulo, style: Theme.of(context).textTheme.titleMedium, textAlign: TextAlign.center),
           const SizedBox(height: 8),
           Text(detalle, textAlign: TextAlign.center),
+          if (accion != null) ...[const SizedBox(height: 8), accion],
         ],
       ),
     );

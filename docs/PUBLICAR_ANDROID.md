@@ -1,7 +1,15 @@
 # Publicar la app en Google Play — guía y textos preparados
 
-Preparado el 20/10/2026. Nada de esto se ha hecho todavía: la clave de firma y la cuenta de
-desarrollador son tuyas y no deben salir de tu ordenador.
+Preparado el 20/10/2026; actualizado para la **v1.0.0** (candidata a publicación). Nada de esto se ha
+hecho todavía: la clave de firma y la cuenta de desarrollador son tuyas y no deben salir de tu ordenador.
+
+**Lista de comprobación antes de subir**
+- [ ] Revisar y aprobar la política de privacidad (`web/privacidad.html`; se publica en
+      https://alfonsorm14.github.io/farmacias-guardia/privacidad.html con la siguiente ejecución del flujo).
+- [ ] Decidir Zaragoza (ver abajo).
+- [ ] Probar la APK en un móvil real (permiso de ubicación, "Cómo llegar", llamar, compartir, mapa).
+- [ ] Clave de firma y `key.properties` (apartado 1).
+- [ ] Cuenta de Play Console, ficha (apartado 4) y formularios (apartado 3).
 
 ## 1. Clave de firma (una sola vez, en tu ordenador)
 
@@ -31,19 +39,20 @@ depuración (para pruebas). Comprobado en el contenedor con una clave de prueba 
 
 ```powershell
 cd C:\Users\adoni\dev\farmacias-guardia\app
-flutter build appbundle --release --dart-define=SNAPSHOT_URL=https://<usuario>.github.io/<repo>/snapshot.json
+flutter build appbundle --release --dart-define=SNAPSHOT_URL=https://alfonsorm14.github.io/farmacias-guardia/snapshot.json
 ```
 
 Resultado: `build\app\outputs\bundle\release\app-release.aab`. Antes de cada versión, subir
-`version:` en `pubspec.yaml` (ahora `0.6.4+10`; el número tras `+` debe crecer siempre).
+`version:` en `pubspec.yaml` (ahora `1.0.0+11`; el número tras `+` debe crecer siempre).
 
 ## 3. Play Console
 
 - Cuenta de desarrollador (pago único de 25 USD). Según fuentes no oficiales de 2026, las cuentas
   personales nuevas deben pasar una prueba cerrada con al menos 12 testers durante 14 días antes de
   publicar en producción [VERIFICAR en la propia Play Console al crear la cuenta].
-- Política de privacidad: URL pública obligatoria (por la ubicación). Borrador en `docs/PRIVACIDAD.md`;
-  se puede publicar en GitHub Pages junto a la instantánea.
+- Política de privacidad: URL pública obligatoria (por la ubicación):
+  https://alfonsorm14.github.io/farmacias-guardia/privacidad.html (fuente: `web/privacidad.html`, la copia
+  el flujo diario a GitHub Pages). La app la enlaza desde "Fuentes y privacidad".
 - Permisos: ubicación precisa y aproximada (solo con la app abierta, para buscar la farmacia más
   cercana). No hay ubicación en segundo plano.
 
@@ -102,7 +111,27 @@ una app publicada. Cubre España, que es el ámbito de la app.
 > Esta app no es oficial ni está vinculada a las administraciones ni a los colegios de farmacéuticos.
 > Antes de desplazarte, confirma la guardia por teléfono.
 
-**Capturas:** mínimo 2 de teléfono (vista "Ahora" en Palma, mapa, pantalla de fuentes). Se pueden
-hacer desde el móvil con la APK de `app\dist`.
+**Capturas (1080×1920, 9:16):** `docs/play/1_palma_ahora.png` … `6_fuentes.png` (Palma y Pamplona de
+noche, Madrid, "¿Dónde funciona?", bienvenida, fuentes). Se regeneran con
+`flutter test test_capturas/play_test.dart --update-goldens`. El mapa no sale en las capturas (en las
+pruebas no hay red para las teselas); si se quiere, hacerla desde el móvil.
+
+**Gráfico destacado (1024×500):** `docs/play/grafico_destacado_1024x500.png`.
 
 **Icono de la ficha (512×512):** `app\assets\icon\icono_play_512.png`.
+
+## 5. Zaragoza: decisión pendiente
+
+El Ayuntamiento de Zaragoza solo publica la guardia del día en curso y zaragoza.es no responde desde
+los servidores de GitHub, así que la instantánea diaria no la renueva. La app lo dice con honestidad
+("¿Dónde funciona?" → "Sin turnos publicados para estas fechas (los últimos, del …)") y en Zaragoza
+muestra "No tenemos los turnos oficiales de esa fecha", pero para la ficha de Play conviene elegir:
+
+1. **Quitar Zaragoza de la publicación** (recomendado para la v1.0): dejar de descargarla y cargarla en
+   `scripts/actualizar_todo.py` (y borrar sus turnos de la base) y quitarla de los textos (ficha,
+   privacidad, índice web). Lo hago en un momento si lo decides.
+2. Descargarla desde tu ordenador cada mañana (tarea programada en Windows que ejecute
+   `scripts/descargar_zaragoza.py` y suba el resultado): solo sirve si el ordenador está encendido.
+3. Dejarla como está.
+
+La lista de lugares de ejemplo de la app ya no ofrece Zaragoza.

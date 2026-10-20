@@ -12,7 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from backend.ambito import MUNICIPAL_SOURCES, Box, inside_municipal_area, is_municipal
+from backend.ambito import MUNICIPAL_SOURCES, SOURCE_AREAS, Box, inside_municipal_area, is_municipal
 from backend.db import get_db
 from backend.models import Pharmacy, Shift, Source
 
@@ -97,6 +97,19 @@ def health(db: Session = Depends(get_db)) -> dict[str, Any]:
 def list_fuentes(db: Session = Depends(get_db)) -> list[dict[str, Any]]:
     """Lista de fuentes oficiales con su atribución y licencia."""
     sources = db.scalars(select(Source).order_by(Source.source_id)).all()
+    now = datetime.datetime.now(datetime.timezone.utc)
+    last_start = dict(db.execute(select(Shift.source_id, func.max(Shift.start_utc)).group_by(Shift.source_id)).all())
+    zones = dict(
+        db.execute(select(Shift.source_id, func.count(func.distinct(Shift.zone))).group_by(Shift.source_id)).all()
+    )
+    # Zonas con algún turno a menos de ZONE_GAP de hoy (Murcia: casi todas solo publican enero).
+    current = dict(
+        db.execute(
+            select(Shift.source_id, func.count(func.distinct(Shift.zone)))
+            .where(Shift.start_utc >= now - ZONE_GAP, Shift.start_utc < now + ZONE_GAP)
+            .group_by(Shift.source_id)
+        ).all()
+    )
     return [
         {
             "source_id": s.source_id,
@@ -105,6 +118,10 @@ def list_fuentes(db: Session = Depends(get_db)) -> list[dict[str, Any]]:
             "license": s.license,
             "retrieved_at": to_madrid_iso(s.retrieved_at),
             "municipal": is_municipal(s.source_id),
+            "ambito": SOURCE_AREAS.get(s.source_id, s.publisher),
+            "datos_hasta": to_madrid_iso(_as_utc(last_start[s.source_id])) if last_start.get(s.source_id) else None,
+            "zonas": zones.get(s.source_id, 0),
+            "zonas_con_turnos": current.get(s.source_id, 0),
         }
         for s in sources
     ]

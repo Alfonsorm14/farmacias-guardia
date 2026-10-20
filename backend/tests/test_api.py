@@ -204,6 +204,9 @@ def test_farmacia_detalle_y_fuentes(client: TestClient):
         assert "license" in f
         assert "url" in f
         assert f["municipal"] is (f["source_id"] in {"MAD-AYTO-DATOSABIERTOS", "ZGZ-AYTO"})
+        assert f["ambito"] and f["zonas"] >= f["zonas_con_turnos"] >= 0
+    ambitos = {f["source_id"]: f["ambito"] for f in fuentes}
+    assert ambitos.get("IB-CAIB-2026") == "Illes Balears"
 
 
 def test_limpieza_api_claves_sin_tildes_y_sin_duplicados(client: TestClient):

@@ -143,6 +143,36 @@ class GuardiasEngine {
     return lat >= a.$1 - dLat && lat <= a.$3 + dLat && lon >= a.$2 - dLon && lon <= a.$4 + dLon;
   }
 
+  /// Estado de los datos de cada ámbito en [ahora]: último día publicado y cuántas de sus zonas
+  /// tienen turnos a menos de 7 días (en Murcia, la mayoría de agrupaciones solo publica enero).
+  List<Cobertura> cobertura(DateTime ahora) {
+    final min = ahora.toUtc().millisecondsSinceEpoch ~/ 60000;
+    final zonasPorFuente = <String, Set<int>>{};
+    for (final entry in _zonasPorFarmacia.entries) {
+      final fid = farmacias[entry.key].fuente?.id;
+      if (fid != null) (zonasPorFuente[fid] ??= {}).addAll(entry.value);
+    }
+    final out = <Cobertura>[];
+    for (final f in fuentes) {
+      final zs = zonasPorFuente[f.id] ?? const <int>{};
+      final p = _periodoPorFuente[f.id];
+      out.add(Cobertura(
+        ambito: f.ambito ?? f.editor,
+        hasta: p == null ? null : DateTime.fromMillisecondsSinceEpoch(p.$3 * 60000, isUtc: true),
+        zonas: zs.length,
+        zonasConTurnos: zs.where((z) => _hayInicioEntre(z, min - _huecoZonaMin, min + _huecoZonaMin)).length,
+        municipal: f.municipal,
+      ));
+    }
+    // Primero los ámbitos con turnos vigentes; dentro de cada grupo, por nombre.
+    out.sort((a, b) {
+      final va = a.vigenteEn(ahora), vb = b.vigenteEn(ahora);
+      if (va != vb) return va ? -1 : 1;
+      return a.ambito.compareTo(b.ambito);
+    });
+    return out;
+  }
+
   /// Inicio del último turno publicado (el día hasta el que hay turnos).
   DateTime? get ultimoInicio => turnos.isEmpty
       ? null
@@ -343,6 +373,7 @@ class GuardiasEngine {
                     ]
                   : null,
               descargado: s.length > 4 && s[4] is String ? _fechaUtc(s[4] as String) : null,
+              ambito: s.length > 7 ? s[7] as String? : null,
             ))
         .toList();
     double? n(Object? v) => v == null ? null : (v as num).toDouble();
