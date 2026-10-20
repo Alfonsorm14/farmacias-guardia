@@ -106,8 +106,13 @@ def main() -> int:
     parser.add_argument("--sin-descargas", action="store_true")
     args = parser.parse_args()
     if not args.sin_descargas:
-        _run("scripts/descargar_navarra.py")
-        _run("scripts/descargar_zaragoza.py")
+        # Una fuente caída o que no responde (zaragoza.es no contesta a algunos servidores en la
+        # nube) no debe impedir actualizar las demás: se sigue con lo ya guardado.
+        for script in ("scripts/descargar_navarra.py", "scripts/descargar_zaragoza.py"):
+            try:
+                _run(script)
+            except subprocess.CalledProcessError:
+                print(f"{script}: descarga fallida; se usa lo ya guardado.")
         try:
             _descargar_madrid()
         except OSError as exc:
