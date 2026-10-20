@@ -40,7 +40,7 @@ jobs:
         run: |
           git config user.name "actualizador"
           git config user.email "actions@users.noreply.github.com"
-          git add data/raw data/out data/geo app/assets/snapshot.json
+          git add data/raw data/out data/geo app/assets/snapshot.json app/test/fixtures/paridad_api.json
           git diff --cached --quiet || git commit -m "Actualización automática $(date -u +%F)"
           git push
       - name: Preparar web estática

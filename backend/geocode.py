@@ -1328,7 +1328,8 @@ _TYPE_ABBR = {"AVD": "AVENIDA", "AVDA": "AVENIDA", "AV": "AVENIDA", "PZ": "PLAZA
 def street_core(address: str) -> ParsedAddress:
     """Vía y número sin complementos (edificio, urbanización, local...) para casar con OSM."""
     clean = clean_address(address)
-    number_m = re.search(r",\s*(\d+)", clean) or re.search(r"\b(\d+)\s*$", clean)
+    # Solo el número que sigue a la vía ("…, 25"); no el de "LOCAL 32" o "EDIFICIO 3".
+    number_m = re.search(r",\s*(?:N[ºO°]?\s*)?(\d+)", clean)
     core = _CORE_CUT_RE.sub("", clean).strip(" .,-")
     first, _, rest = core.partition(" ")
     first = _TYPE_ABBR.get(first.upper().rstrip("."), first)
@@ -1396,9 +1397,12 @@ def _osm_pharmacy(
 ) -> tuple[float, float, str, str] | None:
     """Farmacia cartografiada en OpenStreetMap en la misma vía, cerca del núcleo.
 
-    Solo se acepta si no hay ambigüedad: una sola farmacia OSM en esa vía dentro de la caja y
-    ninguna otra farmacia de la fuente en esa misma vía y localidad (si no, podría ser la otra).
-    Portal si coincide el número o el nombre del titular; si no, calle.
+    Riesgo a evitar: poner la farmacia en la posición de OTRA (la fuente no incluye todas las
+    farmacias, y OSM tampoco). Por eso solo se acepta con identificación positiva:
+    - una sola farmacia OSM en esa vía dentro de la caja, y la búsqueda no truncada;
+    - ninguna otra farmacia de la fuente en esa vía y localidad;
+    - número de portal igual al de la fuente, o un apellido no común del titular en el nombre OSM;
+    - si los dos números existen y difieren, se descarta.
     """
     core = street_core(pharmacy.address)
     if not core.name or len(normalize_text(core.name)) < 3:
@@ -1419,6 +1423,8 @@ def _osm_pharmacy(
         bounded="1",
         viewbox=f"{box[0]:.4f},{box[1]:.4f},{box[2]:.4f},{box[3]:.4f}",
     )
+    if len(found) >= 50:
+        return None  # resultados truncados: la otra farmacia de la vía podría no aparecer
     same_street = [
         it for it in found
         if (it.get("type") == "pharmacy" or it.get("class") in ("amenity", "shop"))
@@ -1426,21 +1432,29 @@ def _osm_pharmacy(
     ]
     if len(same_street) != 1:
         return None
-    others = geo.session.scalars(
-        select(Pharmacy).where(Pharmacy.id != pharmacy.id, Pharmacy.locality == pharmacy.locality)
-    ).all()
-    if any(osm_street_match(core, street_core(o.address).full) or
-           (street_core(o.address).name and street_similarity(street_core(o.address).name, core.name) >= STREET_MIN_SCORE)
-           for o in others):
+    loc = normalize_text(pharmacy.locality)
+    others = [
+        o for o in geo.session.scalars(select(Pharmacy).where(Pharmacy.id != pharmacy.id, Pharmacy.region == pharmacy.region)).all()
+        if normalize_text(o.locality) == loc
+    ]
+    if any(
+        (oc := street_core(o.address)).name and street_similarity(oc.name, core.name) >= STREET_MIN_SCORE
+        for o in others
+    ):
         return None
     it = same_street[0]
     house = re.match(r"\d+", str((it.get("address") or {}).get("house_number") or ""))
-    holder_tokens = [t for t in _tokens(pharmacy.holder) if len(t) >= 4 and t not in _COMMON_SURNAMES]
+    if core.number and house and int(house.group(0)) != core.number:
+        return None
+    # Apellidos del titular ("APELLIDO APELLIDO, NOMBRE"): ni nombres de pila ni apellidos comunes.
+    surnames = pharmacy.holder.split(",", 1)[0]
+    holder_tokens = [t for t in _tokens(surnames) if len(t) >= 4 and t not in _COMMON_SURNAMES]
     name_tokens = _tokens(it.get("name") or "")
     by_number = bool(core.number and house and int(house.group(0)) == core.number)
     by_holder = any(t in name_tokens for t in holder_tokens)
-    precision = "portal" if by_number or by_holder else "calle"
-    return float(it["lat"]), float(it["lon"]), precision, f"osm {it.get('osm_type')}/{it.get('osm_id')}"
+    if not (by_number or by_holder):
+        return None
+    return float(it["lat"]), float(it["lon"]), "portal", f"osm {it.get('osm_type')}/{it.get('osm_id')}"
 
 
 def geocode_pharmacy(geo: GeoClient, pharmacy: Pharmacy) -> GeoResult:

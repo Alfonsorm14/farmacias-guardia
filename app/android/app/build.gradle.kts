@@ -13,6 +13,9 @@ val keystoreProperties = Properties()
 val keystorePropertiesFile = rootProject.file("key.properties")
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+} else if (gradle.startParameter.taskNames.any { it.contains("bundleRelease", ignoreCase = true) }) {
+    // El paquete para Google Play no debe salir firmado con la clave de depuración.
+    throw GradleException("Falta android/key.properties: no se puede firmar el paquete para Google Play (ver docs/PUBLICAR_ANDROID.md).")
 }
 
 android {

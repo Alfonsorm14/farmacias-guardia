@@ -5,7 +5,7 @@ import '../data/repository.dart';
 import '../models.dart';
 import '../tiempo.dart';
 
-const String versionApp = '0.6.1';
+const String versionApp = '0.6.2';
 
 /// Otros datos y servicios que usa la app (atribución obligatoria por sus licencias).
 class _Tercero {
@@ -108,7 +108,7 @@ class _AcercaDePageState extends State<AcercaDePage> {
                 child: Text(
                   '${apiBase.isEmpty ? '• Tu ubicación (GPS) se usa dentro del teléfono para calcular las farmacias más '
                       'cercanas; la app no la envía a ningún servidor propio.' : '• Tu ubicación (o el lugar elegido) se envía '
-                      'al servidor de la app para calcular las farmacias más cercanas; no se guarda.'}\n'
+                      'al servidor de la app para calcular las farmacias más cercanas.'}\n'
                   '• Al ver el mapa, el teléfono descarga de OpenStreetMap las teselas de la zona que se muestra, '
                   'lo que revela esa zona a su servidor.\n'
                   '• Si buscas una población, el texto que escribes se envía a CartoCiudad (IGN) para obtener sus '

@@ -10,8 +10,9 @@ Los PDF se guardan en data/raw/madrid/ como madrid_AAAA-MM.pdf (uno por mes).
 
 El mismo conjunto publica un CSV anual ("Farmacias de guardia AAAA", UTF-8 con BOM, separador ";")
 con las mismas filas (Municipio;Barrio;Fecha;Farmacia;Dirección;Duración;Teléfono). Se guarda como
-data/raw/madrid/madrid_AAAA.csv y se usan sus dos últimos meses. Si un mismo día está en el PDF y
-en el CSV y no coinciden, se avisa (PDF_CSV_DIFIEREN); los duplicados exactos se cuentan una vez.
+data/raw/madrid/madrid_AAAA.csv y se usan sus filas desde hace 31 días. Si un mismo día está en el
+PDF y en el CSV y no coinciden, se avisa (PDF_CSV_DIFIEREN) y ese día manda el PDF; los duplicados
+exactos se cuentan una vez.
 
 Uso:
     from ingesta.parsers.madrid import parse_dir
@@ -105,8 +106,10 @@ def _row_to_records(
     return pharmacy, shift
 
 
-def _parse_csv(path: str, warnings: list[str]) -> tuple[dict[str, Pharmacy], list[DutyShift]]:
-    """CSV anual del portal; solo sus dos últimos meses (los anteriores ya no sirven)."""
+def _parse_csv(
+    path: str, warnings: list[str], today: date | None = None
+) -> tuple[dict[str, Pharmacy], list[DutyShift]]:
+    """CSV anual del portal; solo las filas desde hace 31 días (las anteriores ya no sirven)."""
     filename = os.path.basename(path)
     with open(path, encoding="utf-8-sig", newline="") as fh:
         reader = csv.DictReader(fh, delimiter=";")
@@ -114,13 +117,15 @@ def _parse_csv(path: str, warnings: list[str]) -> tuple[dict[str, Pharmacy], lis
             warnings.append(f"{filename}: COLUMNAS_INESPERADAS: {reader.fieldnames}")
             return {}, []
         rows = list(reader)
-    months = sorted({r["Fecha"][3:] for r in rows if re.fullmatch(r"\d{2}/\d{2}/\d{4}", r["Fecha"] or "")},
-                    key=lambda m: (m[3:], m[:2]))
-    keep = set(months[-2:])
+    desde = (today or date.today()) - timedelta(days=31)
     pharmacies: dict[str, Pharmacy] = {}
     shifts: list[DutyShift] = []
     for n, r in enumerate(rows, start=2):
-        if (r["Fecha"] or "")[3:] not in keep:
+        try:
+            if datetime.strptime(r["Fecha"] or "", "%d/%m/%Y").date() < desde:
+                continue
+        except ValueError:
+            warnings.append(f"{filename} l{n}: FECHA_NO_RECONOCIDA: {r['Fecha']}")
             continue
         if not (r["Farmacia"] or "").strip().isdigit():
             warnings.append(f"{filename} l{n}: LINEA_NO_RECONOCIDA: {r}")
@@ -164,7 +169,7 @@ def _parse_file(path: str, warnings: list[str]) -> tuple[dict[str, Pharmacy], li
     return pharmacies, shifts
 
 
-def parse_dir(path: str, retrieved_at: datetime | None = None) -> ParseResult:
+def parse_dir(path: str, retrieved_at: datetime | None = None, today: date | None = None) -> ParseResult:
     """Procesa los PDF mensuales madrid_AAAA-MM.pdf y los CSV anuales madrid_AAAA.csv del directorio."""
     pharmacies: dict[str, Pharmacy] = {}
     shifts: list[DutyShift] = []
@@ -179,7 +184,7 @@ def parse_dir(path: str, retrieved_at: datetime | None = None) -> ParseResult:
     for file in sorted(glob.glob(os.path.join(path, "madrid_*.csv"))):
         if not _CSV_RE.search(file):
             continue
-        p, s = _parse_csv(file, warnings)
+        p, s = _parse_csv(file, warnings, today)
         for pid, ph in p.items():
             pharmacies.setdefault(pid, ph)
         by_origin["csv"].extend(s)
@@ -190,11 +195,13 @@ def parse_dir(path: str, retrieved_at: datetime | None = None) -> ParseResult:
             out.setdefault(s.start.date(), set()).add((s.pharmacy_id, s.start, s.end, s.kind))
         return out
     pdf_days, csv_days = by_day(by_origin["pdf"]), by_day(by_origin["csv"])
+    discrepantes = set()
     for day in sorted(set(pdf_days) & set(csv_days)):
         if pdf_days[day] != csv_days[day]:
             diff = sorted(pid for pid, *_ in pdf_days[day] ^ csv_days[day])
-            warnings.append(f"PDF_CSV_DIFIEREN {day:%d/%m/%Y}: {', '.join(diff)}")
-    shifts = by_origin["pdf"] + by_origin["csv"]
+            warnings.append(f"PDF_CSV_DIFIEREN {day:%d/%m/%Y}: {', '.join(diff)} (se usa el PDF)")
+            discrepantes.add(day)
+    shifts = by_origin["pdf"] + [s for s in by_origin["csv"] if s.start.date() not in discrepantes]
     # Un mismo turno repetido (dos descargas del mismo mes, PDF y CSV, filas duplicadas del CSV)
     # se cuenta una vez.
     unique = {(s.pharmacy_id, s.start, s.kind): s for s in shifts}

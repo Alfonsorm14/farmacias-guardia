@@ -237,18 +237,18 @@ def _nearby_pharmacies(
 def _published_period(
     db: Session, source_ids: set[str]
 ) -> dict[str, tuple[datetime.datetime, datetime.datetime]]:
-    """(primer inicio, último fin) de los turnos publicados por cada fuente."""
+    """(primer inicio, último fin, último inicio) de los turnos publicados por cada fuente."""
     if not source_ids:
         return {}
     rows = db.execute(
-        select(Shift.source_id, func.min(Shift.start_utc), func.max(Shift.end_utc))
+        select(Shift.source_id, func.min(Shift.start_utc), func.max(Shift.end_utc), func.max(Shift.start_utc))
         .where(Shift.source_id.in_(list(source_ids)))
         .group_by(Shift.source_id)
     ).all()
     out = {}
-    for sid, first, last in rows:
+    for sid, first, last, last_start in rows:
         # func.min/max devuelven el valor crudo de SQLite (naive o texto): normalizar a UTC.
-        out[sid] = (_as_utc(first), _as_utc(last))
+        out[sid] = (_as_utc(first), _as_utc(last), _as_utc(last_start))
     return out
 
 
@@ -403,11 +403,12 @@ def _query_guardias(
         }
 
     periods = _published_period(db, {p.source_id for p, _ in nearby.values()})
-    published_until = max((last for _, last in periods.values()), default=None)
+    # "Publicados hasta": inicio del último turno (una nocturna del 31/12 acaba el 1/1).
+    published_until = max((p[2] for p in periods.values()), default=None)
     probe = start if instant else end - datetime.timedelta(microseconds=1)
-    covered = any(first <= probe and start < last for first, last in periods.values())
+    covered = any(first <= probe and start < last for first, last, _ in periods.values())
     # Antes del primer turno que tenemos: no es "aún no publicado", es que no lo tenemos.
-    before_data = bool(periods) and all(probe < first for first, _ in periods.values())
+    before_data = bool(periods) and all(probe < first for first, _, _ in periods.values())
 
     unlocated = _count_unlocated(db, nearby, start, end)
     aviso = _zone_notice(db, nearby, start, end, instant) if covered else None

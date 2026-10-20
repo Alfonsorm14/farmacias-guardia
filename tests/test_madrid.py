@@ -68,26 +68,28 @@ class MadridCsvTests(unittest.TestCase):
             shutil.copy(os.path.join(RAW_DIR, "madrid_2026-10.pdf"), d)
         return d
 
-    def test_csv_solo_dos_ultimos_meses_y_duplicados(self) -> None:
+    def test_csv_ventana_de_31_dias_y_duplicados(self) -> None:
         filas = (
             "MADRID;CENTRO;15/08/2026;46;PZ DEL ANGEL,  14;SERVICIO 24 HORAS (09:30-09:30 H DÍA SIGUIENTE);913690000\r\n"
             "MADRID;CENTRO;15/09/2026;46;PZ DEL ANGEL,  14;SERVICIO 24 HORAS (09:30-09:30 H DÍA SIGUIENTE);913690000\r\n"
             "MADRID;CENTRO;15/11/2026;46;PZ DEL ANGEL,  14;SERVICIO DIURNO (09:30-23:00 H);913690000\r\n"
             "MADRID;CENTRO;15/11/2026;46;PZ DEL ANGEL,  14;SERVICIO DIURNO (09:30-23:00 H);913690000\r\n"
         )
-        r = parse_dir(self._dir(self.CAB + filas, con_pdf=False))
+        r = parse_dir(self._dir(self.CAB + filas, con_pdf=False), today=date(2026, 10, 1))
         self.assertEqual(r.warnings, [])
         dias = sorted(s.start.date() for s in r.shifts)
-        self.assertEqual(dias, [date(2026, 9, 15), date(2026, 11, 15)])  # agosto fuera, duplicado una vez
+        self.assertEqual(dias, [date(2026, 9, 15), date(2026, 11, 15)])  # agosto (>31 días) fuera, duplicado una vez
         self.assertEqual(r.pharmacies["MAD:46"].address, "PZ DEL ANGEL, 14")
 
     def test_aviso_si_pdf_y_csv_no_coinciden(self) -> None:
         filas = "MADRID;CENTRO;01/10/2026;99999;CL FALSA, 1;SERVICIO DIURNO (09:30-23:00 H);910000000\r\n"
-        r = parse_dir(self._dir(self.CAB + filas, con_pdf=True))
+        r = parse_dir(self._dir(self.CAB + filas, con_pdf=True), today=date(2026, 10, 15))
         self.assertTrue(any(w.startswith("PDF_CSV_DIFIEREN 01/10/2026") for w in r.warnings), r.warnings)
+        # Ese día manda el PDF: la farmacia que solo está en el CSV no entra.
+        self.assertFalse(any(s.pharmacy_id == "MAD:99999" for s in r.shifts))
 
     def test_columnas_inesperadas(self) -> None:
-        r = parse_dir(self._dir("Fecha;Farmacia\r\n01/10/2026;1\r\n", con_pdf=False))
+        r = parse_dir(self._dir("Fecha;Farmacia\r\n01/10/2026;1\r\n", con_pdf=False), today=date(2026, 10, 15))
         self.assertTrue(r.warnings and "COLUMNAS_INESPERADAS" in r.warnings[0])
 
 

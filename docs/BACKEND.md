@@ -51,7 +51,7 @@ programarlo a diario (Programador de tareas de Windows). Baleares y Murcia son a
 3. **Vía y código postal.** Un resultado solo cuenta si el nombre de la vía coincide con el de la fuente (similitud de palabras significativas ≥ 0,6) y, si la farmacia trae CP (Murcia), si coincide el CP. En Murcia la búsqueda se filtra por CP (`cod_postal_filter`), lo que evita confundir, p. ej., la Calle Mayor de Puente Tocinos con la de otra pedanía.
 4. **Precisión.** `portal` = portal con el mismo número; `calle` = misma vía sin ese número exacto; `localidad` = centroide de la entidad de población (núcleo/pedanía) de CartoCiudad (`geo_source = nucleus_centroid`), o del núcleo principal del municipio solo si la fuente da localidad = municipio (`casco_centroid`). Si no hay ni dirección ni núcleo: `lat/lon = NULL`.
 5. **Núcleo esperado.** Murcia: localidad de la fuente ("X (MUNICIPIO)", "NUCLEO-MUNICIPIO", mapas de pedanías) y, si la localidad es el municipio, pistas de la dirección ("MAYOR, 104 - PUENTE TOCINOS"). Baleares: localidad de la fuente; si falta, núcleo citado en la dirección ("… 11 CALA MILLOR", "(ES CANAR)") y, si no, los municipios de sus zonas de guardia (sin centroide de respaldo).
-6. **Farmacia de OpenStreetMap (20/10/2026).** Si ni CartoCiudad ni Nominatim encuentran la vía, antes de usar el centro del núcleo se buscan las farmacias de OSM a ~3 km del núcleo (`geo_source = osm_farmacia`). Se acepta solo si hay una única farmacia OSM en esa vía (mismo tipo de vía, nombre por similitud o compactado: "MONTE AZAHAR" = "Monteazahar"), ninguna otra farmacia de la fuente en esa vía y localidad, y el punto pasa la validación inversa. `portal` si coincide el número o un apellido no común del titular; si no, `calle`. En términos extensos o sin localidad (Palma), se busca con la vía en todo el casco. Recuperó 13 farmacias (93,8 % portal/calle).
+6. **Farmacia de OpenStreetMap (20/10/2026).** Si ni CartoCiudad ni Nominatim encuentran la vía, antes de usar el centro del núcleo se buscan las farmacias de OSM cerca del núcleo (o con la vía en todo el casco si es extenso o falta la localidad); `geo_source = osm_farmacia`. Para no situar una farmacia en la posición de otra, solo se acepta con identificación positiva: una única farmacia OSM en esa vía (búsqueda no truncada), ninguna otra farmacia de la fuente en esa vía y localidad, y el mismo número de portal o un apellido no común del titular en el nombre OSM; números distintos descartan. Siempre `portal`. Hoy: 1 farmacia (Palma).
 7. **Control final.** Ningún punto compartido por más de 2 farmacias con direcciones distintas.
 8. **Caché.** Cada respuesta de los servicios se guarda en `geocode_cache` (claves `v4:`), así que repetir la geocodificación no vuelve a consultar lo ya consultado (`--offline` usa solo la caché).
 
@@ -72,6 +72,8 @@ Para iniciar el servidor de desarrollo en `http://127.0.0.1:8000`:
 ```powershell
 uvicorn backend.api:app --reload
 ```
+
+En producción: `uvicorn backend.api:app --no-access-log` (las URL llevan la ubicación consultada).
 
 ---
 
@@ -112,7 +114,7 @@ curl -X GET "http://127.0.0.1:8000/v1/guardias?lat=39.5696&lon=2.6502&at=2026-10
 - `cobertura`: `true` si hay cobertura oficial en la zona; `false` si no hay datos oficiales en el radio de búsqueda (`"mensaje": "Sin datos oficiales para esta zona"`).
 - `mensaje`: `"Sin datos oficiales para esta fecha"` cuando hay farmacias en la zona pero ninguna con turno activo en el momento consultado.
 - `mensaje`: `"Aún no hay turnos oficiales publicados para esta fecha"` cuando la fecha cae fuera del periodo publicado por las fuentes de la zona (no es ausencia de guardia, es que aún no se conoce).
-- `datos_hasta`: último instante (hora de Madrid) con turnos publicados por las fuentes de la zona.
+- `datos_hasta`: inicio (hora de Madrid) del último turno publicado por las fuentes de la zona, es decir, el último día con turnos.
 - `aviso`: texto cuando la zona de la farmacia más cercana no tiene turnos publicados para la fecha (p. ej. agrupaciones de Murcia con solo enero publicado) y lo mostrado son guardias de zonas vecinas; `null` en otro caso.
 - Fuentes municipales (`backend/ambito.py`: Madrid, Zaragoza): sus farmacias solo se ofrecen si el punto consultado está dentro del término municipal (polígono fijo de `data/geo/municipios.json`, límites de OpenStreetMap, ODbL). Alcalá, Getafe, Pozuelo o Coslada no reciben las guardias de Madrid capital; todos los barrios de Zaragoza reciben las suyas. La app aplica la misma regla (el polígono va en la instantánea).
 - `mensaje` cuando no hay guardias: "Sin datos oficiales para esta zona" (sin cobertura), "Sin turnos oficiales publicados para tu zona en esta fecha" (con `aviso`), "Sin datos oficiales para esta fecha" (fecha publicada sin turno), "Aún no hay turnos oficiales publicados para esta fecha" (posterior a lo publicado) o "No tenemos los turnos oficiales de esa fecha" (anterior a los datos que tenemos).

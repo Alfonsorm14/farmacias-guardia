@@ -11,9 +11,11 @@ solo los turnos que el BORM asigna en cuadrante. Fuente: Orden de la Consejería
   el año (13 zonas con cuadrante de 365 días: Murcia capital y pedanías (3), Cartagena, Campo de
   Cartagena, Lorca, San Javier, Alcantarilla, Alhama, Fuente Álamo, La Manga (2) y Los Alcázares).
 - En 33 zonas el Anexo III publica **solo el cuadrante de enero** y una regla del tipo "Rotación por
-  días, de modo sucesivo según el orden expuesto, hasta 31/12/2026". Desde el 1 de febrero la app
-  dice "Sin datos oficiales para esta fecha" en Mula, Molina de Segura, Cieza, Yecla, Jumilla,
-  Totana, Caravaca, Águilas, Mazarrón, Torre Pacheco, La Unión, Bullas, Cehegín, etc.
+  días, de modo sucesivo según el orden expuesto, hasta 31/12/2026". Desde el 1 de febrero, en Mula,
+  Molina de Segura, Cieza, Yecla, Jumilla, Totana, Caravaca, Águilas, Mazarrón, Torre Pacheco, La Unión,
+  Bullas, Cehegín, etc., la app avisa de que la fuente no ha publicado los turnos de la zona y muestra,
+  si las hay, las guardias de zonas vecinas a menos de 25 km (o "Sin turnos oficiales publicados para
+  tu zona en esta fecha").
 
 ## A) Asignaciones explícitas en texto (10 farmacias) — recomiendo ACTIVAR
 

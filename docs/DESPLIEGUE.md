@@ -25,3 +25,6 @@ teléfonos reciban los datos haría falta igualmente publicar el `snapshot.json`
 ## Opción C: backend FastAPI en un servidor (más adelante)
 Para escala nacional con muchas fuentes. Requiere hosting (VPS o PaaS) y mantenimiento;
 la app ya soporta `--dart-define=API_BASE=https://…`.
+Privacidad: las consultas llevan la ubicación en la URL; en producción arrancar uvicorn con
+`--no-access-log` (y no registrar las URL en el proxy), y actualizar la política de privacidad y el
+formulario de Google Play, porque en ese modo la ubicación sí sale del teléfono.

@@ -17,8 +17,12 @@ class MainActivity : FlutterActivity() {
                         type = "text/plain"
                         putExtra(Intent.EXTRA_TEXT, texto)
                     }
-                    startActivity(Intent.createChooser(envio, "Compartir farmacia de guardia"))
-                    result.success(true)
+                    try {
+                        startActivity(Intent.createChooser(envio, "Compartir farmacia de guardia"))
+                        result.success(true)
+                    } catch (e: Exception) {
+                        result.success(false) // la app copiará el texto al portapapeles
+                    }
                 } else {
                     result.notImplemented()
                 }

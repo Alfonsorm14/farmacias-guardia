@@ -135,7 +135,7 @@ class ResultadoGuardias {
   /// Farmacias de guardia en la zona que no se han podido situar en el mapa.
   final List<Farmacia> sinCoordenadas;
 
-  /// Último instante con turnos publicados por las fuentes de la zona.
+  /// Inicio del último turno publicado por las fuentes de la zona (el día hasta el que hay turnos).
   final DateTime? datosHasta;
 
   /// Aviso cuando la zona de las farmacias más cercanas no tiene turnos publicados para la

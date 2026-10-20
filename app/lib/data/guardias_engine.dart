@@ -41,7 +41,8 @@ class GuardiasEngine {
   late final Map<int, Set<int>> _zonasPorFarmacia;
 
   /// Periodo publicado por cada fuente: (primer inicio, último fin) en minutos UTC.
-  late final Map<String, (int, int)> _periodoPorFuente;
+  /// (primer inicio, último fin, último inicio) de cada fuente, en minutos UTC.
+  late final Map<String, (int, int, int)> _periodoPorFuente;
 
   /// Periodo publicado por cada zona (cuadrante): (primer inicio, último inicio, último fin), minutos UTC.
   late final Map<int, (int, int, int)> _periodoPorZona;
@@ -82,7 +83,9 @@ class GuardiasEngine {
       (_zonasPorFarmacia[t.farmacia] ??= {}).add(t.zona);
       final fid = farmacias[t.farmacia].fuente?.id ?? '';
       final p = _periodoPorFuente[fid];
-      _periodoPorFuente[fid] = p == null ? (t.inicioMin, t.finMin) : (math.min(p.$1, t.inicioMin), math.max(p.$2, t.finMin));
+      _periodoPorFuente[fid] = p == null
+          ? (t.inicioMin, t.finMin, t.inicioMin)
+          : (math.min(p.$1, t.inicioMin), math.max(p.$2, t.finMin), math.max(p.$3, t.inicioMin));
     }
     _ambitoMunicipal = {};
     for (final f in farmacias) {
@@ -251,7 +254,8 @@ class GuardiasEngine {
     for (final fid in fuentesZona) {
       final p = _periodoPorFuente[fid];
       if (p == null) continue;
-      publicadoHasta = publicadoHasta == null ? p.$2 : math.max(publicadoHasta, p.$2);
+      // "Publicados hasta": inicio del último turno (una nocturna del 31/12 acaba el 1/1).
+      publicadoHasta = publicadoHasta == null ? p.$3 : math.max(publicadoHasta, p.$3);
       if (p.$1 <= sonda && ini < p.$2) fechaCubierta = true;
       if (sonda >= p.$1) antesDeLosDatos = false;
     }

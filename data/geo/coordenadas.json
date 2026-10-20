@@ -473,11 +473,11 @@
 "consulta": "AVD. DE LAS PALMERAS-EDIF. CORAL | Sa Coma, Sant Llorenç des Cardassar",
 "cp": null,
 "direccion": "AVD. DE LAS PALMERAS-EDIF. CORAL",
-"fuente": "osm_farmacia",
-"lat": 39.5775136,
+"fuente": "nucleus_centroid",
+"lat": 39.579524,
 "localidad": "SA COMA",
-"lon": 3.3765881,
-"precision": "calle"
+"lon": 3.3711182,
+"precision": "localidad"
 },
 "IB:2c1ed6c88ac3": {
 "consulta": "FERRERETAS, 15 | Santanyí",
@@ -1003,11 +1003,11 @@
 "consulta": "PASEO DEL MAR, Ed. Zorba | Palmanova, Calvià",
 "cp": null,
 "direccion": "PASEO DEL MAR, Ed. Zorba",
-"fuente": "osm_farmacia",
-"lat": 39.5205455,
+"fuente": "nucleus_centroid",
+"lat": 39.5265746,
 "localidad": "PALMA NOVA",
-"lon": 2.5368954,
-"precision": "calle"
+"lon": 2.5424118,
+"precision": "localidad"
 },
 "IB:6082622c7920": {
 "consulta": "CALLE DOCTOR ORFILA, 4 | Alaior",
@@ -1543,11 +1543,11 @@
 "consulta": "CA S'HEREU-APTOS. BOERINKEN | Cala Millor, Son Servera",
 "cp": null,
 "direccion": "CA S'HEREU-APTOS. BOERINKEN",
-"fuente": "osm_farmacia",
-"lat": 39.6019353,
+"fuente": "nucleus_centroid",
+"lat": 39.6061466,
 "localidad": "CALA MILLOR",
-"lon": 3.3838628,
-"precision": "calle"
+"lon": 3.3812758,
+"precision": "localidad"
 },
 "IB:a80274e27e1d": {
 "consulta": "CALLE CESAR PUGET RIQUER, 31 | Santa Eulària des Riu",
@@ -1963,11 +1963,11 @@
 "consulta": "CALLE FALZIA, - URBANIZACION PUIG DE ROS | Puig de Ros, Llucmajor",
 "cp": null,
 "direccion": "CL FALZIA, s/n - URB. PUIG DE ROS",
-"fuente": "osm_farmacia",
-"lat": 39.4493264,
+"fuente": "nucleus_centroid",
+"lat": 39.4497026,
 "localidad": null,
-"lon": 2.7549105,
-"precision": "calle"
+"lon": 2.7528193,
+"precision": "localidad"
 },
 "IB:ccccb20f2488": {
 "consulta": "PLAZA ESPANYA, 23 | Inca",
@@ -2123,11 +2123,11 @@
 "consulta": "AVD. DE LA PLAYA, 1 | Port d'Alcúdia, Alcúdia",
 "cp": null,
 "direccion": "AVD. DE LA PLAYA, 1 LOCAL 32",
-"fuente": "osm_farmacia",
-"lat": 39.8417027,
+"fuente": "nucleus_centroid",
+"lat": 39.8409253,
 "localidad": "PORT ALCUDIA",
-"lon": 3.1285812,
-"precision": "calle"
+"lon": 3.1399553,
+"precision": "localidad"
 },
 "IB:da71abaa87c2": {
 "consulta": "CALLE - KING CRIMSON, 3 | Es Pujols, Formentera",
@@ -4813,11 +4813,11 @@
 "consulta": "AVENIDA GENERAL ORTIN, RONDA SUR | Murcia",
 "cp": "30010",
 "direccion": "AVENIDA GENERAL ORTIN, EDIFICO ELVIS XI, RONDA SUR",
-"fuente": "osm_farmacia",
-"lat": 37.9708828,
+"fuente": null,
+"lat": null,
 "localidad": "MURCIA",
-"lon": -1.1319785,
-"precision": "portal"
+"lon": null,
+"precision": null
 },
 "MU:218": {
 "consulta": "SANDOVAL, 12 | Santiago de la Ribera, San Javier",
@@ -6273,11 +6273,11 @@
 "consulta": "AVENIDA MONTE AZAHAR, 4 | Beniajan, Murcia",
 "cp": "30570",
 "direccion": "AVENIDA MONTE AZAHAR, Nº 4",
-"fuente": "osm_farmacia",
-"lat": 37.97341,
+"fuente": "nucleus_centroid",
+"lat": 37.9740623,
 "localidad": "BENIAJAN",
-"lon": -1.0705308,
-"precision": "calle"
+"lon": -1.0722054,
+"precision": "localidad"
 },
 "MU:352": {
 "consulta": "CALLE MANUEL DE FALLA, 32 | Ricote",
@@ -6473,11 +6473,11 @@
 "consulta": "CALLE LA CRUZ, 48 | Espinardo, Murcia",
 "cp": "30100",
 "direccion": "CL.LA CRUZ, S/N, PROXIMO AL Nº 48",
-"fuente": "osm_farmacia",
-"lat": 38.0117327,
+"fuente": "nucleus_centroid",
+"lat": 38.0084441,
 "localidad": "ESPINARDO",
-"lon": -1.1518555,
-"precision": "calle"
+"lon": -1.1555733,
+"precision": "localidad"
 },
 "MU:370": {
 "consulta": "BANDO DE LA HUERTA, 8 | Murcia",
@@ -6913,11 +6913,11 @@
 "consulta": "AVENIDA DE LA CONSTITUCION, 8 | Sucina, Murcia",
 "cp": "30590",
 "direccion": "AVENIDA DE LA CONSTITUCION, Nº 8",
-"fuente": "osm_farmacia",
-"lat": 37.8902638,
+"fuente": "nucleus_centroid",
+"lat": 37.8882474,
 "localidad": "SUCINA",
-"lon": -0.9418161,
-"precision": "calle"
+"lon": -0.9408784,
+"precision": "localidad"
 },
 "MU:41": {
 "consulta": "MAYOR, 59 | El Palmar, Murcia",
@@ -8093,11 +8093,11 @@
 "consulta": "CALLE LORCA, CIUDAD JARDIN LA PAZ | El Palmar, Murcia",
 "cp": "30120",
 "direccion": "CALLE LORCA, S/N, CIUDAD JARDIN LA PAZ",
-"fuente": "osm_farmacia",
-"lat": 37.9403739,
+"fuente": "nucleus_centroid",
+"lat": 37.9351732,
 "localidad": "PALMAR,EL",
-"lon": -1.1726886,
-"precision": "calle"
+"lon": -1.1661183,
+"precision": "localidad"
 },
 "MU:524": {
 "consulta": "VILLA DE BULLAS | Mula",
@@ -8193,11 +8193,11 @@
 "consulta": "CALLE MEDICO PEDRO NOGUEROLES | Alcantarilla",
 "cp": "30820",
 "direccion": "CALLE MEDICO PEDRO NOGUEROLES, ESQUINA CALLE ANDORRA",
-"fuente": "osm_farmacia",
-"lat": 37.9641615,
+"fuente": "casco_centroid",
+"lat": 37.9665741,
 "localidad": "ALCANTARILLA",
-"lon": -1.2212211,
-"precision": "calle"
+"lon": -1.2118032,
+"precision": "localidad"
 },
 "MU:535": {
 "consulta": "CALLE | San Pedro Del Pinatar",
@@ -8513,11 +8513,11 @@
 "consulta": "PLAZA DEL SEGURA, URBANIZACION COOPERATIVA DE PESCADORES DEL MAR MENOR VIRGEN DEL CARMEN | Santiago de la Ribera, San Javier",
 "cp": "30720",
 "direccion": "PLAZA DEL SEGURA, URB. COOPERATIVA DE PESCADORES DEL MAR MENOR VIRGEN DEL CARMEN",
-"fuente": "osm_farmacia",
-"lat": 37.7991963,
+"fuente": "nucleus_centroid",
+"lat": 37.8060918,
 "localidad": "SANTIAGO DE LA RIBERA",
-"lon": -0.8134201,
-"precision": "calle"
+"lon": -0.8067772,
+"precision": "localidad"
 },
 "MU:567": {
 "consulta": "AVENIDA CONSTITUCION, 39 | Sangonera La Verde, Murcia",

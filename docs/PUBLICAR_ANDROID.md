@@ -35,7 +35,7 @@ flutter build appbundle --release --dart-define=SNAPSHOT_URL=https://<usuario>.g
 ```
 
 Resultado: `build\app\outputs\bundle\release\app-release.aab`. Antes de cada versión, subir
-`version:` en `pubspec.yaml` (ahora `0.6.1+7`; el número tras `+` debe crecer siempre).
+`version:` en `pubspec.yaml` (ahora `0.6.2+8`; el número tras `+` debe crecer siempre).
 
 ## 3. Play Console
 
@@ -52,6 +52,7 @@ Resultado: `build\app\outputs\bundle\release\app-release.aab`. Antes de cada ver
 | Pregunta | Respuesta (modo sin servidor, el actual) |
 |---|---|
 | ¿Recoge o comparte datos de usuario? | Ubicación: se usa en el dispositivo, no se envía a servidores propios. El texto de búsqueda de poblaciones se envía a CartoCiudad (IGN). [Revisar: Google considera "recogida" todo dato que sale del dispositivo, aunque sea a un tercero.] |
+| Teselas del mapa | Al ver el mapa, el teléfono pide las teselas a tile.openstreetmap.org: ese tercero recibe la IP y la zona visible (≈ ubicación aproximada). [Revisar cómo declararlo.] |
 | ¿Cifrado en tránsito? | Sí (HTTPS: CartoCiudad, instantánea, teselas de OpenStreetMap). |
 | ¿Se puede pedir la eliminación? | No hay datos guardados en servidores; los del teléfono se borran desinstalando. |
 | Anuncios | No. |
@@ -60,15 +61,23 @@ Resultado: `build\app\outputs\bundle\release\app-release.aab`. Antes de cada ver
 Si algún día se usa el backend (`API_BASE`), la ubicación sí sale del teléfono hacia el servidor y
 el formulario y la política cambian.
 
+**Mapa en producción:** la política de uso de tile.openstreetmap.org no admite el tráfico de una app
+publicada; antes de publicar hay que usar un proveedor de teselas con condiciones para producción
+(o servidor propio) y cambiar la URL en `app/lib/ui/mapa.dart`.
+
 ### Clasificación de contenido y público
 - Cuestionario IARC: sin violencia, sin contenido sensible → apta para todos.
 - Público objetivo: mayores de 18 (evita los requisitos de apps infantiles; es una app de servicio).
 - Categoría: Medicina (o Salud y bienestar). Contacto: el correo de la cuenta de desarrollador.
+- Declaración de apps de salud (formulario "Health apps" de la Play Console) [VERIFICAR qué apartados
+  pide para una app informativa sin datos de salud].
+- Nivel de API objetivo: `targetSdk` lo fija Flutter (`flutter.targetSdkVersion`); comprobar que cumple
+  el mínimo vigente de Google Play al publicar [VERIFICAR].
 
 ## 4. Ficha de la tienda (textos)
 
-**Nombre (máx. 30):** Farmacias de guardia — datos oficiales
-*(alternativa: "Farmacia de guardia cerca")*
+**Nombre (máx. 30):** Farmacia de guardia cerca (25 caracteres)
+*(evitar "oficial" en el nombre: la app no lo es y podría tomarse por suplantación)*
 
 **Descripción breve (máx. 80):** La farmacia de guardia más cercana, con los turnos oficiales publicados.
 

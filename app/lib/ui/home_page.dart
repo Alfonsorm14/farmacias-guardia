@@ -312,7 +312,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           } else if (mensaje.startsWith('Aún no')) {
             detalle = 'La fuente oficial todavía no ha publicado los turnos de esa fecha.';
           } else if (mensaje.startsWith('No tenemos')) {
-            detalle = 'La app solo guarda los turnos publicados recientemente; los de esa fecha no están disponibles.';
+            detalle = 'Los datos de la app no incluyen esa fecha (es anterior a los turnos que tenemos).';
           } else {
             detalle = 'La fuente oficial no asigna farmacia de guardia en tu zona para este momento.';
           }
@@ -342,7 +342,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   String _fechaCorta(DateTime d) {
-    final m = enMadrid(d.subtract(const Duration(minutes: 1)));
+    final m = enMadrid(d);
     return '${m.day}/${m.month}/${m.year}';
   }
 

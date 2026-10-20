@@ -71,12 +71,64 @@ def test_street_core_y_vias_osm():
     assert street_core("CL FALZIA, s/n - URB. PUIG DE ROS").name == "FALZIA"
     assert street_core("AVD. DE LAS PALMERAS-EDIF. CORAL").street_type == "AVENIDA"
     assert street_core("AVENIDA MONTE AZAHAR, Nº 4").number == 4
+    assert street_core("PASEO DEL MAR, Ed. Zorba LOCAL 32").number is None  # no es el portal
     assert osm_street_match(street_core("AVENIDA MONTE AZAHAR, Nº 4"), "Avenida Monteazahar")
     assert osm_street_match(street_core("CL FALZIA, s/n"), "carrer Falzia")
     assert osm_street_match(street_core("AVD. DE LA PLAYA, 1 LOCAL 32"), "Avinguda de la Platja")
     # Distinto tipo de vía: no es la misma.
     assert not osm_street_match(street_core("C/FORTUNA,2 URB.LAS PALOMAS"), "Plaza de Fortuna")
     assert not osm_street_match(street_core("DR. ORFILA, 28"), "Carrer Gran")
+
+
+class _GeoStub:
+    """GeoClient mínimo para probar _osm_pharmacy sin red."""
+
+    def __init__(self, found, others):
+        self._found = found
+
+        class _S:
+            def scalars(self, _q):
+                class _R:
+                    def all(self_inner):
+                        return others
+                return _R()
+        self.session = _S()
+
+    def nominatim(self, **_params):
+        return self._found
+
+
+def _osm(road, number=None, name="", lat=39.6, lon=2.6):
+    return {"type": "pharmacy", "class": "amenity", "lat": str(lat), "lon": str(lon), "name": name,
+            "osm_type": "node", "osm_id": 1, "address": {"road": road, "house_number": number}}
+
+
+def test_osm_farmacia_solo_con_identificacion_positiva():
+    from backend.geocode import _osm_pharmacy
+    from backend.models import Pharmacy
+
+    p = Pharmacy(id="IB:x", region="04", holder="TINOCO GIL", address="AV GABRIEL ALOMAR, 27", locality=None)
+    otra = Pharmacy(id="IB:y", region="04", holder="X", address="CL ARAGO, 70", locality=None)
+    centro = (39.57, 2.65)
+    # Mismo número: se acepta como portal.
+    assert _osm_pharmacy(_GeoStub([_osm("Avinguda de Gabriel Alomar", "27")], [otra]), p, center=centro)[2] == "portal"
+    # Número distinto: es otra farmacia de la misma vía.
+    assert _osm_pharmacy(_GeoStub([_osm("Avinguda de Gabriel Alomar", "5")], [otra]), p, center=centro) is None
+    # Sin número ni apellido en el nombre: no hay identificación positiva.
+    assert _osm_pharmacy(_GeoStub([_osm("Avinguda de Gabriel Alomar")], [otra]), p, center=centro) is None
+    # Apellido no común del titular en el nombre OSM: portal.
+    assert _osm_pharmacy(_GeoStub([_osm("Avinguda de Gabriel Alomar", name="Farmacia Tinoco")], [otra]), p, center=centro)
+    # Dos farmacias OSM en la vía, o resultados truncados: ambiguo.
+    dos = [_osm("Avinguda de Gabriel Alomar", "27"), _osm("Avinguda de Gabriel Alomar", "40")]
+    assert _osm_pharmacy(_GeoStub(dos, [otra]), p, center=centro) is None
+    assert _osm_pharmacy(_GeoStub([_osm("Avinguda de Gabriel Alomar", "27")] + [_osm("Carrer X")] * 49, [otra]), p, center=centro) is None
+    # Otra farmacia de la fuente en la misma vía y localidad (también sin localidad): ambiguo.
+    vecina = Pharmacy(id="IB:z", region="04", holder="Y", address="AV GABRIEL ALOMAR, 3", locality=None)
+    assert _osm_pharmacy(_GeoStub([_osm("Avinguda de Gabriel Alomar", "27")], [vecina]), p, center=centro) is None
+    # Un nombre de pila del titular no identifica.
+    q = Pharmacy(id="MU:x", region="14", holder="BRIONES ORTEGA, CARLOS", address="AVENIDA GENERAL ORTIN", locality="MURCIA")
+    assert _osm_pharmacy(_GeoStub([_osm("Avenida General Ortín", name="Farmacia Carlos")], []), q, center=centro) is None
+    assert _osm_pharmacy(_GeoStub([_osm("Avenida General Ortín", name="Briones")], []), q, center=centro)
 
 
 def test_hint_phrases():
