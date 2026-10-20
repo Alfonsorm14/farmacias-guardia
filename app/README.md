@@ -1,7 +1,7 @@
 # App Farmacias de guardia (Flutter) — v0.6
 
 Muestra la farmacia de guardia más cercana con datos oficiales: ahora, hoy, mañana y pasado,
-o cualquier fecha del calendario, con mapa (OpenStreetMap), botón de llamar y "Cómo llegar". Por ahora cubre las Illes Balears,
+o cualquier fecha del calendario, con mapa (Mapa Base del IGN), botón de llamar y "Cómo llegar". Por ahora cubre las Illes Balears,
 la Región de Murcia, Navarra y las ciudades de Madrid y Zaragoza; fuera de ellas avisa de
 "Sin datos oficiales para esta zona". Permite buscar cualquier población (geocodificador CartoCiudad).
 
@@ -16,7 +16,7 @@ la Región de Murcia, Navarra y las ciudades de Madrid y Zaragoza; fuera de ella
   `/v1/guardias` y `/v1/guardias/dia` (ver docs/BACKEND.md).
 
 Pantalla "Fuentes y privacidad" (menú ⋮): fuentes oficiales con licencia y fecha de descarga, atribución
-de OpenStreetMap, CartoCiudad (IGN), Nominatim e IDENA, resumen de privacidad y aviso de app no oficial.
+del Mapa Base del IGN, OpenStreetMap, CartoCiudad (IGN), Nominatim e IDENA, resumen de privacidad y aviso de app no oficial.
 Si el GPS falla, la app vuelve al último lugar elegido a mano (guardado solo en el teléfono).
 Si la zona de la farmacia más cercana no tiene turnos publicados para la fecha (p. ej. agrupaciones de
 Murcia con solo el cuadrante de enero), la app lo avisa: lo que muestra son guardias de zonas vecinas.
@@ -38,7 +38,7 @@ flutter build apk --release  # build/app/outputs/flutter-apk/app-release.apk
 - Firma de publicación propia (ahora se firma con la clave de depuración).
 - Icono y nombre definitivos; política de privacidad (la ubicación no sale del teléfono en modo
   sin servidor).
-- Servidor propio de teselas o proveedor con condiciones de uso para producción (la política de
-  tile.openstreetmap.org no admite uso intensivo).
+- Teselas: resuelto con el Mapa Base de España del IGN (CC BY 4.0 scne.es), en lugar de
+  tile.openstreetmap.org.
 
 Nota: el objetivo es Android (y más adelante iOS); la versión web no se compila porque la app guarda la instantánea en el almacenamiento del teléfono.

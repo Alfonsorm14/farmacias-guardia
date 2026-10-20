@@ -5,7 +5,7 @@ import '../data/repository.dart';
 import '../models.dart';
 import '../tiempo.dart';
 
-const String versionApp = '0.6.2';
+const String versionApp = '0.6.3';
 
 /// Otros datos y servicios que usa la app (atribución obligatoria por sus licencias).
 class _Tercero {
@@ -16,7 +16,9 @@ class _Tercero {
 }
 
 const List<_Tercero> _terceros = [
-  _Tercero('Mapa: © colaboradores de OpenStreetMap', 'Datos con licencia ODbL. Teselas de tile.openstreetmap.org.',
+  _Tercero('Mapa base de España — Instituto Geográfico Nacional', 'Teselas del mapa. CC BY 4.0 scne.es.',
+      'https://www.ign.es'),
+  _Tercero('© colaboradores de OpenStreetMap', 'Datos con licencia ODbL (ver Nominatim).',
       'https://www.openstreetmap.org/copyright'),
   _Tercero('CartoCiudad — Instituto Geográfico Nacional', 'Búsqueda de poblaciones y situación de farmacias. CC BY 4.0.',
       'https://www.cartociudad.es'),
@@ -109,8 +111,8 @@ class _AcercaDePageState extends State<AcercaDePage> {
                   '${apiBase.isEmpty ? '• Tu ubicación (GPS) se usa dentro del teléfono para calcular las farmacias más '
                       'cercanas; la app no la envía a ningún servidor propio.' : '• Tu ubicación (o el lugar elegido) se envía '
                       'al servidor de la app para calcular las farmacias más cercanas.'}\n'
-                  '• Al ver el mapa, el teléfono descarga de OpenStreetMap las teselas de la zona que se muestra, '
-                  'lo que revela esa zona a su servidor.\n'
+                  '• Al ver el mapa, el teléfono descarga del Instituto Geográfico Nacional las teselas de la zona que '
+                  'se muestra, lo que revela esa zona a su servidor.\n'
                   '• Si buscas una población, el texto que escribes se envía a CartoCiudad (IGN) para obtener sus '
                   'coordenadas. El último lugar elegido a mano se guarda solo en el teléfono.\n'
                   '• Sin registro, sin publicidad, sin analítica y sin identificadores de seguimiento.',

@@ -35,7 +35,7 @@ flutter build appbundle --release --dart-define=SNAPSHOT_URL=https://<usuario>.g
 ```
 
 Resultado: `build\app\outputs\bundle\release\app-release.aab`. Antes de cada versión, subir
-`version:` en `pubspec.yaml` (ahora `0.6.2+8`; el número tras `+` debe crecer siempre).
+`version:` en `pubspec.yaml` (ahora `0.6.3+9`; el número tras `+` debe crecer siempre).
 
 ## 3. Play Console
 
@@ -52,8 +52,8 @@ Resultado: `build\app\outputs\bundle\release\app-release.aab`. Antes de cada ver
 | Pregunta | Respuesta (modo sin servidor, el actual) |
 |---|---|
 | ¿Recoge o comparte datos de usuario? | Ubicación: se usa en el dispositivo, no se envía a servidores propios. El texto de búsqueda de poblaciones se envía a CartoCiudad (IGN). [Revisar: Google considera "recogida" todo dato que sale del dispositivo, aunque sea a un tercero.] |
-| Teselas del mapa | Al ver el mapa, el teléfono pide las teselas a tile.openstreetmap.org: ese tercero recibe la IP y la zona visible (≈ ubicación aproximada). [Revisar cómo declararlo.] |
-| ¿Cifrado en tránsito? | Sí (HTTPS: CartoCiudad, instantánea, teselas de OpenStreetMap). |
+| Teselas del mapa | Al ver el mapa, el teléfono pide las teselas al IGN (www.ign.es): recibe la IP y la zona visible (≈ ubicación aproximada). [Revisar cómo declararlo.] |
+| ¿Cifrado en tránsito? | Sí (HTTPS: CartoCiudad, instantánea, teselas del IGN). |
 | ¿Se puede pedir la eliminación? | No hay datos guardados en servidores; los del teléfono se borran desinstalando. |
 | Anuncios | No. |
 | Cuentas de usuario | No. |
@@ -61,9 +61,10 @@ Resultado: `build\app\outputs\bundle\release\app-release.aab`. Antes de cada ver
 Si algún día se usa el backend (`API_BASE`), la ubicación sí sale del teléfono hacia el servidor y
 el formulario y la política cambian.
 
-**Mapa en producción:** la política de uso de tile.openstreetmap.org no admite el tráfico de una app
-publicada; antes de publicar hay que usar un proveedor de teselas con condiciones para producción
-(o servidor propio) y cambiar la URL en `app/lib/ui/mapa.dart`.
+**Mapa en producción:** desde la v0.6.3 el mapa usa el Mapa Base de España del IGN (WMTS
+`ign-base`, capa `IGNBaseTodo`; sus capacidades declaran "CC BY 4.0 scne.es" y "No se aplican
+condiciones" de tasas). Ya no se usa tile.openstreetmap.org, cuya política no admite el tráfico de
+una app publicada. Cubre España, que es el ámbito de la app.
 
 ### Clasificación de contenido y público
 - Cuestionario IARC: sin violencia, sin contenido sensible → apta para todos.

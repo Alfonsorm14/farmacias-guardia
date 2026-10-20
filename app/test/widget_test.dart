@@ -106,14 +106,15 @@ void main() {
     expect(find.textContaining('solo ha publicado los turnos de tu zona'), findsOneWidget);
   });
 
-  testWidgets('la pantalla de fuentes cita las fuentes oficiales y OpenStreetMap', (tester) async {
+  testWidgets('la pantalla de fuentes cita las fuentes oficiales, el IGN y OpenStreetMap', (tester) async {
     await tester.pumpWidget(MaterialApp(home: AcercaDePage(repositorio: repo)));
     await tester.pumpAndSettle();
     expect(find.textContaining('Govern de les Illes Balears'), findsOneWidget);
     expect(find.textContaining('Solo su término municipal'), findsWidgets);
     await tester.scrollUntilVisible(find.textContaining('Servicio de datos de farmacias de guardia'), 200, scrollable: find.byType(Scrollable).first);
     expect(find.textContaining('Solo su término municipal'), findsNWidgets(2));
-    await tester.scrollUntilVisible(find.text('Mapa: © colaboradores de OpenStreetMap'), 200, scrollable: find.byType(Scrollable).first);
+    await tester.scrollUntilVisible(find.text('© colaboradores de OpenStreetMap'), 200, scrollable: find.byType(Scrollable).first);
+    expect(find.textContaining('Instituto Geográfico Nacional'), findsWidgets);
     expect(find.textContaining('colaboradores de OpenStreetMap'), findsWidgets);
   });
 

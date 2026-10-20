@@ -6,6 +6,11 @@ import '../location.dart';
 import '../models.dart';
 import 'guardia_card.dart';
 
+const String urlTeselasIgn = 'https://www.ign.es/wmts/ign-base?service=WMTS&request=GetTile&version=1.0.0'
+    '&layer=IGNBaseTodo&style=default&tilematrixset=GoogleMapsCompatible'
+    '&TileMatrix={z}&TileCol={x}&TileRow={y}&format=image/png';
+const String atribucionMapa = 'Mapa base © Instituto Geográfico Nacional (CC BY 4.0 scne.es)';
+
 class MapaGuardias extends StatelessWidget {
   final Ubicacion ubicacion;
   final List<Guardia> guardias;
@@ -32,8 +37,11 @@ class MapaGuardias extends StatelessWidget {
         initialZoom: 13,
       ),
       children: [
+        // Mapa base de España del IGN (WMTS, CC BY 4.0 scne.es, sin tasas): oficial y apto para
+        // una app publicada, a diferencia de tile.openstreetmap.org.
         TileLayer(
-          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          urlTemplate: urlTeselasIgn,
+          maxNativeZoom: 19,
           userAgentPackageName: 'es.alfonsorivero.farmacias_guardia',
         ),
         MarkerLayer(markers: [
@@ -53,7 +61,7 @@ class MapaGuardias extends StatelessWidget {
                 ),
               ),
         ]),
-        const RichAttributionWidget(attributions: [TextSourceAttribution('© colaboradores de OpenStreetMap')]),
+        const RichAttributionWidget(attributions: [TextSourceAttribution(atribucionMapa)]),
       ],
     );
     if (aviso == null) return mapa;
