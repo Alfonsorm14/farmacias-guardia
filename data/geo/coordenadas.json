@@ -2669,16 +2669,6 @@
 "lon": -3.6162174,
 "precision": "portal"
 },
-"MAD:109": {
-"consulta": "CALLE GENERAL PARDIÑAS, 20 | Madrid",
-"cp": null,
-"direccion": "CL GENERAL PARDIÑAS, 20",
-"fuente": "cartociudad",
-"lat": 40.425322,
-"localidad": "Madrid",
-"lon": -3.678485,
-"precision": "portal"
-},
 "MAD:1102": {
 "consulta": "PASEO HABANA, 7 | Madrid",
 "cp": null,
@@ -9819,16 +9809,6 @@
 "lon": -2.0268546,
 "precision": "portal"
 },
-"NA:F00396": {
-"consulta": "IDENA F00396",
-"cp": null,
-"direccion": "C/ Mayor, 6",
-"fuente": "idena",
-"lat": 43.1316775,
-"localidad": "Doneztebe / Santesteban",
-"lon": -1.6692129,
-"precision": "portal"
-},
 "NA:F00420": {
 "consulta": "IDENA F00420",
 "cp": null,
@@ -9947,6 +9927,16 @@
 "lat": 42.6714571,
 "localidad": "Puente la Reina / Gares",
 "lon": -1.8153171,
+"precision": "portal"
+},
+"NA:F00497": {
+"consulta": "IDENA F00497",
+"cp": null,
+"direccion": "C/ Francisco Joaquin Iriarte, 2",
+"fuente": "idena",
+"lat": 43.1480508,
+"localidad": "Elizondo",
+"lon": -1.5164362,
 "precision": "portal"
 },
 "NA:F00503": {
