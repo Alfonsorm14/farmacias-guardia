@@ -1610,6 +1610,7 @@ def enforce_shared_coordinates_limit(session: Session) -> list[dict[str, Any]]:
 def geocode_all_pharmacies(
     limit: int | None = None,
     recheck_only: bool = False,
+    new_only: bool = False,
     report_path: Path | str = "tmp/geocode_report.txt",
     database_url: str | None = None,
     ids: list[str] | None = None,
@@ -1623,6 +1624,14 @@ def geocode_all_pharmacies(
         query = select(Pharmacy).order_by(Pharmacy.id)
         if ids:
             query = query.where(Pharmacy.id.in_(ids))
+        elif new_only:
+            # Solo las que nunca se han geocodificado (no están en data/geo/coordenadas.json o han
+            # cambiado de dirección): en el flujo diario no se repiten las consultas ya fallidas.
+            try:
+                known = json.loads(COORDS_PATH.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                known = {}
+            query = query.where(Pharmacy.lat.is_(None), Pharmacy.geo_source.is_(None))
         elif recheck_only:
             query = query.where(
                 or_(Pharmacy.geo_precision == "localidad", Pharmacy.lat.is_(None))
@@ -1630,6 +1639,13 @@ def geocode_all_pharmacies(
         if limit:
             query = query.limit(limit)
         targets = session.scalars(query).all()
+        if new_only:
+            def ya_intentada(p: Pharmacy) -> bool:
+                k = known.get(p.id)
+                return bool(k) and (k.get("direccion"), k.get("localidad"), k.get("cp")) == (
+                    p.address, p.locality, p.postal_code
+                )
+            targets = [p for p in targets if not ya_intentada(p)]
         print(f"Farmacias a procesar: {len(targets)}")
         with httpx.Client() as http:
             geo = GeoClient(session, http, offline=offline)
@@ -1754,6 +1770,8 @@ def write_report(
 def main() -> None:
     parser = argparse.ArgumentParser(description="Geocodificador de farmacias (v4).")
     parser.add_argument("--limit", type=int, default=None)
+    parser.add_argument("--nuevas", action="store_true",
+                        help="solo farmacias nunca geocodificadas (flujo diario)")
     parser.add_argument("--recheck", action="store_true",
                         help="Solo farmacias a nivel localidad o sin coordenadas.")
     parser.add_argument("--ids", type=str, default=None, help="Lista de ids separada por comas.")
@@ -1764,6 +1782,7 @@ def main() -> None:
     geocode_all_pharmacies(
         limit=args.limit,
         recheck_only=args.recheck,
+        new_only=args.nuevas,
         report_path=args.report,
         ids=[i.strip() for i in args.ids.split(",")] if args.ids else None,
         offline=args.offline,

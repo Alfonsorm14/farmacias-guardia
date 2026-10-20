@@ -5,7 +5,8 @@ Pasos:
    y Madrid (PDF del mes vigente y CSV del año, que se contrastan entre sí).
 2. Regenera data/out/*.json con los parsers.
 3. Importa en data/guardias.db (las coordenadas se conservan si la dirección no cambia).
-4. Geocodifica solo lo nuevo o pendiente (--recheck; la caché evita repetir consultas).
+4. Geocodifica solo las farmacias nuevas o con dirección cambiada (--nuevas); las que ya fallaron
+   no se repiten cada día (para reintentarlas: python -m backend.geocode --recheck).
 5. Exporta la instantánea de la app (app/assets/snapshot.json) y regenera los casos del test de
    paridad app/API (app/test/fixtures/paridad_api.json).
 
@@ -125,7 +126,7 @@ def main() -> int:
     _run("scripts/run_madrid.py")
     _run("scripts/run_zaragoza.py")
     _run("-m", "backend.importer", "data/out")
-    _run("-m", "backend.geocode", "--recheck")
+    _run("-m", "backend.geocode", "--nuevas")
     _run("scripts/export_snapshot.py")
     _run("scripts/generar_paridad.py")  # casos del test de paridad app/API (misma base de datos)
     print(f"\nActualización completada ({date.today():%d/%m/%Y}).")
