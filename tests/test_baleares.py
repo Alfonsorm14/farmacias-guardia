@@ -150,6 +150,7 @@ class BalearesAcceptanceTests(unittest.TestCase):
         )
         self.assertIsNone(pharmacy.locality)
 
+    @unittest.skipUnless(os.path.exists(V1_PATH), "copia local de la versión 1 (no está en git)")
     def test_ids_palma_2026_01_01_se_conservan(self) -> None:
         with open(V1_PATH, encoding="utf-8") as handle:
             v1 = json.load(handle)
