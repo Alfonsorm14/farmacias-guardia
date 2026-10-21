@@ -3059,16 +3059,6 @@
 "lon": -3.7629852,
 "precision": "portal"
 },
-"MAD:2293": {
-"consulta": "CALLE SANGENJO, 29 | Madrid",
-"cp": null,
-"direccion": "CL SANGENJO, 29",
-"fuente": "cartociudad",
-"lat": 40.4854709,
-"localidad": "Madrid",
-"lon": -3.7001037,
-"precision": "portal"
-},
 "MAD:2314": {
 "consulta": "CALLE MONASTERIO MONTESCLAROS, 7 | Madrid",
 "cp": null,
