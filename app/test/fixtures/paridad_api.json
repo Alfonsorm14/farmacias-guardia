@@ -4610,7 +4610,7 @@
   "fecha": "2026-10-19",
   "cobertura": true,
   "mensaje": null,
-  "aviso": false,
+  "aviso": true,
   "farmacias": [
    "ZGZ:8735",
    "ZGZ:8737",
@@ -4681,7 +4681,7 @@
   "instante": "2026-10-19T12:00:00+02:00",
   "cobertura": true,
   "mensaje": null,
-  "aviso": false,
+  "aviso": true,
   "farmacias": [
    "ZGZ:8735",
    "ZGZ:8737",

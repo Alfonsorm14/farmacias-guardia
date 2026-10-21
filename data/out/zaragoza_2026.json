@@ -4,7 +4,7 @@
     "publisher": "Ayuntamiento de Zaragoza — Servicio de datos de farmacias de guardia",
     "url": "https://www.zaragoza.es/sede/servicio/farmacia/",
     "license": "Condiciones generales de reutilización del Ayuntamiento de Zaragoza (citar la fuente)",
-    "retrieved_at": "2026-10-20T00:00:00+02:00"
+    "retrieved_at": "2026-10-21T00:00:00+02:00"
   },
   "pharmacies": [
     {
@@ -47,6 +47,71 @@
       ]
     },
     {
+      "id": "ZGZ:8755",
+      "region": "02",
+      "holder": "Escorihuela Laborda, Maria Pilar",
+      "address": "C/ María Zambrano, 52",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976736108",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Actur-Frente a Carrefour"
+      ]
+    },
+    {
+      "id": "ZGZ:8761",
+      "region": "02",
+      "holder": "Ezquerra Inaraja, Lucia",
+      "address": "C/ Jaén, 2-",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976279799",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Torrero-Esq. San Marcial"
+      ]
+    },
+    {
+      "id": "ZGZ:8771",
+      "region": "02",
+      "holder": "Funcia Echegoyen, Berta",
+      "address": "Avda. César Augusto, 47",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976439703",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Centro"
+      ]
+    },
+    {
+      "id": "ZGZ:8801",
+      "region": "02",
+      "holder": "Hernández Barrutia, Carlos",
+      "address": "Vía Hispanidad, 136-",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976338069",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias-Esquina C/ Biarritz-Urb. La Bombarda"
+      ]
+    },
+    {
+      "id": "ZGZ:8824",
+      "region": "02",
+      "holder": "Lahoz Romeo, Miguel Ángel",
+      "address": "C/ Alonso V, 19",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976293288",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Centro-Coso Bajo"
+      ]
+    },
+    {
       "id": "ZGZ:8845",
       "region": "02",
       "holder": "Olaria Hellin, Patricia",
@@ -83,6 +148,19 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector Delicias-Entrada por Vía Univérsitas"
+      ]
+    },
+    {
+      "id": "ZGZ:8933",
+      "region": "02",
+      "holder": "Torrijo Rodríguez, Mercedes",
+      "address": "Avda. de San José, 117-119",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976410170",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector San José"
       ]
     },
     {
@@ -161,6 +239,69 @@
       "end": "2026-10-20T09:15:00+02:00",
       "kind": "24h",
       "raw_label": "T-16 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8755",
+      "zone": "ZARAGOZA - Sector Actur-Frente a Carrefour",
+      "start": "2026-10-21T09:15:00+02:00",
+      "end": "2026-10-22T09:15:00+02:00",
+      "kind": "24h",
+      "raw_label": "T-18 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8771",
+      "zone": "ZARAGOZA - Sector Centro",
+      "start": "2026-10-21T09:15:00+02:00",
+      "end": "2026-10-22T09:15:00+02:00",
+      "kind": "24h",
+      "raw_label": "T-18 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8824",
+      "zone": "ZARAGOZA - Sector Centro-Coso Bajo",
+      "start": "2026-10-21T09:15:00+02:00",
+      "end": "2026-10-22T09:15:00+02:00",
+      "kind": "24h",
+      "raw_label": "T-18 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8801",
+      "zone": "ZARAGOZA - Sector Delicias-Esquina C/ Biarritz-Urb. La Bombarda",
+      "start": "2026-10-21T09:15:00+02:00",
+      "end": "2026-10-22T09:15:00+02:00",
+      "kind": "24h",
+      "raw_label": "T-18 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8860",
+      "zone": "ZARAGOZA - Sector Gran Vía",
+      "start": "2026-10-21T09:15:00+02:00",
+      "end": "2026-10-22T09:15:00+02:00",
+      "kind": "24h",
+      "raw_label": "T-18 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8933",
+      "zone": "ZARAGOZA - Sector San José",
+      "start": "2026-10-21T09:15:00+02:00",
+      "end": "2026-10-22T09:15:00+02:00",
+      "kind": "24h",
+      "raw_label": "T-18 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8761",
+      "zone": "ZARAGOZA - Sector Torrero-Esq. San Marcial",
+      "start": "2026-10-21T09:15:00+02:00",
+      "end": "2026-10-22T09:15:00+02:00",
+      "kind": "24h",
+      "raw_label": "T-18 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
       "times_exact": true
     }
   ],

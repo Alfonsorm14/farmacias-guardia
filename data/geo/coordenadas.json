@@ -10259,6 +10259,56 @@
 "lon": -0.863351,
 "precision": "portal"
 },
+"ZGZ:8755": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ María Zambrano, 52",
+"fuente": "ayto_zaragoza",
+"lat": 41.6763028,
+"localidad": "Zaragoza",
+"lon": -0.8890814,
+"precision": "portal"
+},
+"ZGZ:8761": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Jaén, 2-",
+"fuente": "ayto_zaragoza",
+"lat": 41.6310081,
+"localidad": "Zaragoza",
+"lon": -0.8902798,
+"precision": "portal"
+},
+"ZGZ:8771": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. César Augusto, 47",
+"fuente": "ayto_zaragoza",
+"lat": 41.6549826,
+"localidad": "Zaragoza",
+"lon": -0.8843494,
+"precision": "portal"
+},
+"ZGZ:8801": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Vía Hispanidad, 136-",
+"fuente": "ayto_zaragoza",
+"lat": 41.6556347,
+"localidad": "Zaragoza",
+"lon": -0.9204479,
+"precision": "portal"
+},
+"ZGZ:8824": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Alonso V, 19",
+"fuente": "ayto_zaragoza",
+"lat": 41.6522582,
+"localidad": "Zaragoza",
+"lon": -0.8708939,
+"precision": "portal"
+},
 "ZGZ:8845": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -10287,6 +10337,16 @@
 "lat": 41.6494907,
 "localidad": "Zaragoza",
 "lon": -0.9074818,
+"precision": "portal"
+},
+"ZGZ:8933": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. de San José, 117-119",
+"fuente": "ayto_zaragoza",
+"lat": 41.6388108,
+"localidad": "Zaragoza",
+"lon": -0.8751586,
 "precision": "portal"
 },
 "ZGZ:8970": {
