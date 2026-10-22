@@ -4,7 +4,7 @@
     "publisher": "Ayuntamiento de Zaragoza — Servicio de datos de farmacias de guardia",
     "url": "https://www.zaragoza.es/sede/servicio/farmacia/",
     "license": "Condiciones generales de reutilización del Ayuntamiento de Zaragoza (citar la fuente)",
-    "retrieved_at": "2026-10-21T00:00:00+02:00"
+    "retrieved_at": "2026-10-22T00:00:00+02:00"
   },
   "pharmacies": [
     {
@@ -18,6 +18,19 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector Centro-Esquina Ramón y Cajal"
+      ]
+    },
+    {
+      "id": "ZGZ:8736",
+      "region": "02",
+      "holder": "Artal Lerin, Inmaculada",
+      "address": "Camino El Pilón, 125",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976335299",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias-Miralbueno"
       ]
     },
     {
@@ -125,6 +138,19 @@
       ]
     },
     {
+      "id": "ZGZ:8849",
+      "region": "02",
+      "holder": "Gimeno Mateo, Marta-María",
+      "address": "C/ Pablo Parellada, 24-26",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976275370",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Torrero"
+      ]
+    },
+    {
       "id": "ZGZ:8860",
       "region": "02",
       "holder": "Artal Lerín, Ana Cristina",
@@ -135,6 +161,19 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector Gran Vía"
+      ]
+    },
+    {
+      "id": "ZGZ:8874",
+      "region": "02",
+      "holder": "Ors Palazón, Jerónimo",
+      "address": "C/ Salvador Minguijon, 58",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976423646",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Las Fuentes"
       ]
     },
     {
@@ -161,6 +200,19 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector San José"
+      ]
+    },
+    {
+      "id": "ZGZ:8938",
+      "region": "02",
+      "holder": "Valen Martí Gracia Valen-gracia Valen",
+      "address": "Avda. de la Jota, 53-55",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976470842",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Avda. Cataluña"
       ]
     },
     {
@@ -302,6 +354,69 @@
       "end": "2026-10-22T09:15:00+02:00",
       "kind": "24h",
       "raw_label": "T-18 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8938",
+      "zone": "ZARAGOZA - Sector Avda. Cataluña",
+      "start": "2026-10-22T09:15:00+02:00",
+      "end": "2026-10-23T09:15:00+02:00",
+      "kind": "24h",
+      "raw_label": "T-19 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8801",
+      "zone": "ZARAGOZA - Sector Delicias-Esquina C/ Biarritz-Urb. La Bombarda",
+      "start": "2026-10-22T09:15:00+02:00",
+      "end": "2026-10-23T09:15:00+02:00",
+      "kind": "24h",
+      "raw_label": "T-19 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8736",
+      "zone": "ZARAGOZA - Sector Delicias-Miralbueno",
+      "start": "2026-10-22T09:15:00+02:00",
+      "end": "2026-10-23T09:15:00+02:00",
+      "kind": "24h",
+      "raw_label": "T-19 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8860",
+      "zone": "ZARAGOZA - Sector Gran Vía",
+      "start": "2026-10-22T09:15:00+02:00",
+      "end": "2026-10-23T09:15:00+02:00",
+      "kind": "24h",
+      "raw_label": "T-19 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8874",
+      "zone": "ZARAGOZA - Sector Las Fuentes",
+      "start": "2026-10-22T09:15:00+02:00",
+      "end": "2026-10-23T09:15:00+02:00",
+      "kind": "24h",
+      "raw_label": "T-19 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8845",
+      "zone": "ZARAGOZA - Sector Romareda-Frente Romareda, entre Hosp. Miguel Servet y 3er Cinturón",
+      "start": "2026-10-22T09:15:00+02:00",
+      "end": "2026-10-23T09:15:00+02:00",
+      "kind": "24h",
+      "raw_label": "T-19 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8849",
+      "zone": "ZARAGOZA - Sector Torrero",
+      "start": "2026-10-22T09:15:00+02:00",
+      "end": "2026-10-23T09:15:00+02:00",
+      "kind": "24h",
+      "raw_label": "T-19 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
       "times_exact": true
     }
   ],

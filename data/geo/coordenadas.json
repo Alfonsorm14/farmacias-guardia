@@ -9309,6 +9309,16 @@
 "lon": -1.6792675,
 "precision": "portal"
 },
+"NA:F00017": {
+"consulta": "IDENA F00017",
+"cp": null,
+"direccion": "Avda Diputación Foral, 8",
+"fuente": "idena",
+"lat": 42.4228051,
+"localidad": "Lodosa",
+"lon": -2.0793929,
+"precision": "portal"
+},
 "NA:F00021": {
 "consulta": "IDENA F00021",
 "cp": null,
@@ -9327,6 +9337,16 @@
 "lat": 42.6714767,
 "localidad": "Estella-Lizarra",
 "lon": -2.0320664,
+"precision": "portal"
+},
+"NA:F00027": {
+"consulta": "IDENA F00027",
+"cp": null,
+"direccion": "C/ Mayor, 77",
+"fuente": "idena",
+"lat": 42.5762155,
+"localidad": "Sangüesa / Zangoza",
+"lon": -1.2822154,
 "precision": "portal"
 },
 "NA:F00028": {
@@ -9489,6 +9509,16 @@
 "lon": -2.371466,
 "precision": "portal"
 },
+"NA:F00095": {
+"consulta": "IDENA F00095",
+"cp": null,
+"direccion": "Pl San Miguel, 4",
+"fuente": "idena",
+"lat": 42.1763578,
+"localidad": "Arguedas",
+"lon": -1.5969746,
+"precision": "portal"
+},
 "NA:F00098": {
 "consulta": "IDENA F00098",
 "cp": null,
@@ -9497,6 +9527,16 @@
 "lat": 42.5327849,
 "localidad": "Tafalla",
 "lon": -1.674307,
+"precision": "portal"
+},
+"NA:F00100": {
+"consulta": "IDENA F00100",
+"cp": null,
+"direccion": "C/ Nueva, 5",
+"fuente": "idena",
+"lat": 42.5962102,
+"localidad": "Dicastillo",
+"lon": -2.0280519,
 "precision": "portal"
 },
 "NA:F00102": {
@@ -9579,6 +9619,16 @@
 "lon": -1.6446413,
 "precision": "portal"
 },
+"NA:F00185": {
+"consulta": "IDENA F00185",
+"cp": null,
+"direccion": "C/ Abejeras, 15",
+"fuente": "idena",
+"lat": 42.805527,
+"localidad": "Pamplona / Iruña",
+"lon": -1.64619,
+"precision": "portal"
+},
 "NA:F00201": {
 "consulta": "IDENA F00201",
 "cp": null,
@@ -9639,6 +9689,16 @@
 "lon": -2.1893826,
 "precision": "portal"
 },
+"NA:F00249": {
+"consulta": "IDENA F00249",
+"cp": null,
+"direccion": "C/ Barrio Dancharinea, 14",
+"fuente": "idena",
+"lat": 43.2913622,
+"localidad": "Urdazubi / Urdax",
+"lon": -1.5043033,
+"precision": "portal"
+},
 "NA:F00254": {
 "consulta": "IDENA F00254",
 "cp": null,
@@ -9649,6 +9709,16 @@
 "lon": -1.3672546,
 "precision": "portal"
 },
+"NA:F00262": {
+"consulta": "IDENA F00262",
+"cp": null,
+"direccion": "C/ Portal, 13",
+"fuente": "idena",
+"lat": 42.6760733,
+"localidad": "Cirauqui / Zirauki",
+"lon": -1.8904828,
+"precision": "portal"
+},
 "NA:F00268": {
 "consulta": "IDENA F00268",
 "cp": null,
@@ -9657,6 +9727,16 @@
 "lat": 42.0580839,
 "localidad": "Tudela",
 "lon": -1.6002946,
+"precision": "portal"
+},
+"NA:F00274": {
+"consulta": "IDENA F00274",
+"cp": null,
+"direccion": "C/ San Isidro, 34",
+"fuente": "idena",
+"lat": 42.5244239,
+"localidad": "Tafalla",
+"lon": -1.679439,
 "precision": "portal"
 },
 "NA:F00277": {
@@ -9719,6 +9799,16 @@
 "lon": -1.6117501,
 "precision": "portal"
 },
+"NA:F00307": {
+"consulta": "IDENA F00307",
+"cp": null,
+"direccion": "C/ Carlos II el Malo, 1 . Estación autobuses",
+"fuente": "idena",
+"lat": 42.6700827,
+"localidad": "Estella-Lizarra",
+"lon": -2.0322955,
+"precision": "portal"
+},
 "NA:F00311": {
 "consulta": "IDENA F00311",
 "cp": null,
@@ -9739,6 +9829,16 @@
 "lon": -1.6768877,
 "precision": "portal"
 },
+"NA:F00322": {
+"consulta": "IDENA F00322",
+"cp": null,
+"direccion": "C/ Santo Tomás, 5",
+"fuente": "idena",
+"lat": 42.7774112,
+"localidad": "Urroz-Villa",
+"lon": -1.4587435,
+"precision": "portal"
+},
 "NA:F00325": {
 "consulta": "IDENA F00325",
 "cp": null,
@@ -9747,6 +9847,16 @@
 "lat": 42.7779498,
 "localidad": "Lezaun",
 "lon": -1.9946771,
+"precision": "portal"
+},
+"NA:F00347": {
+"consulta": "IDENA F00347",
+"cp": null,
+"direccion": "C/ Carlos III El Noble, 6",
+"fuente": "idena",
+"lat": 42.0549356,
+"localidad": "Tudela",
+"lon": -1.5969316,
 "precision": "portal"
 },
 "NA:F00363": {
@@ -9769,6 +9879,16 @@
 "lon": -1.6886013,
 "precision": "portal"
 },
+"NA:F00374": {
+"consulta": "IDENA F00374",
+"cp": null,
+"direccion": "C/ Iñigo Arista, 2",
+"fuente": "idena",
+"lat": 42.3404623,
+"localidad": "Caparroso",
+"lon": -1.6530568,
+"precision": "portal"
+},
 "NA:F00377": {
 "consulta": "IDENA F00377",
 "cp": null,
@@ -9777,6 +9897,26 @@
 "lat": 43.0837722,
 "localidad": "Leitza",
 "lon": -1.914861,
+"precision": "portal"
+},
+"NA:F00378": {
+"consulta": "IDENA F00378",
+"cp": null,
+"direccion": "C/ Carlos VII, 2",
+"fuente": "idena",
+"lat": 42.6668934,
+"localidad": "Estella-Lizarra",
+"lon": -2.0321254,
+"precision": "portal"
+},
+"NA:F00380": {
+"consulta": "IDENA F00380",
+"cp": null,
+"direccion": "C/ Abaco, 16",
+"fuente": "idena",
+"lat": 42.5549034,
+"localidad": "Larraga",
+"lon": -1.8547736,
 "precision": "portal"
 },
 "NA:F00384": {
@@ -9797,6 +9937,36 @@
 "lat": 42.6707481,
 "localidad": "Estella-Lizarra",
 "lon": -2.0268546,
+"precision": "portal"
+},
+"NA:F00396": {
+"consulta": "IDENA F00396",
+"cp": null,
+"direccion": "C/ Mayor, 6",
+"fuente": "idena",
+"lat": 43.1316775,
+"localidad": "Doneztebe / Santesteban",
+"lon": -1.6692129,
+"precision": "portal"
+},
+"NA:F00406": {
+"consulta": "IDENA F00406",
+"cp": null,
+"direccion": "C/ Aralar, 25",
+"fuente": "idena",
+"lat": 43.0029563,
+"localidad": "Lekunberri",
+"lon": -1.8935622,
+"precision": "portal"
+},
+"NA:F00417": {
+"consulta": "IDENA F00417",
+"cp": null,
+"direccion": "Ronda del Castillo, 2",
+"fuente": "idena",
+"lat": 42.483104,
+"localidad": "Olite / Erriberri",
+"lon": -1.6514364,
 "precision": "portal"
 },
 "NA:F00420": {
@@ -9879,6 +10049,16 @@
 "lon": -1.6901809,
 "precision": "portal"
 },
+"NA:F00478": {
+"consulta": "IDENA F00478",
+"cp": null,
+"direccion": "C/ Santa Cruz, 23",
+"fuente": "idena",
+"lat": 42.8952609,
+"localidad": "Altsasu / Alsasua",
+"lon": -2.1661775,
+"precision": "portal"
+},
 "NA:F00480": {
 "consulta": "IDENA F00480",
 "cp": null,
@@ -9909,6 +10089,26 @@
 "lon": -1.6085236,
 "precision": "portal"
 },
+"NA:F00486": {
+"consulta": "IDENA F00486",
+"cp": null,
+"direccion": "Pl Sancho VII el Fuerte, 5",
+"fuente": "idena",
+"lat": 42.0612244,
+"localidad": "Tudela",
+"lon": -1.6030295,
+"precision": "portal"
+},
+"NA:F00491": {
+"consulta": "IDENA F00491",
+"cp": null,
+"direccion": "Pl Bittiria, 3",
+"fuente": "idena",
+"lat": 43.2473951,
+"localidad": "Lesaka",
+"lon": -1.7076041,
+"precision": "portal"
+},
 "NA:F00492": {
 "consulta": "IDENA F00492",
 "cp": null,
@@ -9927,6 +10127,16 @@
 "lat": 43.1480508,
 "localidad": "Elizondo",
 "lon": -1.5164362,
+"precision": "portal"
+},
+"NA:F00499": {
+"consulta": "IDENA F00499",
+"cp": null,
+"direccion": "C/ San Marcial, 16 . Esq. Paseo de Invierno",
+"fuente": "idena",
+"lat": 42.0613013,
+"localidad": "Tudela",
+"lon": -1.6004777,
 "precision": "portal"
 },
 "NA:F00503": {
@@ -9959,6 +10169,16 @@
 "lon": -2.035665,
 "precision": "portal"
 },
+"NA:F00521": {
+"consulta": "IDENA F00521",
+"cp": null,
+"direccion": "C/ Fray Diego, 15",
+"fuente": "idena",
+"lat": 42.6689592,
+"localidad": "Estella-Lizarra",
+"lon": -2.0304215,
+"precision": "portal"
+},
 "NA:F00530": {
 "consulta": "IDENA F00530",
 "cp": null,
@@ -9967,6 +10187,56 @@
 "lat": 42.8039149,
 "localidad": "Pamplona / Iruña",
 "lon": -1.6530492,
+"precision": "portal"
+},
+"NA:F00533": {
+"consulta": "IDENA F00533",
+"cp": null,
+"direccion": "C/ Santa Gema, 30",
+"fuente": "idena",
+"lat": 42.3347817,
+"localidad": "San Adrián",
+"lon": -1.9359034,
+"precision": "portal"
+},
+"NA:F00534": {
+"consulta": "IDENA F00534",
+"cp": null,
+"direccion": "Avda San Juan, 15",
+"fuente": "idena",
+"lat": 42.241396,
+"localidad": "Milagro",
+"lon": -1.7683581,
+"precision": "portal"
+},
+"NA:F00538": {
+"consulta": "IDENA F00538",
+"cp": null,
+"direccion": "C/ Herrerías, 29",
+"fuente": "idena",
+"lat": 42.0628141,
+"localidad": "Tudela",
+"lon": -1.6078533,
+"precision": "portal"
+},
+"NA:F00539": {
+"consulta": "IDENA F00539",
+"cp": null,
+"direccion": "C/ Gardachales, 5 . Frente a Cafetería SIMPLY",
+"fuente": "idena",
+"lat": 42.0524352,
+"localidad": "Tudela",
+"lon": -1.5979413,
+"precision": "portal"
+},
+"NA:F00548": {
+"consulta": "IDENA F00548",
+"cp": null,
+"direccion": "C/ Manresa, 12 . Junto al C. de Salud Santa Ana",
+"fuente": "idena",
+"lat": 42.0591064,
+"localidad": "Tudela",
+"lon": -1.6021695,
 "precision": "portal"
 },
 "NA:F00549": {
@@ -10119,6 +10389,26 @@
 "lon": -1.512791,
 "precision": "portal"
 },
+"NA:F00693": {
+"consulta": "IDENA F00693",
+"cp": null,
+"direccion": "C/ Juan Antonio Fernández, 39",
+"fuente": "idena",
+"lat": 42.0598411,
+"localidad": "Tudela",
+"lon": -1.604075,
+"precision": "portal"
+},
+"NA:F00715": {
+"consulta": "IDENA F00715",
+"cp": null,
+"direccion": "Avda Guipuzcoa, 40 . Frente C. Salud Buztintxuri",
+"fuente": "idena",
+"lat": 42.8297122,
+"localidad": "Pamplona / Iruña",
+"lon": -1.663586,
+"precision": "portal"
+},
 "NA:F00718": {
 "consulta": "IDENA F00718",
 "cp": null,
@@ -10239,6 +10529,16 @@
 "lon": -0.8855354,
 "precision": "portal"
 },
+"ZGZ:8736": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Camino El Pilón, 125",
+"fuente": "ayto_zaragoza",
+"lat": 41.6585954,
+"localidad": "Zaragoza",
+"lon": -0.9391078,
+"precision": "portal"
+},
 "ZGZ:8737": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -10319,6 +10619,16 @@
 "lon": -0.9027957,
 "precision": "portal"
 },
+"ZGZ:8849": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Pablo Parellada, 24-26",
+"fuente": "ayto_zaragoza",
+"lat": 41.6270895,
+"localidad": "Zaragoza",
+"lon": -0.8808768,
+"precision": "portal"
+},
 "ZGZ:8860": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -10327,6 +10637,16 @@
 "lat": 41.6461464,
 "localidad": "Zaragoza",
 "lon": -0.8858667,
+"precision": "portal"
+},
+"ZGZ:8874": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Salvador Minguijon, 58",
+"fuente": "ayto_zaragoza",
+"lat": 41.6496506,
+"localidad": "Zaragoza",
+"lon": -0.8611064,
 "precision": "portal"
 },
 "ZGZ:8928": {
@@ -10347,6 +10667,16 @@
 "lat": 41.6388108,
 "localidad": "Zaragoza",
 "lon": -0.8751586,
+"precision": "portal"
+},
+"ZGZ:8938": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. de la Jota, 53-55",
+"fuente": "ayto_zaragoza",
+"lat": 41.6614634,
+"localidad": "Zaragoza",
+"lon": -0.8591508,
 "precision": "portal"
 },
 "ZGZ:8970": {

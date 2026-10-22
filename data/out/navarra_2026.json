@@ -4,7 +4,7 @@
     "publisher": "Gobierno de Navarra — Departamento de Salud (Open Data Navarra)",
     "url": "https://datosabiertos.navarra.es/dataset/farmacias-de-guardia",
     "license": "CC BY 4.0",
-    "retrieved_at": "2026-10-21T00:00:00+02:00"
+    "retrieved_at": "2026-10-22T00:00:00+02:00"
   },
   "pharmacies": [
     {
@@ -34,6 +34,19 @@
       ]
     },
     {
+      "id": "NA:F00017",
+      "region": "15",
+      "holder": "Martinez Gurrea, David",
+      "address": "Avda Diputación Foral, 8",
+      "locality": "Lodosa",
+      "postal_code": null,
+      "phone": "948693285",
+      "duty_phone": null,
+      "zones": [
+        "Lodosa"
+      ]
+    },
+    {
       "id": "NA:F00021",
       "region": "15",
       "holder": "Bueno Farrer, Maria Peña",
@@ -57,6 +70,19 @@
       "duty_phone": null,
       "zones": [
         "Tierra Estella/Estellerria"
+      ]
+    },
+    {
+      "id": "NA:F00027",
+      "region": "15",
+      "holder": "Lopez Santamaria, Tomas Ignacio",
+      "address": "C/ Mayor, 77",
+      "locality": "Sangüesa / Zangoza",
+      "postal_code": null,
+      "phone": "948870659",
+      "duty_phone": null,
+      "zones": [
+        "Sangüesa"
       ]
     },
     {
@@ -268,6 +294,19 @@
       ]
     },
     {
+      "id": "NA:F00095",
+      "region": "15",
+      "holder": "Samanes Sastre, Ignacio",
+      "address": "Pl San Miguel, 4",
+      "locality": "Arguedas",
+      "postal_code": null,
+      "phone": "948830006",
+      "duty_phone": null,
+      "zones": [
+        "Área de Tudela"
+      ]
+    },
+    {
       "id": "NA:F00098",
       "region": "15",
       "holder": "Bañon/Bañon/Bañon Pinar/Pinar/Pinar, Miguel A/Ana/Mª Luz",
@@ -278,6 +317,19 @@
       "duty_phone": null,
       "zones": [
         "Tafalla - Artajona"
+      ]
+    },
+    {
+      "id": "NA:F00100",
+      "region": "15",
+      "holder": "Sagasti Lacalle, Maria Dolores",
+      "address": "C/ Nueva, 5",
+      "locality": "Dicastillo",
+      "postal_code": null,
+      "phone": "948527063",
+      "duty_phone": null,
+      "zones": [
+        "Tierra Estella/Estellerria"
       ]
     },
     {
@@ -385,6 +437,19 @@
       ]
     },
     {
+      "id": "NA:F00185",
+      "region": "15",
+      "holder": "Puertas Arbizu, Francisco Javier",
+      "address": "C/ Abejeras, 15",
+      "locality": "Pamplona / Iruña",
+      "postal_code": null,
+      "phone": "948240192",
+      "duty_phone": null,
+      "zones": [
+        "Pamplona y comarca/Iruñerria"
+      ]
+    },
+    {
       "id": "NA:F00201",
       "region": "15",
       "holder": "Aragon Marin, Alba",
@@ -463,6 +528,19 @@
       ]
     },
     {
+      "id": "NA:F00249",
+      "region": "15",
+      "holder": "Altamirano Veron, Hilda Valle",
+      "address": "C/ Barrio Dancharinea, 14",
+      "locality": "Urdazubi / Urdax",
+      "postal_code": null,
+      "phone": "948599190",
+      "duty_phone": null,
+      "zones": [
+        "Doneztebe/Santesteban - Elizondo"
+      ]
+    },
+    {
       "id": "NA:F00254",
       "region": "15",
       "holder": "Sanchez Garcia, Rafael",
@@ -476,6 +554,19 @@
       ]
     },
     {
+      "id": "NA:F00262",
+      "region": "15",
+      "holder": "Clavero Tames, Ignacio",
+      "address": "C/ Portal, 13",
+      "locality": "Cirauqui / Zirauki",
+      "postal_code": null,
+      "phone": "948342078",
+      "duty_phone": null,
+      "zones": [
+        "Puente la Reina/Gares"
+      ]
+    },
+    {
       "id": "NA:F00268",
       "region": "15",
       "holder": "Blazquez Gonzalez, Maria Asuncion",
@@ -486,6 +577,19 @@
       "duty_phone": null,
       "zones": [
         "Tudela"
+      ]
+    },
+    {
+      "id": "NA:F00274",
+      "region": "15",
+      "holder": "Atozqui Arrondo, Leyre",
+      "address": "C/ San Isidro, 34",
+      "locality": "Tafalla",
+      "postal_code": null,
+      "phone": "948703223",
+      "duty_phone": null,
+      "zones": [
+        "Tafalla - Artajona"
       ]
     },
     {
@@ -567,6 +671,19 @@
       ]
     },
     {
+      "id": "NA:F00307",
+      "region": "15",
+      "holder": "Echavarri Pascual, Maria Jose",
+      "address": "C/ Carlos II el Malo, 1 . Estación autobuses",
+      "locality": "Estella-Lizarra",
+      "postal_code": null,
+      "phone": "948555141",
+      "duty_phone": null,
+      "zones": [
+        "Tierra Estella/Estellerria"
+      ]
+    },
+    {
       "id": "NA:F00311",
       "region": "15",
       "holder": "Aranguren Letamendia, Emilia",
@@ -593,6 +710,19 @@
       ]
     },
     {
+      "id": "NA:F00322",
+      "region": "15",
+      "holder": "Iturgaiz Etayo, Blanca",
+      "address": "C/ Santo Tomás, 5",
+      "locality": "Urroz-Villa",
+      "postal_code": null,
+      "phone": "948338220",
+      "duty_phone": null,
+      "zones": [
+        "Aoiz - Auritz/Burguete"
+      ]
+    },
+    {
       "id": "NA:F00325",
       "region": "15",
       "holder": "Ros Nestares, Carlos Javier",
@@ -603,6 +733,19 @@
       "duty_phone": null,
       "zones": [
         "Tierra Estella/Estellerria"
+      ]
+    },
+    {
+      "id": "NA:F00347",
+      "region": "15",
+      "holder": "Martinez Miranda, Jose Angel",
+      "address": "C/ Carlos III El Noble, 6",
+      "locality": "Tudela",
+      "postal_code": null,
+      "phone": "948827205",
+      "duty_phone": null,
+      "zones": [
+        "Tudela"
       ]
     },
     {
@@ -632,6 +775,19 @@
       ]
     },
     {
+      "id": "NA:F00374",
+      "region": "15",
+      "holder": "Hortal/Ferre Soriano/Ferrer Judit/Marc",
+      "address": "C/ Iñigo Arista, 2",
+      "locality": "Caparroso",
+      "postal_code": null,
+      "phone": "948710978",
+      "duty_phone": null,
+      "zones": [
+        "Carcastillo-Olite"
+      ]
+    },
+    {
       "id": "NA:F00377",
       "region": "15",
       "holder": "Erbiti Larralde, Oihana",
@@ -642,6 +798,32 @@
       "duty_phone": null,
       "zones": [
         "Etxarri Aranatz - Irurtzun - Leitza - Ulzama"
+      ]
+    },
+    {
+      "id": "NA:F00378",
+      "region": "15",
+      "holder": "Garcia Garnica, Olga",
+      "address": "C/ Carlos VII, 2",
+      "locality": "Estella-Lizarra",
+      "postal_code": null,
+      "phone": "948554473",
+      "duty_phone": null,
+      "zones": [
+        "Tierra Estella/Estellerria"
+      ]
+    },
+    {
+      "id": "NA:F00380",
+      "region": "15",
+      "holder": "Cillero Marin, Olga",
+      "address": "C/ Abaco, 16",
+      "locality": "Larraga",
+      "postal_code": null,
+      "phone": "948711646",
+      "duty_phone": null,
+      "zones": [
+        "Tafalla - Artajona"
       ]
     },
     {
@@ -668,6 +850,45 @@
       "duty_phone": null,
       "zones": [
         "Tierra Estella/Estellerria"
+      ]
+    },
+    {
+      "id": "NA:F00396",
+      "region": "15",
+      "holder": "Echarte Subizar, Maider",
+      "address": "C/ Mayor, 6",
+      "locality": "Doneztebe / Santesteban",
+      "postal_code": null,
+      "phone": "948456169",
+      "duty_phone": null,
+      "zones": [
+        "Doneztebe/Santesteban - Elizondo"
+      ]
+    },
+    {
+      "id": "NA:F00406",
+      "region": "15",
+      "holder": "Mendia Barriola, Miren Itziar",
+      "address": "C/ Aralar, 25",
+      "locality": "Lekunberri",
+      "postal_code": null,
+      "phone": "948504071",
+      "duty_phone": null,
+      "zones": [
+        "Etxarri Aranatz - Irurtzun - Leitza - Ulzama"
+      ]
+    },
+    {
+      "id": "NA:F00417",
+      "region": "15",
+      "holder": "Salanueva de la Torre, Cristina",
+      "address": "Ronda del Castillo, 2",
+      "locality": "Olite / Erriberri",
+      "postal_code": null,
+      "phone": "948741750",
+      "duty_phone": null,
+      "zones": [
+        "Carcastillo-Olite"
       ]
     },
     {
@@ -775,6 +996,19 @@
       ]
     },
     {
+      "id": "NA:F00478",
+      "region": "15",
+      "holder": "Fernandez Saenz, Mercedes",
+      "address": "C/ Santa Cruz, 23",
+      "locality": "Altsasu / Alsasua",
+      "postal_code": null,
+      "phone": "948564248",
+      "duty_phone": null,
+      "zones": [
+        "Altsasu/Alsasua"
+      ]
+    },
+    {
       "id": "NA:F00480",
       "region": "15",
       "holder": "Navarro Zapatero, Maria Eugenia",
@@ -814,6 +1048,32 @@
       ]
     },
     {
+      "id": "NA:F00486",
+      "region": "15",
+      "holder": "Martinez Forcada, Belen",
+      "address": "Pl Sancho VII el Fuerte, 5",
+      "locality": "Tudela",
+      "postal_code": null,
+      "phone": "948402668",
+      "duty_phone": null,
+      "zones": [
+        "Tudela"
+      ]
+    },
+    {
+      "id": "NA:F00491",
+      "region": "15",
+      "holder": "Alzate Bazterretxea, Olga",
+      "address": "Pl Bittiria, 3",
+      "locality": "Lesaka",
+      "postal_code": null,
+      "phone": "948637269",
+      "duty_phone": null,
+      "zones": [
+        "Lesaka"
+      ]
+    },
+    {
       "id": "NA:F00492",
       "region": "15",
       "holder": "Perez Aldrey, Beatriz",
@@ -837,6 +1097,19 @@
       "duty_phone": null,
       "zones": [
         "Doneztebe/Santesteban - Elizondo"
+      ]
+    },
+    {
+      "id": "NA:F00499",
+      "region": "15",
+      "holder": "Prada Rondan, Jesus A.",
+      "address": "C/ San Marcial, 16 . Esq. Paseo de Invierno",
+      "locality": "Tudela",
+      "postal_code": null,
+      "phone": "948847559",
+      "duty_phone": null,
+      "zones": [
+        "Tudela"
       ]
     },
     {
@@ -879,6 +1152,19 @@
       ]
     },
     {
+      "id": "NA:F00521",
+      "region": "15",
+      "holder": "Berraondo Aramendia, Marina",
+      "address": "C/ Fray Diego, 15",
+      "locality": "Estella-Lizarra",
+      "postal_code": null,
+      "phone": "948556944",
+      "duty_phone": null,
+      "zones": [
+        "Tierra Estella/Estellerria"
+      ]
+    },
+    {
       "id": "NA:F00530",
       "region": "15",
       "holder": "Petrescu, Cristina Valentina",
@@ -889,6 +1175,71 @@
       "duty_phone": null,
       "zones": [
         "Pamplona y comarca/Iruñerria"
+      ]
+    },
+    {
+      "id": "NA:F00533",
+      "region": "15",
+      "holder": "Moreno Sola, Beatriz",
+      "address": "C/ Santa Gema, 30",
+      "locality": "San Adrián",
+      "postal_code": null,
+      "phone": "948670111",
+      "duty_phone": null,
+      "zones": [
+        "San Adrián"
+      ]
+    },
+    {
+      "id": "NA:F00534",
+      "region": "15",
+      "holder": "Ariz Martinez, Iñigo",
+      "address": "Avda San Juan, 15",
+      "locality": "Milagro",
+      "postal_code": null,
+      "phone": "948861271",
+      "duty_phone": null,
+      "zones": [
+        "Peralta"
+      ]
+    },
+    {
+      "id": "NA:F00538",
+      "region": "15",
+      "holder": "Oliver Botana, Jesus",
+      "address": "C/ Herrerías, 29",
+      "locality": "Tudela",
+      "postal_code": null,
+      "phone": "948402736",
+      "duty_phone": null,
+      "zones": [
+        "Tudela"
+      ]
+    },
+    {
+      "id": "NA:F00539",
+      "region": "15",
+      "holder": "Melendez Moreno, Rosa",
+      "address": "C/ Gardachales, 5 . Frente a Cafetería SIMPLY",
+      "locality": "Tudela",
+      "postal_code": null,
+      "phone": "948411555",
+      "duty_phone": null,
+      "zones": [
+        "Tudela"
+      ]
+    },
+    {
+      "id": "NA:F00548",
+      "region": "15",
+      "holder": "Marin Ciria, Eva Maria",
+      "address": "C/ Manresa, 12 . Junto al C. de Salud Santa Ana",
+      "locality": "Tudela",
+      "postal_code": null,
+      "phone": "948403258",
+      "duty_phone": null,
+      "zones": [
+        "Tudela"
       ]
     },
     {
@@ -1084,6 +1435,32 @@
       "duty_phone": null,
       "zones": [
         "Área de Tudela"
+      ]
+    },
+    {
+      "id": "NA:F00693",
+      "region": "15",
+      "holder": "Hernandez Sahuquillo, Maximiliano",
+      "address": "C/ Juan Antonio Fernández, 39",
+      "locality": "Tudela",
+      "postal_code": null,
+      "phone": "948823079",
+      "duty_phone": null,
+      "zones": [
+        "Tudela"
+      ]
+    },
+    {
+      "id": "NA:F00715",
+      "region": "15",
+      "holder": "Ezpeleta/Viscarret Iturralde/Aranzadi, Pilar/Lucia",
+      "address": "Avda Guipuzcoa, 40 . Frente C. Salud Buztintxuri",
+      "locality": "Pamplona / Iruña",
+      "postal_code": null,
+      "phone": "948215720",
+      "duty_phone": null,
+      "zones": [
+        "Pamplona y comarca/Iruñerria"
       ]
     },
     {
@@ -5268,6 +5645,2031 @@
       "zone": "Tudela",
       "start": "2026-10-25T21:00:00+01:00",
       "end": "2026-10-26T09:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Tudela (21-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00478",
+      "zone": "Altsasu/Alsasua",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-27T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Altsasu/Alsasua (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00322",
+      "zone": "Aoiz - Auritz/Burguete",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-26T20:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Aoiz - Auritz/Burguete (9-20 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00417",
+      "zone": "Carcastillo-Olite",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-27T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Carcastillo-Olite (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00249",
+      "zone": "Doneztebe/Santesteban - Elizondo",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-27T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Doneztebe/Santesteban - Elizondo (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00396",
+      "zone": "Doneztebe/Santesteban - Elizondo",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-27T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Doneztebe/Santesteban - Elizondo (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00406",
+      "zone": "Etxarri Aranatz - Irurtzun - Leitza - Ulzama",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-27T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Etxarri Aranatz - Irurtzun - Leitza - Ulzama (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00848",
+      "zone": "Isaba - Salazar",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-26T20:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Isaba - Salazar (9-20 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00491",
+      "zone": "Lesaka",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-27T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Lesaka (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00017",
+      "zone": "Lodosa",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-27T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Lodosa (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00076",
+      "zone": "Los Arcos - Viana",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-27T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Los Arcos - Viana (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00534",
+      "zone": "Peralta",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-27T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Peralta (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00262",
+      "zone": "Puente la Reina/Gares",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-26T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Puente la Reina/Gares (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00575",
+      "zone": "San Adrián",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-27T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "San Adrián (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00027",
+      "zone": "Sangüesa",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-27T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Sangüesa (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00274",
+      "zone": "Tafalla - Artajona",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-27T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Tafalla - Artajona (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00380",
+      "zone": "Tafalla - Artajona",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-26T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tafalla - Artajona (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00100",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-26T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tierra Estella/Estellerria (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00521",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-26T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tierra Estella/Estellerria (9-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00548",
+      "zone": "Tudela",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-26T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tudela (9-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00037",
+      "zone": "Área de Tudela",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-27T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Área de Tudela (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00095",
+      "zone": "Área de Tudela",
+      "start": "2026-10-26T09:00:00+01:00",
+      "end": "2026-10-27T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Área de Tudela (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00141",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-26T10:00:00+01:00",
+      "end": "2026-10-26T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00455",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-26T10:00:00+01:00",
+      "end": "2026-10-26T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00480",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-26T10:00:00+01:00",
+      "end": "2026-10-26T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00739",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-26T10:00:00+01:00",
+      "end": "2026-10-26T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00205",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-26T21:00:00+01:00",
+      "end": "2026-10-27T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00550",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-26T21:00:00+01:00",
+      "end": "2026-10-27T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00731",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-26T21:00:00+01:00",
+      "end": "2026-10-27T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00739",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-26T21:00:00+01:00",
+      "end": "2026-10-27T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00831",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-26T21:00:00+01:00",
+      "end": "2026-10-27T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00521",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-26T21:00:00+01:00",
+      "end": "2026-10-27T09:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Tierra Estella/Estellerria (21-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00548",
+      "zone": "Tudela",
+      "start": "2026-10-26T21:00:00+01:00",
+      "end": "2026-10-27T09:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Tudela (21-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00478",
+      "zone": "Altsasu/Alsasua",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-28T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Altsasu/Alsasua (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00322",
+      "zone": "Aoiz - Auritz/Burguete",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-27T20:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Aoiz - Auritz/Burguete (9-20 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00417",
+      "zone": "Carcastillo-Olite",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-28T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Carcastillo-Olite (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00249",
+      "zone": "Doneztebe/Santesteban - Elizondo",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-28T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Doneztebe/Santesteban - Elizondo (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00396",
+      "zone": "Doneztebe/Santesteban - Elizondo",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-28T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Doneztebe/Santesteban - Elizondo (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00406",
+      "zone": "Etxarri Aranatz - Irurtzun - Leitza - Ulzama",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-28T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Etxarri Aranatz - Irurtzun - Leitza - Ulzama (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00848",
+      "zone": "Isaba - Salazar",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-27T20:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Isaba - Salazar (9-20 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00491",
+      "zone": "Lesaka",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-28T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Lesaka (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00017",
+      "zone": "Lodosa",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-28T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Lodosa (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00076",
+      "zone": "Los Arcos - Viana",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-28T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Los Arcos - Viana (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00534",
+      "zone": "Peralta",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-28T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Peralta (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00262",
+      "zone": "Puente la Reina/Gares",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-27T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Puente la Reina/Gares (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00575",
+      "zone": "San Adrián",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-28T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "San Adrián (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00027",
+      "zone": "Sangüesa",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-28T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Sangüesa (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00274",
+      "zone": "Tafalla - Artajona",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-28T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Tafalla - Artajona (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00380",
+      "zone": "Tafalla - Artajona",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-27T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tafalla - Artajona (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00100",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-27T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tierra Estella/Estellerria (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00307",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-27T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tierra Estella/Estellerria (9-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00486",
+      "zone": "Tudela",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-27T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tudela (9-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00037",
+      "zone": "Área de Tudela",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-28T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Área de Tudela (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00095",
+      "zone": "Área de Tudela",
+      "start": "2026-10-27T09:00:00+01:00",
+      "end": "2026-10-28T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Área de Tudela (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00011",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-27T10:00:00+01:00",
+      "end": "2026-10-27T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00201",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-27T10:00:00+01:00",
+      "end": "2026-10-27T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00311",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-27T10:00:00+01:00",
+      "end": "2026-10-27T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00550",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-27T10:00:00+01:00",
+      "end": "2026-10-27T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00831",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-27T10:00:00+01:00",
+      "end": "2026-10-27T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00205",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-27T21:00:00+01:00",
+      "end": "2026-10-28T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00550",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-27T21:00:00+01:00",
+      "end": "2026-10-28T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00731",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-27T21:00:00+01:00",
+      "end": "2026-10-28T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00739",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-27T21:00:00+01:00",
+      "end": "2026-10-28T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00831",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-27T21:00:00+01:00",
+      "end": "2026-10-28T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00307",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-27T21:00:00+01:00",
+      "end": "2026-10-28T09:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Tierra Estella/Estellerria (21-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00486",
+      "zone": "Tudela",
+      "start": "2026-10-27T21:00:00+01:00",
+      "end": "2026-10-28T09:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Tudela (21-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00478",
+      "zone": "Altsasu/Alsasua",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-29T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Altsasu/Alsasua (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00322",
+      "zone": "Aoiz - Auritz/Burguete",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-28T20:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Aoiz - Auritz/Burguete (9-20 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00417",
+      "zone": "Carcastillo-Olite",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-29T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Carcastillo-Olite (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00249",
+      "zone": "Doneztebe/Santesteban - Elizondo",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-29T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Doneztebe/Santesteban - Elizondo (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00396",
+      "zone": "Doneztebe/Santesteban - Elizondo",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-29T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Doneztebe/Santesteban - Elizondo (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00406",
+      "zone": "Etxarri Aranatz - Irurtzun - Leitza - Ulzama",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-29T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Etxarri Aranatz - Irurtzun - Leitza - Ulzama (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00848",
+      "zone": "Isaba - Salazar",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-28T20:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Isaba - Salazar (9-20 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00491",
+      "zone": "Lesaka",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-29T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Lesaka (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00017",
+      "zone": "Lodosa",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-29T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Lodosa (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00076",
+      "zone": "Los Arcos - Viana",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-29T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Los Arcos - Viana (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00534",
+      "zone": "Peralta",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-29T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Peralta (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00262",
+      "zone": "Puente la Reina/Gares",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-28T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Puente la Reina/Gares (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00575",
+      "zone": "San Adrián",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-29T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "San Adrián (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00027",
+      "zone": "Sangüesa",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-29T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Sangüesa (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00274",
+      "zone": "Tafalla - Artajona",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-29T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Tafalla - Artajona (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00380",
+      "zone": "Tafalla - Artajona",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-28T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tafalla - Artajona (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00026",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-28T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tierra Estella/Estellerria (9-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00100",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-28T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tierra Estella/Estellerria (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00761",
+      "zone": "Tudela",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-28T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tudela (9-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00037",
+      "zone": "Área de Tudela",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-29T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Área de Tudela (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00095",
+      "zone": "Área de Tudela",
+      "start": "2026-10-28T09:00:00+01:00",
+      "end": "2026-10-29T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Área de Tudela (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00618",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-28T10:00:00+01:00",
+      "end": "2026-10-28T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00715",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-28T10:00:00+01:00",
+      "end": "2026-10-28T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00731",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-28T10:00:00+01:00",
+      "end": "2026-10-28T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00822",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-28T10:00:00+01:00",
+      "end": "2026-10-28T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00205",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-28T21:00:00+01:00",
+      "end": "2026-10-29T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00550",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-28T21:00:00+01:00",
+      "end": "2026-10-29T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00731",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-28T21:00:00+01:00",
+      "end": "2026-10-29T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00739",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-28T21:00:00+01:00",
+      "end": "2026-10-29T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00831",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-28T21:00:00+01:00",
+      "end": "2026-10-29T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00393",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-28T21:00:00+01:00",
+      "end": "2026-10-29T09:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Tierra Estella/Estellerria (21-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00347",
+      "zone": "Tudela",
+      "start": "2026-10-28T21:00:00+01:00",
+      "end": "2026-10-29T09:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Tudela (21-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00478",
+      "zone": "Altsasu/Alsasua",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-30T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Altsasu/Alsasua (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00322",
+      "zone": "Aoiz - Auritz/Burguete",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-29T20:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Aoiz - Auritz/Burguete (9-20 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00417",
+      "zone": "Carcastillo-Olite",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-30T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Carcastillo-Olite (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00249",
+      "zone": "Doneztebe/Santesteban - Elizondo",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-30T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Doneztebe/Santesteban - Elizondo (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00396",
+      "zone": "Doneztebe/Santesteban - Elizondo",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-30T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Doneztebe/Santesteban - Elizondo (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00406",
+      "zone": "Etxarri Aranatz - Irurtzun - Leitza - Ulzama",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-30T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Etxarri Aranatz - Irurtzun - Leitza - Ulzama (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00848",
+      "zone": "Isaba - Salazar",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-29T20:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Isaba - Salazar (9-20 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00491",
+      "zone": "Lesaka",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-30T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Lesaka (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00017",
+      "zone": "Lodosa",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-30T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Lodosa (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00076",
+      "zone": "Los Arcos - Viana",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-30T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Los Arcos - Viana (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00534",
+      "zone": "Peralta",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-30T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Peralta (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00262",
+      "zone": "Puente la Reina/Gares",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-29T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Puente la Reina/Gares (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00575",
+      "zone": "San Adrián",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-30T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "San Adrián (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00027",
+      "zone": "Sangüesa",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-30T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Sangüesa (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00274",
+      "zone": "Tafalla - Artajona",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-30T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Tafalla - Artajona (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00380",
+      "zone": "Tafalla - Artajona",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-29T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tafalla - Artajona (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00100",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-29T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tierra Estella/Estellerria (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00393",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-29T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tierra Estella/Estellerria (9-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00777",
+      "zone": "Tudela",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-29T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tudela (9-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00037",
+      "zone": "Área de Tudela",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-30T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Área de Tudela (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00095",
+      "zone": "Área de Tudela",
+      "start": "2026-10-29T09:00:00+01:00",
+      "end": "2026-10-30T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Área de Tudela (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00160",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-29T10:00:00+01:00",
+      "end": "2026-10-29T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00480",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-29T10:00:00+01:00",
+      "end": "2026-10-29T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00739",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-29T10:00:00+01:00",
+      "end": "2026-10-29T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00831",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-29T10:00:00+01:00",
+      "end": "2026-10-29T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00205",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-29T21:00:00+01:00",
+      "end": "2026-10-30T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00550",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-29T21:00:00+01:00",
+      "end": "2026-10-30T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00731",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-29T21:00:00+01:00",
+      "end": "2026-10-30T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00739",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-29T21:00:00+01:00",
+      "end": "2026-10-30T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00831",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-29T21:00:00+01:00",
+      "end": "2026-10-30T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00393",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-29T21:00:00+01:00",
+      "end": "2026-10-30T09:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Tierra Estella/Estellerria (21-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00499",
+      "zone": "Tudela",
+      "start": "2026-10-29T21:00:00+01:00",
+      "end": "2026-10-30T09:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Tudela (21-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00478",
+      "zone": "Altsasu/Alsasua",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-31T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Altsasu/Alsasua (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00322",
+      "zone": "Aoiz - Auritz/Burguete",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-30T20:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Aoiz - Auritz/Burguete (9-20 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00417",
+      "zone": "Carcastillo-Olite",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-31T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Carcastillo-Olite (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00249",
+      "zone": "Doneztebe/Santesteban - Elizondo",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-31T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Doneztebe/Santesteban - Elizondo (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00396",
+      "zone": "Doneztebe/Santesteban - Elizondo",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-31T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Doneztebe/Santesteban - Elizondo (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00406",
+      "zone": "Etxarri Aranatz - Irurtzun - Leitza - Ulzama",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-31T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Etxarri Aranatz - Irurtzun - Leitza - Ulzama (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00848",
+      "zone": "Isaba - Salazar",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-30T20:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Isaba - Salazar (9-20 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00491",
+      "zone": "Lesaka",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-31T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Lesaka (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00017",
+      "zone": "Lodosa",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-31T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Lodosa (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00076",
+      "zone": "Los Arcos - Viana",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-31T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Los Arcos - Viana (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00534",
+      "zone": "Peralta",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-31T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Peralta (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00262",
+      "zone": "Puente la Reina/Gares",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-30T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Puente la Reina/Gares (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00575",
+      "zone": "San Adrián",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-31T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "San Adrián (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00027",
+      "zone": "Sangüesa",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-31T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Sangüesa (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00274",
+      "zone": "Tafalla - Artajona",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-31T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Tafalla - Artajona (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00380",
+      "zone": "Tafalla - Artajona",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-30T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tafalla - Artajona (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00026",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-30T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tierra Estella/Estellerria (9-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00100",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-30T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tierra Estella/Estellerria (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00761",
+      "zone": "Tudela",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-30T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tudela (9-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00037",
+      "zone": "Área de Tudela",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-31T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Área de Tudela (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00095",
+      "zone": "Área de Tudela",
+      "start": "2026-10-30T09:00:00+01:00",
+      "end": "2026-10-31T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Área de Tudela (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00011",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-30T10:00:00+01:00",
+      "end": "2026-10-30T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00185",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-30T10:00:00+01:00",
+      "end": "2026-10-30T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00455",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-30T10:00:00+01:00",
+      "end": "2026-10-30T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00550",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-30T10:00:00+01:00",
+      "end": "2026-10-30T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00205",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-30T21:00:00+01:00",
+      "end": "2026-10-31T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00550",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-30T21:00:00+01:00",
+      "end": "2026-10-31T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00731",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-30T21:00:00+01:00",
+      "end": "2026-10-31T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00739",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-30T21:00:00+01:00",
+      "end": "2026-10-31T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00831",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-30T21:00:00+01:00",
+      "end": "2026-10-31T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00298",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-30T21:00:00+01:00",
+      "end": "2026-10-31T09:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Tierra Estella/Estellerria (21-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00539",
+      "zone": "Tudela",
+      "start": "2026-10-30T21:00:00+01:00",
+      "end": "2026-10-31T09:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Tudela (21-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00478",
+      "zone": "Altsasu/Alsasua",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-11-01T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Altsasu/Alsasua (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00322",
+      "zone": "Aoiz - Auritz/Burguete",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-10-31T20:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Aoiz - Auritz/Burguete (9-20 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00374",
+      "zone": "Carcastillo-Olite",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-11-01T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Carcastillo-Olite (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00249",
+      "zone": "Doneztebe/Santesteban - Elizondo",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-11-01T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Doneztebe/Santesteban - Elizondo (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00396",
+      "zone": "Doneztebe/Santesteban - Elizondo",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-11-01T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Doneztebe/Santesteban - Elizondo (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00406",
+      "zone": "Etxarri Aranatz - Irurtzun - Leitza - Ulzama",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-11-01T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Etxarri Aranatz - Irurtzun - Leitza - Ulzama (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00848",
+      "zone": "Isaba - Salazar",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-10-31T20:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Isaba - Salazar (9-20 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00491",
+      "zone": "Lesaka",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-11-01T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Lesaka (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00017",
+      "zone": "Lodosa",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-11-01T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Lodosa (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00076",
+      "zone": "Los Arcos - Viana",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-11-01T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Los Arcos - Viana (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00534",
+      "zone": "Peralta",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-11-01T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Peralta (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00262",
+      "zone": "Puente la Reina/Gares",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-10-31T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Puente la Reina/Gares (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00533",
+      "zone": "San Adrián",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-11-01T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "San Adrián (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00027",
+      "zone": "Sangüesa",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-11-01T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Sangüesa (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00274",
+      "zone": "Tafalla - Artajona",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-11-01T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Tafalla - Artajona (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00380",
+      "zone": "Tafalla - Artajona",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-10-31T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tafalla - Artajona (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00071",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-10-31T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tierra Estella/Estellerria (9-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00100",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-10-31T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tierra Estella/Estellerria (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00693",
+      "zone": "Tudela",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-10-31T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tudela (9-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00092",
+      "zone": "Área de Tudela",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-11-01T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Área de Tudela (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00095",
+      "zone": "Área de Tudela",
+      "start": "2026-10-31T09:00:00+01:00",
+      "end": "2026-11-01T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Área de Tudela (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00205",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-31T10:00:00+01:00",
+      "end": "2026-10-31T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00550",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-31T10:00:00+01:00",
+      "end": "2026-10-31T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00731",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-31T10:00:00+01:00",
+      "end": "2026-10-31T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00739",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-31T10:00:00+01:00",
+      "end": "2026-10-31T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00205",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-31T21:00:00+01:00",
+      "end": "2026-11-01T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00550",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-31T21:00:00+01:00",
+      "end": "2026-11-01T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00731",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-31T21:00:00+01:00",
+      "end": "2026-11-01T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00739",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-31T21:00:00+01:00",
+      "end": "2026-11-01T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00831",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-10-31T21:00:00+01:00",
+      "end": "2026-11-01T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00071",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-10-31T21:00:00+01:00",
+      "end": "2026-11-01T09:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Tierra Estella/Estellerria (21-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00693",
+      "zone": "Tudela",
+      "start": "2026-10-31T21:00:00+01:00",
+      "end": "2026-11-01T09:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Tudela (21-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00478",
+      "zone": "Altsasu/Alsasua",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-02T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Altsasu/Alsasua (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00322",
+      "zone": "Aoiz - Auritz/Burguete",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-01T20:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Aoiz - Auritz/Burguete (9-20 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00374",
+      "zone": "Carcastillo-Olite",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-02T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Carcastillo-Olite (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00249",
+      "zone": "Doneztebe/Santesteban - Elizondo",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-02T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Doneztebe/Santesteban - Elizondo (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00396",
+      "zone": "Doneztebe/Santesteban - Elizondo",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-02T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Doneztebe/Santesteban - Elizondo (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00406",
+      "zone": "Etxarri Aranatz - Irurtzun - Leitza - Ulzama",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-02T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Etxarri Aranatz - Irurtzun - Leitza - Ulzama (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00848",
+      "zone": "Isaba - Salazar",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-01T20:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Isaba - Salazar (9-20 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00491",
+      "zone": "Lesaka",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-02T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Lesaka (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00017",
+      "zone": "Lodosa",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-02T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Lodosa (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00076",
+      "zone": "Los Arcos - Viana",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-02T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Los Arcos - Viana (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00534",
+      "zone": "Peralta",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-02T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Peralta (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00262",
+      "zone": "Puente la Reina/Gares",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-01T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Puente la Reina/Gares (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00533",
+      "zone": "San Adrián",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-02T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "San Adrián (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00027",
+      "zone": "Sangüesa",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-02T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Sangüesa (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00274",
+      "zone": "Tafalla - Artajona",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-02T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Tafalla - Artajona (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00380",
+      "zone": "Tafalla - Artajona",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-01T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tafalla - Artajona (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00100",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-01T22:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tierra Estella/Estellerria (9-22 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00378",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-01T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tierra Estella/Estellerria (9-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00538",
+      "zone": "Tudela",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-01T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Tudela (9-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00092",
+      "zone": "Área de Tudela",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-02T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Área de Tudela (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00095",
+      "zone": "Área de Tudela",
+      "start": "2026-11-01T09:00:00+01:00",
+      "end": "2026-11-02T09:00:00+01:00",
+      "kind": "24h",
+      "raw_label": "Área de Tudela (9-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00205",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-11-01T10:00:00+01:00",
+      "end": "2026-11-01T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00550",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-11-01T10:00:00+01:00",
+      "end": "2026-11-01T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00731",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-11-01T10:00:00+01:00",
+      "end": "2026-11-01T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00739",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-11-01T10:00:00+01:00",
+      "end": "2026-11-01T21:00:00+01:00",
+      "kind": "diurna",
+      "raw_label": "Pamplona y comarca/Iruñerria (10-21 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00205",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-11-01T21:00:00+01:00",
+      "end": "2026-11-02T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00550",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-11-01T21:00:00+01:00",
+      "end": "2026-11-02T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00731",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-11-01T21:00:00+01:00",
+      "end": "2026-11-02T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00739",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-11-01T21:00:00+01:00",
+      "end": "2026-11-02T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00831",
+      "zone": "Pamplona y comarca/Iruñerria",
+      "start": "2026-11-01T21:00:00+01:00",
+      "end": "2026-11-02T10:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Pamplona y comarca/Iruñerria (21-10 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00378",
+      "zone": "Tierra Estella/Estellerria",
+      "start": "2026-11-01T21:00:00+01:00",
+      "end": "2026-11-02T09:00:00+01:00",
+      "kind": "nocturna",
+      "raw_label": "Tierra Estella/Estellerria (21-9 h)",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "NA:F00538",
+      "zone": "Tudela",
+      "start": "2026-11-01T21:00:00+01:00",
+      "end": "2026-11-02T09:00:00+01:00",
       "kind": "nocturna",
       "raw_label": "Tudela (21-9 h)",
       "times_exact": true
