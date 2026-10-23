@@ -10519,6 +10519,16 @@
 "lon": -0.9221594,
 "precision": "portal"
 },
+"ZGZ:8724": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ José García Sánchez, 39",
+"fuente": "ayto_zaragoza",
+"lat": 41.6485902,
+"localidad": "Zaragoza",
+"lon": -0.9004115,
+"precision": "portal"
+},
 "ZGZ:8735": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -10589,6 +10599,16 @@
 "lon": -0.8843494,
 "precision": "portal"
 },
+"ZGZ:8789": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Pablo Iglesias, 17",
+"fuente": "ayto_zaragoza",
+"lat": 41.6776248,
+"localidad": "Zaragoza",
+"lon": -0.8871019,
+"precision": "portal"
+},
 "ZGZ:8801": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -10597,6 +10617,16 @@
 "lat": 41.6556347,
 "localidad": "Zaragoza",
 "lon": -0.9204479,
+"precision": "portal"
+},
+"ZGZ:8819": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Coso, 158",
+"fuente": "ayto_zaragoza",
+"lat": 41.6515397,
+"localidad": "Zaragoza",
+"lon": -0.8734743,
 "precision": "portal"
 },
 "ZGZ:8824": {
@@ -10647,6 +10677,26 @@
 "lat": 41.6496506,
 "localidad": "Zaragoza",
 "lon": -0.8611064,
+"precision": "portal"
+},
+"ZGZ:8875": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. Cesáreo Alierta, 14",
+"fuente": "ayto_zaragoza",
+"lat": 41.6461567,
+"localidad": "Zaragoza",
+"lon": -0.8790885,
+"precision": "portal"
+},
+"ZGZ:8912": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ San Luis de Francia, 17-19",
+"fuente": "ayto_zaragoza",
+"lat": 41.6415189,
+"localidad": "Zaragoza",
+"lon": -0.8709992,
 "precision": "portal"
 },
 "ZGZ:8928": {
