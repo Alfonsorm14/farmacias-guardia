@@ -4457,7 +4457,7 @@
   "fecha": "2026-10-19",
   "cobertura": true,
   "mensaje": null,
-  "aviso": false,
+  "aviso": true,
   "farmacias": [
    "ZGZ:8735",
    "ZGZ:8737",
@@ -4483,10 +4483,22 @@
   "lon": -0.8891,
   "fecha": "2026-10-25",
   "cobertura": true,
-  "mensaje": "Aún no hay turnos oficiales publicados para esta fecha",
-  "aviso": false,
-  "farmacias": [],
-  "turnos": []
+  "mensaje": null,
+  "aviso": true,
+  "farmacias": [
+   "ZGZ:8694",
+   "ZGZ:8769",
+   "ZGZ:8788",
+   "ZGZ:8845",
+   "ZGZ:8860"
+  ],
+  "turnos": [
+   "ZGZ:8694|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00",
+   "ZGZ:8769|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00",
+   "ZGZ:8788|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00",
+   "ZGZ:8845|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00",
+   "ZGZ:8860|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00"
+  ]
  },
  {
   "lugar": "Zaragoza Pilar",
@@ -4528,7 +4540,7 @@
   "instante": "2026-10-19T12:00:00+02:00",
   "cobertura": true,
   "mensaje": null,
-  "aviso": false,
+  "aviso": true,
   "farmacias": [
    "ZGZ:8735",
    "ZGZ:8737",
@@ -4554,10 +4566,22 @@
   "lon": -0.8891,
   "instante": "2026-10-25T02:30:00+01:00",
   "cobertura": true,
-  "mensaje": "Aún no hay turnos oficiales publicados para esta fecha",
-  "aviso": false,
-  "farmacias": [],
-  "turnos": []
+  "mensaje": null,
+  "aviso": true,
+  "farmacias": [
+   "ZGZ:8694",
+   "ZGZ:8769",
+   "ZGZ:8788",
+   "ZGZ:8845",
+   "ZGZ:8860"
+  ],
+  "turnos": [
+   "ZGZ:8694|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00",
+   "ZGZ:8769|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00",
+   "ZGZ:8788|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00",
+   "ZGZ:8845|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00",
+   "ZGZ:8860|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00"
+  ]
  },
  {
   "lugar": "Zaragoza Actur",
@@ -4636,10 +4660,22 @@
   "lon": -0.905,
   "fecha": "2026-10-25",
   "cobertura": true,
-  "mensaje": "Aún no hay turnos oficiales publicados para esta fecha",
-  "aviso": false,
-  "farmacias": [],
-  "turnos": []
+  "mensaje": null,
+  "aviso": true,
+  "farmacias": [
+   "ZGZ:8694",
+   "ZGZ:8769",
+   "ZGZ:8788",
+   "ZGZ:8845",
+   "ZGZ:8860"
+  ],
+  "turnos": [
+   "ZGZ:8694|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00",
+   "ZGZ:8769|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00",
+   "ZGZ:8788|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00",
+   "ZGZ:8845|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00",
+   "ZGZ:8860|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00"
+  ]
  },
  {
   "lugar": "Zaragoza Actur",
@@ -4707,10 +4743,22 @@
   "lon": -0.905,
   "instante": "2026-10-25T02:30:00+01:00",
   "cobertura": true,
-  "mensaje": "Aún no hay turnos oficiales publicados para esta fecha",
-  "aviso": false,
-  "farmacias": [],
-  "turnos": []
+  "mensaje": null,
+  "aviso": true,
+  "farmacias": [
+   "ZGZ:8694",
+   "ZGZ:8769",
+   "ZGZ:8788",
+   "ZGZ:8845",
+   "ZGZ:8860"
+  ],
+  "turnos": [
+   "ZGZ:8694|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00",
+   "ZGZ:8769|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00",
+   "ZGZ:8788|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00",
+   "ZGZ:8845|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00",
+   "ZGZ:8860|2026-10-24T09:15:00+02:00|2026-10-25T09:15:00+01:00"
+  ]
  },
  {
   "lugar": "Burgos",

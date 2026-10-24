@@ -4,9 +4,334 @@
     "publisher": "Ayuntamiento de Zaragoza — Servicio de datos de farmacias de guardia",
     "url": "https://www.zaragoza.es/sede/servicio/farmacia/",
     "license": "Condiciones generales de reutilización del Ayuntamiento de Zaragoza (citar la fuente)",
-    "retrieved_at": "2026-10-23T00:00:00+02:00"
+    "retrieved_at": "2026-10-24T00:00:00+02:00"
   },
   "pharmacies": [
+    {
+      "id": "ZGZ:20448",
+      "region": "02",
+      "holder": "Álvarez Lloret, Marcial",
+      "address": "C/ Ibón de Estanés, local 3",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976307517",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias-Miralbueno"
+      ]
+    },
+    {
+      "id": "ZGZ:20449",
+      "region": "02",
+      "holder": "Lorca Codina, Agustín-Andrés",
+      "address": "C/ Pablo Neruda, 11",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976516939",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Actur"
+      ]
+    },
+    {
+      "id": "ZGZ:28138",
+      "region": "02",
+      "holder": "Claver Villuendas- Claver Calvete",
+      "address": "C/ Estébanes, 31",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "876632463",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Centro-Esq. D. Jaime I, 17"
+      ]
+    },
+    {
+      "id": "ZGZ:8668",
+      "region": "02",
+      "holder": "Alcañiz Sancho, Soledad Celeste",
+      "address": "C/ María Guerrero, 8",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976755869",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias-La Bozada-Esq. Juan Carlos I, 24"
+      ]
+    },
+    {
+      "id": "ZGZ:8669",
+      "region": "02",
+      "holder": "García Lozano, Mª Natividad",
+      "address": "C/ Corona de Aragón, 53",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976552276",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Gran Vía-Esq. Avda. Valencia"
+      ]
+    },
+    {
+      "id": "ZGZ:8671",
+      "region": "02",
+      "holder": "Carcar Martínez, María Pilar",
+      "address": "C/ Ciudadano Kane,31",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976345650",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Valdespartera-acceso por C/ El Angel Azul"
+      ]
+    },
+    {
+      "id": "ZGZ:8672",
+      "region": "02",
+      "holder": "Almarcegui Ballesta, María Teresa",
+      "address": "C/ Miguel Servet, 21",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976427842",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Las Fuentes-Esq. Cº  Las Torres"
+      ]
+    },
+    {
+      "id": "ZGZ:8673",
+      "region": "02",
+      "holder": "Larriba Jaime, Maria Pilar",
+      "address": "C/ Octavio Paz, 12",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976518520",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Actur-Junto a Carrefour, paralela a C/ Legaz Lacambra"
+      ]
+    },
+    {
+      "id": "ZGZ:8674",
+      "region": "02",
+      "holder": "Alonso Jiménez, María Piedad",
+      "address": "Calle Rosalía de Castro, 5",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976517598",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Actur-Entrada en peatonal C/ V. Ocampo"
+      ]
+    },
+    {
+      "id": "ZGZ:8675",
+      "region": "02",
+      "holder": "Alquezar Ballano Alquezar Ballano",
+      "address": "C/ Violante de Hungría, 10",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976354815",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Romareda-Frente Auditorio"
+      ]
+    },
+    {
+      "id": "ZGZ:8679",
+      "region": "02",
+      "holder": "Andrés Magallón -  De Andrés Clemente-Alloza",
+      "address": "Avda. de Madrid, 185",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976332929",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias"
+      ]
+    },
+    {
+      "id": "ZGZ:8681",
+      "region": "02",
+      "holder": "Daniel Perez Andreu",
+      "address": "C/ Santiago Ramón y Cajal, 47-49",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976443372",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Centro-Frente Hospital Provincial"
+      ]
+    },
+    {
+      "id": "ZGZ:8684",
+      "region": "02",
+      "holder": "Ortopedia Sara Royo",
+      "address": "Avda. Salvador Allende, 5-7",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976521038",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Arrabal- Zalfonada, junto a Parque Central Bomberos"
+      ]
+    },
+    {
+      "id": "ZGZ:8685",
+      "region": "02",
+      "holder": "Arias Villa- Arias Villa",
+      "address": "C/ Federico García Lorca, 6",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976372827",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector San José-Final Avda. San José"
+      ]
+    },
+    {
+      "id": "ZGZ:8689",
+      "region": "02",
+      "holder": "Asensi Serrano, Rosa María",
+      "address": "Avda. María Zambrano, 10",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976523864",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Actur-Edificio Kasan"
+      ]
+    },
+    {
+      "id": "ZGZ:8690",
+      "region": "02",
+      "holder": "Auba Estremera, María Pilar",
+      "address": "C/ Torre Nueva, 1",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976299143",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Centro-Plaza Lanuza"
+      ]
+    },
+    {
+      "id": "ZGZ:8693",
+      "region": "02",
+      "holder": "Urban Pascual, Jorge",
+      "address": "C/ Pintor Manuel Viola, 4",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976475479",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Avda. Cataluña-Barrio La Jota"
+      ]
+    },
+    {
+      "id": "ZGZ:8694",
+      "region": "02",
+      "holder": "Aznar Aznar, Raquel Visitación",
+      "address": "C/ Río Duero, 41-43",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976285411",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Almozara-Entrada por C/ Pedro I"
+      ]
+    },
+    {
+      "id": "ZGZ:8703",
+      "region": "02",
+      "holder": "Cavero, Virginia",
+      "address": "Pº Independencia, 25",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976222864",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Centro"
+      ]
+    },
+    {
+      "id": "ZGZ:8704",
+      "region": "02",
+      "holder": "Serrano Basaldua",
+      "address": "Pº de las Damas, 19",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976211945",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Centro-Esquina León XIII-Frente Corte Inglés"
+      ]
+    },
+    {
+      "id": "ZGZ:8711",
+      "region": "02",
+      "holder": "Blasco Torrijo, María Carmen",
+      "address": "Avda. Compromiso de Caspe, 115",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976429849",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Las Fuentes"
+      ]
+    },
+    {
+      "id": "ZGZ:8713",
+      "region": "02",
+      "holder": "Bonafonte Zaragozano Bonafonte Jimeno",
+      "address": "C/ Santa Inés, 10",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976431040",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Centro-Entrada por C/ Cereros, 21"
+      ]
+    },
+    {
+      "id": "ZGZ:8715",
+      "region": "02",
+      "holder": "Brito Cáceres, Gloria María",
+      "address": "C/ Rodrigo de Rebolledo, 43",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976424887",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Las Fuentes"
+      ]
+    },
+    {
+      "id": "ZGZ:8718",
+      "region": "02",
+      "holder": "Lopez Lopez, Laura",
+      "address": "C/ Doctor Julián Sanz Ibañez, 37",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976331378",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias- Monsalud"
+      ]
+    },
+    {
+      "id": "ZGZ:8719",
+      "region": "02",
+      "holder": "Racho Bueno, Jose Lamberto",
+      "address": "C/ Luis de Perez Serrano, 6-",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976340057",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias- Prolongación C/ Italia"
+      ]
+    },
     {
       "id": "ZGZ:8724",
       "region": "02",
@@ -18,6 +343,58 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector Delicias-Esquina Duquesa Villahermosa"
+      ]
+    },
+    {
+      "id": "ZGZ:8727",
+      "region": "02",
+      "holder": "Casao Pérez, María Ángeles",
+      "address": "Pº Teruel, 29-",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976222441",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Gran Vía-Esq. con Avda. Goya"
+      ]
+    },
+    {
+      "id": "ZGZ:8728",
+      "region": "02",
+      "holder": "Casas Reig, Enrique",
+      "address": "C/ Fuendejalón, 5",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976473434",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Avda. Cataluña-Esquina Paseo Longares"
+      ]
+    },
+    {
+      "id": "ZGZ:8730",
+      "region": "02",
+      "holder": "Borau Jordan, Arturo",
+      "address": "Pº Independencia, 6",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976224140",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Centro-Esquina Cinco de Marzo"
+      ]
+    },
+    {
+      "id": "ZGZ:8731",
+      "region": "02",
+      "holder": "Sittoni Pino, Alejandro",
+      "address": "C/ Antonio de Leyva, 30",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976332037",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias-Bº Oliver"
       ]
     },
     {
@@ -60,6 +437,45 @@
       ]
     },
     {
+      "id": "ZGZ:8738",
+      "region": "02",
+      "holder": "Mora Estop, Carla",
+      "address": "Avda. de las Estrellas, 13",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976541089",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias-Valdefierro-Enfrente Alcampo-Los Enlaces"
+      ]
+    },
+    {
+      "id": "ZGZ:8743",
+      "region": "02",
+      "holder": "Concha Longas, Rosendo José",
+      "address": "C/ Unceta, 63-65",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976330237",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias"
+      ]
+    },
+    {
+      "id": "ZGZ:8749",
+      "region": "02",
+      "holder": "Diez Villarroel, Maria Luisa",
+      "address": "Avda. de San José, 61",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976412770",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector San José"
+      ]
+    },
+    {
       "id": "ZGZ:8753",
       "region": "02",
       "holder": "Echevarria Montoto, Manuel Eduardo",
@@ -86,6 +502,19 @@
       ]
     },
     {
+      "id": "ZGZ:8758",
+      "region": "02",
+      "holder": "Espuny Tobar, Mª Lurdes",
+      "address": "Pº Fernando El Católico, 31",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976552580",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Gran Vía-Esq. San Juan de la Cruz"
+      ]
+    },
+    {
       "id": "ZGZ:8761",
       "region": "02",
       "holder": "Ezquerra Inaraja, Lucia",
@@ -96,6 +525,32 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector Torrero-Esq. San Marcial"
+      ]
+    },
+    {
+      "id": "ZGZ:8765",
+      "region": "02",
+      "holder": "Feliu Boneta, Mª Julia",
+      "address": "Camino de las Torres, 40",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976214320",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Centro"
+      ]
+    },
+    {
+      "id": "ZGZ:8769",
+      "region": "02",
+      "holder": "Frago Del Campo, Cristina",
+      "address": "C/ Molino de las Armas, 54",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976471068",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Avda. Cataluña- Entre Marqués de la Cadena y Pº Longares"
       ]
     },
     {
@@ -112,6 +567,45 @@
       ]
     },
     {
+      "id": "ZGZ:8781",
+      "region": "02",
+      "holder": "Garcia-Vela Grau, Maria",
+      "address": "C/ Federico Ozanam, 55-57",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976755531",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias-Valdefierro"
+      ]
+    },
+    {
+      "id": "ZGZ:8782",
+      "region": "02",
+      "holder": "Garijo Barselo, María Victoria",
+      "address": "C/ Maestro Estremiana, 12-",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976256216",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Torrero Cuéllar-Esquina Parque Pignatelli"
+      ]
+    },
+    {
+      "id": "ZGZ:8788",
+      "region": "02",
+      "holder": "Gandara Rodriguez de Campoamor, Norberto",
+      "address": "C/ Pedro Lucas Gallego, 66",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976351455",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias-Ciudad Jardín"
+      ]
+    },
+    {
       "id": "ZGZ:8789",
       "region": "02",
       "holder": "Gimeno Valer, Ana Elvira",
@@ -122,6 +616,32 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector Actur"
+      ]
+    },
+    {
+      "id": "ZGZ:8791",
+      "region": "02",
+      "holder": "González De Echavarri Díaz, Victoria",
+      "address": "C/ Corona de Aragón, 19",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976551408",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Gran Vía"
+      ]
+    },
+    {
+      "id": "ZGZ:8797",
+      "region": "02",
+      "holder": "Villarroya Lorente, Irache",
+      "address": "C/ Manuel Lorenzo Pardo, 23",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976415451",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector San José-Junto a Cesáreo Alierta"
       ]
     },
     {
@@ -138,6 +658,45 @@
       ]
     },
     {
+      "id": "ZGZ:8804",
+      "region": "02",
+      "holder": "Hormigos Pérez, Inmaculada",
+      "address": "C/ Antonio Candalija, 4",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976299903",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Centro-C/ Alfonso I-Frente Plaza Sas"
+      ]
+    },
+    {
+      "id": "ZGZ:8805",
+      "region": "02",
+      "holder": "Hornero Corisco, José",
+      "address": "C/ Oviedo, 179",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976375843",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Torrero-Paz"
+      ]
+    },
+    {
+      "id": "ZGZ:8811",
+      "region": "02",
+      "holder": "Cerezuela Domene, Generosa",
+      "address": "Avda. de América, 2",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976271382",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Torrero"
+      ]
+    },
+    {
       "id": "ZGZ:8819",
       "region": "02",
       "holder": "Labiano Mangado, María Teresa",
@@ -148,6 +707,19 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector Centro"
+      ]
+    },
+    {
+      "id": "ZGZ:8820",
+      "region": "02",
+      "holder": "Óptica Lacalle",
+      "address": "C/ Santa Teresa de Jesús, 59",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976553097",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Gran Vía-Esquina a Luis Vives"
       ]
     },
     {
@@ -164,6 +736,71 @@
       ]
     },
     {
+      "id": "ZGZ:8825",
+      "region": "02",
+      "holder": "Losada Nuño, Maria Elena",
+      "address": "C/ José Moncasi, 15",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976276674",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Gran Vía"
+      ]
+    },
+    {
+      "id": "ZGZ:8826",
+      "region": "02",
+      "holder": "Lahoz Zamarro, María Isabel",
+      "address": "C/ Don Pedro de Luna, 94-",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976331627",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias"
+      ]
+    },
+    {
+      "id": "ZGZ:8827",
+      "region": "02",
+      "holder": "Simón Lancis, Juan José",
+      "address": "C/ Tomás Higuera, 46",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976413879",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Las Fuentes-Esq. Dr. Iranzo"
+      ]
+    },
+    {
+      "id": "ZGZ:8840",
+      "region": "02",
+      "holder": "Feliú Boneta, Pablo Jesús",
+      "address": "C/ Escultor Palao, 20",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976313734",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias"
+      ]
+    },
+    {
+      "id": "ZGZ:8842",
+      "region": "02",
+      "holder": "Soteras Sancho, Carmen",
+      "address": "C/ San Vicente de Paúl, 25",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976292299",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Centro"
+      ]
+    },
+    {
       "id": "ZGZ:8845",
       "region": "02",
       "holder": "Olaria Hellin, Patricia",
@@ -174,6 +811,19 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector Romareda-Frente Romareda, entre Hosp. Miguel Servet y 3er Cinturón"
+      ]
+    },
+    {
+      "id": "ZGZ:8846",
+      "region": "02",
+      "holder": "Martínez Salazar, Alberto",
+      "address": "Avda. de Valencia, 9",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976555280",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Gran Vía"
       ]
     },
     {
@@ -190,6 +840,19 @@
       ]
     },
     {
+      "id": "ZGZ:8859",
+      "region": "02",
+      "holder": "Palomera Martinez, Eduardo",
+      "address": "C/ Antonio Sangenis, 54",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976332473",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Gran Vía"
+      ]
+    },
+    {
       "id": "ZGZ:8860",
       "region": "02",
       "holder": "Artal Lerín, Ana Cristina",
@@ -200,6 +863,19 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector Gran Vía"
+      ]
+    },
+    {
+      "id": "ZGZ:8861",
+      "region": "02",
+      "holder": "Muniesa Faci, María Pilar",
+      "address": "Avda. Tenor Fleta, 71",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976411036",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector San José"
       ]
     },
     {
@@ -229,6 +905,136 @@
       ]
     },
     {
+      "id": "ZGZ:8881",
+      "region": "02",
+      "holder": "Perez Garcia, Marina",
+      "address": "Avda. San Juan de la Peña, 181",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976510980",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Arrabal"
+      ]
+    },
+    {
+      "id": "ZGZ:8885",
+      "region": "02",
+      "holder": "Fernando Perez - Aramendia Vidal",
+      "address": "SAN MIGUEL, 31",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976228780",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Centro"
+      ]
+    },
+    {
+      "id": "ZGZ:8893",
+      "region": "02",
+      "holder": "Lasmarias Palos, Inés",
+      "address": "Vía Hispanidad, 56",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976752453",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias-Entre Duquesa Villahermosa y Gómez Laguna"
+      ]
+    },
+    {
+      "id": "ZGZ:8894",
+      "region": "02",
+      "holder": "Gótor Camacho, Silvia",
+      "address": "C/ Bonn, 10",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976439790",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Almozara- Esquina Avda. Puerta Sancho"
+      ]
+    },
+    {
+      "id": "ZGZ:8895",
+      "region": "02",
+      "holder": "Laruelo Alvarez, Marta",
+      "address": "Silveria Fañanas, 53",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976535626",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias-Ctra. Logroño-Torres San Lamberto"
+      ]
+    },
+    {
+      "id": "ZGZ:8896",
+      "region": "02",
+      "holder": "Brosed Junza, Elena",
+      "address": "C/ Doctor Cerrada, 24-26",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976210373",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Gran Vía- Prolongación Laguna de Rins"
+      ]
+    },
+    {
+      "id": "ZGZ:8898",
+      "region": "02",
+      "holder": "Rovira Burgues, Joaquin",
+      "address": "C/ Vicente Berdusán, 44",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976340869",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias-Plaza de Roma"
+      ]
+    },
+    {
+      "id": "ZGZ:8900",
+      "region": "02",
+      "holder": "Ruiz De Zarate Sanz, Antonia María",
+      "address": "C/ Berna, 9",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976440904",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Almozara-Frente a puerta de Mercadona"
+      ]
+    },
+    {
+      "id": "ZGZ:8904",
+      "region": "02",
+      "holder": "Sahagún Salcedo, María Carmen",
+      "address": "C/ Lasierra Purroy, 38",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976271586",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Torrero"
+      ]
+    },
+    {
+      "id": "ZGZ:8905",
+      "region": "02",
+      "holder": "Romanos Salanova, Pablo",
+      "address": "Avda. Cataluña, 88",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976294773",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Avda. Cataluña"
+      ]
+    },
+    {
       "id": "ZGZ:8912",
       "region": "02",
       "holder": "Sánchez Sancho",
@@ -239,6 +1045,45 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector San José-Esq. Privilegio de la Unión"
+      ]
+    },
+    {
+      "id": "ZGZ:8913",
+      "region": "02",
+      "holder": "Montolío Sancho, Joaquín",
+      "address": "C/ La Vía, 35",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976566849",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Casablanca"
+      ]
+    },
+    {
+      "id": "ZGZ:8916",
+      "region": "02",
+      "holder": "Segarra Rúa, María José",
+      "address": "Avda. Compromiso de Caspe, 29",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976429339",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Las Fuentes"
+      ]
+    },
+    {
+      "id": "ZGZ:8922",
+      "region": "02",
+      "holder": "Zapata Serrano, Ignacio",
+      "address": "C/ Manifestación, 11",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976395141",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Centro-Plaza del Justicia"
       ]
     },
     {
@@ -255,6 +1100,19 @@
       ]
     },
     {
+      "id": "ZGZ:8930",
+      "region": "02",
+      "holder": "Torres Pueyo Torres Oceja",
+      "address": "C/ Miguel Servet, 101",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976416489",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector San José- Frente Plaza Utrillas"
+      ]
+    },
+    {
       "id": "ZGZ:8933",
       "region": "02",
       "holder": "Torrijo Rodríguez, Mercedes",
@@ -265,6 +1123,19 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector San José"
+      ]
+    },
+    {
+      "id": "ZGZ:8937",
+      "region": "02",
+      "holder": "Trueba Guillen Montells Trueba",
+      "address": "Travesía Puente Virrey, 58-60",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976377518",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector San José- Cruce Cmno.Puente Virrey y Zaragoza La Vieja"
       ]
     },
     {
@@ -281,6 +1152,58 @@
       ]
     },
     {
+      "id": "ZGZ:8942",
+      "region": "02",
+      "holder": "Vázquez Orts, Inmaculada",
+      "address": "C/ Miguel Servet, 84",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976422366",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector San José-Esq. C/ Matadero"
+      ]
+    },
+    {
+      "id": "ZGZ:8962",
+      "region": "02",
+      "holder": "Francia Millán, María Pilar",
+      "address": "Avda. Santa Isabel, 185 Bº Santa Isabel",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976572823",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Avda. Cataluña"
+      ]
+    },
+    {
+      "id": "ZGZ:8963",
+      "region": "02",
+      "holder": "Pallerés García, Isabel",
+      "address": "Ctra. de Montañana, 282 (Bº Montañana)",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976575029",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Avda. Cataluña"
+      ]
+    },
+    {
+      "id": "ZGZ:8965",
+      "region": "02",
+      "holder": "Jimenez Cisneros, Maria",
+      "address": "Avda. de Movera, 380 (Movera)",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976586467",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Avda. Cataluña"
+      ]
+    },
+    {
       "id": "ZGZ:8970",
       "region": "02",
       "holder": "Polo Guillén-Polo SanJuán",
@@ -291,6 +1214,19 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector Avda. Cataluña"
+      ]
+    },
+    {
+      "id": "ZGZ:9013",
+      "region": "02",
+      "holder": "Ruiz Godoy - Cebrián Ruiz",
+      "address": "Avda. de la Ilustración, 14",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976754023",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Valdespartera-Montecanal"
       ]
     }
   ],
@@ -546,7 +1482,786 @@
       "kind": "24h",
       "raw_label": "T-20 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
       "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:20449",
+      "zone": "ZARAGOZA - Sector Actur",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8789",
+      "zone": "ZARAGOZA - Sector Actur",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8689",
+      "zone": "ZARAGOZA - Sector Actur-Edificio Kasan",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8673",
+      "zone": "ZARAGOZA - Sector Actur-Junto a Carrefour, paralela a C/ Legaz Lacambra",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8894",
+      "zone": "ZARAGOZA - Sector Almozara- Esquina Avda. Puerta Sancho",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8900",
+      "zone": "ZARAGOZA - Sector Almozara-Frente a puerta de Mercadona",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8737",
+      "zone": "ZARAGOZA - Sector Arrabal",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8881",
+      "zone": "ZARAGOZA - Sector Arrabal",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8684",
+      "zone": "ZARAGOZA - Sector Arrabal- Zalfonada, junto a Parque Central Bomberos",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8905",
+      "zone": "ZARAGOZA - Sector Avda. Cataluña",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8962",
+      "zone": "ZARAGOZA - Sector Avda. Cataluña",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8963",
+      "zone": "ZARAGOZA - Sector Avda. Cataluña",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8965",
+      "zone": "ZARAGOZA - Sector Avda. Cataluña",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8693",
+      "zone": "ZARAGOZA - Sector Avda. Cataluña-Barrio La Jota",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8728",
+      "zone": "ZARAGOZA - Sector Avda. Cataluña-Esquina Paseo Longares",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8913",
+      "zone": "ZARAGOZA - Sector Casablanca",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8703",
+      "zone": "ZARAGOZA - Sector Centro",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8765",
+      "zone": "ZARAGOZA - Sector Centro",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8842",
+      "zone": "ZARAGOZA - Sector Centro",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8885",
+      "zone": "ZARAGOZA - Sector Centro",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8804",
+      "zone": "ZARAGOZA - Sector Centro-C/ Alfonso I-Frente Plaza Sas",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8713",
+      "zone": "ZARAGOZA - Sector Centro-Entrada por C/ Cereros, 21",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:28138",
+      "zone": "ZARAGOZA - Sector Centro-Esq. D. Jaime I, 17",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8730",
+      "zone": "ZARAGOZA - Sector Centro-Esquina Cinco de Marzo",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8704",
+      "zone": "ZARAGOZA - Sector Centro-Esquina León XIII-Frente Corte Inglés",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8681",
+      "zone": "ZARAGOZA - Sector Centro-Frente Hospital Provincial",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8690",
+      "zone": "ZARAGOZA - Sector Centro-Plaza Lanuza",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8922",
+      "zone": "ZARAGOZA - Sector Centro-Plaza del Justicia",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8679",
+      "zone": "ZARAGOZA - Sector Delicias",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8743",
+      "zone": "ZARAGOZA - Sector Delicias",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8826",
+      "zone": "ZARAGOZA - Sector Delicias",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8840",
+      "zone": "ZARAGOZA - Sector Delicias",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8718",
+      "zone": "ZARAGOZA - Sector Delicias- Monsalud",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8731",
+      "zone": "ZARAGOZA - Sector Delicias-Bº Oliver",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8895",
+      "zone": "ZARAGOZA - Sector Delicias-Ctra. Logroño-Torres San Lamberto",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8893",
+      "zone": "ZARAGOZA - Sector Delicias-Entre Duquesa Villahermosa y Gómez Laguna",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8801",
+      "zone": "ZARAGOZA - Sector Delicias-Esquina C/ Biarritz-Urb. La Bombarda",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8668",
+      "zone": "ZARAGOZA - Sector Delicias-La Bozada-Esq. Juan Carlos I, 24",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:20448",
+      "zone": "ZARAGOZA - Sector Delicias-Miralbueno",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8898",
+      "zone": "ZARAGOZA - Sector Delicias-Plaza de Roma",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8781",
+      "zone": "ZARAGOZA - Sector Delicias-Valdefierro",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8825",
+      "zone": "ZARAGOZA - Sector Gran Vía",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8846",
+      "zone": "ZARAGOZA - Sector Gran Vía",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8896",
+      "zone": "ZARAGOZA - Sector Gran Vía- Prolongación Laguna de Rins",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8669",
+      "zone": "ZARAGOZA - Sector Gran Vía-Esq. Avda. Valencia",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8758",
+      "zone": "ZARAGOZA - Sector Gran Vía-Esq. San Juan de la Cruz",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8727",
+      "zone": "ZARAGOZA - Sector Gran Vía-Esq. con Avda. Goya",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8820",
+      "zone": "ZARAGOZA - Sector Gran Vía-Esquina a Luis Vives",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8711",
+      "zone": "ZARAGOZA - Sector Las Fuentes",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8715",
+      "zone": "ZARAGOZA - Sector Las Fuentes",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8916",
+      "zone": "ZARAGOZA - Sector Las Fuentes",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8672",
+      "zone": "ZARAGOZA - Sector Las Fuentes-Esq. Cº  Las Torres",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8827",
+      "zone": "ZARAGOZA - Sector Las Fuentes-Esq. Dr. Iranzo",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8675",
+      "zone": "ZARAGOZA - Sector Romareda-Frente Auditorio",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8749",
+      "zone": "ZARAGOZA - Sector San José",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8861",
+      "zone": "ZARAGOZA - Sector San José",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8937",
+      "zone": "ZARAGOZA - Sector San José- Cruce Cmno.Puente Virrey y Zaragoza La Vieja",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8930",
+      "zone": "ZARAGOZA - Sector San José- Frente Plaza Utrillas",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8942",
+      "zone": "ZARAGOZA - Sector San José-Esq. C/ Matadero",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8685",
+      "zone": "ZARAGOZA - Sector San José-Final Avda. San José",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8797",
+      "zone": "ZARAGOZA - Sector San José-Junto a Cesáreo Alierta",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8904",
+      "zone": "ZARAGOZA - Sector Torrero",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8782",
+      "zone": "ZARAGOZA - Sector Torrero Cuéllar-Esquina Parque Pignatelli",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8761",
+      "zone": "ZARAGOZA - Sector Torrero-Esq. San Marcial",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8805",
+      "zone": "ZARAGOZA - Sector Torrero-Paz",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:9013",
+      "zone": "ZARAGOZA - Sector Valdespartera-Montecanal",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8671",
+      "zone": "ZARAGOZA - Sector Valdespartera-acceso por C/ El Angel Azul",
+      "start": "2026-10-24T00:00:00+02:00",
+      "end": "2026-10-25T00:00:00+02:00",
+      "kind": "24h",
+      "raw_label": "R-5 Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+      "times_exact": false
+    },
+    {
+      "pharmacy_id": "ZGZ:8674",
+      "zone": "ZARAGOZA - Sector Actur-Entrada en peatonal C/ V. Ocampo",
+      "start": "2026-10-24T09:15:00+02:00",
+      "end": "2026-10-24T13:45:00+02:00",
+      "kind": "diurna",
+      "raw_label": "22-A Abiertas de 9:15 h. a 13:45 h. y de 17:00 h. a 21:30 h. noche",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8694",
+      "zone": "ZARAGOZA - Sector Almozara-Entrada por C/ Pedro I",
+      "start": "2026-10-24T09:15:00+02:00",
+      "end": "2026-10-25T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-21 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8769",
+      "zone": "ZARAGOZA - Sector Avda. Cataluña- Entre Marqués de la Cadena y Pº Longares",
+      "start": "2026-10-24T09:15:00+02:00",
+      "end": "2026-10-25T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-21 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8719",
+      "zone": "ZARAGOZA - Sector Delicias- Prolongación C/ Italia",
+      "start": "2026-10-24T09:15:00+02:00",
+      "end": "2026-10-24T13:45:00+02:00",
+      "kind": "diurna",
+      "raw_label": "22-A Abiertas de 9:15 h. a 13:45 h. y de 17:00 h. a 21:30 h. noche",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8788",
+      "zone": "ZARAGOZA - Sector Delicias-Ciudad Jardín",
+      "start": "2026-10-24T09:15:00+02:00",
+      "end": "2026-10-25T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-21 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8738",
+      "zone": "ZARAGOZA - Sector Delicias-Valdefierro-Enfrente Alcampo-Los Enlaces",
+      "start": "2026-10-24T09:15:00+02:00",
+      "end": "2026-10-24T13:45:00+02:00",
+      "kind": "diurna",
+      "raw_label": "22-A Abiertas de 9:15 h. a 13:45 h. y de 17:00 h. a 21:30 h. noche",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8791",
+      "zone": "ZARAGOZA - Sector Gran Vía",
+      "start": "2026-10-24T09:15:00+02:00",
+      "end": "2026-10-24T13:45:00+02:00",
+      "kind": "diurna",
+      "raw_label": "22-A Abiertas de 9:15 h. a 13:45 h. y de 17:00 h. a 21:30 h. noche",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8859",
+      "zone": "ZARAGOZA - Sector Gran Vía",
+      "start": "2026-10-24T09:15:00+02:00",
+      "end": "2026-10-24T13:45:00+02:00",
+      "kind": "diurna",
+      "raw_label": "22-A Abiertas de 9:15 h. a 13:45 h. y de 17:00 h. a 21:30 h. noche",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8860",
+      "zone": "ZARAGOZA - Sector Gran Vía",
+      "start": "2026-10-24T09:15:00+02:00",
+      "end": "2026-10-25T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-21 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8845",
+      "zone": "ZARAGOZA - Sector Romareda-Frente Romareda, entre Hosp. Miguel Servet y 3er Cinturón",
+      "start": "2026-10-24T09:15:00+02:00",
+      "end": "2026-10-25T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-21 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8933",
+      "zone": "ZARAGOZA - Sector San José",
+      "start": "2026-10-24T09:15:00+02:00",
+      "end": "2026-10-24T13:45:00+02:00",
+      "kind": "diurna",
+      "raw_label": "22-A Abiertas de 9:15 h. a 13:45 h. y de 17:00 h. a 21:30 h. noche",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8811",
+      "zone": "ZARAGOZA - Sector Torrero",
+      "start": "2026-10-24T09:15:00+02:00",
+      "end": "2026-10-24T13:45:00+02:00",
+      "kind": "diurna",
+      "raw_label": "22-A Abiertas de 9:15 h. a 13:45 h. y de 17:00 h. a 21:30 h. noche",
+      "times_exact": true
     }
   ],
-  "warnings": []
+  "warnings": [
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8965: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8679: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8684: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8681: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8685: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8765: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8861: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:20449: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8690: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:20448: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:9013: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8962: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8689: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8846: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8693: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8703: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8704: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8711: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8713: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8715: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8718: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8727: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8728: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8730: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8731: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8737: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8743: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8749: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8758: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8761: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8781: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8782: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8789: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8797: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8801: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8805: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8804: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8820: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8825: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8826: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8827: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8840: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8842: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8963: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8881: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8893: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8896: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8898: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8904: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8905: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8916: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8922: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8930: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8937: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8942: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8675: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8668: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8669: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8672: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8673: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8913: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8894: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8671: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:28138: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8895: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8900: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:",
+    "farmacias_guardia_20261024.json: HORARIO_NO_RECONOCIDO ZGZ:8885: Además de las Farmacias que figuran en el cartel de _x000d_\nServicio de Urgencia del día de hoy, de 9:30 a 13:30 horas _x000d_\n(en Junio de 9:15 a 13:45 horas), _x000d_\ntambién se encuentran de Servicio las siguientes:"
+  ]
 }

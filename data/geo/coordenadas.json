@@ -10519,6 +10519,256 @@
 "lon": -0.9221594,
 "precision": "portal"
 },
+"ZGZ:20448": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Ibón de Estanés, local 3",
+"fuente": "ayto_zaragoza",
+"lat": 41.6595468,
+"localidad": "Zaragoza",
+"lon": -0.9320023,
+"precision": "portal"
+},
+"ZGZ:20449": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Pablo Neruda, 11",
+"fuente": "ayto_zaragoza",
+"lat": 41.6699115,
+"localidad": "Zaragoza",
+"lon": -0.8872219,
+"precision": "portal"
+},
+"ZGZ:28138": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Estébanes, 31",
+"fuente": "ayto_zaragoza",
+"lat": 41.6527515,
+"localidad": "Zaragoza",
+"lon": -0.8791023,
+"precision": "portal"
+},
+"ZGZ:8668": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ María Guerrero, 8",
+"fuente": "ayto_zaragoza",
+"lat": 41.6435464,
+"localidad": "Zaragoza",
+"lon": -0.9094631,
+"precision": "portal"
+},
+"ZGZ:8669": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Corona de Aragón, 53",
+"fuente": "ayto_zaragoza",
+"lat": 41.6448081,
+"localidad": "Zaragoza",
+"lon": -0.8996665,
+"precision": "portal"
+},
+"ZGZ:8671": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Ciudadano Kane,31",
+"fuente": "ayto_zaragoza",
+"lat": 41.6185707,
+"localidad": "Zaragoza",
+"lon": -0.9262355,
+"precision": "portal"
+},
+"ZGZ:8672": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Miguel Servet, 21",
+"fuente": "ayto_zaragoza",
+"lat": 41.6478861,
+"localidad": "Zaragoza",
+"lon": -0.8751225,
+"precision": "portal"
+},
+"ZGZ:8673": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Octavio Paz, 12",
+"fuente": "ayto_zaragoza",
+"lat": 41.6751007,
+"localidad": "Zaragoza",
+"lon": -0.8919888,
+"precision": "portal"
+},
+"ZGZ:8674": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Calle Rosalía de Castro, 5",
+"fuente": "ayto_zaragoza",
+"lat": 41.6664116,
+"localidad": "Zaragoza",
+"lon": -0.8888301,
+"precision": "portal"
+},
+"ZGZ:8675": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Violante de Hungría, 10",
+"fuente": "ayto_zaragoza",
+"lat": 41.6393936,
+"localidad": "Zaragoza",
+"lon": -0.9016622,
+"precision": "portal"
+},
+"ZGZ:8679": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. de Madrid, 185",
+"fuente": "ayto_zaragoza",
+"lat": 41.6525448,
+"localidad": "Zaragoza",
+"lon": -0.907814,
+"precision": "portal"
+},
+"ZGZ:8681": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Santiago Ramón y Cajal, 47-49",
+"fuente": "ayto_zaragoza",
+"lat": 41.65182,
+"localidad": "Zaragoza",
+"lon": -0.886421,
+"precision": "portal"
+},
+"ZGZ:8684": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. Salvador Allende, 5-7",
+"fuente": "ayto_zaragoza",
+"lat": 41.6677031,
+"localidad": "Zaragoza",
+"lon": -0.8771746,
+"precision": "portal"
+},
+"ZGZ:8685": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Federico García Lorca, 6",
+"fuente": "ayto_zaragoza",
+"lat": 41.6349318,
+"localidad": "Zaragoza",
+"lon": -0.8790213,
+"precision": "portal"
+},
+"ZGZ:8689": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. María Zambrano, 10",
+"fuente": "ayto_zaragoza",
+"lat": 41.6650712,
+"localidad": "Zaragoza",
+"lon": -0.8841554,
+"precision": "portal"
+},
+"ZGZ:8690": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Torre Nueva, 1",
+"fuente": "ayto_zaragoza",
+"lat": 41.6553421,
+"localidad": "Zaragoza",
+"lon": -0.8828185,
+"precision": "portal"
+},
+"ZGZ:8693": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Pintor Manuel Viola, 4",
+"fuente": "ayto_zaragoza",
+"lat": 41.659055,
+"localidad": "Zaragoza",
+"lon": -0.8579716,
+"precision": "portal"
+},
+"ZGZ:8694": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Río Duero, 41-43",
+"fuente": "ayto_zaragoza",
+"lat": 41.6586611,
+"localidad": "Zaragoza",
+"lon": -0.8990656,
+"precision": "portal"
+},
+"ZGZ:8703": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Pº Independencia, 25",
+"fuente": "ayto_zaragoza",
+"lat": 41.6501024,
+"localidad": "Zaragoza",
+"lon": -0.8826489,
+"precision": "portal"
+},
+"ZGZ:8704": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Pº de las Damas, 19",
+"fuente": "ayto_zaragoza",
+"lat": 41.6446941,
+"localidad": "Zaragoza",
+"lon": -0.8836099,
+"precision": "portal"
+},
+"ZGZ:8711": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. Compromiso de Caspe, 115",
+"fuente": "ayto_zaragoza",
+"lat": 41.6450611,
+"localidad": "Zaragoza",
+"lon": -0.8594761,
+"precision": "portal"
+},
+"ZGZ:8713": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Santa Inés, 10",
+"fuente": "ayto_zaragoza",
+"lat": 41.6570034,
+"localidad": "Zaragoza",
+"lon": -0.890687,
+"precision": "portal"
+},
+"ZGZ:8715": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Rodrigo de Rebolledo, 43",
+"fuente": "ayto_zaragoza",
+"lat": 41.6459124,
+"localidad": "Zaragoza",
+"lon": -0.8611544,
+"precision": "portal"
+},
+"ZGZ:8718": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Doctor Julián Sanz Ibañez, 37",
+"fuente": "ayto_zaragoza",
+"lat": 41.6518646,
+"localidad": "Zaragoza",
+"lon": -0.9146972,
+"precision": "portal"
+},
+"ZGZ:8719": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Luis de Perez Serrano, 6-",
+"fuente": "ayto_zaragoza",
+"lat": 41.6525525,
+"localidad": "Zaragoza",
+"lon": -0.9008726,
+"precision": "portal"
+},
 "ZGZ:8724": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -10527,6 +10777,46 @@
 "lat": 41.6485902,
 "localidad": "Zaragoza",
 "lon": -0.9004115,
+"precision": "portal"
+},
+"ZGZ:8727": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Pº Teruel, 29-",
+"fuente": "ayto_zaragoza",
+"lat": 41.6481481,
+"localidad": "Zaragoza",
+"lon": -0.892184,
+"precision": "portal"
+},
+"ZGZ:8728": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Fuendejalón, 5",
+"fuente": "ayto_zaragoza",
+"lat": 41.6588676,
+"localidad": "Zaragoza",
+"lon": -0.8657421,
+"precision": "portal"
+},
+"ZGZ:8730": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Pº Independencia, 6",
+"fuente": "ayto_zaragoza",
+"lat": 41.651534,
+"localidad": "Zaragoza",
+"lon": -0.8818997,
+"precision": "portal"
+},
+"ZGZ:8731": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Antonio de Leyva, 30",
+"fuente": "ayto_zaragoza",
+"lat": 41.651645,
+"localidad": "Zaragoza",
+"lon": -0.9246458,
 "precision": "portal"
 },
 "ZGZ:8735": {
@@ -10559,6 +10849,36 @@
 "lon": -0.8731951,
 "precision": "portal"
 },
+"ZGZ:8738": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. de las Estrellas, 13",
+"fuente": "ayto_zaragoza",
+"lat": 41.6428153,
+"localidad": "Zaragoza",
+"lon": -0.9362221,
+"precision": "portal"
+},
+"ZGZ:8743": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Unceta, 63-65",
+"fuente": "ayto_zaragoza",
+"lat": 41.6508513,
+"localidad": "Zaragoza",
+"lon": -0.9012285,
+"precision": "portal"
+},
+"ZGZ:8749": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. de San José, 61",
+"fuente": "ayto_zaragoza",
+"lat": 41.6420818,
+"localidad": "Zaragoza",
+"lon": -0.8730846,
+"precision": "portal"
+},
 "ZGZ:8753": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -10579,6 +10899,16 @@
 "lon": -0.8890814,
 "precision": "portal"
 },
+"ZGZ:8758": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Pº Fernando El Católico, 31",
+"fuente": "ayto_zaragoza",
+"lat": 41.6416458,
+"localidad": "Zaragoza",
+"lon": -0.8939526,
+"precision": "portal"
+},
 "ZGZ:8761": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -10587,6 +10917,26 @@
 "lat": 41.6310081,
 "localidad": "Zaragoza",
 "lon": -0.8902798,
+"precision": "portal"
+},
+"ZGZ:8765": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Camino de las Torres, 40",
+"fuente": "ayto_zaragoza",
+"lat": 41.6444334,
+"localidad": "Zaragoza",
+"lon": -0.8787342,
+"precision": "portal"
+},
+"ZGZ:8769": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Molino de las Armas, 54",
+"fuente": "ayto_zaragoza",
+"lat": 41.6605589,
+"localidad": "Zaragoza",
+"lon": -0.8649741,
 "precision": "portal"
 },
 "ZGZ:8771": {
@@ -10599,6 +10949,36 @@
 "lon": -0.8843494,
 "precision": "portal"
 },
+"ZGZ:8781": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Federico Ozanam, 55-57",
+"fuente": "ayto_zaragoza",
+"lat": 41.6405995,
+"localidad": "Zaragoza",
+"lon": -0.9334315,
+"precision": "portal"
+},
+"ZGZ:8782": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Maestro Estremiana, 12-",
+"fuente": "ayto_zaragoza",
+"lat": 41.6353291,
+"localidad": "Zaragoza",
+"lon": -0.8863247,
+"precision": "portal"
+},
+"ZGZ:8788": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Pedro Lucas Gallego, 66",
+"fuente": "ayto_zaragoza",
+"lat": 41.6458003,
+"localidad": "Zaragoza",
+"lon": -0.9043273,
+"precision": "portal"
+},
 "ZGZ:8789": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -10607,6 +10987,26 @@
 "lat": 41.6776248,
 "localidad": "Zaragoza",
 "lon": -0.8871019,
+"precision": "portal"
+},
+"ZGZ:8791": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Corona de Aragón, 19",
+"fuente": "ayto_zaragoza",
+"lat": 41.6428596,
+"localidad": "Zaragoza",
+"lon": -0.8960102,
+"precision": "portal"
+},
+"ZGZ:8797": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Manuel Lorenzo Pardo, 23",
+"fuente": "ayto_zaragoza",
+"lat": 41.6435003,
+"localidad": "Zaragoza",
+"lon": -0.8753393,
 "precision": "portal"
 },
 "ZGZ:8801": {
@@ -10619,6 +11019,36 @@
 "lon": -0.9204479,
 "precision": "portal"
 },
+"ZGZ:8804": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Antonio Candalija, 4",
+"fuente": "ayto_zaragoza",
+"lat": 41.654252,
+"localidad": "Zaragoza",
+"lon": -0.8813386,
+"precision": "portal"
+},
+"ZGZ:8805": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Oviedo, 179",
+"fuente": "ayto_zaragoza",
+"lat": 41.6255277,
+"localidad": "Zaragoza",
+"lon": -0.8772591,
+"precision": "portal"
+},
+"ZGZ:8811": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. de América, 2",
+"fuente": "ayto_zaragoza",
+"lat": 41.6325306,
+"localidad": "Zaragoza",
+"lon": -0.8850491,
+"precision": "portal"
+},
 "ZGZ:8819": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -10627,6 +11057,16 @@
 "lat": 41.6515397,
 "localidad": "Zaragoza",
 "lon": -0.8734743,
+"precision": "portal"
+},
+"ZGZ:8820": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Santa Teresa de Jesús, 59",
+"fuente": "ayto_zaragoza",
+"lat": 41.6382886,
+"localidad": "Zaragoza",
+"lon": -0.8952323,
 "precision": "portal"
 },
 "ZGZ:8824": {
@@ -10639,6 +11079,56 @@
 "lon": -0.8708939,
 "precision": "portal"
 },
+"ZGZ:8825": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ José Moncasi, 15",
+"fuente": "ayto_zaragoza",
+"lat": 41.6416745,
+"localidad": "Zaragoza",
+"lon": -0.8883197,
+"precision": "portal"
+},
+"ZGZ:8826": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Don Pedro de Luna, 94-",
+"fuente": "ayto_zaragoza",
+"lat": 41.6484666,
+"localidad": "Zaragoza",
+"lon": -0.9033932,
+"precision": "portal"
+},
+"ZGZ:8827": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Tomás Higuera, 46",
+"fuente": "ayto_zaragoza",
+"lat": 41.6432519,
+"localidad": "Zaragoza",
+"lon": -0.8649076,
+"precision": "portal"
+},
+"ZGZ:8840": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Escultor Palao, 20",
+"fuente": "ayto_zaragoza",
+"lat": 41.6492273,
+"localidad": "Zaragoza",
+"lon": -0.9130742,
+"precision": "portal"
+},
+"ZGZ:8842": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ San Vicente de Paúl, 25",
+"fuente": "ayto_zaragoza",
+"lat": 41.6531548,
+"localidad": "Zaragoza",
+"lon": -0.8752463,
+"precision": "portal"
+},
 "ZGZ:8845": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -10647,6 +11137,16 @@
 "lat": 41.6323273,
 "localidad": "Zaragoza",
 "lon": -0.9027957,
+"precision": "portal"
+},
+"ZGZ:8846": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. de Valencia, 9",
+"fuente": "ayto_zaragoza",
+"lat": 41.6471108,
+"localidad": "Zaragoza",
+"lon": -0.8947199,
 "precision": "portal"
 },
 "ZGZ:8849": {
@@ -10659,6 +11159,16 @@
 "lon": -0.8808768,
 "precision": "portal"
 },
+"ZGZ:8859": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Antonio Sangenis, 54",
+"fuente": "ayto_zaragoza",
+"lat": 41.6507231,
+"localidad": "Zaragoza",
+"lon": -0.9037216,
+"precision": "portal"
+},
 "ZGZ:8860": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -10667,6 +11177,16 @@
 "lat": 41.6461464,
 "localidad": "Zaragoza",
 "lon": -0.8858667,
+"precision": "portal"
+},
+"ZGZ:8861": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. Tenor Fleta, 71",
+"fuente": "ayto_zaragoza",
+"lat": 41.6383927,
+"localidad": "Zaragoza",
+"lon": -0.8783539,
 "precision": "portal"
 },
 "ZGZ:8874": {
@@ -10689,6 +11209,106 @@
 "lon": -0.8790885,
 "precision": "portal"
 },
+"ZGZ:8881": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. San Juan de la Peña, 181",
+"fuente": "ayto_zaragoza",
+"lat": 41.675834,
+"localidad": "Zaragoza",
+"lon": -0.8718594,
+"precision": "portal"
+},
+"ZGZ:8885": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "SAN MIGUEL, 31",
+"fuente": "ayto_zaragoza",
+"lat": 41.6502228,
+"localidad": "Zaragoza",
+"lon": -0.8782713,
+"precision": "portal"
+},
+"ZGZ:8893": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Vía Hispanidad, 56",
+"fuente": "ayto_zaragoza",
+"lat": 41.6430928,
+"localidad": "Zaragoza",
+"lon": -0.915097,
+"precision": "portal"
+},
+"ZGZ:8894": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Bonn, 10",
+"fuente": "ayto_zaragoza",
+"lat": 41.6625355,
+"localidad": "Zaragoza",
+"lon": -0.9017188,
+"precision": "portal"
+},
+"ZGZ:8895": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Silveria Fañanas, 53",
+"fuente": "ayto_zaragoza",
+"lat": 41.6650739,
+"localidad": "Zaragoza",
+"lon": -0.9336668,
+"precision": "portal"
+},
+"ZGZ:8896": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Doctor Cerrada, 24-26",
+"fuente": "ayto_zaragoza",
+"lat": 41.6466329,
+"localidad": "Zaragoza",
+"lon": -0.8896574,
+"precision": "portal"
+},
+"ZGZ:8898": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Vicente Berdusán, 44",
+"fuente": "ayto_zaragoza",
+"lat": 41.6500087,
+"localidad": "Zaragoza",
+"lon": -0.8990246,
+"precision": "portal"
+},
+"ZGZ:8900": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Berna, 9",
+"fuente": "ayto_zaragoza",
+"lat": 41.6615195,
+"localidad": "Zaragoza",
+"lon": -0.906177,
+"precision": "portal"
+},
+"ZGZ:8904": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Lasierra Purroy, 38",
+"fuente": "ayto_zaragoza",
+"lat": 41.6307397,
+"localidad": "Zaragoza",
+"lon": -0.8843617,
+"precision": "portal"
+},
+"ZGZ:8905": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. Cataluña, 88",
+"fuente": "ayto_zaragoza",
+"lat": 41.6622991,
+"localidad": "Zaragoza",
+"lon": -0.8643451,
+"precision": "portal"
+},
 "ZGZ:8912": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -10697,6 +11317,36 @@
 "lat": 41.6415189,
 "localidad": "Zaragoza",
 "lon": -0.8709992,
+"precision": "portal"
+},
+"ZGZ:8913": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ La Vía, 35",
+"fuente": "ayto_zaragoza",
+"lat": 41.6317489,
+"localidad": "Zaragoza",
+"lon": -0.9082287,
+"precision": "portal"
+},
+"ZGZ:8916": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. Compromiso de Caspe, 29",
+"fuente": "ayto_zaragoza",
+"lat": 41.6461129,
+"localidad": "Zaragoza",
+"lon": -0.8694077,
+"precision": "portal"
+},
+"ZGZ:8922": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Manifestación, 11",
+"fuente": "ayto_zaragoza",
+"lat": 41.6561004,
+"localidad": "Zaragoza",
+"lon": -0.8810695,
 "precision": "portal"
 },
 "ZGZ:8928": {
@@ -10709,6 +11359,16 @@
 "lon": -0.9074818,
 "precision": "portal"
 },
+"ZGZ:8930": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Miguel Servet, 101",
+"fuente": "ayto_zaragoza",
+"lat": 41.640764,
+"localidad": "Zaragoza",
+"lon": -0.8668526,
+"precision": "portal"
+},
 "ZGZ:8933": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -10717,6 +11377,16 @@
 "lat": 41.6388108,
 "localidad": "Zaragoza",
 "lon": -0.8751586,
+"precision": "portal"
+},
+"ZGZ:8937": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Travesía Puente Virrey, 58-60",
+"fuente": "ayto_zaragoza",
+"lat": 41.6370344,
+"localidad": "Zaragoza",
+"lon": -0.8746372,
 "precision": "portal"
 },
 "ZGZ:8938": {
@@ -10729,6 +11399,46 @@
 "lon": -0.8591508,
 "precision": "portal"
 },
+"ZGZ:8942": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Miguel Servet, 84",
+"fuente": "ayto_zaragoza",
+"lat": 41.6443836,
+"localidad": "Zaragoza",
+"lon": -0.8703968,
+"precision": "portal"
+},
+"ZGZ:8962": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. Santa Isabel, 185 Bº Santa Isabel",
+"fuente": "ayto_zaragoza",
+"lat": 41.6668671,
+"localidad": "Zaragoza",
+"lon": -0.8272371,
+"precision": "portal"
+},
+"ZGZ:8963": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Ctra. de Montañana, 282 (Bº Montañana)",
+"fuente": "ayto_zaragoza",
+"lat": 41.6865745,
+"localidad": "Zaragoza",
+"lon": -0.8286425,
+"precision": "portal"
+},
+"ZGZ:8965": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. de Movera, 380 (Movera)",
+"fuente": "ayto_zaragoza",
+"lat": 41.6494693,
+"localidad": "Zaragoza",
+"lon": -0.8235544,
+"precision": "portal"
+},
 "ZGZ:8970": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -10737,6 +11447,16 @@
 "lat": 41.6665725,
 "localidad": "Zaragoza",
 "lon": -0.835372,
+"precision": "portal"
+},
+"ZGZ:9013": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. de la Ilustración, 14",
+"fuente": "ayto_zaragoza",
+"lat": 41.628981,
+"localidad": "Zaragoza",
+"lon": -0.9333224,
 "precision": "portal"
 }
 }
