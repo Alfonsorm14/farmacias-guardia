@@ -4,7 +4,7 @@
     "publisher": "Ayuntamiento de Zaragoza — Servicio de datos de farmacias de guardia",
     "url": "https://www.zaragoza.es/sede/servicio/farmacia/",
     "license": "Condiciones generales de reutilización del Ayuntamiento de Zaragoza (citar la fuente)",
-    "retrieved_at": "2026-10-24T00:00:00+02:00"
+    "retrieved_at": "2026-10-25T00:00:00+02:00"
   },
   "pharmacies": [
     {
@@ -447,6 +447,19 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector Delicias-Valdefierro-Enfrente Alcampo-Los Enlaces"
+      ]
+    },
+    {
+      "id": "ZGZ:8741",
+      "region": "02",
+      "holder": "Clavería Cintora, María-Isabel",
+      "address": "C/ Celso Emilio Ferreiro, 12",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976320646",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Delicias-Castillo Palomar"
       ]
     },
     {
@@ -905,6 +918,19 @@
       ]
     },
     {
+      "id": "ZGZ:8880",
+      "region": "02",
+      "holder": "Miñana Asensio, Rebeca",
+      "address": "Pº de Sagasta, 43",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976276200",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Centro"
+      ]
+    },
+    {
       "id": "ZGZ:8881",
       "region": "02",
       "holder": "Perez Garcia, Marina",
@@ -1071,6 +1097,19 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector Las Fuentes"
+      ]
+    },
+    {
+      "id": "ZGZ:8921",
+      "region": "02",
+      "holder": "Senante Perdiguer, Fernando",
+      "address": "C/ Pablo Neruda, 26",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976734608",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Actur"
       ]
     },
     {
@@ -2192,6 +2231,132 @@
       "end": "2026-10-24T13:45:00+02:00",
       "kind": "diurna",
       "raw_label": "22-A Abiertas de 9:15 h. a 13:45 h. y de 17:00 h. a 21:30 h. noche",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8921",
+      "zone": "ZARAGOZA - Sector Actur",
+      "start": "2026-10-25T09:15:00+01:00",
+      "end": "2026-10-25T13:45:00+01:00",
+      "kind": "diurna",
+      "raw_label": "21-B Abiertas de 9:15 h. a 13:45 h. y de 17:00 h. a 21:30 h. noche",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8674",
+      "zone": "ZARAGOZA - Sector Actur-Entrada en peatonal C/ V. Ocampo",
+      "start": "2026-10-25T09:15:00+01:00",
+      "end": "2026-10-26T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-22 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8769",
+      "zone": "ZARAGOZA - Sector Avda. Cataluña- Entre Marqués de la Cadena y Pº Longares",
+      "start": "2026-10-25T09:15:00+01:00",
+      "end": "2026-10-25T13:45:00+01:00",
+      "kind": "diurna",
+      "raw_label": "21-B Abiertas de 9:15 h. a 13:45 h. y de 17:00 h. a 21:30 h. noche",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8880",
+      "zone": "ZARAGOZA - Sector Centro",
+      "start": "2026-10-25T09:15:00+01:00",
+      "end": "2026-10-25T13:45:00+01:00",
+      "kind": "diurna",
+      "raw_label": "21-B Abiertas de 9:15 h. a 13:45 h. y de 17:00 h. a 21:30 h. noche",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:28138",
+      "zone": "ZARAGOZA - Sector Centro-Esq. D. Jaime I, 17",
+      "start": "2026-10-25T09:15:00+01:00",
+      "end": "2026-10-25T13:45:00+01:00",
+      "kind": "diurna",
+      "raw_label": "21-B Abiertas de 9:15 h. a 13:45 h. y de 17:00 h. a 21:30 h. noche",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8730",
+      "zone": "ZARAGOZA - Sector Centro-Esquina Cinco de Marzo",
+      "start": "2026-10-25T09:15:00+01:00",
+      "end": "2026-10-25T13:45:00+01:00",
+      "kind": "diurna",
+      "raw_label": "21-B Abiertas de 9:15 h. a 13:45 h. y de 17:00 h. a 21:30 h. noche",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8741",
+      "zone": "ZARAGOZA - Sector Delicias-Castillo Palomar",
+      "start": "2026-10-25T09:15:00+01:00",
+      "end": "2026-10-25T13:45:00+01:00",
+      "kind": "diurna",
+      "raw_label": "21-B Abiertas de 9:15 h. a 13:45 h. y de 17:00 h. a 21:30 h. noche",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8788",
+      "zone": "ZARAGOZA - Sector Delicias-Ciudad Jardín",
+      "start": "2026-10-25T09:15:00+01:00",
+      "end": "2026-10-25T13:45:00+01:00",
+      "kind": "diurna",
+      "raw_label": "21-B Abiertas de 9:15 h. a 13:45 h. y de 17:00 h. a 21:30 h. noche",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8801",
+      "zone": "ZARAGOZA - Sector Delicias-Esquina C/ Biarritz-Urb. La Bombarda",
+      "start": "2026-10-25T09:15:00+01:00",
+      "end": "2026-10-26T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-22 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8738",
+      "zone": "ZARAGOZA - Sector Delicias-Valdefierro-Enfrente Alcampo-Los Enlaces",
+      "start": "2026-10-25T09:15:00+01:00",
+      "end": "2026-10-26T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-22 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8791",
+      "zone": "ZARAGOZA - Sector Gran Vía",
+      "start": "2026-10-25T09:15:00+01:00",
+      "end": "2026-10-26T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-22 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8860",
+      "zone": "ZARAGOZA - Sector Gran Vía",
+      "start": "2026-10-25T09:15:00+01:00",
+      "end": "2026-10-26T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-22 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8749",
+      "zone": "ZARAGOZA - Sector San José",
+      "start": "2026-10-25T09:15:00+01:00",
+      "end": "2026-10-26T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-22 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8811",
+      "zone": "ZARAGOZA - Sector Torrero",
+      "start": "2026-10-25T09:15:00+01:00",
+      "end": "2026-10-26T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-22 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
       "times_exact": true
     }
   ],

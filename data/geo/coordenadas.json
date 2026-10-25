@@ -10859,6 +10859,16 @@
 "lon": -0.9362221,
 "precision": "portal"
 },
+"ZGZ:8741": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Celso Emilio Ferreiro, 12",
+"fuente": "ayto_zaragoza",
+"lat": 41.6536504,
+"localidad": "Zaragoza",
+"lon": -0.9155678,
+"precision": "portal"
+},
 "ZGZ:8743": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -11209,6 +11219,16 @@
 "lon": -0.8790885,
 "precision": "portal"
 },
+"ZGZ:8880": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Pº de Sagasta, 43",
+"fuente": "ayto_zaragoza",
+"lat": 41.6405911,
+"localidad": "Zaragoza",
+"lon": -0.8862134,
+"precision": "portal"
+},
 "ZGZ:8881": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -11337,6 +11357,16 @@
 "lat": 41.6461129,
 "localidad": "Zaragoza",
 "lon": -0.8694077,
+"precision": "portal"
+},
+"ZGZ:8921": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Pablo Neruda, 26",
+"fuente": "ayto_zaragoza",
+"lat": 41.6700133,
+"localidad": "Zaragoza",
+"lon": -0.8839295,
 "precision": "portal"
 },
 "ZGZ:8922": {
