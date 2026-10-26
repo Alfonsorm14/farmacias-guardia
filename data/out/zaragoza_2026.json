@@ -4,7 +4,7 @@
     "publisher": "Ayuntamiento de Zaragoza — Servicio de datos de farmacias de guardia",
     "url": "https://www.zaragoza.es/sede/servicio/farmacia/",
     "license": "Condiciones generales de reutilización del Ayuntamiento de Zaragoza (citar la fuente)",
-    "retrieved_at": "2026-10-25T00:00:00+02:00"
+    "retrieved_at": "2026-10-26T00:00:00+01:00"
   },
   "pharmacies": [
     {
@@ -710,6 +710,19 @@
       ]
     },
     {
+      "id": "ZGZ:8816",
+      "region": "02",
+      "holder": "Enguita Canet, Darío",
+      "address": "Avda. Tenor Fleta, 26",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976278903",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector San José"
+      ]
+    },
+    {
       "id": "ZGZ:8819",
       "region": "02",
       "holder": "Labiano Mangado, María Teresa",
@@ -785,6 +798,19 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector Las Fuentes-Esq. Dr. Iranzo"
+      ]
+    },
+    {
+      "id": "ZGZ:8835",
+      "region": "02",
+      "holder": "Arrue Lobera, Blanca-Dolores",
+      "address": "C/ Coso, 106",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976224365",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Centro-Entre Plaza San Miguel y Plaza de España"
       ]
     },
     {
@@ -2357,6 +2383,69 @@
       "end": "2026-10-26T09:15:00+01:00",
       "kind": "24h",
       "raw_label": "T-22 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8673",
+      "zone": "ZARAGOZA - Sector Actur-Junto a Carrefour, paralela a C/ Legaz Lacambra",
+      "start": "2026-10-26T09:15:00+01:00",
+      "end": "2026-10-27T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-23 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8894",
+      "zone": "ZARAGOZA - Sector Almozara- Esquina Avda. Puerta Sancho",
+      "start": "2026-10-26T09:15:00+01:00",
+      "end": "2026-10-27T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-23 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8835",
+      "zone": "ZARAGOZA - Sector Centro-Entre Plaza San Miguel y Plaza de España",
+      "start": "2026-10-26T09:15:00+01:00",
+      "end": "2026-10-27T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-23 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8801",
+      "zone": "ZARAGOZA - Sector Delicias-Esquina C/ Biarritz-Urb. La Bombarda",
+      "start": "2026-10-26T09:15:00+01:00",
+      "end": "2026-10-27T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-23 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8860",
+      "zone": "ZARAGOZA - Sector Gran Vía",
+      "start": "2026-10-26T09:15:00+01:00",
+      "end": "2026-10-27T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-23 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8845",
+      "zone": "ZARAGOZA - Sector Romareda-Frente Romareda, entre Hosp. Miguel Servet y 3er Cinturón",
+      "start": "2026-10-26T09:15:00+01:00",
+      "end": "2026-10-27T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-23 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8816",
+      "zone": "ZARAGOZA - Sector San José",
+      "start": "2026-10-26T09:15:00+01:00",
+      "end": "2026-10-27T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-23 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
       "times_exact": true
     }
   ],

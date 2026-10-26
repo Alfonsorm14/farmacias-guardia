@@ -11059,6 +11059,16 @@
 "lon": -0.8850491,
 "precision": "portal"
 },
+"ZGZ:8816": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Avda. Tenor Fleta, 26",
+"fuente": "ayto_zaragoza",
+"lat": 41.6405642,
+"localidad": "Zaragoza",
+"lon": -0.8832283,
+"precision": "portal"
+},
 "ZGZ:8819": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -11117,6 +11127,16 @@
 "lat": 41.6432519,
 "localidad": "Zaragoza",
 "lon": -0.8649076,
+"precision": "portal"
+},
+"ZGZ:8835": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Coso, 106",
+"fuente": "ayto_zaragoza",
+"lat": 41.650636,
+"localidad": "Zaragoza",
+"lon": -0.8760412,
 "precision": "portal"
 },
 "ZGZ:8840": {
