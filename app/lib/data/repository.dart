@@ -203,6 +203,8 @@ class ApiRepository implements GuardiasRepository {
       guardias: guardias,
       datosHasta: hasta == null ? null : DateTime.tryParse(hasta)?.toUtc(),
       aviso: j['aviso'] as String?,
+      totalSinCoordenadas: j['farmacias_sin_coordenadas'] as int?,
+      proximoCambio: DateTime.tryParse(j['proximo_cambio'] as String? ?? '')?.toUtc(),
     );
   }
 

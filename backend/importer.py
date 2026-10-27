@@ -38,6 +38,30 @@ def _apply_known_coordinates(pharmacy: Any, known: dict[str, dict[str, Any]]) ->
 from backend.models import Pharmacy, Shift, Source
 
 
+def _validate_data(data: dict[str, Any]) -> None:
+    """No sustituir una fuente válida por una extracción vacía o incoherente."""
+    pharmacies, shifts = data.get("pharmacies"), data.get("shifts")
+    if not isinstance(pharmacies, list) or not pharmacies or not isinstance(shifts, list) or not shifts:
+        raise ValueError("La fuente debe contener farmacias y turnos no vacíos")
+    ids = [p["id"] for p in pharmacies]
+    if len(set(ids)) != len(ids):
+        raise ValueError("Identificadores de farmacia duplicados")
+    pharmacy_ids = set(ids)
+    allowed = {"diurna", "nocturna", "24h", "localizada", "refuerzo"}
+    for shift in shifts:
+        start = datetime.datetime.fromisoformat(shift["start"])
+        end = datetime.datetime.fromisoformat(shift["end"])
+        if start.tzinfo is None or end.tzinfo is None:
+            raise ValueError("Los turnos deben indicar zona horaria")
+        if end.astimezone(datetime.timezone.utc) <= start.astimezone(datetime.timezone.utc):
+            raise ValueError("El fin del turno debe ser posterior a su inicio")
+        if shift["pharmacy_id"] not in pharmacy_ids or shift["kind"] not in allowed:
+            raise ValueError("Turno con farmacia o tipo desconocido")
+    retrieved = datetime.datetime.fromisoformat(data["source"]["retrieved_at"])
+    if retrieved.tzinfo is None:
+        raise ValueError("La fecha de descarga debe indicar zona horaria")
+
+
 def import_source_data(
     file_path: Path | str,
     session_factory: sessionmaker[Session] | None = None,
@@ -48,6 +72,7 @@ def import_source_data(
     with path.open("r", encoding="utf-8") as f:
         data = json.load(f)
 
+    _validate_data(data)
     source_data = data["source"]
     source_id = source_data["source_id"]
     retrieved_at = datetime.datetime.fromisoformat(
@@ -108,6 +133,8 @@ def import_source_data(
                     )
                     session.add(pharmacy)
                 else:
+                    if pharmacy.source_id != source_id:
+                        raise ValueError(f"La farmacia {pid} pertenece a otra fuente")
                     location_changed = (
                         pharmacy.address != new_address
                         or pharmacy.locality != p_dict.get("locality")

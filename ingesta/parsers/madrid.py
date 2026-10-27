@@ -59,8 +59,10 @@ def _shift_times(day: date, horario: str) -> tuple[datetime, datetime, str, bool
     if not match:
         return None
     h1, m1, h2, m2 = (int(match.group(i)) for i in range(1, 5))
-    start = datetime.combine(day, time(h1 % 24, m1), TZ)
-    next_day = bool(match.group(5)) or (h2, m2) <= (h1, m1)
+    if h1 > 23 or h2 > 24 or m1 > 59 or m2 > 59 or (h2 == 24 and m2 != 0):
+        return None
+    start = datetime.combine(day, time(h1, m1), TZ)
+    next_day = h2 == 24 or bool(match.group(5)) or (h2, m2) <= (h1, m1)
     end = datetime.combine(day + timedelta(days=1 if next_day else 0), time(h2 % 24, m2), TZ)
     upper = horario.upper()
     if "24 HORAS" in upper or (next_day and (h1, m1) == (h2, m2)):
@@ -76,7 +78,11 @@ def _row_to_records(
     row: dict[str, str], where: str, warnings: list[str]
 ) -> tuple[Pharmacy, DutyShift] | None:
     """Fila normalizada (localidad, distrito, fecha, numero, direccion, horario, telefono)."""
-    day = datetime.strptime(row["fecha"], "%d/%m/%Y").date()
+    try:
+        day = datetime.strptime(row["fecha"], "%d/%m/%Y").date()
+    except ValueError:
+        warnings.append(f"{where}: FECHA_NO_RECONOCIDA: {row['fecha']}")
+        return None
     times = _shift_times(day, row["horario"])
     if times is None:
         warnings.append(f"{where}: HORARIO_NO_RECONOCIDO: {row['horario']}")
@@ -121,6 +127,9 @@ def _parse_csv(
     pharmacies: dict[str, Pharmacy] = {}
     shifts: list[DutyShift] = []
     for n, r in enumerate(rows, start=2):
+        if any(not (r.get(k) or "").strip() for k in CSV_COLUMNS[:-1]) or None in r:
+            warnings.append(f"{filename} l{n}: FILA_INCOMPLETA: {r}")
+            continue
         try:
             if datetime.strptime(r["Fecha"] or "", "%d/%m/%Y").date() < desde:
                 continue

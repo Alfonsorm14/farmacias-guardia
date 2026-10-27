@@ -43,20 +43,23 @@ IDENA_URL = "https://idena.navarra.es/descargas/DOTACI_Sym_Farmacias.zip"
 _FILE_RE = re.compile(r"farmacias_guardia_(\d{8})\.json$")
 
 
-def _kind(start_hour: int, end_hour: int) -> str:
-    if start_hour == end_hour:
+def _kind(start_minute: int, end_minute: int) -> str:
+    if (end_minute - start_minute) % 1440 == 0:
         return "24h"
-    if end_hour < start_hour:
+    if end_minute % 1440 < start_minute % 1440:
         return "nocturna"
     return "diurna"
 
 
-def _hour(text: str) -> int | None:
+def _minutes(text: str) -> int | None:
+    """Minutos desde medianoche; 24:00 es la medianoche siguiente."""
     match = re.fullmatch(r"\s*(\d{1,2})(?::(\d{2}))?\s*", text or "")
     if not match:
         return None
-    value = int(match.group(1))
-    return value if 0 <= value <= 24 else None
+    hour, minute = int(match.group(1)), int(match.group(2) or 0)
+    if hour > 24 or minute > 59 or (hour == 24 and minute != 0):
+        return None
+    return hour * 60 + minute
 
 
 def _parse_records(
@@ -74,8 +77,8 @@ def _parse_records(
         except (ValueError, AttributeError):
             warnings.append(f"{filename}: FECHA_INVALIDA {codigo}: {fecha}")
             continue
-        start_h, end_h = _hour(desde), _hour(hasta)
-        if start_h is None or end_h is None or not codigo:
+        start_min, end_min = _minutes(desde), _minutes(hasta)
+        if start_min is None or end_min is None or not codigo:
             warnings.append(f"{filename}: HORARIO_INVALIDO {codigo}: {desde}-{hasta}")
             continue
         pharmacy_id = f"NA:{codigo.strip()}"
@@ -90,11 +93,12 @@ def _parse_records(
             phone=phone if len(phone) == 9 else None,
             duty_phone=None,
         )
-        kind = _kind(start_h, end_h)
-        start = datetime.combine(day, time(start_h % 24), TZ)
-        end_day = day + timedelta(days=1) if end_h <= start_h else day
-        end = datetime.combine(end_day, time(0), TZ) + timedelta(hours=end_h)
-        label = f"{grupo} ({start_h}-{end_h} h)"
+        kind = _kind(start_min, end_min)
+        # Sumar en el calendario local conserva el horario durante los cambios de hora.
+        midnight = datetime.combine(day, time(0), TZ)
+        start = midnight + timedelta(minutes=start_min)
+        end = midnight + timedelta(minutes=end_min + (1440 if end_min <= start_min else 0))
+        label = f"{grupo} ({desde}-{hasta} h)"
         shifts[(pharmacy_id, start)] = DutyShift(
             pharmacy_id=pharmacy_id,
             zone=(grupo or "").strip(),

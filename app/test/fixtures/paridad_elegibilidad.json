@@ -1,0 +1,301 @@
+{
+  "snapshot": {
+    "version": 1,
+    "generated_at": "2026-10-27T08:00:00Z",
+    "sources": [
+      [
+        "TEST",
+        "Fuente de prueba",
+        "https://example.org",
+        "Prueba"
+      ]
+    ],
+    "zones": [
+      "ZONA",
+      "SECUNDARIA",
+      "OTRA"
+    ],
+    "pharmacies": [
+      [
+        "TEST:0",
+        "Localizada",
+        "Calle de prueba, 1",
+        "Localidad",
+        "910000000",
+        null,
+        40.0,
+        -3.0,
+        "portal",
+        0
+      ],
+      [
+        "TEST:1",
+        "Diurna sin horario",
+        "Calle de prueba, 1",
+        "Localidad",
+        "910000000",
+        null,
+        null,
+        null,
+        null,
+        0
+      ],
+      [
+        "TEST:2",
+        "Nocturna sin coordenadas",
+        "Calle de prueba, 1",
+        "Localidad",
+        "910000000",
+        null,
+        null,
+        null,
+        null,
+        0
+      ],
+      [
+        "TEST:3",
+        "Otra zona",
+        "Calle de prueba, 1",
+        "Localidad",
+        "910000000",
+        null,
+        null,
+        null,
+        null,
+        0
+      ]
+    ],
+    "shifts": [
+      [
+        0,
+        0,
+        29884860,
+        29884920,
+        "d",
+        1
+      ],
+      [
+        0,
+        0,
+        29884920,
+        29884980,
+        "n",
+        1
+      ],
+      [
+        1,
+        0,
+        29884260,
+        29885700,
+        "d",
+        0
+      ],
+      [
+        2,
+        0,
+        29884860,
+        29884980,
+        "n",
+        1
+      ],
+      [
+        2,
+        1,
+        29884860,
+        29884980,
+        "n",
+        1
+      ],
+      [
+        3,
+        2,
+        29884860,
+        29884980,
+        "n",
+        1
+      ],
+      [
+        3,
+        0,
+        29884200,
+        29884260,
+        "n",
+        1
+      ]
+    ]
+  },
+  "cases": [
+    {
+      "name": "antes",
+      "at": "2026-10-27T09:00:00+01:00",
+      "response": {
+        "cobertura": true,
+        "mensaje": "Sin datos oficiales para esta fecha",
+        "aviso": null,
+        "datos_hasta": "2026-10-27T11:00:00+01:00",
+        "farmacias_sin_coordenadas": 0,
+        "proximo_cambio": "2026-10-27T10:00:00+01:00",
+        "guardias": []
+      }
+    },
+    {
+      "name": "diurna",
+      "at": "2026-10-27T10:30:00+01:00",
+      "response": {
+        "cobertura": true,
+        "mensaje": null,
+        "aviso": null,
+        "datos_hasta": "2026-10-27T11:00:00+01:00",
+        "farmacias_sin_coordenadas": 1,
+        "proximo_cambio": "2026-10-27T11:00:00+01:00",
+        "guardias": [
+          {
+            "farmacia": {
+              "id": "TEST:0",
+              "titular": "Localizada",
+              "direccion": "Calle de prueba, 1",
+              "localidad": "Localidad",
+              "telefono": "910000000",
+              "telefono_guardia": null,
+              "lat": 40.0,
+              "lon": -3.0,
+              "geo_precision": "portal"
+            },
+            "turno": {
+              "tipo": "diurna",
+              "inicio": "2026-10-27T10:00:00+01:00",
+              "fin": "2026-10-27T11:00:00+01:00",
+              "zona": "ZONA",
+              "horario_confirmado": true
+            },
+            "distancia_km": 0,
+            "fuente": {
+              "publisher": "Fuente de prueba",
+              "url": "https://example.org",
+              "license": "Prueba"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "cambio",
+      "at": "2026-10-27T11:00:00+01:00",
+      "response": {
+        "cobertura": true,
+        "mensaje": null,
+        "aviso": null,
+        "datos_hasta": "2026-10-27T11:00:00+01:00",
+        "farmacias_sin_coordenadas": 1,
+        "proximo_cambio": "2026-10-27T12:00:00+01:00",
+        "guardias": [
+          {
+            "farmacia": {
+              "id": "TEST:0",
+              "titular": "Localizada",
+              "direccion": "Calle de prueba, 1",
+              "localidad": "Localidad",
+              "telefono": "910000000",
+              "telefono_guardia": null,
+              "lat": 40.0,
+              "lon": -3.0,
+              "geo_precision": "portal"
+            },
+            "turno": {
+              "tipo": "nocturna",
+              "inicio": "2026-10-27T11:00:00+01:00",
+              "fin": "2026-10-27T12:00:00+01:00",
+              "zona": "ZONA",
+              "horario_confirmado": true
+            },
+            "distancia_km": 0,
+            "fuente": {
+              "publisher": "Fuente de prueba",
+              "url": "https://example.org",
+              "license": "Prueba"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "fin",
+      "at": "2026-10-27T12:00:00+01:00",
+      "response": {
+        "cobertura": true,
+        "mensaje": "Sin datos oficiales para esta fecha",
+        "aviso": null,
+        "datos_hasta": "2026-10-27T11:00:00+01:00",
+        "farmacias_sin_coordenadas": 0,
+        "proximo_cambio": null,
+        "guardias": []
+      }
+    },
+    {
+      "name": "dia",
+      "fecha": "2026-10-27",
+      "response": {
+        "cobertura": true,
+        "mensaje": null,
+        "aviso": null,
+        "datos_hasta": "2026-10-27T11:00:00+01:00",
+        "farmacias_sin_coordenadas": 2,
+        "proximo_cambio": null,
+        "guardias": [
+          {
+            "farmacia": {
+              "id": "TEST:0",
+              "titular": "Localizada",
+              "direccion": "Calle de prueba, 1",
+              "localidad": "Localidad",
+              "telefono": "910000000",
+              "telefono_guardia": null,
+              "lat": 40.0,
+              "lon": -3.0,
+              "geo_precision": "portal"
+            },
+            "turno": {
+              "tipo": "diurna",
+              "inicio": "2026-10-27T10:00:00+01:00",
+              "fin": "2026-10-27T11:00:00+01:00",
+              "zona": "ZONA",
+              "horario_confirmado": true
+            },
+            "distancia_km": 0,
+            "fuente": {
+              "publisher": "Fuente de prueba",
+              "url": "https://example.org",
+              "license": "Prueba"
+            }
+          },
+          {
+            "farmacia": {
+              "id": "TEST:0",
+              "titular": "Localizada",
+              "direccion": "Calle de prueba, 1",
+              "localidad": "Localidad",
+              "telefono": "910000000",
+              "telefono_guardia": null,
+              "lat": 40.0,
+              "lon": -3.0,
+              "geo_precision": "portal"
+            },
+            "turno": {
+              "tipo": "nocturna",
+              "inicio": "2026-10-27T11:00:00+01:00",
+              "fin": "2026-10-27T12:00:00+01:00",
+              "zona": "ZONA",
+              "horario_confirmado": true
+            },
+            "distancia_km": 0,
+            "fuente": {
+              "publisher": "Fuente de prueba",
+              "url": "https://example.org",
+              "license": "Prueba"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

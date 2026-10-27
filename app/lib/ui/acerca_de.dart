@@ -110,13 +110,14 @@ class _AcercaDePageState extends State<AcercaDePage> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                 child: Text(
-                  '${apiBase.isEmpty ? '• Tu ubicación (GPS) se usa dentro del teléfono para calcular las farmacias más '
-                      'cercanas; la app no la envía a ningún servidor propio.' : '• Tu ubicación (o el lugar elegido) se envía '
+                  '${apiBase.isEmpty ? '• Las guardias se calculan en el teléfono con tu ubicación o el lugar elegido; '
+                      'la app no envía tu ubicación a ningún servidor propio.' : '• Tu ubicación (o el lugar elegido) se envía '
                       'al servidor de la app para calcular las farmacias más cercanas.'}\n'
-                  '• Al ver el mapa, el teléfono descarga del Instituto Geográfico Nacional las teselas de la zona que '
-                  'se muestra, lo que revela esa zona a su servidor.\n'
+                  '• Para dibujar el mapa se piden teselas al Instituto Geográfico Nacional. '
+                  'El IGN recibe tu dirección IP y la zona mostrada.\n'
                   '• Si buscas una población, el texto que escribes se envía a CartoCiudad (IGN) para obtener sus '
                   'coordenadas. El último lugar elegido a mano se guarda solo en el teléfono.\n'
+                  '• La app abre Google Maps solo cuando pulsas «Cómo llegar»; le entrega el destino de la farmacia.\n'
                   '• Sin registro, sin publicidad, sin analítica y sin identificadores de seguimiento.',
                 ),
               ),

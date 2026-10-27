@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -23,7 +25,12 @@ class HomePage extends StatefulWidget {
   /// Reloj inyectable para tests (por defecto, la hora actual).
   final DateTime Function()? reloj;
 
-  const HomePage({super.key, required this.repositorio, this.ubicacionInicial, this.reloj});
+  const HomePage({
+    super.key,
+    required this.repositorio,
+    this.ubicacionInicial,
+    this.reloj,
+  });
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -34,9 +41,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   String? _errorUbicacion;
   bool _buscandoGps = false;
   Vista _vista = Vista.ahora;
-  DateTime? _fechaElegida; // día de Madrid elegido en el calendario (Vista.fecha)
+  DateTime?
+  _fechaElegida; // día de Madrid elegido en el calendario (Vista.fecha)
   bool _verMapa = false;
   Future<ResultadoGuardias>? _consulta;
+  Timer? _refreshTimer;
+  int _queryGeneration = 0;
+  bool _foreground = true;
 
   DateTime _ahora() => (widget.reloj ?? DateTime.now)();
 
@@ -53,14 +64,17 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void dispose() {
+    _refreshTimer?.cancel();
+    _queryGeneration++;
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    // Al volver a la app horas después, "Ahora" debe recalcularse.
-    if (state == AppLifecycleState.resumed && _ubicacion != null) {
+    _foreground = state == AppLifecycleState.resumed;
+    _refreshTimer?.cancel();
+    if (_foreground && _ubicacion != null) {
       setState(_consultar);
     }
   }
@@ -76,13 +90,17 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       _fijarUbicacion(u);
     } catch (e) {
       if (!mounted) return;
-      final error = e is ErrorUbicacion ? e.mensaje : 'No se pudo obtener la ubicación.';
+      final error = e is ErrorUbicacion
+          ? e.mensaje
+          : 'No se pudo obtener la ubicación.';
       // Sin GPS, se vuelve al último lugar elegido a mano (si lo hay).
       final ultimo = _ubicacion == null ? await leerUltimoLugar() : null;
       if (!mounted) return;
       if (ultimo != null) {
         _fijarUbicacion(ultimo);
-        ScaffoldMessenger.maybeOf(context)?.showSnackBar(SnackBar(content: Text('$error Se muestra ${ultimo.etiqueta}.')));
+        ScaffoldMessenger.maybeOf(context)?.showSnackBar(
+          SnackBar(content: Text('$error Se muestra ${ultimo.etiqueta}.')),
+        );
       } else {
         setState(() => _errorUbicacion = error);
       }
@@ -101,19 +119,58 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   void _consultar() {
+    _refreshTimer?.cancel();
+    final generation = ++_queryGeneration;
     final u = _ubicacion;
     if (u == null) return;
     final ahora = _ahora();
     // "Hoy" es el día natural de España peninsular, aunque el teléfono esté en otra zona.
     final m = enMadrid(ahora);
     final hoy = DateTime(m.year, m.month, m.day);
-    _consulta = switch (_vista) {
+    final query = switch (_vista) {
       Vista.ahora => widget.repositorio.ahora(u.lat, u.lon, ahora),
       Vista.hoy => widget.repositorio.dia(u.lat, u.lon, hoy),
-      Vista.manana => widget.repositorio.dia(u.lat, u.lon, DateTime(hoy.year, hoy.month, hoy.day + 1)),
-      Vista.pasado => widget.repositorio.dia(u.lat, u.lon, DateTime(hoy.year, hoy.month, hoy.day + 2)),
+      Vista.manana => widget.repositorio.dia(
+        u.lat,
+        u.lon,
+        DateTime(hoy.year, hoy.month, hoy.day + 1),
+      ),
+      Vista.pasado => widget.repositorio.dia(
+        u.lat,
+        u.lon,
+        DateTime(hoy.year, hoy.month, hoy.day + 2),
+      ),
       Vista.fecha => widget.repositorio.dia(u.lat, u.lon, _fechaElegida ?? hoy),
     };
+    _consulta = query.then(
+      (result) {
+        if (mounted &&
+            generation == _queryGeneration &&
+            _vista == Vista.ahora &&
+            _foreground) {
+          _scheduleRefresh(result.proximoCambio);
+        }
+        return result;
+      },
+      onError: (Object error, StackTrace stack) {
+        if (mounted &&
+            generation == _queryGeneration &&
+            _vista == Vista.ahora &&
+            _foreground) {
+          _scheduleRefresh(null);
+        }
+        Error.throwWithStackTrace(error, stack);
+      },
+    );
+  }
+
+  void _scheduleRefresh(DateTime? next) {
+    // Respaldo para datos agotados o una API anterior que no publique el próximo cambio.
+    var delay = next?.difference(_ahora()) ?? const Duration(minutes: 1);
+    if (delay <= Duration.zero) delay = const Duration(seconds: 1);
+    _refreshTimer = Timer(delay, () {
+      if (mounted && _foreground && _vista == Vista.ahora) setState(_consultar);
+    });
   }
 
   Future<void> _elegirFecha() async {
@@ -122,7 +179,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     final f = await showDatePicker(
       context: context,
       // Si la app lleva días abierta, la fecha elegida puede haber quedado antes del primer día.
-      initialDate: (_fechaElegida == null || _fechaElegida!.isBefore(DateTime(hoy.year, hoy.month, hoy.day - 31)))
+      initialDate:
+          (_fechaElegida == null ||
+              _fechaElegida!.isBefore(
+                DateTime(hoy.year, hoy.month, hoy.day - 31),
+              ))
           ? hoy
           : _fechaElegida!,
       firstDate: DateTime(hoy.year, hoy.month, hoy.day - 31),
@@ -138,11 +199,21 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   void _abrirCobertura() {
-    Navigator.push(context, MaterialPageRoute(builder: (_) => CoberturaPage(repositorio: widget.repositorio)));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => CoberturaPage(repositorio: widget.repositorio),
+      ),
+    );
   }
 
   void _abrirAcercaDe() {
-    Navigator.push(context, MaterialPageRoute(builder: (_) => AcercaDePage(repositorio: widget.repositorio)));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => AcercaDePage(repositorio: widget.repositorio),
+      ),
+    );
   }
 
   Future<void> _elegirLugar() async {
@@ -168,9 +239,15 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           IconButton(
             tooltip: _verMapa ? 'Ver lista' : 'Ver mapa',
             icon: Icon(_verMapa ? Icons.list : Icons.map_outlined),
-            onPressed: u == null ? null : () => setState(() => _verMapa = !_verMapa),
+            onPressed: u == null
+                ? null
+                : () => setState(() => _verMapa = !_verMapa),
           ),
-          IconButton(tooltip: 'Elegir fecha', icon: const Icon(Icons.calendar_month_outlined), onPressed: _elegirFecha),
+          IconButton(
+            tooltip: 'Elegir fecha',
+            icon: const Icon(Icons.calendar_month_outlined),
+            onPressed: _elegirFecha,
+          ),
           PopupMenuButton<String>(
             tooltip: 'Más opciones',
             onSelected: (v) => switch (v) {
@@ -180,8 +257,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             },
             itemBuilder: (_) => const [
               PopupMenuItem(value: 'lugar', child: Text('Elegir lugar')),
-              PopupMenuItem(value: 'cobertura', child: Text('¿Dónde funciona?')),
-              PopupMenuItem(value: 'acerca', child: Text('Fuentes y privacidad')),
+              PopupMenuItem(
+                value: 'cobertura',
+                child: Text('¿Dónde funciona?'),
+              ),
+              PopupMenuItem(
+                value: 'acerca',
+                child: Text('Fuentes y privacidad'),
+              ),
             ],
           ),
         ],
@@ -191,23 +274,26 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           _barraUbicacion(u),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-            child: SegmentedButton<Vista>(
-              showSelectedIcon: false,
-              emptySelectionAllowed: true,
-              segments: const [
-                ButtonSegment(value: Vista.ahora, label: Text('Ahora')),
-                ButtonSegment(value: Vista.hoy, label: Text('Hoy')),
-                ButtonSegment(value: Vista.manana, label: Text('Mañana')),
-                ButtonSegment(value: Vista.pasado, label: Text('Pasado')),
+            child: Wrap(
+              spacing: 8,
+              runSpacing: 4,
+              children: [
+                for (final (view, label) in [
+                  (Vista.ahora, 'Ahora'),
+                  (Vista.hoy, 'Hoy'),
+                  (Vista.manana, 'Mañana'),
+                  (Vista.pasado, 'Pasado'),
+                ])
+                  ChoiceChip(
+                    showCheckmark: false,
+                    label: Text(label),
+                    selected: _vista == view,
+                    onSelected: (_) => setState(() {
+                      _vista = view;
+                      _consultar();
+                    }),
+                  ),
               ],
-              selected: _vista == Vista.fecha ? const {} : {_vista},
-              onSelectionChanged: (s) {
-                if (s.isEmpty) return; // pulsar la pestaña activa no la deselecciona
-                setState(() {
-                  _vista = s.first;
-                  _consultar();
-                });
-              },
             ),
           ),
           if (_vista == Vista.fecha && _fechaElegida != null)
@@ -215,7 +301,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: InputChip(
                 avatar: const Icon(Icons.event, size: 18),
-                label: Text(DateFormat("EEEE d 'de' MMMM 'de' y", 'es_ES').format(_fechaElegida!)),
+                label: Text(
+                  DateFormat(
+                    "EEEE d 'de' MMMM 'de' y",
+                    'es_ES',
+                  ).format(_fechaElegida!),
+                ),
                 onPressed: _elegirFecha,
                 deleteButtonTooltipMessage: 'Quitar fecha',
                 onDeleted: () => setState(() {
@@ -237,10 +328,21 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       child: ListTile(
         dense: true,
         leading: _buscandoGps
-            ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2))
+            ? const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              )
             : Icon(u?.esGps == true ? Icons.my_location : Icons.place),
-        title: Text(_buscandoGps ? 'Buscando tu ubicación…' : (u?.etiqueta ?? 'Sin ubicación')),
-        trailing: TextButton(onPressed: _elegirLugar, child: const Text('Cambiar')),
+        title: Text(
+          _buscandoGps
+              ? 'Buscando tu ubicación…'
+              : (u?.etiqueta ?? 'Sin ubicación'),
+        ),
+        trailing: TextButton(
+          onPressed: _elegirLugar,
+          child: const Text('Cambiar'),
+        ),
       ),
     );
   }
@@ -254,11 +356,20 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           children: [
             const Icon(Icons.location_off_outlined, size: 48),
             const SizedBox(height: 12),
-            Text(_errorUbicacion ?? 'Necesito tu ubicación para buscar la farmacia de guardia más cercana.',
-                textAlign: TextAlign.center),
+            Text(
+              _errorUbicacion ?? 'Necesito tu ubicación para buscar la farmacia de guardia más cercana.',
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: 16),
-            FilledButton.icon(onPressed: _usarGps, icon: const Icon(Icons.my_location), label: const Text('Usar GPS')),
-            TextButton(onPressed: _elegirLugar, child: const Text('Elegir un lugar')),
+            FilledButton.icon(
+              onPressed: _usarGps,
+              icon: const Icon(Icons.my_location),
+              label: const Text('Usar GPS'),
+            ),
+            TextButton(
+              onPressed: _elegirLugar,
+              child: const Text('Elegir un lugar'),
+            ),
           ],
         ),
       ),
@@ -273,29 +384,41 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           return const Center(child: CircularProgressIndicator());
         }
         if (snap.hasError) {
-          return _aviso(Icons.cloud_off, 'No se han podido cargar los datos', '${snap.error}');
+          return _aviso(
+            Icons.cloud_off,
+            'No se han podido cargar los datos',
+            '${snap.error}',
+          );
         }
         final r = snap.data!;
         if (!r.cobertura) {
-          return _aviso(Icons.travel_explore, r.mensaje ?? 'Sin datos oficiales para esta zona',
-              'La app solo muestra turnos oficiales publicados. Iremos añadiendo zonas a medida que las '
-                  'administraciones publiquen sus datos.',
-              accion: TextButton.icon(
-                icon: const Icon(Icons.public),
-                label: const Text('¿Dónde funciona?'),
-                onPressed: _abrirCobertura,
-              ));
+          return _aviso(
+            Icons.travel_explore,
+            r.mensaje ?? 'Sin datos oficiales para esta zona',
+            'La app solo muestra turnos oficiales publicados. Iremos añadiendo zonas a medida que las '
+            'administraciones publiquen sus datos.',
+            accion: TextButton.icon(
+              icon: const Icon(Icons.public),
+              label: const Text('¿Dónde funciona?'),
+              onPressed: _abrirCobertura,
+            ),
+          );
         }
         if (_verMapa) {
           return MapaGuardias(
             ubicacion: u,
             guardias: r.guardias,
-            aviso: r.aviso ?? (r.guardias.isEmpty ? (r.mensaje ?? 'Sin datos oficiales para esta fecha') : null),
+            aviso:
+                r.aviso ??
+                (r.guardias.isEmpty
+                    ? (r.mensaje ?? 'Sin datos oficiales para esta fecha')
+                    : null),
           );
         }
         final fuentes = {
           for (final g in r.guardias)
-            if (g.farmacia.fuente != null) '${g.farmacia.fuente!.editor} (${g.farmacia.fuente!.licencia})',
+            if (g.farmacia.fuente != null)
+              '${g.farmacia.fuente!.editor} (${g.farmacia.fuente!.licencia})',
         };
         final pie = Padding(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
@@ -316,14 +439,17 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 child: ListTile(
                   leading: const Icon(Icons.info_outline),
                   title: Text(r.aviso!),
-                  subtitle: const Text('Antes de desplazarte, llama a las farmacias de tu localidad.'),
+                  subtitle: const Text(
+                    'Antes de desplazarte, llama a las farmacias de tu localidad.',
+                  ),
                 ),
               );
         if (r.guardias.isEmpty) {
           final mensaje = r.mensaje ?? 'Sin datos oficiales para esta fecha';
           final String detalle;
           if (r.aviso != null) {
-            detalle = '${r.aviso!} Antes de desplazarte, llama a las farmacias de tu localidad.';
+            detalle =
+                '${r.aviso!} Antes de desplazarte, llama a las farmacias de tu localidad.';
           } else if (mensaje.startsWith('Aún no')) {
             detalle = 'La fuente oficial todavía no ha publicado los turnos de esa fecha.';
           } else if (mensaje.startsWith('No tenemos')) {
@@ -331,24 +457,20 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           } else {
             detalle = 'La fuente oficial no asigna farmacia de guardia en tu zona para este momento.';
           }
-          return ListView(children: [_aviso(Icons.event_busy, mensaje, detalle), pie]);
+          return ListView(
+            children: [
+              _aviso(Icons.event_busy, mensaje, detalle),
+              if (r.numeroSinCoordenadas > 0) _unlocatedNotice(r),
+              pie,
+            ],
+          );
         }
         return ListView(
           children: [
             ?aviso,
-            for (final g in r.guardias) GuardiaCard(guardia: g, ahora: _ahora()),
-            if (r.sinCoordenadas.isNotEmpty)
-              Card(
-                margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                child: ExpansionTile(
-                  leading: const Icon(Icons.not_listed_location_outlined),
-                  title: Text('${r.sinCoordenadas.length} de guardia en tu zona sin situar en el mapa'),
-                  children: [
-                    for (final f in r.sinCoordenadas)
-                      ListTile(title: Text(f.titular), subtitle: Text(f.direccion), trailing: f.telefonoParaLlamar == null ? null : Text(f.telefonoParaLlamar!)),
-                  ],
-                ),
-              ),
+            for (final g in r.guardias)
+              GuardiaCard(guardia: g, ahora: _ahora()),
+            if (r.numeroSinCoordenadas > 0) _unlocatedNotice(r),
             pie,
           ],
         );
@@ -356,12 +478,44 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     );
   }
 
+  Widget _unlocatedNotice(ResultadoGuardias r) => Card(
+    margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+    child: r.sinCoordenadas.isEmpty
+        ? ListTile(
+            leading: const Icon(Icons.not_listed_location_outlined),
+            title: Text(
+              '${r.numeroSinCoordenadas} de guardia en tu zona sin situar en el mapa',
+            ),
+          )
+        : ExpansionTile(
+            leading: const Icon(Icons.not_listed_location_outlined),
+            title: Text(
+              '${r.numeroSinCoordenadas} de guardia en tu zona sin situar en el mapa',
+            ),
+            children: [
+              for (final f in r.sinCoordenadas)
+                ListTile(
+                  title: Text(f.titular),
+                  subtitle: Text(f.direccion),
+                  trailing: f.telefonoParaLlamar == null
+                      ? null
+                      : Text(f.telefonoParaLlamar!),
+                ),
+            ],
+          ),
+  );
+
   String _fechaCorta(DateTime d) {
     final m = enMadrid(d);
     return '${m.day}/${m.month}/${m.year}';
   }
 
-  Widget _aviso(IconData icono, String titulo, String detalle, {Widget? accion}) {
+  Widget _aviso(
+    IconData icono,
+    String titulo,
+    String detalle, {
+    Widget? accion,
+  }) {
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -369,7 +523,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         children: [
           Icon(icono, size: 48),
           const SizedBox(height: 12),
-          Text(titulo, style: Theme.of(context).textTheme.titleMedium, textAlign: TextAlign.center),
+          Text(
+            titulo,
+            style: Theme.of(context).textTheme.titleMedium,
+            textAlign: TextAlign.center,
+          ),
           const SizedBox(height: 8),
           Text(detalle, textAlign: TextAlign.center),
           if (accion != null) ...[const SizedBox(height: 8), accion],

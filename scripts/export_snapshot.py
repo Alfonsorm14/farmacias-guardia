@@ -20,11 +20,14 @@ Uso:
 from __future__ import annotations
 
 import argparse
+from contextlib import closing
 import datetime
 import json
 import os
 import sqlite3
 import sys
+import tempfile
+from pathlib import Path
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
@@ -41,19 +44,80 @@ def _minutes(value: str) -> int:
     return int(dt.timestamp() // 60)
 
 
+def _validate_rows(sources: list, pharmacies: list, shifts: list) -> None:
+    """Rechaza una extracción vacía o incoherente antes de preparar el destino."""
+    for rows, key in ((sources, "source_id"), (pharmacies, "id"), (shifts, "id")):
+        if not rows:
+            raise ValueError("La instantánea requiere fuentes, farmacias y turnos no vacíos")
+        ids = [r[key] for r in rows]
+        if any(value is None or value == "" for value in ids) or len(set(ids)) != len(ids):
+            raise ValueError(f"Identificadores vacíos o duplicados: {key}")
+    source_ids = {r["source_id"] for r in sources}
+    pharmacy_sources = {r["id"]: r["source_id"] for r in pharmacies}
+    if any(sid not in source_ids for sid in pharmacy_sources.values()):
+        raise ValueError("Farmacia con fuente inexistente")
+    for r in shifts:
+        if (r["pharmacy_id"] not in pharmacy_sources or r["source_id"] not in source_ids
+                or pharmacy_sources[r["pharmacy_id"]] != r["source_id"]):
+            raise ValueError("Turno con farmacia o fuente incoherente")
+        if not isinstance(r["zone"], str) or not r["zone"].strip():
+            raise ValueError("Turno sin zona")
+        if r["kind"] not in KINDS or r["times_exact"] not in (0, 1):
+            raise ValueError("Tipo de turno o confirmación de horario inválidos")
+        # El formato compacto usa minutos: una duración subminuto tampoco es publicable.
+        if _minutes(r["end_utc"]) <= _minutes(r["start_utc"]):
+            raise ValueError("Turno de duración no positiva en la instantánea")
+
+
+def _validate_indices(data: dict) -> None:
+    """Comprueba las referencias del formato compacto que recibirá la app."""
+    def valid(value: int, rows: list) -> bool:
+        return type(value) is int and 0 <= value < len(rows)
+
+    if any(not valid(p[9], data["sources"]) for p in data["pharmacies"]):
+        raise ValueError("Índice de fuente fuera de rango")
+    for t in data["shifts"]:
+        if not valid(t[0], data["pharmacies"]) or not valid(t[1], data["zones"]):
+            raise ValueError("Índice de farmacia o zona fuera de rango")
+        if t[3] <= t[2]:
+            raise ValueError("Duración no positiva en el formato compacto")
+
+
+def _write_atomic(data: dict, out_path: str) -> None:
+    target = Path(out_path).absolute()
+    target.parent.mkdir(parents=True, exist_ok=True)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=target.parent,
+                                         prefix=f".{target.name}.", suffix=".tmp", delete=False) as fh:
+            temporary = Path(fh.name)
+            json.dump(data, fh, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
+            fh.flush()
+            os.fsync(fh.fileno())
+        os.replace(temporary, target)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+
 def export(db_path: str, out_path: str) -> dict[str, int]:
-    conn = sqlite3.connect(db_path)
-    conn.row_factory = sqlite3.Row
-    sources = conn.execute(
-        "SELECT source_id, publisher, url, license, retrieved_at FROM sources ORDER BY source_id"
-    ).fetchall()
+    # Solo lectura: una ruta errónea no debe crear una base vacía. La transacción mantiene
+    # una vista coherente de las tres tablas aunque otro proceso actualice la base.
+    uri = Path(db_path).resolve().as_uri() + "?mode=ro"
+    with closing(sqlite3.connect(uri, uri=True)) as conn:
+        conn.row_factory = sqlite3.Row
+        conn.execute("BEGIN")
+        sources = conn.execute(
+            "SELECT source_id, publisher, url, license, retrieved_at FROM sources ORDER BY source_id"
+        ).fetchall()
+        pharmacies = conn.execute("SELECT * FROM pharmacies ORDER BY id").fetchall()
+        shifts = conn.execute(
+            "SELECT id, pharmacy_id, source_id, zone, start_utc, end_utc, kind, times_exact FROM shifts "
+            "ORDER BY start_utc, pharmacy_id"
+        ).fetchall()
+    _validate_rows(sources, pharmacies, shifts)
     source_index = {row["source_id"]: i for i, row in enumerate(sources)}
-    pharmacies = conn.execute("SELECT * FROM pharmacies ORDER BY id").fetchall()
     pharmacy_index = {row["id"]: i for i, row in enumerate(pharmacies)}
-    shifts = conn.execute(
-        "SELECT pharmacy_id, zone, start_utc, end_utc, kind, times_exact FROM shifts "
-        "ORDER BY start_utc, pharmacy_id"
-    ).fetchall()
     zones = sorted({row["zone"] for row in shifts})
     zone_index = {z: i for i, z in enumerate(zones)}
 
@@ -85,15 +149,13 @@ def export(db_path: str, out_path: str) -> dict[str, int]:
             [
                 pharmacy_index[r["pharmacy_id"]], zone_index[r["zone"]],
                 _minutes(r["start_utc"]), _minutes(r["end_utc"]),
-                KINDS.get(r["kind"], r["kind"]), 1 if r["times_exact"] else 0,
+                KINDS[r["kind"]], 1 if r["times_exact"] else 0,
             ]
             for r in shifts
         ],
     }
-    os.makedirs(os.path.dirname(out_path), exist_ok=True)
-    with open(out_path, "w", encoding="utf-8") as fh:
-        json.dump(data, fh, ensure_ascii=False, separators=(",", ":"))
-    conn.close()
+    _validate_indices(data)
+    _write_atomic(data, out_path)
     return {"farmacias": len(pharmacies), "turnos": len(shifts), "zonas": len(zones)}
 
 
