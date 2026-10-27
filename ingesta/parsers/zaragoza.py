@@ -43,8 +43,10 @@ def _times(day, horario: str) -> tuple[datetime, datetime, str, bool]:
         return start, start + timedelta(days=1), "24h", False
     h1, m1 = int(match.group(1)), int(match.group(2) or 0)
     h2, m2 = int(match.group(3)), int(match.group(4) or 0)
-    start = datetime.combine(day, time(h1 % 24, m1), TZ)
-    next_day = "siguiente" in (horario or "").lower() or (h2, m2) <= (h1, m1)
+    if h1 > 23 or h2 > 24 or m1 > 59 or m2 > 59 or (h2 == 24 and m2 != 0):
+        raise ValueError("Horario fuera de rango")
+    start = datetime.combine(day, time(h1, m1), TZ)
+    next_day = h2 == 24 or "siguiente" in (horario or "").lower() or (h2, m2) <= (h1, m1)
     end = datetime.combine(day + timedelta(days=1 if next_day else 0), time(h2 % 24, m2), TZ)
     if next_day and (h1, m1) == (h2, m2):
         kind = "24h"
@@ -99,7 +101,11 @@ def parse_dir(path: str, retrieved_at: datetime | None = None) -> ParseResult:
                 phone=phone if len(phone) == 9 else None,
                 duty_phone=None,
             )
-            start, end, kind, exact = _times(day, g.get("horario", ""))
+            try:
+                start, end, kind, exact = _times(day, g.get("horario", ""))
+            except ValueError:
+                warnings.append(f"{os.path.basename(file)}: HORARIO_INVALIDO {pid}: {g.get('horario')}")
+                continue
             if not exact:
                 warnings.append(f"{os.path.basename(file)}: HORARIO_NO_RECONOCIDO {pid}: {g.get('horario')}")
             file_days.setdefault(day.isoformat(), []).append(DutyShift(

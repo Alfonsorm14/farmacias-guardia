@@ -192,14 +192,23 @@ def _parse_at(at: str | None) -> datetime.datetime:
         return datetime.datetime.now(datetime.timezone.utc)
     try:
         dt = datetime.datetime.fromisoformat(at)
-    except ValueError:
+        if dt.tzinfo is None:
+            # Una hora repetida o inexistente necesita un offset explícito.
+            candidates = {
+                dt.replace(tzinfo=MADRID_TZ, fold=fold).astimezone(datetime.timezone.utc)
+                for fold in (0, 1)
+                if dt.replace(tzinfo=MADRID_TZ, fold=fold)
+                .astimezone(datetime.timezone.utc).astimezone(MADRID_TZ).replace(tzinfo=None) == dt
+            }
+            if len(candidates) != 1:
+                raise ValueError("Hora local ambigua o inexistente")
+            return candidates.pop()
+        return dt.astimezone(datetime.timezone.utc)
+    except (ValueError, OverflowError):
         raise HTTPException(
             status_code=400,
-            detail="Formato de 'at' inválido. Use ISO 8601 (ej. 2026-10-18T23:00:00+02:00)",
+            detail="Instante 'at' inválido. Use ISO 8601 con offset (ej. 2026-10-25T02:30:00+02:00)",
         )
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=MADRID_TZ)
-    return dt.astimezone(datetime.timezone.utc)
 
 
 def _municipal_boxes(db: Session) -> dict[str, Box]:
@@ -487,11 +496,11 @@ def _query_guardias(
 
 @app.get("/v1/guardias")
 def get_guardias(
-    lat: float = Query(..., description="Latitud de consulta (WGS84)"),
-    lon: float = Query(..., description="Longitud de consulta (WGS84)"),
+    lat: float = Query(..., ge=-90, le=90, allow_inf_nan=False, description="Latitud de consulta (WGS84)"),
+    lon: float = Query(..., ge=-180, le=180, allow_inf_nan=False, description="Longitud de consulta (WGS84)"),
     at: str | None = Query(None, description="Instante ISO 8601 (por defecto ahora)"),
-    radius_km: float = Query(25.0, description="Radio de búsqueda en km"),
-    limit: int = Query(20, description="Límite máximo de resultados"),
+    radius_km: float = Query(25.0, gt=0, le=500, allow_inf_nan=False, description="Radio de búsqueda en km"),
+    limit: int = Query(20, ge=1, le=500, description="Límite máximo de resultados"),
     db: Session = Depends(get_db),
 ) -> dict[str, Any]:
     """Farmacias de guardia en el instante 'at' ordenadas por distancia."""
@@ -501,11 +510,11 @@ def get_guardias(
 
 @app.get("/v1/guardias/dia")
 def get_guardias_dia(
-    lat: float = Query(..., description="Latitud de consulta (WGS84)"),
-    lon: float = Query(..., description="Longitud de consulta (WGS84)"),
+    lat: float = Query(..., ge=-90, le=90, allow_inf_nan=False, description="Latitud de consulta (WGS84)"),
+    lon: float = Query(..., ge=-180, le=180, allow_inf_nan=False, description="Longitud de consulta (WGS84)"),
     fecha: str = Query(..., description="Fecha en formato YYYY-MM-DD"),
-    radius_km: float = Query(25.0, description="Radio de búsqueda en km"),
-    limit: int = Query(500, description="Límite máximo de resultados"),
+    radius_km: float = Query(25.0, gt=0, le=500, allow_inf_nan=False, description="Radio de búsqueda en km"),
+    limit: int = Query(500, ge=1, le=500, description="Límite máximo de resultados"),
     db: Session = Depends(get_db),
 ) -> dict[str, Any]:
     """Turnos de guardia que se solapan con el día natural en Europe/Madrid."""

@@ -1427,7 +1427,7 @@ def _osm_pharmacy(
         return None  # resultados truncados: la otra farmacia de la vía podría no aparecer
     same_street = [
         it for it in found
-        if (it.get("type") == "pharmacy" or it.get("class") in ("amenity", "shop"))
+        if (it.get("type") == "pharmacy" and it.get("class") in ("amenity", "shop"))
         and osm_street_match(core, (it.get("address") or {}).get("road") or "")
     ]
     if len(same_street) != 1:
