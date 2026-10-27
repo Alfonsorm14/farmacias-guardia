@@ -88,7 +88,9 @@ class Cobertura {
   });
 
   /// Hay turnos publicados para hoy o más adelante.
-  bool vigenteEn(DateTime ahora) => hasta != null && !hasta!.isBefore(ahora.subtract(const Duration(days: 1)));
+  bool vigenteEn(DateTime ahora) =>
+      hasta != null &&
+      !hasta!.isBefore(ahora.subtract(const Duration(days: 1)));
 
   /// Solo una parte de las zonas tiene turnos publicados para estas fechas (Murcia).
   bool get parcial => zonasConTurnos < zonas;
@@ -143,7 +145,8 @@ class Turno {
     required this.horarioConfirmado,
   });
 
-  bool activoEn(DateTime instante) => !instante.isBefore(inicio) && instante.isBefore(fin);
+  bool activoEn(DateTime instante) =>
+      !instante.isBefore(inicio) && instante.isBefore(fin);
 }
 
 class Guardia {
@@ -151,7 +154,11 @@ class Guardia {
   final Turno turno;
   final double distanciaKm;
 
-  const Guardia({required this.farmacia, required this.turno, required this.distanciaKm});
+  const Guardia({
+    required this.farmacia,
+    required this.turno,
+    required this.distanciaKm,
+  });
 }
 
 /// Resultado de una consulta: cobertura, mensaje y guardias ordenadas.
@@ -165,6 +172,13 @@ class ResultadoGuardias {
 
   /// Farmacias de guardia en la zona que no se han podido situar en el mapa.
   final List<Farmacia> sinCoordenadas;
+  final int? totalSinCoordenadas;
+
+  /// La API puede comunicar solo el total, sin fichas individuales.
+  int get numeroSinCoordenadas => totalSinCoordenadas ?? sinCoordenadas.length;
+
+  /// Próximo inicio o fin de turno que puede cambiar el resultado de «Ahora».
+  final DateTime? proximoCambio;
 
   /// Inicio del último turno publicado por las fuentes de la zona (el día hasta el que hay turnos).
   final DateTime? datosHasta;
@@ -178,6 +192,8 @@ class ResultadoGuardias {
     required this.guardias,
     this.mensaje,
     this.sinCoordenadas = const [],
+    this.totalSinCoordenadas,
+    this.proximoCambio,
     this.datosHasta,
     this.aviso,
   });

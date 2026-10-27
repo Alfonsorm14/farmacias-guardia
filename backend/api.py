@@ -262,7 +262,7 @@ def _nearby_pharmacies(
 
 def _published_period(
     db: Session, source_ids: set[str]
-) -> dict[str, tuple[datetime.datetime, datetime.datetime]]:
+) -> dict[str, tuple[datetime.datetime, datetime.datetime, datetime.datetime]]:
     """(primer inicio, último fin, último inicio) de los turnos publicados por cada fuente."""
     if not source_ids:
         return {}
@@ -296,6 +296,17 @@ def _pharmacy_zones(pharmacy: Pharmacy) -> set[str]:
     return set(zs) if isinstance(zs, list) else set()
 
 
+def _eligible_shifts(instant: bool) -> tuple:
+    """La misma elegibilidad para lista, conteo y próximos cambios."""
+    return (~((Shift.kind == "diurna") & Shift.times_exact.is_(False)),) if instant else ()
+
+
+def _shift_overlap(start: datetime.datetime, end: datetime.datetime) -> tuple:
+    if start == end:
+        return (Shift.start_utc <= start, Shift.end_utc > start, *_eligible_shifts(True))
+    return (Shift.start_utc < end, Shift.end_utc > start)
+
+
 def _count_unlocated(
     db: Session, nearby: dict[str, tuple[Pharmacy, float]], start: datetime.datetime, end: datetime.datetime
 ) -> int:
@@ -305,17 +316,27 @@ def _count_unlocated(
         nearby_zones |= _pharmacy_zones(p)
     if not nearby_zones:
         return 0
-    if start == end:
-        overlap = (Shift.start_utc <= start, Shift.end_utc > start)
-    else:
-        overlap = (Shift.start_utc < end, Shift.end_utc > start)
-    unlocated = db.scalars(
-        select(Pharmacy)
+    return db.scalar(
+        select(func.count(func.distinct(Pharmacy.id)))
         .join(Shift, Shift.pharmacy_id == Pharmacy.id)
-        .where((Pharmacy.lat.is_(None) | Pharmacy.lon.is_(None)), *overlap)
-        .distinct()
-    ).all()
-    return sum(1 for up in unlocated if _pharmacy_zones(up) & nearby_zones)
+        .where((Pharmacy.lat.is_(None) | Pharmacy.lon.is_(None)),
+               Shift.zone.in_(nearby_zones), *_shift_overlap(start, end))
+    ) or 0
+
+
+def _next_change(db: Session, nearby: dict[str, tuple[Pharmacy, float]], at: datetime.datetime) -> str | None:
+    """Primer inicio o fin futuro que puede cambiar la lista o el conteo local."""
+    zones = {z for p, _ in nearby.values() for z in _pharmacy_zones(p)}
+    local = (Shift.pharmacy_id.in_(list(nearby)) | (
+        (Pharmacy.lat.is_(None) | Pharmacy.lon.is_(None)) & Shift.zone.in_(zones)
+    ))
+    boundaries = []
+    for column in (Shift.start_utc, Shift.end_utc):
+        value = db.scalar(select(func.min(column)).join(Pharmacy, Shift.pharmacy_id == Pharmacy.id)
+                          .where(local, column > at, *_eligible_shifts(True)))
+        if value is not None:
+            boundaries.append(_as_utc(value))
+    return to_madrid_iso(min(boundaries)) if boundaries else None
 
 
 def _zone_notice(
@@ -441,15 +462,7 @@ def _query_guardias(
     unlocated = _count_unlocated(db, nearby, start, end)
     aviso = _zone_notice(db, nearby, start, end, instant) if covered else None
 
-    if instant:
-        # Urgencia diurna sin horario publicado (Murcia): solo en la vista de día, no "ahora".
-        overlap = (
-            Shift.start_utc <= start,
-            Shift.end_utc > start,
-            ~((Shift.kind == "diurna") & (Shift.times_exact.is_(False))),
-        )
-    else:
-        overlap = (Shift.start_utc < end, Shift.end_utc > start)
+    overlap = _shift_overlap(start, end)
     rows = db.execute(
         select(Shift, Source)
         .join(Source, Shift.source_id == Source.source_id)
@@ -489,6 +502,7 @@ def _query_guardias(
         "mensaje": mensaje,
         "aviso": aviso,
         "farmacias_sin_coordenadas": unlocated,
+        "proximo_cambio": _next_change(db, nearby, start) if instant else None,
         "datos_hasta": to_madrid_iso(published_until) if published_until else None,
         "guardias": items[:limit],
     }
@@ -500,7 +514,7 @@ def get_guardias(
     lon: float = Query(..., ge=-180, le=180, allow_inf_nan=False, description="Longitud de consulta (WGS84)"),
     at: str | None = Query(None, description="Instante ISO 8601 (por defecto ahora)"),
     radius_km: float = Query(25.0, gt=0, le=500, allow_inf_nan=False, description="Radio de búsqueda en km"),
-    limit: int = Query(20, ge=1, le=500, description="Límite máximo de resultados"),
+    limit: int = Query(20, ge=1, le=10000, description="Límite máximo de resultados"),
     db: Session = Depends(get_db),
 ) -> dict[str, Any]:
     """Farmacias de guardia en el instante 'at' ordenadas por distancia."""
@@ -514,7 +528,7 @@ def get_guardias_dia(
     lon: float = Query(..., ge=-180, le=180, allow_inf_nan=False, description="Longitud de consulta (WGS84)"),
     fecha: str = Query(..., description="Fecha en formato YYYY-MM-DD"),
     radius_km: float = Query(25.0, gt=0, le=500, allow_inf_nan=False, description="Radio de búsqueda en km"),
-    limit: int = Query(500, ge=1, le=500, description="Límite máximo de resultados"),
+    limit: int = Query(500, ge=1, le=10000, description="Límite máximo de resultados"),
     db: Session = Depends(get_db),
 ) -> dict[str, Any]:
     """Turnos de guardia que se solapan con el día natural en Europe/Madrid."""

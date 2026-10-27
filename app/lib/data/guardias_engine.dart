@@ -247,6 +247,8 @@ class GuardiasEngine {
     final guardias = <Guardia>[];
     final zonasCercanas = <int>{};
     final instante = fin == ini;
+    // Predicado compartido por guardias visibles, no situadas y cambios futuros.
+    bool elegible(TurnoIndexado t) => !instante || t.tipo != TipoTurno.diurna || t.exacto;
     cercanas.forEach((idx, d) {
       zonasCercanas.addAll(_zonasPorFarmacia[idx] ?? const {});
       // Una farmacia citada en varios cuadrantes se muestra una vez (como la API): en "Ahora", un
@@ -254,9 +256,7 @@ class GuardiasEngine {
       final grupos = <String, TurnoIndexado>{};
       for (final ti in _turnosPorFarmacia[idx]!) {
         final t = turnos[ti];
-        if (!solapa(t)) continue;
-        // Urgencia diurna sin horario publicado (Murcia): solo en las vistas de día, no en "Ahora".
-        if (instante && t.tipo == TipoTurno.diurna && !t.exacto) continue;
+        if (!solapa(t) || !elegible(t)) continue;
         final clave = instante ? '' : '${t.tipo.index}|${t.inicioMin}';
         final previo = grupos[clave];
         if (previo == null || _puntuacion(idx, t) < _puntuacion(idx, previo)) grupos[clave] = t;
@@ -271,8 +271,21 @@ class GuardiasEngine {
       if (farmacias[i].tieneCoordenadas) continue;
       final ts = _turnosPorFarmacia[i];
       if (ts == null) continue;
-      if (ts.any((ti) => solapa(turnos[ti]) && zonasCercanas.contains(turnos[ti].zona))) {
+      if (ts.any((ti) => elegible(turnos[ti]) && solapa(turnos[ti]) && zonasCercanas.contains(turnos[ti].zona))) {
         sinCoordenadas.add(farmacias[i]);
+      }
+    }
+
+    int? siguiente;
+    if (instante) {
+      for (final t in turnos) {
+        if (!elegible(t)) continue;
+        final local = cercanas.containsKey(t.farmacia) ||
+            (!farmacias[t.farmacia].tieneCoordenadas && zonasCercanas.contains(t.zona));
+        if (!local) continue;
+        for (final boundary in [t.inicioMin, t.finMin]) {
+          if (boundary > ini && (siguiente == null || boundary < siguiente)) siguiente = boundary;
+        }
       }
     }
 
@@ -339,6 +352,7 @@ class GuardiasEngine {
                   : (antesDeLosDatos ? mensajeAnterior : mensajeSinPublicar),
       guardias: guardias,
       sinCoordenadas: sinCoordenadas,
+      proximoCambio: siguiente == null ? null : DateTime.fromMillisecondsSinceEpoch(siguiente * 60000, isUtc: true),
       datosHasta: datosHasta,
       aviso: aviso,
     );

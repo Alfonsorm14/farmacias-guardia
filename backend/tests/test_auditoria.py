@@ -55,7 +55,7 @@ def test_importacion_rechazada_preserva_base(imported, mutation):
 
 @pytest.mark.parametrize('route', ['/v1/guardias', '/v1/guardias/dia'])
 @pytest.mark.parametrize('extra', [{'lat': 'nan'}, {'lon': 'inf'}, {'lat': '91'}, {'lon': '-181'},
-                                  {'radius_km': '-1'}, {'radius_km': 'nan'}, {'limit': '0'}, {'limit': '501'}])
+                                  {'radius_km': '-1'}, {'radius_km': 'nan'}, {'limit': '0'}, {'limit': '10001'}])
 def test_api_rechaza_entradas_antes_de_consultar(route, extra):
     with TestClient(app) as client:
         response = client.get(route, params={'lat': 40, 'lon': -3, 'fecha': '2026-10-25', **extra})
