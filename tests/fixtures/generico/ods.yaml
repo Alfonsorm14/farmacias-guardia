@@ -1,0 +1,63 @@
+# Fuente y datos totalmente inventados. Incluye errores deliberados.
+version: 1
+source:
+  source_id: FICTICIO-ODS
+  publisher: Administración ficticia de pruebas
+  url: https://example.invalid/transparencia
+  license: Datos inventados para tests
+  region: '01'
+  timezone: Europe/Madrid
+  id_prefix: FICTICIO-ODS
+file:
+  type: ods
+  header_row: 1
+  sheet: Calendario ficticio
+columns:
+  holder: Nombre
+  address: Direccion
+  locality: Municipio
+  code: Codigo
+date_formats:
+- '%d/%m/%Y'
+- '%Y-%m-%d'
+time_formats:
+- '%H:%M'
+- '%H:%M:%S'
+normalization:
+  holder:
+  - spaces
+  address:
+  - spaces
+  phone:
+  - digits
+ignore:
+  equals:
+  - column: Nombre
+    value: TOTAL
+coverage:
+  start: 01/11/2026
+  end: 03/11/2026
+  zones:
+  - Zona Inventada Calendario
+defaults:
+  zone: Zona Inventada Calendario
+slots:
+  D:
+    start: 09:00
+    end: '21:00'
+    kind: diurna
+  N:
+    start: '22:00'
+    end: 08:00
+    kind: nocturna
+matrix:
+  dates:
+  - column: 01/11/2026
+    date: 01/11/2026
+  - column: 02/11/2026
+    date: 02/11/2026
+  - column: 03/11/2026
+    date: 03/11/2026
+  markers:
+    D: D
+    N: N

@@ -1,0 +1,48 @@
+# Fuente y datos totalmente inventados. Incluye errores deliberados.
+version: 1
+source:
+  source_id: FICTICIO-XLSX
+  publisher: Administración ficticia de pruebas
+  url: https://example.invalid/transparencia
+  license: Datos inventados para tests
+  region: '01'
+  timezone: Europe/Madrid
+  id_prefix: FICTICIO-XLSX
+file:
+  type: xlsx
+  header_row: 2
+  sheet: Turnos ficticios
+columns:
+  holder: Nombre
+  address: Direccion
+  locality: Municipio
+  postal_code: CP
+  phone: Telefono
+  code: Codigo
+  zone: Zona
+  date: Fecha
+  start: Inicio
+  end: Fin
+  kind: Tipo
+date_formats:
+- '%d/%m/%Y'
+- '%Y-%m-%d'
+time_formats:
+- '%H:%M'
+- '%H:%M:%S'
+normalization:
+  holder:
+  - spaces
+  address:
+  - spaces
+  phone:
+  - digits
+ignore:
+  equals:
+  - column: Nombre
+    value: TOTAL
+coverage:
+  start: 01/11/2026
+  end: 03/11/2026
+  zones:
+  - Zona Inventada Norte

@@ -1,0 +1,75 @@
+# Ejemplo íntegramente ficticio. Copie y adapte solo con información de la respuesta.
+# No descarga esta URL ni busca ningún documento en Internet.
+version: 1
+source:
+  source_id: FICTICIO-EJEMPLO
+  publisher: Administración ficticia de pruebas
+  url: https://example.invalid/transparencia
+  license: Datos inventados para pruebas
+  region: '01'                     # Código INE de CCAA; '18' Ceuta y '19' Melilla.
+  timezone: Europe/Madrid           # Atlantic/Canary para las Islas Canarias.
+  id_prefix: FICTICIO-EJEMPLO        # Estable y exclusivo de esta fuente/provincia.
+
+file:
+  type: xlsx                       # xlsx | ods | csv | pdf; no se deduce de la extensión.
+  sheet: Turnos ficticios           # Nombre exacto o índice base uno; solo XLSX/ODS.
+  header_row: 2                    # Fila física de cabecera (base uno).
+  # CSV, en lugar de sheet: delimiter: ';' y encoding: utf-8-sig
+  # PDF, en lugar de sheet: pages: [1] (base uno; sin pages, todas).
+  # PDF necesita column_starts: [0, 26, 55, 64, 77, 86, 94]. Son índices de
+  # carácter de la salida de pdftotext -layout; no coordenadas geográficas.
+
+columns:                           # Cabecera exacta o posición de columna base uno.
+  holder: Nombre
+  address: Direccion
+  locality: Municipio
+  postal_code: CP
+  phone: Telefono
+  code: Codigo                     # Opcional; puede usarse nif: NIF en su lugar.
+  zone: Zona
+  date: Fecha
+  start: Inicio
+  end: Fin
+  kind: Tipo                       # diurna | nocturna | 24h | localizada | refuerzo
+  # Opcional: duty_phone para un teléfono de guardia distinto.
+
+date_formats: ['%d/%m/%Y', '%Y-%m-%d']  # Se prueban en este orden; fecha completa.
+time_formats: ['%H:%M', '%H:%M:%S']
+normalization:
+  holder: [spaces]                 # Siempre se recortan espacios exteriores.
+  address: [spaces]
+  phone: [digits]                  # Otras: strip, upper, lower, title, normalize.
+# Sustituciones exactas posteriores a la normalización:
+values:
+  kind: {D: diurna, N: nocturna}
+# Solo valores que la respuesta establezca para todas las filas sin ese campo.
+defaults: {}
+# Ejemplo si la respuesta dice expresamente que toda la tabla es de una zona:
+# defaults: {zone: Zona Inventada Norte}
+
+ignore:
+  rows: []                         # Filas físicas; se aplica por hoja/página.
+  equals:                          # Coincidencia exacta, tras recortar exteriores.
+    - {column: Nombre, value: TOTAL}
+
+coverage:                          # Revisar periodo y zonas con la respuesta.
+  start: '01/11/2026'
+  end: '03/11/2026'
+  zones: [Zona Inventada Norte]
+  # Si la respuesta exige continuidad horaria, declarar ambos límites:
+  # daily_start: '09:00'
+  # daily_end: '09:00'              # Igual o anterior: termina al día siguiente.
+
+# Variante con franjas: quite start/end/kind de columns y use slot: Franja.
+# slots:
+#   D: {start: '09:00', end: '21:00', kind: diurna}
+#   N: {start: '22:00', end: '08:00', kind: nocturna}
+# Nunca se interpretan automáticamente etiquetas como «día» o «24 horas».
+# Variante matriz: quite date/slot/start/end/kind de columns y defaults;
+# mantenga slots y añada las columnas con sus fechas y marcas explícitas:
+# matrix:
+#   dates:
+#     - {column: '01/11/2026', date: '01/11/2026'}
+#     - {column: '02/11/2026', date: '02/11/2026'}
+#   markers: {D: D, N: N}
+# Las celdas vacías no crean turnos; una marca no declarada genera un error.
