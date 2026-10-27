@@ -6,3 +6,5 @@ pytest>=8.0.0
 # Justificación tzdata: En sistemas Windows, la librería estándar zoneinfo requiere tzdata
 # para disponer de la base de datos de zonas horarias IANA (Europe/Madrid).
 tzdata>=2026.1
+# La suite de ingesta se ejecuta con estas dependencias en el workflow existente.
+-r ../ingesta/requirements.txt

@@ -1,0 +1,2 @@
+# YAML completo y carga segura; las hojas se leen con la biblioteca estándar.
+PyYAML==6.0.3

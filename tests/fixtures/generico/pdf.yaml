@@ -1,0 +1,56 @@
+# Fuente y datos totalmente inventados. Incluye errores deliberados.
+version: 1
+source:
+  source_id: FICTICIO-PDF
+  publisher: Administración ficticia de pruebas
+  url: https://example.invalid/transparencia
+  license: Datos inventados para tests
+  region: '01'
+  timezone: Europe/Madrid
+  id_prefix: FICTICIO-PDF
+file:
+  type: pdf
+  header_row: 1
+  pages:
+  - 1
+  column_starts:
+  - 0
+  - 26
+  - 55
+  - 64
+  - 77
+  - 86
+  - 94
+columns:
+  holder: Nombre
+  address: Direccion
+  code: Codigo
+  date: Fecha
+  start: Inicio
+  end: Fin
+  kind: Tipo
+date_formats:
+- '%d/%m/%Y'
+- '%Y-%m-%d'
+time_formats:
+- '%H:%M'
+- '%H:%M:%S'
+normalization:
+  holder:
+  - spaces
+  address:
+  - spaces
+  phone:
+  - digits
+ignore:
+  equals:
+  - column: Nombre
+    value: TOTAL
+coverage:
+  start: 01/11/2026
+  end: 03/11/2026
+  zones:
+  - Zona Inventada PDF
+defaults:
+  zone: Zona Inventada PDF
+  locality: Villa Ficticia
