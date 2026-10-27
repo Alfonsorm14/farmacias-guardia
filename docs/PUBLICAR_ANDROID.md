@@ -56,16 +56,24 @@ Resultado: `build\app\outputs\bundle\release\app-release.aab`. Antes de cada ver
 - Permisos: ubicación precisa y aproximada (solo con la app abierta, para buscar la farmacia más
   cercana). No hay ubicación en segundo plano.
 
-### Seguridad de los datos (formulario "Data safety") — respuestas propuestas
+### Seguridad de los datos (formulario "Data safety") — borrador pendiente
 
-| Pregunta | Respuesta (modo sin servidor, el actual) |
+**Pendiente de revisión de Alfonso antes de enviar a Google Play.** Estas son respuestas propuestas para la versión actual con instantánea; no se ha enviado el formulario. Deben contrastarse con las preguntas vigentes de Play y con el tratamiento de los proveedores externos.
+
+| Pregunta | Respuesta propuesta |
 |---|---|
-| ¿Recoge o comparte datos de usuario? | Ubicación: se usa en el dispositivo, no se envía a servidores propios. El texto de búsqueda de poblaciones se envía a CartoCiudad (IGN). [Revisar: Google considera "recogida" todo dato que sale del dispositivo, aunque sea a un tercero.] |
-| Teselas del mapa | Al ver el mapa, el teléfono pide las teselas al IGN (www.ign.es): recibe la IP y la zona visible (≈ ubicación aproximada). [Revisar cómo declararlo.] |
-| ¿Cifrado en tránsito? | Sí (HTTPS: CartoCiudad, instantánea, teselas del IGN). |
-| ¿Se puede pedir la eliminación? | No hay datos guardados en servidores; los del teléfono se borran desinstalando. |
-| Anuncios | No. |
-| Cuentas de usuario | No. |
+| Datos recogidos | Ubicación precisa: sí, recogida. Declaración conservadora para la funcionalidad de ubicación/mapa; el cálculo de guardias ocurre en el teléfono y no se envía la ubicación a servidores propios. |
+| Finalidad | Funcionalidad de la app: búsqueda de farmacias y mapa. |
+| Procesamiento efímero | Sí: propuesta de tratamiento efímero de la ubicación, sin almacenarla en servidores propios. Revisar la declaración aplicable al IGN antes de enviarla. |
+| ¿Se comparten datos? | No, propuesta. «Cómo llegar» abre Google Maps solo por una acción iniciada por el usuario; revisar la excepción correspondiente de Play. No hay cesión para publicidad ni analítica. |
+| ¿Se vincula a la identidad? | No: sin cuentas ni identificadores de seguimiento. |
+| Publicidad o analítica | No. |
+| Cifrado de datos almacenados | No aplica al almacenamiento de la ubicación: no se almacena en servidores propios. El último lugar elegido manualmente se guarda solo en el teléfono. |
+| Cifrado en tránsito | Sí, las comunicaciones de la app usan HTTPS. La ausencia de almacenamiento no elimina el cifrado en tránsito ni justifica marcarlo como inexistente. |
+| Cuentas | No hay registro ni cuentas de usuario. |
+| Eliminación | No hay ubicación almacenada en servidores propios; los datos locales se pueden borrar desde los ajustes del teléfono o al desinstalar. |
+
+El mapa pide teselas al IGN, que recibe la IP y la zona mostrada. El buscador envía el texto escrito a CartoCiudad (IGN). «Cómo llegar» entrega el destino de la farmacia a Google Maps solo al pulsarlo. Estos hechos y las respuestas propuestas deben revisarse juntos: no se afirma que todos los servicios de terceros descarten sus registros ni que Play haya aceptado esta clasificación.
 
 Si algún día se usa el backend (`API_BASE`), la ubicación sí sale del teléfono hacia el servidor y
 el formulario y la política cambian.
