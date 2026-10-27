@@ -1,68 +1,357 @@
-// Capturas para la ficha de Google Play (1080x1920, 9:16). No forma parte de la batería de tests.
-// flutter test test_capturas/play_test.dart --update-goldens  ->  docs/play/*.png
+// Generador optativo. Ejecutar scripts/generar_capturas.sh o .ps1 desde la raíz.
+// No se importa en la app ni modifica sus dependencias o configuración.
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui' as ui;
 
 import 'package:farmacias_guardia/data/guardias_engine.dart';
 import 'package:farmacias_guardia/data/repository.dart';
 import 'package:farmacias_guardia/location.dart';
-import 'package:farmacias_guardia/ui/acerca_de.dart';
-import 'package:farmacias_guardia/ui/bienvenida.dart';
-import 'package:farmacias_guardia/ui/cobertura.dart';
+import 'package:farmacias_guardia/ui/guardia_card.dart';
 import 'package:farmacias_guardia/ui/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-Future<void> _fuente(String familia, List<String> ficheros) async {
-  final loader = FontLoader(familia);
-  for (final f in ficheros) {
-    loader.addFont(Future.value(ByteData.view(File(f).readAsBytesSync().buffer)));
+import 'soporte/escenario_play.dart';
+import 'soporte/grafico_play.dart';
+
+const captureEnabled = bool.fromEnvironment('PLAY_CAPTURAS');
+const outputRoot = '../play/capturas';
+const devices = [
+  (name: 'telefono', logical: Size(432, 768), pixels: Size(1080, 1920)),
+  (name: 'tablet_7', logical: Size(600, 900), pixels: Size(1280, 1920)),
+  (name: 'tablet_10', logical: Size(800, 1280), pixels: Size(1600, 2560)),
+];
+const screens = [
+  '01_ahora_lista',
+  '02_mapa',
+  '03_manana',
+  '04_detalle',
+  '05_selector_lugar',
+  '06_fuentes',
+  '07_privacidad',
+];
+const boundaryKey = ValueKey('play-boundary');
+
+Future<void> loadCaptureFonts() async {
+  // flutter_tester está dentro del SDK tanto en Linux como en Windows.
+  var sdk = File(Platform.resolvedExecutable).parent;
+  while (!Directory('${sdk.path}/bin/cache/artifacts/material_fonts')
+      .existsSync()) {
+    if (sdk.parent.path == sdk.path) {
+      throw StateError(
+        'No se encuentran las fuentes incluidas en el SDK Flutter.',
+      );
+    }
+    sdk = sdk.parent;
   }
-  await loader.load();
+  final base = '${sdk.path}/bin/cache/artifacts/material_fonts';
+  for (final entry in {
+    'Roboto': ['Roboto-Regular.ttf', 'Roboto-Medium.ttf', 'Roboto-Bold.ttf'],
+    'MaterialIcons': ['MaterialIcons-Regular.otf'],
+  }.entries) {
+    final loader = FontLoader(entry.key);
+    for (final name in entry.value) {
+      final bytes = File('$base/$name').readAsBytesSync();
+      loader.addFont(Future.value(ByteData.sublistView(bytes)));
+    }
+    await loader.load();
+  }
 }
 
-Widget _app(Widget home) => MaterialApp(
-      debugShowCheckedModeBanner: false,
-      locale: const Locale('es', 'ES'),
-      supportedLocales: const [Locale('es', 'ES')],
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      theme: ThemeData(colorSchemeSeed: const Color(0xFF0B8A4A), useMaterial3: true, fontFamily: 'Roboto'),
-      home: home,
+Widget captureApp(Widget home, Brightness brightness, {bool map = false}) =>
+    RepaintBoundary(
+      key: boundaryKey,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        locale: const Locale('es', 'ES'),
+        supportedLocales: const [Locale('es', 'ES')],
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        theme: ThemeData(
+          colorSchemeSeed: const Color(0xFF0B8A4A),
+          brightness: brightness,
+          useMaterial3: true,
+          fontFamily: 'Roboto',
+          platform: TargetPlatform.android,
+        ),
+        builder: (context, child) => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(child: child!),
+            Material(
+              color: Theme.of(context).colorScheme.surfaceContainer,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Text(
+                  'Demostración · 27/10/2026, 12:00 · Datos anonimizados'
+                  '${map ? '\nFondo esquemático · Sin cartografía real' : ''}',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+              ),
+            ),
+          ],
+        ),
+        home: home,
+      ),
     );
 
+Future<void> savePng(WidgetTester tester, String name, Size pixels) async {
+  expect(
+    tester.takeException(),
+    isNull,
+    reason: 'No debe haber desbordes ni errores',
+  );
+  final boundary = tester.renderObject<RenderRepaintBoundary>(
+    find.byKey(boundaryKey),
+  );
+  await tester.runAsync(() async {
+    final image = await boundary.toImage(
+      pixelRatio: pixels.width / boundary.size.width,
+    );
+    expect(Size(image.width.toDouble(), image.height.toDouble()), pixels);
+    final data = await image.toByteData(format: ui.ImageByteFormat.png);
+    final file = File('$outputRoot/$name.png');
+    await file.parent.create(recursive: true);
+    await file.writeAsBytes(data!.buffer.asUint8List(), flush: true);
+    image.dispose();
+  });
+}
+
 void main() {
-  late SnapshotRepository repo;
+  if (!captureEnabled) {
+    test(
+      'capturas desactivadas: usar scripts/generar_capturas',
+      () {},
+      skip: true,
+    );
+    return;
+  }
+  final location = lugaresConDatos.firstWhere((u) => u.etiqueta == 'Palma');
+  late CaptureRepository repository;
+  late CaptureHttpOverrides network;
+  late Uint8List icon;
+  late Uint8List lightTile;
+  late Uint8List darkTile;
+  late BuiltInMapCachingProvider mapCache;
+  final previousOverrides = HttpOverrides.current;
+
   setUpAll(() async {
     await initializeDateFormatting('es_ES');
-    const base = '/opt/flutter/bin/cache/artifacts/material_fonts';
-    await _fuente('Roboto', ['$base/Roboto-Regular.ttf', '$base/Roboto-Medium.ttf', '$base/Roboto-Bold.ttf']);
-    await _fuente('MaterialIcons', ['$base/MaterialIcons-Regular.otf']);
-    repo = SnapshotRepository(GuardiasEngine.desdeJson(jsonDecode(File('assets/snapshot.json').readAsStringSync()) as Map<String, dynamic>));
+    final cacheDirectory = await Directory.systemTemp.createTemp(
+      'play-capturas-',
+    );
+    mapCache = BuiltInMapCachingProvider.getOrCreateInstance(
+      cacheDirectory: cacheDirectory.path,
+      maxCacheSize: null,
+      overrideFreshAge: const Duration(days: 1),
+      readOnly: true,
+    );
+    await mapCache.getTile('inicializar');
+    await loadCaptureFonts();
+    final snapshot = jsonDecode(
+      File('assets/snapshot.json').readAsStringSync(),
+    ) as Map<String, dynamic>;
+    repository = CaptureRepository(
+      SnapshotRepository(GuardiasEngine.desdeJson(snapshot), null, ''),
+    );
+    lightTile = await createLocalTile();
+    darkTile = await createLocalTile(dark: true);
+    network = CaptureHttpOverrides(lightTile);
+    icon = File('assets/icon/icono_play_512.png').readAsBytesSync();
+  });
+  tearDownAll(() async => mapCache.destroy(deleteCache: true));
+  setUp(() {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+          const MethodChannel('plugins.flutter.io/shared_preferences'),
+          (call) async => call.method == 'getAll' ? <String, Object>{} : true,
+        );
+    HttpOverrides.global = network;
+  });
+  tearDown(() => HttpOverrides.global = previousOverrides);
+
+  test('el snapshot contiene guardias en Palma ahora y mañana, sin datos personales', () async {
+    for (final result in [
+      await repository.ahora(location.lat, location.lon, captureInstant),
+      await repository.dia(location.lat, location.lon, DateTime(2026, 10, 28)),
+    ]) {
+      expect(result.cobertura, isTrue);
+      expect(result.guardias, isNotEmpty);
+      for (final g in result.guardias) {
+        expect(g.farmacia.titular, startsWith('de ejemplo '));
+        expect(g.farmacia.direccion, 'Dirección de demostración');
+        expect(g.farmacia.telefonoParaLlamar, isNull);
+      }
+    }
+    await expectLater(
+      HttpClient().getUrl(Uri.parse('https://example.org')),
+      throwsStateError,
+    );
   });
 
-  Future<void> captura(WidgetTester tester, Widget w, String nombre, {Future<void> Function()? accion}) async {
-    tester.view.physicalSize = const Size(1080, 1920);
-    tester.view.devicePixelRatio = 2.625;
-    addTearDown(tester.view.reset);
-    await tester.pumpWidget(_app(w));
-    await tester.pumpAndSettle();
-    if (accion != null) await accion();
-    await expectLater(find.byType(MaterialApp), matchesGoldenFile('../../docs/play/$nombre.png'));
+  for (final device in devices) {
+    for (final brightness in Brightness.values) {
+      final theme = brightness == Brightness.light ? 'claro' : 'oscuro';
+      for (final screen in screens) {
+        testWidgets('${device.name}/$theme/$screen', (tester) async {
+          debugDisableShadows = false;
+          addTearDown(() => debugDisableShadows = true);
+          PaintingBinding.instance.imageCache.clear();
+          network = CaptureHttpOverrides(
+            brightness == Brightness.dark ? darkTile : lightTile,
+          );
+          HttpOverrides.global = network;
+          tester.view.physicalSize = device.pixels;
+          tester.view.devicePixelRatio =
+              device.pixels.width / device.logical.width;
+          addTearDown(tester.view.reset);
+          final isMap = screen == '02_mapa' || screen == '04_detalle';
+          await tester.pumpWidget(
+            captureApp(
+              HomePage(
+                repositorio: repository,
+                ubicacionInicial: location,
+                reloj: () => captureInstant,
+              ),
+              brightness,
+              map: isMap,
+            ),
+          );
+          await tester.pumpAndSettle();
+          expect(find.byType(GuardiaCard), findsWidgets);
+          if (isMap) {
+            await tester.tap(find.byTooltip('Ver mapa'));
+            await tester.pumpAndSettle();
+            // Esperar a la E/S local y a la decodificación, no a un plazo
+            // arbitrario: evita capturar un mapa vacío según la carga del equipo.
+            for (var attempt = 0; attempt < 100; attempt++) {
+              await tester.runAsync(() async {
+                await Future<void>.delayed(const Duration(milliseconds: 20));
+              });
+              await tester.pump(const Duration(milliseconds: 100));
+              if (PaintingBinding.instance.imageCache.pendingImageCount == 0 &&
+                  network.requests > 0) {
+                break;
+              }
+            }
+            await tester.pumpAndSettle();
+            expect(network.requests, greaterThan(0));
+            expect(PaintingBinding.instance.imageCache.pendingImageCount, 0);
+            expect(
+              tester
+                  .widgetList<RawImage>(find.byType(RawImage))
+                  .where((image) => image.image != null),
+              isNotEmpty,
+            );
+          }
+          switch (screen) {
+            case '03_manana':
+              await tester.tap(find.text('Mañana'));
+              await tester.pumpAndSettle();
+              expect(find.byType(GuardiaCard), findsWidgets);
+            case '04_detalle':
+              final result = await repository.ahora(
+                location.lat,
+                location.lon,
+                captureInstant,
+              );
+              final context = tester.element(find.byType(HomePage));
+              // La misma ficha y contenedor del mapa, con reloj fijo en vez de
+              // DateTime.now(): no se altera el reloj ni el código de producción.
+              if (context.mounted) {
+                showModalBottomSheet<void>(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (_) => SafeArea(
+                    child: SingleChildScrollView(
+                      child: GuardiaCard(
+                        guardia: result.guardias.first,
+                        ahora: captureInstant,
+                      ),
+                    ),
+                  ),
+                );
+              }
+              await tester.pumpAndSettle();
+              expect(find.byType(GuardiaCard), findsOneWidget);
+            case '05_selector_lugar':
+              await tester.tap(find.text('Cambiar'));
+              await tester.pumpAndSettle();
+              expect(find.text('Elegir lugar'), findsOneWidget);
+            case '06_fuentes' || '07_privacidad':
+              await tester.tap(find.byTooltip('Más opciones'));
+              await tester.pumpAndSettle();
+              await tester.tap(find.text('Fuentes y privacidad'));
+              await tester.pumpAndSettle();
+              expect(find.text('Turnos de guardia'), findsOneWidget);
+              if (screen == '07_privacidad') {
+                await tester.drag(
+                  find.byType(ListView).last,
+                  const Offset(0, -2400),
+                );
+                await tester.pumpAndSettle();
+                expect(
+                  find.text('Política de privacidad completa').hitTestable(),
+                  findsOneWidget,
+                );
+              }
+          }
+          await savePng(
+            tester,
+            '${device.name}/${theme}_$screen',
+            device.pixels,
+          );
+          debugDisableShadows = true;
+          await tester.pumpWidget(const SizedBox.shrink());
+          await tester.pumpAndSettle();
+        });
+      }
+    }
   }
 
-  Ubicacion lugar(String etiqueta) => lugaresConDatos.firstWhere((u) => u.etiqueta.startsWith(etiqueta));
-
-  testWidgets('1 Palma de noche', (t) => captura(t, HomePage(repositorio: repo, ubicacionInicial: lugar('Palma'), reloj: () => DateTime(2026, 10, 20, 23)), '1_palma_ahora'));
-  testWidgets('2 Pamplona de noche', (t) => captura(t, HomePage(repositorio: repo, ubicacionInicial: lugar('Pamplona'), reloj: () => DateTime(2026, 10, 20, 22, 30)), '2_pamplona_ahora'));
-  testWidgets('3 Madrid ahora', (t) => captura(t, HomePage(repositorio: repo, ubicacionInicial: lugar('Madrid (Puerta'), reloj: () => DateTime(2026, 10, 20, 12)), '3_madrid_ahora'));
-  testWidgets('4 Dónde funciona', (t) => captura(t, CoberturaPage(repositorio: repo, reloj: () => DateTime(2026, 10, 20, 12)), '4_donde_funciona'));
-  testWidgets('5 Bienvenida', (t) => captura(t, BienvenidaPage(repositorio: repo, alTerminar: () {}, reloj: () => DateTime(2026, 10, 20, 12)), '5_bienvenida'));
-  testWidgets('6 Fuentes', (t) => captura(t, AcercaDePage(repositorio: repo), '6_fuentes'));
+  testWidgets('gráfico de funciones 1024x500 e icono existente 512x512', (
+    tester,
+  ) async {
+    debugDisableShadows = false;
+    addTearDown(() => debugDisableShadows = true);
+    tester.view.physicalSize = const Size(1024, 500);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      Directionality(
+        textDirection: TextDirection.ltr,
+        child: RepaintBoundary(
+          key: boundaryKey,
+          child: FeatureGraphic(icon: icon),
+        ),
+      ),
+    );
+    await tester.runAsync(() async {
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+    });
+    await tester.pumpAndSettle();
+    await savePng(tester, 'grafico_funciones_1024x500', const Size(1024, 500));
+    await tester.runAsync(() async {
+      final codec = await ui.instantiateImageCodec(icon);
+      final frame = await codec.getNextFrame();
+      expect(frame.image.width, 512);
+      expect(frame.image.height, 512);
+      frame.image.dispose();
+      codec.dispose();
+    });
+    await tester.runAsync(
+      () => File('$outputRoot/icono_512x512.png').writeAsBytes(icon),
+    );
+    debugDisableShadows = true;
+  });
 }

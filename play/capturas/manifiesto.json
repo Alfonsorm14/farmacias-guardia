@@ -1,0 +1,222 @@
+{
+  "grafico_funciones_1024x500.png": {
+    "ancho": 1024,
+    "alto": 500,
+    "sha256": "159208727ecdf3ca5418e2222081f79b6a5bc7d25e7c3c4e91dd2a4ab6e47653"
+  },
+  "icono_512x512.png": {
+    "ancho": 512,
+    "alto": 512,
+    "sha256": "44beb84d152fccb85c96d17435897bf8c166ae59209c692e2a7328b11dadd573"
+  },
+  "tablet_10/claro_01_ahora_lista.png": {
+    "ancho": 1600,
+    "alto": 2560,
+    "sha256": "96f22ae702cdeb1dfcbc32026bb5a4d4500e11aa45435e604f8fe2abc9f01c70"
+  },
+  "tablet_10/claro_02_mapa.png": {
+    "ancho": 1600,
+    "alto": 2560,
+    "sha256": "26090a02f08e2c919f6bb53e0e52b2bcd38d22dd2f02a7a9335d45737765a015"
+  },
+  "tablet_10/claro_03_manana.png": {
+    "ancho": 1600,
+    "alto": 2560,
+    "sha256": "95ae7083f47e731392bdb78aee24c545e2bc43341e74c2e3130d1454b576756d"
+  },
+  "tablet_10/claro_04_detalle.png": {
+    "ancho": 1600,
+    "alto": 2560,
+    "sha256": "c9279ce028a244a679019eb286594010eb0dcf5752da90f2600d601d82dcc5f8"
+  },
+  "tablet_10/claro_05_selector_lugar.png": {
+    "ancho": 1600,
+    "alto": 2560,
+    "sha256": "386601348bbb6a8679dcb3a3c052ced48c8c2c5a7c512eb1647e5bda70f84647"
+  },
+  "tablet_10/claro_06_fuentes.png": {
+    "ancho": 1600,
+    "alto": 2560,
+    "sha256": "90bf2afa671143b898bf102fa720c70ca47766768e02805e0b0b5c6a346cbb68"
+  },
+  "tablet_10/claro_07_privacidad.png": {
+    "ancho": 1600,
+    "alto": 2560,
+    "sha256": "300fb5f23dc2b0744bf8ac105b1ac9f2f4c5c485e9bcd6a2016d1e5bf1b8d51d"
+  },
+  "tablet_10/oscuro_01_ahora_lista.png": {
+    "ancho": 1600,
+    "alto": 2560,
+    "sha256": "38328d4311d90e1d461eee209558e4e92572092c8ca9d724fcdef6849cb7ec72"
+  },
+  "tablet_10/oscuro_02_mapa.png": {
+    "ancho": 1600,
+    "alto": 2560,
+    "sha256": "f9018d0c17394ac60a86ce6ed2a6a57c94a0af9a41cafe328d5e3d23bb6c313a"
+  },
+  "tablet_10/oscuro_03_manana.png": {
+    "ancho": 1600,
+    "alto": 2560,
+    "sha256": "08fa0785da4281ce097106f9eb19d39c6bfff904420f517530d6f897c4174aae"
+  },
+  "tablet_10/oscuro_04_detalle.png": {
+    "ancho": 1600,
+    "alto": 2560,
+    "sha256": "6bd282cb9b81974b203ffd1a1c976ebd15c4cd6d5c21859e840b69534cdc4019"
+  },
+  "tablet_10/oscuro_05_selector_lugar.png": {
+    "ancho": 1600,
+    "alto": 2560,
+    "sha256": "c885b818b460c42302b6e2c45488f22f6141d3536c06c5c8da0addb3b13432f9"
+  },
+  "tablet_10/oscuro_06_fuentes.png": {
+    "ancho": 1600,
+    "alto": 2560,
+    "sha256": "8f77b16e3de1f07c655e19c599d8ce2ba56ca9f98bc86e736bd2f44437b31699"
+  },
+  "tablet_10/oscuro_07_privacidad.png": {
+    "ancho": 1600,
+    "alto": 2560,
+    "sha256": "139396f04f03737837879ae8f47bb3745646b9be1c7fdbad9ae651f93edb99fe"
+  },
+  "tablet_7/claro_01_ahora_lista.png": {
+    "ancho": 1280,
+    "alto": 1920,
+    "sha256": "4f35cccab5f260182a4aa287a27dbf40d632495df646ab0c26e0883342c5fc49"
+  },
+  "tablet_7/claro_02_mapa.png": {
+    "ancho": 1280,
+    "alto": 1920,
+    "sha256": "dd670ab969197c6dbbaf7e1572e7b010bfe180a9dbb50ce4147fad24360a7cc2"
+  },
+  "tablet_7/claro_03_manana.png": {
+    "ancho": 1280,
+    "alto": 1920,
+    "sha256": "9cc7724d3161565461bc4c9b71a97bfe4169c6ad4ae5c2a83c775cea43987b80"
+  },
+  "tablet_7/claro_04_detalle.png": {
+    "ancho": 1280,
+    "alto": 1920,
+    "sha256": "555fb57528840c3aaea9011673c74edc6a85c2d2b474e53bec9dfb06327dc99b"
+  },
+  "tablet_7/claro_05_selector_lugar.png": {
+    "ancho": 1280,
+    "alto": 1920,
+    "sha256": "34b0fd37afd6721da84b437afe40f67361151f8341a114f6c2dc4bfbb5e96f07"
+  },
+  "tablet_7/claro_06_fuentes.png": {
+    "ancho": 1280,
+    "alto": 1920,
+    "sha256": "6603b14dd4ae96d73e11b86d6e8b74904028a7e9f62f6fcb6243ff828612d211"
+  },
+  "tablet_7/claro_07_privacidad.png": {
+    "ancho": 1280,
+    "alto": 1920,
+    "sha256": "23516f1f0155ec484a183ca610ac0448c906a56a47265556df5e83d0857607fc"
+  },
+  "tablet_7/oscuro_01_ahora_lista.png": {
+    "ancho": 1280,
+    "alto": 1920,
+    "sha256": "17b1922e8b4aabfe767af1734c14c01e1e483c34475b26b4daa7f7a99dbc3b19"
+  },
+  "tablet_7/oscuro_02_mapa.png": {
+    "ancho": 1280,
+    "alto": 1920,
+    "sha256": "f91dcfe050026af4be9091196ddeb986ffe6d67a7b51cc9cc0a741883c1b5f13"
+  },
+  "tablet_7/oscuro_03_manana.png": {
+    "ancho": 1280,
+    "alto": 1920,
+    "sha256": "0cbe3a71bb75321307a8b145170fc83b04e79ec82f5152d8dff7ebb7b5bb333d"
+  },
+  "tablet_7/oscuro_04_detalle.png": {
+    "ancho": 1280,
+    "alto": 1920,
+    "sha256": "7e73f4a496e9ebe1d91d5b1db02b8ad83fe36c6e8ef886124991dff315d2196e"
+  },
+  "tablet_7/oscuro_05_selector_lugar.png": {
+    "ancho": 1280,
+    "alto": 1920,
+    "sha256": "46c70274d311aa643cefb4f4ee3d1e0fba22d79e7909a267ad2d22a851b1649a"
+  },
+  "tablet_7/oscuro_06_fuentes.png": {
+    "ancho": 1280,
+    "alto": 1920,
+    "sha256": "49be1d8a62f8db845d58f2cf04cc39e1845118f123465eed36baf6faf017f9b7"
+  },
+  "tablet_7/oscuro_07_privacidad.png": {
+    "ancho": 1280,
+    "alto": 1920,
+    "sha256": "c497651fffbab201472323d9ea70a24a3689db1bd8430b02a72d7e4dd054b521"
+  },
+  "telefono/claro_01_ahora_lista.png": {
+    "ancho": 1080,
+    "alto": 1920,
+    "sha256": "42df6c2e0d6cacbbead2f839ae11b3dfd8fd381b7a3b111d7da4fac035db09fb"
+  },
+  "telefono/claro_02_mapa.png": {
+    "ancho": 1080,
+    "alto": 1920,
+    "sha256": "5919ca09dad0d4e66230c55e37e9d1e741981938dd87e3167782b5388add4aab"
+  },
+  "telefono/claro_03_manana.png": {
+    "ancho": 1080,
+    "alto": 1920,
+    "sha256": "e66a02dd49d60f87f648b2f1b0e0862f52531ce70e9aaf519e4afb8d9dc29455"
+  },
+  "telefono/claro_04_detalle.png": {
+    "ancho": 1080,
+    "alto": 1920,
+    "sha256": "a46896b66a6a6fbfd6c6c3031f74681ee8cfcf4ea07ebe41ebccd7fc734ebd36"
+  },
+  "telefono/claro_05_selector_lugar.png": {
+    "ancho": 1080,
+    "alto": 1920,
+    "sha256": "8f196829396783b1b6b26749f6e2445c9e73212a018e76fcca1df7a15204641f"
+  },
+  "telefono/claro_06_fuentes.png": {
+    "ancho": 1080,
+    "alto": 1920,
+    "sha256": "3a26c3b4b0da70cc64af27c2c8ee9863ad7d9c2b4fa7a4a0ca62dfffb9f8084a"
+  },
+  "telefono/claro_07_privacidad.png": {
+    "ancho": 1080,
+    "alto": 1920,
+    "sha256": "e9f1a330456a3fd7dcd8735f0dbcc64209430035d15ba4c800d0f1594bc3ac82"
+  },
+  "telefono/oscuro_01_ahora_lista.png": {
+    "ancho": 1080,
+    "alto": 1920,
+    "sha256": "c437ab65218611c1c8714d017589e4daafba59f8cbdd86cda2018b92c147ed85"
+  },
+  "telefono/oscuro_02_mapa.png": {
+    "ancho": 1080,
+    "alto": 1920,
+    "sha256": "bde152fb31917d34660dd364dcc026917e211864953402751b92488fafaea1c1"
+  },
+  "telefono/oscuro_03_manana.png": {
+    "ancho": 1080,
+    "alto": 1920,
+    "sha256": "cab74dc7572481abc76c0cc7b263f806932c62b3889423480878ccb83db4a737"
+  },
+  "telefono/oscuro_04_detalle.png": {
+    "ancho": 1080,
+    "alto": 1920,
+    "sha256": "08d23ed2576448feb07b56daad7225f79bc9880bc0dc1f93e655322da40dafbb"
+  },
+  "telefono/oscuro_05_selector_lugar.png": {
+    "ancho": 1080,
+    "alto": 1920,
+    "sha256": "cc725e137c2d192525692ea01953e565b5a4c29e0e08c651dda58359b4cf20cd"
+  },
+  "telefono/oscuro_06_fuentes.png": {
+    "ancho": 1080,
+    "alto": 1920,
+    "sha256": "b6d999596adc40bed53b60a96832b70e3465881ab9d384a84fc3526c0f56600b"
+  },
+  "telefono/oscuro_07_privacidad.png": {
+    "ancho": 1080,
+    "alto": 1920,
+    "sha256": "6fa03c5d5444fb83a8630a4474283a5998f833906c045e7e206267880eb26e1c"
+  }
+}
