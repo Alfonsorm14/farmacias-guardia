@@ -4,7 +4,7 @@
     "publisher": "Ayuntamiento de Zaragoza — Servicio de datos de farmacias de guardia",
     "url": "https://www.zaragoza.es/sede/servicio/farmacia/",
     "license": "Condiciones generales de reutilización del Ayuntamiento de Zaragoza (citar la fuente)",
-    "retrieved_at": "2026-10-26T00:00:00+01:00"
+    "retrieved_at": "2026-10-27T00:00:00+01:00"
   },
   "pharmacies": [
     {
@@ -268,6 +268,32 @@
       ]
     },
     {
+      "id": "ZGZ:8709",
+      "region": "02",
+      "holder": "Laguna Blas, Luis",
+      "address": "C/ Conde de Aranda, 58-60",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976439174",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Centro"
+      ]
+    },
+    {
+      "id": "ZGZ:8710",
+      "region": "02",
+      "holder": "Ros Abad, Natalia",
+      "address": "C/ Miguel Servet, 69",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976413781",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Las Fuentes-Esq. C/ Minas"
+      ]
+    },
+    {
       "id": "ZGZ:8711",
       "region": "02",
       "holder": "Blasco Torrijo, María Carmen",
@@ -447,6 +473,19 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector Delicias-Valdefierro-Enfrente Alcampo-Los Enlaces"
+      ]
+    },
+    {
+      "id": "ZGZ:8739",
+      "region": "02",
+      "holder": "Arevalo García, Juan Luis",
+      "address": "C/ Honorio García Condoy, 6",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976276658",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Torrero-Prolongación Avda. San José"
       ]
     },
     {
@@ -801,6 +840,19 @@
       ]
     },
     {
+      "id": "ZGZ:8832",
+      "region": "02",
+      "holder": "García Lerma, Daniel",
+      "address": "C/ Zaragoza la Vieja, 33",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976252898",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector San José- Entrada por C/ Melilla"
+      ]
+    },
+    {
       "id": "ZGZ:8835",
       "region": "02",
       "holder": "Arrue Lobera, Blanca-Dolores",
@@ -915,6 +967,19 @@
       "duty_phone": null,
       "zones": [
         "ZARAGOZA - Sector San José"
+      ]
+    },
+    {
+      "id": "ZGZ:8866",
+      "region": "02",
+      "holder": "Navarro Monte, Maria Carmen",
+      "address": "Pza. San Gregorio, 6",
+      "locality": "Zaragoza",
+      "postal_code": null,
+      "phone": "976520643",
+      "duty_phone": null,
+      "zones": [
+        "ZARAGOZA - Sector Arrabal"
       ]
     },
     {
@@ -2446,6 +2511,69 @@
       "end": "2026-10-27T09:15:00+01:00",
       "kind": "24h",
       "raw_label": "T-23 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8866",
+      "zone": "ZARAGOZA - Sector Arrabal",
+      "start": "2026-10-27T09:15:00+01:00",
+      "end": "2026-10-28T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-24 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8709",
+      "zone": "ZARAGOZA - Sector Centro",
+      "start": "2026-10-27T09:15:00+01:00",
+      "end": "2026-10-28T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-24 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8860",
+      "zone": "ZARAGOZA - Sector Gran Vía",
+      "start": "2026-10-27T09:15:00+01:00",
+      "end": "2026-10-28T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-24 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8710",
+      "zone": "ZARAGOZA - Sector Las Fuentes-Esq. C/ Minas",
+      "start": "2026-10-27T09:15:00+01:00",
+      "end": "2026-10-28T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-24 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8832",
+      "zone": "ZARAGOZA - Sector San José- Entrada por C/ Melilla",
+      "start": "2026-10-27T09:15:00+01:00",
+      "end": "2026-10-28T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-24 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8739",
+      "zone": "ZARAGOZA - Sector Torrero-Prolongación Avda. San José",
+      "start": "2026-10-27T09:15:00+01:00",
+      "end": "2026-10-28T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-24 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
+      "times_exact": true
+    },
+    {
+      "pharmacy_id": "ZGZ:8671",
+      "zone": "ZARAGOZA - Sector Valdespartera-acceso por C/ El Angel Azul",
+      "start": "2026-10-27T09:15:00+01:00",
+      "end": "2026-10-28T09:15:00+01:00",
+      "kind": "24h",
+      "raw_label": "T-24 Abiertas de 9:15 h. a 9:15 h. del día siguiente",
       "times_exact": true
     }
   ],

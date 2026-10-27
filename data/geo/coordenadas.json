@@ -10719,6 +10719,26 @@
 "lon": -0.8836099,
 "precision": "portal"
 },
+"ZGZ:8709": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Conde de Aranda, 58-60",
+"fuente": "ayto_zaragoza",
+"lat": 41.6552082,
+"localidad": "Zaragoza",
+"lon": -0.8882275,
+"precision": "portal"
+},
+"ZGZ:8710": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Miguel Servet, 69",
+"fuente": "ayto_zaragoza",
+"lat": 41.6428262,
+"localidad": "Zaragoza",
+"lon": -0.8687076,
+"precision": "portal"
+},
 "ZGZ:8711": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -10857,6 +10877,16 @@
 "lat": 41.6428153,
 "localidad": "Zaragoza",
 "lon": -0.9362221,
+"precision": "portal"
+},
+"ZGZ:8739": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Honorio García Condoy, 6",
+"fuente": "ayto_zaragoza",
+"lat": 41.6319362,
+"localidad": "Zaragoza",
+"lon": -0.882729,
 "precision": "portal"
 },
 "ZGZ:8741": {
@@ -11129,6 +11159,16 @@
 "lon": -0.8649076,
 "precision": "portal"
 },
+"ZGZ:8832": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Zaragoza la Vieja, 33",
+"fuente": "ayto_zaragoza",
+"lat": 41.6328883,
+"localidad": "Zaragoza",
+"lon": -0.8757,
+"precision": "portal"
+},
 "ZGZ:8835": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -11217,6 +11257,16 @@
 "lat": 41.6383927,
 "localidad": "Zaragoza",
 "lon": -0.8783539,
+"precision": "portal"
+},
+"ZGZ:8866": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "Pza. San Gregorio, 6",
+"fuente": "ayto_zaragoza",
+"lat": 41.661309,
+"localidad": "Zaragoza",
+"lon": -0.8766083,
 "precision": "portal"
 },
 "ZGZ:8874": {
