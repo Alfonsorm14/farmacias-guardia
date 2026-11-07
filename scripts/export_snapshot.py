@@ -115,6 +115,11 @@ def export(db_path: str, out_path: str) -> dict[str, int]:
             "SELECT id, pharmacy_id, source_id, zone, start_utc, end_utc, kind, times_exact FROM shifts "
             "ORDER BY start_utc, pharmacy_id"
         ).fetchall()
+    # Veto de publicación independiente del flag local: incluso una importación
+    # manual de Asturias no debe incorporarla a Pages sin autorización del titular.
+    sources = [r for r in sources if r["source_id"] != "AS-COF-GESCOF"]
+    pharmacies = [r for r in pharmacies if r["source_id"] != "AS-COF-GESCOF"]
+    shifts = [r for r in shifts if r["source_id"] != "AS-COF-GESCOF"]
     _validate_rows(sources, pharmacies, shifts)
     source_index = {row["source_id"]: i for i, row in enumerate(sources)}
     pharmacy_index = {row["id"]: i for i, row in enumerate(pharmacies)}

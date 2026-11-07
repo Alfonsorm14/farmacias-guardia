@@ -43,6 +43,25 @@ def test_exporta_referencias_e_indices_consistentes(database, tmp_path):
     assert (kind, exact) == ('d', 1)
 
 
+def test_asturias_no_se_publica_ni_tras_importacion_manual(database, tmp_path):
+    target = tmp_path / 'snapshot.json'
+    export(str(database), str(target))
+    before = json.loads(target.read_text())
+    with sqlite3.connect(database) as conn:
+        conn.executescript('''
+            INSERT INTO sources SELECT 'AS-COF-GESCOF', publisher, url, license, retrieved_at FROM sources;
+            INSERT INTO pharmacies SELECT 'AS:1', holder, address, locality, phone,
+                duty_phone, lat, lon, geo_precision, 'AS-COF-GESCOF' FROM pharmacies;
+            INSERT INTO shifts VALUES (2, 'AS:1', 'AS-COF-GESCOF', 'ASTURIAS',
+                '2026-10-27 09:00:00', '2026-10-27 10:00:00', 'diurna', 1);
+        ''')
+    export(str(database), str(target))
+    after = json.loads(target.read_text())
+    before.pop('generated_at')
+    after.pop('generated_at')
+    assert before == after
+
+
 @pytest.mark.parametrize('mutation', [
     'DELETE FROM sources', 'DELETE FROM pharmacies', 'DELETE FROM shifts',
     'INSERT INTO sources SELECT * FROM sources', 'INSERT INTO pharmacies SELECT * FROM pharmacies',

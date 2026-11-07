@@ -101,6 +101,13 @@ curl -X GET "http://127.0.0.1:8000/health"
 
 ### Fuentes Oficiales
 Lista las fuentes de datos oficiales con atribución y licencias.
+
+Estado de la fuente pendiente de reutilización:
+- **Asturias (COF, buscador GESCOF): implementada, desactivada hasta autorización de reutilización**.
+  `ENABLE_ASTURIAS=false` por defecto. Al activarla solo genera resultados locales
+  en `data/propuestas/asturias/`; no se incorpora a la API ni al snapshot publicado.
+  Protocolo, cobertura y limitaciones: [FUENTE_asturias.md](FUENTE_asturias.md).
+
 ```bash
 curl -X GET "http://127.0.0.1:8000/v1/fuentes"
 ```
