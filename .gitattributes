@@ -1,0 +1,2 @@
+# Capturas reales: conservar cada byte para verificar sus huellas SHA-256.
+tests/fixtures/asturias/* -text -whitespace

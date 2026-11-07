@@ -106,6 +106,13 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--sin-descargas", action="store_true")
     args = parser.parse_args()
+    # Asturias se procesa aparte para revisión: nunca entra en data/out ni en Pages.
+    if os.environ.get("ENABLE_ASTURIAS", "false").lower() == "true":
+        asturias_args = ("--sin-descargas",) if args.sin_descargas else ()
+        try:
+            _run("scripts/run_asturias.py", *asturias_args)
+        except subprocess.CalledProcessError:
+            print("Asturias: revisión local fallida; continúa la actualización de las fuentes actuales.")
     if not args.sin_descargas:
         # Una fuente caída o que no responde (zaragoza.es no contesta a algunos servidores en la
         # nube) no debe impedir actualizar las demás: se sigue con lo ya guardado.

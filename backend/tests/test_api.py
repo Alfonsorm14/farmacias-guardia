@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import datetime
+import pytest
 from zoneinfo import ZoneInfo
 
 from fastapi.testclient import TestClient
