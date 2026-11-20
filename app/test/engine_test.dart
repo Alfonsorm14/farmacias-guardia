@@ -132,8 +132,12 @@ void main() {
     expect(alcala.cobertura, isFalse);
   });
 
-  test('Madrid en noviembre: aún no publicado, no "sin guardia"', () {
-    final r = motor.consultar(lat: 40.4168, lon: -3.7038, desde: DateTime.utc(2026, 11, 5, 10));
+  test('Madrid después de lo publicado: aún no publicado, no "sin guardia"', () {
+    // La fecha se calcula a partir de los datos: Madrid publica mes a mes y una fecha fija
+    // deja de ser "no publicada" en cuanto sale el mes siguiente.
+    final hoy = motor.consultar(lat: 40.4168, lon: -3.7038, desde: DateTime.utc(2026, 10, 20, 10));
+    final despues = hoy.datosHasta!.add(const Duration(days: 3));
+    final r = motor.consultar(lat: 40.4168, lon: -3.7038, desde: despues);
     expect(r.cobertura, isTrue);
     expect(r.guardias, isEmpty);
     expect(r.mensaje, 'Aún no hay turnos oficiales publicados para esta fecha');
