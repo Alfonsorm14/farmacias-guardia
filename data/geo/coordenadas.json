@@ -2669,6 +2669,16 @@
 "lon": -3.6162174,
 "precision": "portal"
 },
+"MAD:109": {
+"consulta": "CALLE GENERAL PARDIÑAS, 20 | Madrid",
+"cp": null,
+"direccion": "CL GENERAL PARDIÑAS, 20",
+"fuente": "cartociudad",
+"lat": 40.425322,
+"localidad": "Madrid",
+"lon": -3.678485,
+"precision": "portal"
+},
 "MAD:1102": {
 "consulta": "PASEO HABANA, 7 | Madrid",
 "cp": null,
@@ -3057,6 +3067,16 @@
 "lat": 40.3858589,
 "localidad": "Madrid",
 "lon": -3.7629852,
+"precision": "portal"
+},
+"MAD:2293": {
+"consulta": "CALLE SANGENJO, 29 | Madrid",
+"cp": null,
+"direccion": "CL SANGENJO, 29",
+"fuente": "cartociudad",
+"lat": 40.4854709,
+"localidad": "Madrid",
+"lon": -3.7001037,
 "precision": "portal"
 },
 "MAD:2314": {
@@ -9309,6 +9329,16 @@
 "lon": -1.6792675,
 "precision": "portal"
 },
+"NA:F00014": {
+"consulta": "IDENA F00014",
+"cp": null,
+"direccion": "C/ Cantón del Boticario, 6",
+"fuente": "idena",
+"lat": 42.6530257,
+"localidad": "Lumbier",
+"lon": -1.3060271,
+"precision": "portal"
+},
 "NA:F00017": {
 "consulta": "IDENA F00017",
 "cp": null,
@@ -9327,6 +9357,26 @@
 "lat": 42.33905,
 "localidad": "Peralta / Azkoien",
 "lon": -1.8042551,
+"precision": "portal"
+},
+"NA:F00022": {
+"consulta": "IDENA F00022",
+"cp": null,
+"direccion": "C/ Mayor, 7",
+"fuente": "idena",
+"lat": 42.0561865,
+"localidad": "Fitero",
+"lon": -1.8593068,
+"precision": "portal"
+},
+"NA:F00024": {
+"consulta": "IDENA F00024",
+"cp": null,
+"direccion": "Avda de Barillas, 3",
+"fuente": "idena",
+"lat": 41.973194,
+"localidad": "Ablitas",
+"lon": -1.6433958,
 "precision": "portal"
 },
 "NA:F00026": {
@@ -9377,6 +9427,16 @@
 "lat": 42.8765679,
 "localidad": "Olazti / Olazagutía",
 "lon": -2.19666,
+"precision": "portal"
+},
+"NA:F00031": {
+"consulta": "IDENA F00031",
+"cp": null,
+"direccion": "C/ Juan Lascarro, 1",
+"fuente": "idena",
+"lat": 42.5880087,
+"localidad": "Artajona",
+"lon": -1.7638595,
 "precision": "portal"
 },
 "NA:F00037": {
@@ -9447,6 +9507,16 @@
 "lat": 42.0210228,
 "localidad": "Fustiñana",
 "lon": -1.4860621,
+"precision": "portal"
+},
+"NA:F00073": {
+"consulta": "IDENA F00073",
+"cp": null,
+"direccion": "C/ San Martín, 5",
+"fuente": "idena",
+"lat": 42.9189931,
+"localidad": "Irurtzun",
+"lon": -1.8283759,
 "precision": "portal"
 },
 "NA:F00074": {
@@ -9539,6 +9609,16 @@
 "lon": -2.0280519,
 "precision": "portal"
 },
+"NA:F00101": {
+"consulta": "IDENA F00101",
+"cp": null,
+"direccion": "C/ Mayor, 30",
+"fuente": "idena",
+"lat": 42.5765176,
+"localidad": "Sangüesa / Zangoza",
+"lon": -1.2837424,
+"precision": "portal"
+},
 "NA:F00102": {
 "consulta": "IDENA F00102",
 "cp": null,
@@ -9557,6 +9637,16 @@
 "lat": 42.5284807,
 "localidad": "Tafalla",
 "lon": -1.6751285,
+"precision": "portal"
+},
+"NA:F00110": {
+"consulta": "IDENA F00110",
+"cp": null,
+"direccion": "C/ Elbarren, 36",
+"fuente": "idena",
+"lat": 43.079849,
+"localidad": "Leitza",
+"lon": -1.9161218,
 "precision": "portal"
 },
 "NA:F00127": {
@@ -9679,6 +9769,16 @@
 "lon": -1.3348102,
 "precision": "portal"
 },
+"NA:F00240": {
+"consulta": "IDENA F00240",
+"cp": null,
+"direccion": "Avda Pamplona, 7",
+"fuente": "idena",
+"lat": 42.79002,
+"localidad": "Mutilva / Mutiloa",
+"lon": -1.6182962,
+"precision": "portal"
+},
 "NA:F00246": {
 "consulta": "IDENA F00246",
 "cp": null,
@@ -9709,6 +9809,16 @@
 "lon": -1.3672546,
 "precision": "portal"
 },
+"NA:F00255": {
+"consulta": "IDENA F00255",
+"cp": null,
+"direccion": "C/ Río Arga, 33",
+"fuente": "idena",
+"lat": 42.9341427,
+"localidad": "Zubiri",
+"lon": -1.5033954,
+"precision": "portal"
+},
 "NA:F00262": {
 "consulta": "IDENA F00262",
 "cp": null,
@@ -9719,6 +9829,16 @@
 "lon": -1.8904828,
 "precision": "portal"
 },
+"NA:F00266": {
+"consulta": "IDENA F00266",
+"cp": null,
+"direccion": "Pl de los Fueros, 1",
+"fuente": "idena",
+"lat": 42.6688865,
+"localidad": "Mañeru",
+"lon": -1.8638003,
+"precision": "portal"
+},
 "NA:F00268": {
 "consulta": "IDENA F00268",
 "cp": null,
@@ -9727,6 +9847,26 @@
 "lat": 42.0580839,
 "localidad": "Tudela",
 "lon": -1.6002946,
+"precision": "portal"
+},
+"NA:F00272": {
+"consulta": "IDENA F00272",
+"cp": null,
+"direccion": "C/ Consejo, 12",
+"fuente": "idena",
+"lat": 43.1293903,
+"localidad": "Ituren",
+"lon": -1.7053093,
+"precision": "portal"
+},
+"NA:F00273": {
+"consulta": "IDENA F00273",
+"cp": null,
+"direccion": "C/ Santa María, 24",
+"fuente": "idena",
+"lat": 42.9435125,
+"localidad": "Aribe",
+"lon": -1.263395,
 "precision": "portal"
 },
 "NA:F00274": {
@@ -9759,6 +9899,26 @@
 "lon": -1.5250407,
 "precision": "portal"
 },
+"NA:F00284": {
+"consulta": "IDENA F00284",
+"cp": null,
+"direccion": "C/ Medio Barrio, 19",
+"fuente": "idena",
+"lat": 42.7765007,
+"localidad": "Eulate",
+"lon": -2.2069397,
+"precision": "portal"
+},
+"NA:F00289": {
+"consulta": "IDENA F00289",
+"cp": null,
+"direccion": "C/ San Esteban, 28",
+"fuente": "idena",
+"lat": 42.942337,
+"localidad": "Erro",
+"lon": -1.4499284,
+"precision": "portal"
+},
 "NA:F00294": {
 "consulta": "IDENA F00294",
 "cp": null,
@@ -9767,6 +9927,16 @@
 "lat": 42.3196841,
 "localidad": "Rada",
 "lon": -1.5739895,
+"precision": "portal"
+},
+"NA:F00295": {
+"consulta": "IDENA F00295",
+"cp": null,
+"direccion": "C/ Urrutia, 31",
+"fuente": "idena",
+"lat": 42.9051996,
+"localidad": "Ochagavía / Otsagabia",
+"lon": -1.0895129,
 "precision": "portal"
 },
 "NA:F00298": {
@@ -9787,6 +9957,16 @@
 "lat": 42.3338587,
 "localidad": "San Adrián",
 "lon": -1.9344623,
+"precision": "portal"
+},
+"NA:F00301": {
+"consulta": "IDENA F00301",
+"cp": null,
+"direccion": "C/ Jose María Ligués, 44",
+"fuente": "idena",
+"lat": 42.0805409,
+"localidad": "Cintruénigo",
+"lon": -1.8054341,
 "precision": "portal"
 },
 "NA:F00306": {
@@ -9859,6 +10039,16 @@
 "lon": -1.5969316,
 "precision": "portal"
 },
+"NA:F00362": {
+"consulta": "IDENA F00362",
+"cp": null,
+"direccion": "C/ Bidasoa, 43",
+"fuente": "idena",
+"lat": 43.2756925,
+"localidad": "Bera",
+"lon": -1.6882856,
+"precision": "portal"
+},
 "NA:F00363": {
 "consulta": "IDENA F00363",
 "cp": null,
@@ -9867,6 +10057,16 @@
 "lat": 42.2782047,
 "localidad": "Villafranca",
 "lon": -1.7476555,
+"precision": "portal"
+},
+"NA:F00367": {
+"consulta": "IDENA F00367",
+"cp": null,
+"direccion": "Pl Zumalacárregui, 1",
+"fuente": "idena",
+"lat": 42.8941501,
+"localidad": "Altsasu / Alsasua",
+"lon": -2.1719366,
 "precision": "portal"
 },
 "NA:F00370": {
@@ -9887,6 +10087,16 @@
 "lat": 42.3404623,
 "localidad": "Caparroso",
 "lon": -1.6530568,
+"precision": "portal"
+},
+"NA:F00375": {
+"consulta": "IDENA F00375",
+"cp": null,
+"direccion": "C/ Mayor, 27",
+"fuente": "idena",
+"lat": 42.5706138,
+"localidad": "Los Arcos",
+"lon": -2.1924224,
 "precision": "portal"
 },
 "NA:F00377": {
@@ -9919,6 +10129,16 @@
 "lon": -1.8547736,
 "precision": "portal"
 },
+"NA:F00382": {
+"consulta": "IDENA F00382",
+"cp": null,
+"direccion": "C/ Hilarión Eslava, 10",
+"fuente": "idena",
+"lat": 42.3727361,
+"localidad": "Andosilla",
+"lon": -1.9499348,
+"precision": "portal"
+},
 "NA:F00384": {
 "consulta": "IDENA F00384",
 "cp": null,
@@ -9927,6 +10147,46 @@
 "lat": 42.6762797,
 "localidad": "Estella-Lizarra",
 "lon": -2.0356411,
+"precision": "portal"
+},
+"NA:F00385": {
+"consulta": "IDENA F00385",
+"cp": null,
+"direccion": "C/ La Población, 21",
+"fuente": "idena",
+"lat": 42.6719657,
+"localidad": "Puente la Reina / Gares",
+"lon": -1.8183462,
+"precision": "portal"
+},
+"NA:F00386": {
+"consulta": "IDENA F00386",
+"cp": null,
+"direccion": "C/ Tximindo Kalea, 48",
+"fuente": "idena",
+"lat": 43.1752902,
+"localidad": "Arizkun",
+"lon": -1.4828282,
+"precision": "portal"
+},
+"NA:F00388": {
+"consulta": "IDENA F00388",
+"cp": null,
+"direccion": "C/ Serapio Urra, 23 . frente al Nº 20",
+"fuente": "idena",
+"lat": 42.5156649,
+"localidad": "Viana",
+"lon": -2.3729074,
+"precision": "portal"
+},
+"NA:F00390": {
+"consulta": "IDENA F00390",
+"cp": null,
+"direccion": "C/ Sansomain, 6",
+"fuente": "idena",
+"lat": 42.5301797,
+"localidad": "Tafalla",
+"lon": -1.6717564,
 "precision": "portal"
 },
 "NA:F00393": {
@@ -9947,6 +10207,16 @@
 "lat": 43.1316775,
 "localidad": "Doneztebe / Santesteban",
 "lon": -1.6692129,
+"precision": "portal"
+},
+"NA:F00397": {
+"consulta": "IDENA F00397",
+"cp": null,
+"direccion": "C/ Beire, 5",
+"fuente": "idena",
+"lat": 42.5321957,
+"localidad": "Tafalla",
+"lon": -1.6731992,
 "precision": "portal"
 },
 "NA:F00406": {
@@ -9979,6 +10249,16 @@
 "lon": -2.0340313,
 "precision": "portal"
 },
+"NA:F00437": {
+"consulta": "IDENA F00437",
+"cp": null,
+"direccion": "Ctra. Leiza, 11",
+"fuente": "idena",
+"lat": 43.1321446,
+"localidad": "Doneztebe / Santesteban",
+"lon": -1.6729896,
+"precision": "portal"
+},
 "NA:F00443": {
 "consulta": "IDENA F00443",
 "cp": null,
@@ -9987,6 +10267,16 @@
 "lat": 42.8045479,
 "localidad": "Barañáin / Barañain",
 "lon": -1.6803445,
+"precision": "portal"
+},
+"NA:F00444": {
+"consulta": "IDENA F00444",
+"cp": null,
+"direccion": "Avda Navarra, 41",
+"fuente": "idena",
+"lat": 42.2169029,
+"localidad": "Cadreita",
+"lon": -1.6929901,
 "precision": "portal"
 },
 "NA:F00445": {
@@ -10019,6 +10309,16 @@
 "lon": -2.1734885,
 "precision": "portal"
 },
+"NA:F00451": {
+"consulta": "IDENA F00451",
+"cp": null,
+"direccion": "C/ Leguía, 31",
+"fuente": "idena",
+"lat": 43.281847,
+"localidad": "Bera",
+"lon": -1.6831864,
+"precision": "portal"
+},
 "NA:F00455": {
 "consulta": "IDENA F00455",
 "cp": null,
@@ -10037,6 +10337,36 @@
 "lat": 42.0592994,
 "localidad": "Tudela",
 "lon": -1.5995306,
+"precision": "portal"
+},
+"NA:F00468": {
+"consulta": "IDENA F00468",
+"cp": null,
+"direccion": "C/ Teruel, 5",
+"fuente": "idena",
+"lat": 42.4832885,
+"localidad": "Lerín",
+"lon": -1.9713878,
+"precision": "portal"
+},
+"NA:F00469": {
+"consulta": "IDENA F00469",
+"cp": null,
+"direccion": "C/ Plus Ultra, 2",
+"fuente": "idena",
+"lat": 42.307061,
+"localidad": "Azagra",
+"lon": -1.8949361,
+"precision": "portal"
+},
+"NA:F00471": {
+"consulta": "IDENA F00471",
+"cp": null,
+"direccion": "C/ Palanquera, 18",
+"fuente": "idena",
+"lat": 42.5578693,
+"localidad": "Larraga",
+"lon": -1.848787,
 "precision": "portal"
 },
 "NA:F00476": {
@@ -10159,6 +10489,16 @@
 "lon": -1.9490964,
 "precision": "portal"
 },
+"NA:F00518": {
+"consulta": "IDENA F00518",
+"cp": null,
+"direccion": "C/ Irurzun, 10",
+"fuente": "idena",
+"lat": 42.3387183,
+"localidad": "Peralta / Azkoien",
+"lon": -1.7983739,
+"precision": "portal"
+},
 "NA:F00520": {
 "consulta": "IDENA F00520",
 "cp": null,
@@ -10229,6 +10569,36 @@
 "lon": -1.5979413,
 "precision": "portal"
 },
+"NA:F00542": {
+"consulta": "IDENA F00542",
+"cp": null,
+"direccion": "C/ Del Lago, 13 . Junto al lago. Mendillorri - Fase 2",
+"fuente": "idena",
+"lat": 42.8086224,
+"localidad": "Pamplona / Iruña",
+"lon": -1.6158642,
+"precision": "portal"
+},
+"NA:F00544": {
+"consulta": "IDENA F00544",
+"cp": null,
+"direccion": "C/ Azuda, 6",
+"fuente": "idena",
+"lat": 42.4255021,
+"localidad": "Lodosa",
+"lon": -2.0821736,
+"precision": "portal"
+},
+"NA:F00545": {
+"consulta": "IDENA F00545",
+"cp": null,
+"direccion": "C/ Pintor Paret, 5 - Pío XII, 28. Frente H. Blanca de Navarra",
+"fuente": "idena",
+"lat": 42.8074218,
+"localidad": "Pamplona / Iruña",
+"lon": -1.6610574,
+"precision": "portal"
+},
 "NA:F00548": {
 "consulta": "IDENA F00548",
 "cp": null,
@@ -10257,6 +10627,36 @@
 "lat": 42.8085939,
 "localidad": "Pamplona / Iruña",
 "lon": -1.6720029,
+"precision": "portal"
+},
+"NA:F00554": {
+"consulta": "IDENA F00554",
+"cp": null,
+"direccion": "C/ Lavadero, 22",
+"fuente": "idena",
+"lat": 41.9209668,
+"localidad": "Cortes",
+"lon": -1.4195954,
+"precision": "portal"
+},
+"NA:F00557": {
+"consulta": "IDENA F00557",
+"cp": null,
+"direccion": "C/ San José Obrero, 71",
+"fuente": "idena",
+"lat": 42.3369652,
+"localidad": "San Adrián",
+"lon": -1.9392533,
+"precision": "portal"
+},
+"NA:F00566": {
+"consulta": "IDENA F00566",
+"cp": null,
+"direccion": "C/ San Ignacio, 10",
+"fuente": "idena",
+"lat": 42.8752712,
+"localidad": "Olazti / Olazagutía",
+"lon": -2.1979502,
 "precision": "portal"
 },
 "NA:F00568": {
@@ -10297,6 +10697,16 @@
 "lat": 42.8329364,
 "localidad": "Ansoáin / Antsoain",
 "lon": -1.6429489,
+"precision": "portal"
+},
+"NA:F00579": {
+"consulta": "IDENA F00579",
+"cp": null,
+"direccion": "C/ Mayor, 4",
+"fuente": "idena",
+"lat": 42.4435033,
+"localidad": "Mendavia",
+"lon": -2.1984344,
 "precision": "portal"
 },
 "NA:F00585": {
@@ -10347,6 +10757,16 @@
 "lat": 42.0595306,
 "localidad": "Tudela",
 "lon": -1.5948726,
+"precision": "portal"
+},
+"NA:F00646": {
+"consulta": "IDENA F00646",
+"cp": null,
+"direccion": "C/ Nueva, 11",
+"fuente": "idena",
+"lat": 42.7856333,
+"localidad": "Aoiz / Agoitz",
+"lon": -1.3684347,
 "precision": "portal"
 },
 "NA:F00668": {
@@ -10419,6 +10839,16 @@
 "lon": -2.3687992,
 "precision": "portal"
 },
+"NA:F00729": {
+"consulta": "IDENA F00729",
+"cp": null,
+"direccion": "C/ Mindegui, 1",
+"fuente": "idena",
+"lat": 42.7900284,
+"localidad": "Zizur Mayor / Zizur Nagusia",
+"lon": -1.7005462,
+"precision": "portal"
+},
 "NA:F00731": {
 "consulta": "IDENA F00731",
 "cp": null,
@@ -10437,6 +10867,16 @@
 "lat": 42.8336177,
 "localidad": "Artica / Artika",
 "lon": -1.663355,
+"precision": "portal"
+},
+"NA:F00744": {
+"consulta": "IDENA F00744",
+"cp": null,
+"direccion": "C/ Constitucion, 14",
+"fuente": "idena",
+"lat": 42.3429552,
+"localidad": "Caparroso",
+"lon": -1.6475528,
 "precision": "portal"
 },
 "NA:F00761": {
@@ -10468,6 +10908,16 @@
 "localidad": "Tudela",
 "lon": -1.6136728,
 "precision": "portal"
+},
+"NA:F00771": {
+"consulta": "CALLE Londres, 10 | Pamplona/Iruña, Pamplona/Iruña",
+"cp": null,
+"direccion": "C/ Londres, 10 . (Ripagaina)",
+"fuente": "cartociudad",
+"lat": 42.8152991,
+"localidad": "Pamplona / Iruña",
+"lon": -1.618316,
+"precision": "calle"
 },
 "NA:F00777": {
 "consulta": "CALLE Don Miguel Eza, 4 | Tudela, Tudela",
@@ -10517,6 +10967,16 @@
 "lat": 42.860942,
 "localidad": "Isaba / Izaba",
 "lon": -0.9221594,
+"precision": "portal"
+},
+"ZGZ:20445": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Joaquín Rodrigo, 17, portal 1",
+"fuente": "ayto_zaragoza",
+"lat": 41.6347769,
+"localidad": "Zaragoza",
+"lon": -0.9482493,
 "precision": "portal"
 },
 "ZGZ:20448": {
@@ -10637,6 +11097,16 @@
 "lat": 41.65182,
 "localidad": "Zaragoza",
 "lon": -0.886421,
+"precision": "portal"
+},
+"ZGZ:8682": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Espartero, 1",
+"fuente": "ayto_zaragoza",
+"lat": 41.6505753,
+"localidad": "Zaragoza",
+"lon": -0.8760813,
 "precision": "portal"
 },
 "ZGZ:8684": {
@@ -11089,6 +11559,16 @@
 "lon": -0.8850491,
 "precision": "portal"
 },
+"ZGZ:8814": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Manuel Escoriaza y Fabro, 22-36",
+"fuente": "ayto_zaragoza",
+"lat": 41.6542758,
+"localidad": "Zaragoza",
+"lon": -0.8979829,
+"precision": "portal"
+},
 "ZGZ:8816": {
 "consulta": "Ayuntamiento de Zaragoza",
 "cp": null,
@@ -11287,6 +11767,16 @@
 "lat": 41.6461567,
 "localidad": "Zaragoza",
 "lon": -0.8790885,
+"precision": "portal"
+},
+"ZGZ:8878": {
+"consulta": "Ayuntamiento de Zaragoza",
+"cp": null,
+"direccion": "C/ Germana de Foix, 2",
+"fuente": "ayto_zaragoza",
+"lat": 41.6605482,
+"localidad": "Zaragoza",
+"lon": -0.8742474,
 "precision": "portal"
 },
 "ZGZ:8880": {
