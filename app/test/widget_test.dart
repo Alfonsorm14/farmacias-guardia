@@ -166,7 +166,8 @@ void main() {
     expect(find.byType(BienvenidaPage), findsOneWidget);
     expect(find.text('Illes Balears'), findsOneWidget);
     expect(find.text('Región de Murcia'), findsOneWidget);
-    expect(find.textContaining('zonas tienen turnos publicados'), findsOneWidget);
+    // Puede haber más de una fuente con zonas parciales (Murcia, Navarra...), según los datos del día.
+    expect(find.textContaining('zonas tienen turnos publicados'), findsWidgets);
     await tester.scrollUntilVisible(find.text('Empezar'), 200, scrollable: find.byType(Scrollable).first);
     await tester.tap(find.text('Empezar'));
     await tester.pumpAndSettle();
